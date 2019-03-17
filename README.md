@@ -1,7 +1,16 @@
-# Proyecto1-Citm
-Proyecto 1 CITM
+# Fatal Fury King of Fighters recreated by Horizon Reborn
 
-*grupo
+
+## Team formed by:
+-Javier Damián Belda González: https://github.com/JBGelsenorJ
+-Germán Insua Perdomo: https://github.com/Germanins6
+-Carlos Redolar Torres: https://github.com/carlosredolar
+-Christian Piña López: https://github.com/christianpi4
+
+## Repository
+
+https://github.com/JBGelsenorJ/Proyecto1-Citm
+
 
 *librerias sdl
 
