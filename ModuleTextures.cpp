@@ -10,6 +10,10 @@
 ModuleTextures::ModuleTextures() : Module()
 {
 	// TODO 5: Initialize all texture pointers to nullptr
+	for (int i = 0; i < MAX_TEXTURES; i++)
+	{
+		textures[i] = nullptr;
+	}
 }
 
 // Destructor
@@ -35,12 +39,18 @@ bool ModuleTextures::Init()
 	return ret;
 }
 
-// Called before q	uitting
+// Called before quitting
 bool ModuleTextures::CleanUp()
 {
 	LOG("Freeing textures and Image library");
 
 	// TODO 6: Free all textures
+	for (int i = 0; i < MAX_TEXTURES; i++)
+	{
+		if (textures[i] != nullptr) {
+			SDL_DestroyTexture(textures[i]);
+		}
+	}
 
 	IMG_Quit();
 	return true;
@@ -54,18 +64,20 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	SDL_Surface* Loading_Surface;
 	Loading_Surface = IMG_Load("Background.png");
 	if (!Loading_Surface) {
-		LOG("Error Imagen not Loaded");
+		LOG("Error Image not Loaded in Surface");
 	}
 
 
 	// TODO 3: Once your have the SDL_surface*, you need to create
 	// a texture from it to return it (check for errors again)
 	textures[0] = SDL_CreateTextureFromSurface(App->render->renderer, Loading_Surface);
-	SDL_FreeSurface(Loading_Surface);
-
+	if (!textures[0]) {
+		LOG("Error Surface not Loaded in Texture");
+	}
 
 	// TODO 4: Before leaving, remember to free the surface and
 	// add the texture to our own array so we can properly free them
+	SDL_FreeSurface(Loading_Surface);
 
 	return nullptr;
 }
