@@ -47,7 +47,7 @@ update_status ModuleRender::PreUpdate()
 
 
 	// TODO 10: Blit our test texture to check functionality
-	//Blit(App->textures->Load("load") , SCREEN_WIDTH, SCREEN_HEIGHT, NULL);
+	Blit(App->textures->textures[0], 0, 0, NULL);
 	
 	return update_status::UPDATE_CONTINUE;
 }
