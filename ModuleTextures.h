@@ -11,6 +11,8 @@ struct SDL_Texture;
 class ModuleTextures : public Module
 {
 public:
+	SDL_Surface * BackgroundS;
+	SDL_Texture *BackgroundT;
 	ModuleTextures();
 	~ModuleTextures();
 

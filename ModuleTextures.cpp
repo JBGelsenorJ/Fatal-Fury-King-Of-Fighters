@@ -10,6 +10,8 @@
 ModuleTextures::ModuleTextures() : Module()
 {
 	// TODO 5: Initialize all texture pointers to nullptr
+	SDL_Surface *BackgroundS = nullptr;
+	SDL_Texture *BackgroundT = nullptr;
 }
 
 // Destructor
@@ -49,9 +51,8 @@ bool ModuleTextures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const ModuleTextures::Load(const char* path)
 {
-	SDL_Surface *BackgroundS;
-	SDL_Texture *BackgroundT;
-	BackgroundS = IMG_Load("test.png");
+
+	this->BackgroundS = IMG_Load("test.png");
 	if (!BackgroundS)
 	{
 		LOG("error, image not correctly loaded");
