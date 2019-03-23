@@ -1,3 +1,5 @@
-﻿  ModuleTextures.cpp
-c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduletextures.cpp(53): warning C4101: 'BackgroundT': variable local sin referencia
-  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\SDL3 Handout.exe
+﻿  Application.cpp
+  ModuleRender.cpp
+  ModuleTextures.cpp
+  Generando código...
+  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Debug\SDL3 Handout.exe

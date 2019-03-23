@@ -10,8 +10,6 @@
 ModuleTextures::ModuleTextures() : Module()
 {
 	// TODO 5: Initialize all texture pointers to nullptr
-	SDL_Surface *BackgroundS = nullptr;
-	SDL_Texture *BackgroundT = nullptr;
 }
 
 // Destructor
@@ -28,7 +26,7 @@ bool ModuleTextures::Init()
 	int flags = IMG_INIT_PNG;
 	int init = IMG_Init(flags);
 
-	if((init & flags) != flags)
+	if ((init & flags) != flags)
 	{
 		LOG("Could not initialize Image lib. IMG_Init: %s", IMG_GetError());
 		ret = false;
@@ -51,19 +49,20 @@ bool ModuleTextures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const ModuleTextures::Load(const char* path)
 {
-
-	this->BackgroundS = IMG_Load("test.png");
-	if (!BackgroundS)
-	{
-		LOG("error, image not correctly loaded");
-	}
-	BackgroundT = SDL_CreateTextureFromSurface(App->render->Blit, BackgroundS);
-	SDL_FreeSurface(BackgroundS);
 	// TODO 2: Load and image from a path (must be a png)
-	// and check for errors
+	// and check for errors.
+	SDL_Surface* Loading_Surface;
+	Loading_Surface = IMG_Load("Background.png");
+	if (!Loading_Surface) {
+		LOG("Error Imagen not Loaded");
+	}
+
 
 	// TODO 3: Once your have the SDL_surface*, you need to create
 	// a texture from it to return it (check for errors again)
+	textures[0] = SDL_CreateTextureFromSurface(App->render->renderer, Loading_Surface);
+	SDL_FreeSurface(Loading_Surface);
+
 
 	// TODO 4: Before leaving, remember to free the surface and
 	// add the texture to our own array so we can properly free them
