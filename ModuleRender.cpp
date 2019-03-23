@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 #include "SDL/include/SDL.h"
+#include "ModuleAudio.h"
 
 ModuleRender::ModuleRender() : Module()
 {}
@@ -33,7 +34,7 @@ bool ModuleRender::Init()
 	}
 
 	// TODO 9: load a texture "test.png" to test is everything works well
-	App->textures->Load("test.png");
+	App->textures->Load("Source/Levels/paopao.png");
 
 	return ret;
 }

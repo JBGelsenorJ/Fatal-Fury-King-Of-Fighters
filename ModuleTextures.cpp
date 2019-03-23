@@ -62,7 +62,7 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	// TODO 2: Load and image from a path (must be a png)
 	// and check for errors.
 	SDL_Surface* Loading_Surface;
-	Loading_Surface = IMG_Load("test.png");
+	Loading_Surface = IMG_Load("Source/Levels/paopao.png");
 	if (!Loading_Surface) {
 		LOG("Error Image not Loaded in Surface");
 	}
