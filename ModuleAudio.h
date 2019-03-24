@@ -8,6 +8,7 @@
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
 #define MAX_AUDIO 50
+#define MAX_EFFECTS 50
 
 
 
@@ -24,6 +25,7 @@ public:
 
 public:
 	Mix_Music * Audios[MAX_AUDIO];
+	Mix_Chunk * Effects[MAX_EFFECTS];
 };
 
 #endif // __ModuleTextures_H__
