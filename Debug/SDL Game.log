@@ -1,11 +1,2 @@
-﻿  Application.cpp
-  Generando código...
-  Compilando...
-  ModuleWindow.cpp
-  ModuleTextures.cpp
-  ModuleRender.cpp
-  ModuleInput.cpp
-  ModuleAudio.cpp
-  Main.cpp
-  Generando código...
+﻿  ModuleRender.cpp
   SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\SDL3 Handout.exe

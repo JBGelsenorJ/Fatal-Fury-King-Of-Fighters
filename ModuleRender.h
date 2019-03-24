@@ -21,6 +21,7 @@ public:
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = nullptr);
 
 public:
+	int coordx = 0;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* tex;
 };
