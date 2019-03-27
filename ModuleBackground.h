@@ -19,9 +19,8 @@ public:
 public:
 	
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect ground;
 	SDL_Rect background;
-	Animation flag;
+	Animation people;
 
 };
 
