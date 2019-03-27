@@ -37,17 +37,11 @@ bool ModuleBackground::Start()
 // Update: draw background
 update_status ModuleBackground::Update()
 {
-	// Draw everything --------------------------------------
-	App->render->Blit(graphics, 0, 0, &background, 0.75f); //Pao Pao Background
+	// Drawing background - Pao Pao Background
+	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	
-	
+	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f); 
-
-	// TODO 2: Draw the ship from the sprite sheet with some parallax effect
-	
-	// TODO 3: Animate the girl on the ship (see the sprite sheet)
-	
-	
 
 	return UPDATE_CONTINUE;
 }

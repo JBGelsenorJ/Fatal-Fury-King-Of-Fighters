@@ -13,12 +13,12 @@ ModulePlayer::ModulePlayer()
 	position.y = 220;
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({7, 14, 60, 90});
-	idle.PushBack({95, 15, 60, 89});
-	idle.PushBack({184, 14, 60, 90});
-	idle.PushBack({276, 11, 60, 93});
-	idle.PushBack({366, 12, 60, 92});
-	idle.speed = 0.2f;
+	idle.PushBack({27, 914, 58, 103});
+	idle.PushBack({95, 916, 59, 102});
+	idle.PushBack({165, 917, 58, 101});
+	idle.PushBack({ 95, 916, 59, 102 });
+
+	idle.speed = 0.18f;
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
@@ -40,7 +40,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryu.png"); // arcade version
+	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
 	return ret;
 }
 
@@ -57,7 +57,7 @@ update_status ModulePlayer::Update()
 		position.x += speed;
 	}
 
-	// Draw everything --------------------------------------
+	// Draw everything
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
