@@ -8,23 +8,17 @@
 
 ModuleBackground::ModuleBackground()
 {
-	// ground
-	ground.x = 8;
-	ground.y = 391;
-	ground.w = 896;
-	ground.h = 72;
 
-	// Background / sky
-	background.x = 72;
-	background.y = 208;
-	background.w = 768;
-	background.h = 176;
+	//Pao Pao Background
+	background.x = 0;
+	background.y = 0;
+	background.w = 619;
+	background.h = 224;
 
-	// flag animation
-	flag.PushBack({848, 208, 40, 40});
-	flag.PushBack({848, 256, 40, 40});
-	flag.PushBack({848, 304, 40, 40});
-	flag.speed = 0.08f;
+	//Background Animation
+	people.PushBack({0, 0, 619, 224});
+	people.PushBack({ 0,0,0,0 });
+	people.speed = 0.08f;
 }
 
 ModuleBackground::~ModuleBackground()
@@ -43,15 +37,16 @@ bool ModuleBackground::Start()
 update_status ModuleBackground::Update()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics, 0, 0, &background, 0.75f); // sea and sky
+	App->render->Blit(graphics, 0, 0, &background, 0.75f); //Pao Pao Background
 	
 	
-	//App->render->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 0.75f); 
+	App->render->Blit(graphics2, 0, 0, &(people.GetCurrentFrame()), 0.75f); 
 
 	// TODO 2: Draw the ship from the sprite sheet with some parallax effect
+	
 	// TODO 3: Animate the girl on the ship (see the sprite sheet)
 	
-	App->render->Blit(graphics, 0, 170, &ground);
+	
 
 	return UPDATE_CONTINUE;
 }
