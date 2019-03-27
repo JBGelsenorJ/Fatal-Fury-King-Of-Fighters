@@ -3,23 +3,27 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 4
+#define NUM_MODULES 6
 
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
+class ModuleBackground;
+class ModulePlayer;
 class Module;
 
 class Application
 {
 public:
 
-	Module* modules[NUM_MODULES] = { nullptr };
+	Module * modules[NUM_MODULES] = { nullptr };
 	ModuleWindow* window = nullptr;
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
+	ModuleBackground* background = nullptr;
+	ModulePlayer* player = nullptr;
 
 public:
 
