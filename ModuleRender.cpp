@@ -4,7 +4,6 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 #include "SDL/include/SDL.h"
-#include "ModuleAudio.h"
 
 ModuleRender::ModuleRender() : Module()
 {}
@@ -34,7 +33,6 @@ bool ModuleRender::Init()
 	}
 
 	// TODO 9: load a texture "test.png" to test is everything works well
-	App->textures->Load("Source/Levels/paopao.png");
 
 	return ret;
 }
@@ -43,42 +41,16 @@ bool ModuleRender::Init()
 update_status ModuleRender::PreUpdate()
 {
 	// TODO 7: Clear the screen to black before starting every frame
-	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, 255);
-	SDL_RenderClear(App->render->renderer);
 
 	// TODO 10: Blit our test texture to check functionality
-	Blit(App->textures->textures[0], coordx, 0, NULL);
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		switch (event.type)
-		{
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_RIGHT:
-				if (coordx > -319)
-				{
-					coordx -= 10;
-				}
-				break;
-			case SDLK_LEFT:
-				if (coordx < 0)
-				{
-					coordx += 10;
-				}
-				break;
-			default:
-				break;
-			}
-		}
-	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleRender::PostUpdate()
 {
-
 	// TODO 8: Switch buffers so we actually render
-	SDL_RenderPresent(App->render->renderer);
+
 	return update_status::UPDATE_CONTINUE;
 }
 

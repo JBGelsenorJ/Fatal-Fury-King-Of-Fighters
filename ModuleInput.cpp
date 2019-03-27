@@ -32,9 +32,17 @@ update_status ModuleInput::Update()
 	SDL_PumpEvents();
 
 	keyboard = SDL_GetKeyboardState(NULL);
-	if (keyboard[SDL_SCANCODE_ESCAPE]) {
-		return update_status::UPDATE_STOP;
+
+
+	//We Set a initial State
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+	//If we press escape button
+	if (state[SDL_SCANCODE_ESCAPE]) {
+		LOG("<ESC> is pressed.\n");
+		return UPDATE_STOP;
 	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
