@@ -30,6 +30,12 @@ ModulePlayer::ModulePlayer()
 	forward.speed = 0.1f;
 
 	// TODO 4: Make ryu walk backwards with the correct animations
+	jump.PushBack({ 78, 131, 60, 88 });
+	jump.PushBack({ 162, 128, 64, 92 });
+	jump.PushBack({ 259, 128, 63, 90 });
+	jump.PushBack({ 352, 128, 54, 91 });
+	jump.PushBack({ 432, 131, 50, 89 });
+	jump.speed = 0.1f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -40,7 +46,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryu.png"); // arcade version
+	graphics = App->textures->Load("terry.png"); // arcade version
 	return ret;
 }
 
@@ -52,6 +58,12 @@ update_status ModulePlayer::Update()
 	int speed = 1;
 
 	if(App->input->keyboard[SDL_SCANCODE_D] == 1)
+	{
+		current_animation = &forward;
+		position.x += speed;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1)
 	{
 		current_animation = &forward;
 		position.x += speed;
