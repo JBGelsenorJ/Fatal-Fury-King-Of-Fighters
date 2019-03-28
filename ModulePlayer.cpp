@@ -48,6 +48,13 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 713, 920, 63, 97 });
 	kick.speed = 0.2f;
 	
+	backward.PushBack({ 263, 1300, 57, 104 });
+	backward.PushBack({ 453, 1300, 57, 110 });
+	backward.PushBack({ 453, 1300, 57, 110 });
+	backward.PushBack({ 107, 1297, 71, 107 });
+	backward.PushBack({ 95, 916, 59, 102 });
+
+	backward.speed = 0.15f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -83,6 +90,11 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
 		current_animation = &kick;
 		
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_A] == 1) {
+		current_animation = &backward;
+		position.x -= speed;
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
