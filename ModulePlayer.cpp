@@ -60,6 +60,11 @@ ModulePlayer::ModulePlayer()
 	punch.PushBack({ 506, 918, 60, 101 });
 	punch.speed = 0.1f;
 
+	//crouch animation
+
+	crouch.PushBack({ 265, 949, 56, 70 });
+	crouch.speed = 0.2f;
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -107,6 +112,13 @@ update_status ModulePlayer::Update()
 
 				current_animation = &punch;
 		}
+
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1) {
+
+		current_animation = &crouch;
+
+	}
+
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);

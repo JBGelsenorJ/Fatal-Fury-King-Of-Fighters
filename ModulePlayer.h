@@ -26,6 +26,7 @@ public:
 	Animation jump;
 	Animation kick;
 	Animation punch;
+	Animation crouch;
 	iPoint position;
 
 };
