@@ -30,14 +30,12 @@ ModulePlayer::ModulePlayer()
 	forward.speed = 0.1f;
 
 	// TODO 4: Make ryu walk backwards with the correct animations
-	/*jump.PushBack({ 78, 131, 60, 88 });
+	jump.PushBack({ 78, 131, 60, 88 });
 	jump.PushBack({ 162, 128, 64, 92 });
 	jump.PushBack({ 259, 128, 63, 90 });
 	jump.PushBack({ 352, 128, 54, 91 });
-	jump.PushBack({ 432, 131, 50, 89 });*/
-	jump.PushBack({ 374, 486, 62, 82 });
-	jump.PushBack({ 713, 924, 62, 98 });
-	jump.speed = 0.2f;
+	jump.PushBack({ 432, 131, 50, 89 });
+	jump.speed = 0.5f;
 
 	// kick animation 
 	kick.PushBack({ 449, 806, 59, 107 });
@@ -50,19 +48,14 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 713, 920, 63, 97 });
 	kick.speed = 0.2f;
 
-	//crouch animation
-
-	crouch.PushBack({ 265, 949, 56, 70 });
-	crouch.speed = 0.2f;
-	
 	//backward animation
 	backward.PushBack({ 263, 1300, 57, 104 });
 	backward.PushBack({ 453, 1300, 57, 110 });
 	backward.PushBack({ 453, 1300, 57, 110 });
 	backward.PushBack({ 107, 1297, 71, 107 });
 	backward.PushBack({ 95, 916, 59, 102 });
-
 	backward.speed = 0.15f;
+	
 }
 
 ModulePlayer::~ModulePlayer()
@@ -90,8 +83,7 @@ update_status ModulePlayer::Update()
 		position.x += speed;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
-		
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1) {
 		current_animation = &jump;
 		position.y -= speed;
 	}
@@ -101,16 +93,14 @@ update_status ModulePlayer::Update()
 		
 	}
 
+	
+
+
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1) {
 		current_animation = &backward;
 		position.x -= speed;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1) {
-		
-		current_animation = &crouch;
-
-	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
