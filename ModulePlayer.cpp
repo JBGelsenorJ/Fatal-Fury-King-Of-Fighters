@@ -36,6 +36,18 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 352, 128, 54, 91 });
 	jump.PushBack({ 432, 131, 50, 89 });
 	jump.speed = 0.5f;
+
+
+	kick.PushBack({ 449, 806, 59, 107 });
+	kick.PushBack({ 514, 803, 59, 107 });
+	kick.PushBack({ 31, 1150, 59, 107 });
+	kick.PushBack({ 85, 1151, 59, 113 });
+	kick.PushBack({ 147, 1150, 59, 113 });
+	kick.PushBack({ 210, 1155, 128, 113 });
+	kick.PushBack({ 343, 1152, 63, 113 });
+	kick.PushBack({ 713, 920, 63, 97 });
+	kick.speed = 0.2f;
+	
 }
 
 ModulePlayer::~ModulePlayer()
@@ -66,6 +78,11 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 		current_animation = &jump;
 		position.y -= speed;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
+		current_animation = &kick;
+		
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();

@@ -24,6 +24,7 @@ public:
 	Animation forward;
 	Animation backward;
 	Animation jump;
+	Animation kick;
 	iPoint position;
 
 };
