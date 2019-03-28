@@ -85,7 +85,7 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 		
 		current_animation = &jump;
-		
+		position.y -= speed;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
