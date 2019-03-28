@@ -45,14 +45,14 @@ ModulePlayer::ModulePlayer()
 
 	// kick animation 
 	kick.PushBack({ 449, 806, 59, 107 });
-	kick.PushBack({ 514, 803, 59, 107 });
-	kick.PushBack({ 31, 1150, 59, 107 });
-	kick.PushBack({ 85, 1151, 59, 113 });
-	kick.PushBack({ 147, 1150, 59, 113 });
-	kick.PushBack({ 210, 1155, 128, 113 });
-	kick.PushBack({ 343, 1152, 63, 113 });
-	kick.PushBack({ 713, 920, 63, 97 });
-	kick.speed = 0.2f;
+	kick.PushBack({ 512, 803, 53, 107 });
+	kick.PushBack({ 31, 1150, 50, 97 });
+	kick.PushBack({ 84, 1148, 59, 115 });
+	kick.PushBack({ 149, 1151, 50, 108 });
+	kick.PushBack({ 211, 1155, 119, 108 });
+	kick.PushBack({ 342, 1152, 68, 111 });
+	kick.PushBack({ 714, 925, 64, 98 });
+	kick.speed = 0.18f;
 
 	// punch animation 
 	punch.PushBack({ 506, 918, 60, 101 });
