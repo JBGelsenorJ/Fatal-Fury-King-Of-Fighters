@@ -41,7 +41,7 @@ update_status ModuleBackground::Update()
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	
 	//People animation
-	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f); 
+	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
 
 	return UPDATE_CONTINUE;
 }

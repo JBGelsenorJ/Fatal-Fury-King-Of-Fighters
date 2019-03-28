@@ -35,7 +35,7 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 259, 128, 63, 90 });
 	jump.PushBack({ 352, 128, 54, 91 });
 	jump.PushBack({ 432, 131, 50, 89 });
-	jump.speed = 0.1f;
+	jump.speed = 0.5f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -61,6 +61,11 @@ update_status ModulePlayer::Update()
 	{
 		current_animation = &forward;
 		position.x += speed;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
+		current_animation = &jump;
+		position.y -= speed;
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
