@@ -6,7 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 
-#include "ModuleSceneKen.h"
+#include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -59,7 +59,7 @@ update_status ModuleScenePaoPao::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->scene_ken, 2.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->playerselection, 2.5);
 
 	}
 

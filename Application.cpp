@@ -3,10 +3,10 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleSceneKen.h"
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenePaoPao.h"
+#include "ModulePlayerSelection.h"
 
 Application::Application()
 {
@@ -14,8 +14,8 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = scene_paopao = new ModuleScenePaoPao();
-	modules[5] = scene_ken = new ModuleSceneKen();
+	modules[4] = playerselection = new ModulePlayerSelection();
+	modules[5] = scene_paopao = new ModuleScenePaoPao();
 	modules[6] = player = new ModulePlayer();
 	modules[7] = fade = new ModuleFadeToBlack();
 }	

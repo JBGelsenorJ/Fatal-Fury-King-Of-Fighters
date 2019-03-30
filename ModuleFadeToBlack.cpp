@@ -5,8 +5,10 @@
 #include "ModuleRender.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
-#include "ModuleSceneKen.h"
+
+//Load Scenes
 #include "ModuleScenePaoPao.h"
+#include "ModulePlayerSelection.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {

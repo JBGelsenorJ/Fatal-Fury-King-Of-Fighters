@@ -9,10 +9,11 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleSceneKen;
 class ModuleScenePaoPao;
 class ModulePlayer;
 class ModuleFadeToBlack;
+class ModulePlayerSelection;
+
 class Module;
 
 class Application
@@ -24,10 +25,10 @@ public:
 	ModuleRender* render;
 	ModuleInput* input;
 	ModuleTextures* textures;
-	ModuleSceneKen* scene_ken;
 	ModuleScenePaoPao* scene_paopao;
 	ModulePlayer* player;
 	ModuleFadeToBlack* fade;
+	ModulePlayerSelection* playerselection;
 
 public:
 
