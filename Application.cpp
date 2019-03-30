@@ -7,6 +7,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
+#include "ModuleMusic.h"
+#include "ModuleWelcomeScreen.h" 
 
 Application::Application()
 {
@@ -16,8 +18,11 @@ Application::Application()
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = playerselection = new ModulePlayerSelection();
 	modules[5] = scene_paopao = new ModuleScenePaoPao();
-	modules[6] = player = new ModulePlayer();
-	modules[7] = fade = new ModuleFadeToBlack();
+	modules[6] = scene_welcome = new ModuleWelcomeScreen();
+	modules[7] = player = new ModulePlayer();
+	modules[8] = fade = new ModuleFadeToBlack();
+	modules[9] = audio = new ModuleMusic();
+
 }	
 
 Application::~Application()
