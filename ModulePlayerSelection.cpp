@@ -16,16 +16,42 @@ ModulePlayerSelection::ModulePlayerSelection()
 {
 
 	//Pao Pao Background
-	background.x = 0;
-	background.y = 0;
-	background.w = 619;
+	background.x = 4;
+	background.y = 4;
+	background.w = 288;
 	background.h = 224;
+	
+	//Player Selection Title
+	title.x = 576;
+	title.y = 130;
+	title.w = 120;
+	title.h = 17;
+
+	//PlayerNumber pointer
+	player.x = 580;
+	player.y = 170;
+	player.w = 50;
+	player.h = 17;
 
 
-	//Background Animation
-	people.PushBack({ 0, 224, 619, 224 });
-	people.PushBack({ 0,448,619,224 });
-	people.speed = 0.09f;
+	//Characters Locked
+	charlocked.x = 243;
+	charlocked.y = 232;
+	charlocked.w = 225;
+	charlocked.h = 133;
+
+	
+
+
+	//Hover Terry Bogard
+	hoverterry.PushBack({ 573, 237, 71, 128 });
+	hoverterry.PushBack({ 95, 374, 71, 128 });
+	hoverterry.speed = 0.07f;
+
+	//Hover Joe Higashi
+	hoverjoe.PushBack({482 , 231, 76 , 134});
+	hoverjoe.PushBack({ 4 , 368 , 76 , 134 });
+	hoverjoe.speed = 0.07f;
 }
 
 ModulePlayerSelection::~ModulePlayerSelection()
@@ -49,13 +75,33 @@ bool ModulePlayerSelection::CleanUp()
 
 update_status ModulePlayerSelection::Update()
 {
-	// Drawing background
-	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	//Background Rendered
+	App->render->Blit(graphics, 0, 0, &background, NULL);
+	App->render->Blit(graphics, 80, 40, &title, NULL);
+	App->render->Blit(graphics, 20, 71, &charlocked, NULL);
+	
 
-	//People animation
-	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f);
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	//Terry Hover animation: default
+		if (terryhover == 0) {
+			App->render->Blit(graphics, 111, 76, &(hoverterry.GetCurrentFrame()), NULL);
+			App->render->Blit(graphics, 119, 58, &player, NULL);
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_A] == 1 || joehover == 1 ) {
+			terryhover = true;	//Desactivating Terry's Default Animation
+			joehover = true;	//Activating Joe's Animation
+			App->render->Blit(graphics, 20, 70, &(hoverjoe.GetCurrentFrame()), NULL);
+			App->render->Blit(graphics, 45, 55, &player, NULL);
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_D] == 1) {
+			terryhover = true;
+		}
+
+
+	//If enter
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 	{
 		App->fade->FadeToBlack(App->playerselection, App->scene_paopao, 2.5);
 	}

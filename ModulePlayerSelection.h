@@ -16,13 +16,21 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	bool terryhover = 0;
+	bool andyhover = 0;
+	bool joehover = 0;
 
 
 public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect background;
-	Animation people;
+	SDL_Rect charlocked;
+	SDL_Rect title;
+	SDL_Rect player;
+	Animation hoverterry;
+	Animation hoverandy;
+	Animation hoverjoe;
 
 
 };
