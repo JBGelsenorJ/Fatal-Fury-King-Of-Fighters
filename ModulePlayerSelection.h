@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModuleMusic.h"
 
 struct SDL_Texture;
 
@@ -31,6 +32,7 @@ public:
 	Animation hoverterry;
 	Animation hoverandy;
 	Animation hoverjoe;
+	Mix_Music* song;
 
 
 };

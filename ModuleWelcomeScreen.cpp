@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
+#include "ModuleMusic.h"
 
 
 #include "ModuleWelcomeScreen.h"
@@ -48,7 +49,10 @@ bool ModuleWelcomeScreen::Start()
 	LOG("Loading image assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/UI/Intro/intro.png");
+	song = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
+	App->audio->PlayMusic(song);
 	return ret;
+
 }
 
 bool ModuleWelcomeScreen::CleanUp()

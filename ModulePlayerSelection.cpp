@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
+#include "ModuleMusic.h"
 
 
 //Scenes that we are going to need
@@ -61,10 +62,14 @@ ModulePlayerSelection::~ModulePlayerSelection()
 // Loading assets
 bool ModulePlayerSelection::Start()
 {
+
 	LOG("Loading assets");
 	bool ret = true;
 	//Loading Map Assets Texture
 	graphics = App->textures->Load("Source/UI/Player_Map_Selection/SpriteSheet_PlayerSelection.png"); 
+	song = App->audio->LoadMusic("Source/Sound/Music/CharacterSelection.ogg");
+	App->audio->PlayMusic(song);
+
 	return ret;
 }
 

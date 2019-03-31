@@ -1,9 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (SDL5 Handout.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  ModuleScenePaoPao.cpp
-  Generando código...
-  Omitiendo... (no se detectaron cambios relevantes)
   ModuleWelcomeScreen.cpp
+  ModuleScenePaoPao.cpp
   ModulePlayerSelection.cpp
-  ModuleFadeToBlack.cpp
-  Application.cpp
+  Generando código...
   SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe

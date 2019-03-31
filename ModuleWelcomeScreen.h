@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModuleMusic.h"
 
 struct SDL_Texture;
 
@@ -24,7 +25,7 @@ public:
 	SDL_Rect welcome;
 	Animation logo;
 	Animation start;
-
+	Mix_Music* song;
 };
 
 #endif

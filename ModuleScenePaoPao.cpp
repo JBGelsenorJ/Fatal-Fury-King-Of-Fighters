@@ -54,7 +54,7 @@ bool ModuleScenePaoPao::CleanUp()
 	App->player->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
-	App->audio->CleanUp();
+	
 
 	return true;
 }
