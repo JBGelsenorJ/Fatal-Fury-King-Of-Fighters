@@ -5,9 +5,11 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
+#include "SDL\include\SDL.h"
 
 #include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
+#include "ModuleWelcomeScreen.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -43,6 +45,7 @@ bool ModuleScenePaoPao::Start()
 bool ModuleScenePaoPao::CleanUp()
 {
 	App->player->Disable();
+	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
 
 	return true;
@@ -59,7 +62,7 @@ update_status ModuleScenePaoPao::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->playerselection, 2.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 2.5);
 
 	}
 

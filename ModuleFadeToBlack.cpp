@@ -9,6 +9,7 @@
 //Load Scenes
 #include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
+#include "ModuleWelcomeScreen.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {

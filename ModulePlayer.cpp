@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "SDL\include\SDL.h"
 #include "ModulePlayer.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -124,4 +125,12 @@ update_status ModulePlayer::Update()
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 	
 	return UPDATE_CONTINUE;
+}
+
+bool ModulePlayer::CleanUp()
+{
+	SDL_DestroyTexture(graphics);
+	LOG("Unloading Terry From Scene");
+
+	return true;
 }

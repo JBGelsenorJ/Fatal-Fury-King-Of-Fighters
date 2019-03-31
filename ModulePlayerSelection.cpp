@@ -5,6 +5,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
+#include "SDL\include\SDL.h"
 
 
 //Scenes that we are going to need
@@ -69,6 +70,7 @@ bool ModulePlayerSelection::Start()
 
 bool ModulePlayerSelection::CleanUp()
 {
+	SDL_DestroyTexture(graphics);
 	LOG("Nothing to cleanup");	//Just destroy textures and see memory leaks
 	return true;
 }

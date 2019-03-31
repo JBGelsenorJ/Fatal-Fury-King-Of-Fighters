@@ -23,6 +23,7 @@ public:
 	SDL_Texture * graphics = nullptr;
 	SDL_Rect welcome;
 	Animation logo;
+	Animation start;
 
 };
 

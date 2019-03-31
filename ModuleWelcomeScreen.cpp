@@ -5,6 +5,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
+#include "SDL\include\SDL.h"
+
 
 #include "ModuleWelcomeScreen.h"
 #include "ModulePlayerSelection.h"
@@ -22,11 +24,19 @@ ModuleWelcomeScreen::ModuleWelcomeScreen()
 	welcome.h = 224;
 
 
-	//Background Animation
+	//Logo Animation
 	logo.PushBack({ 11, 273, 235, 120 });
 	logo.PushBack({ 256, 273, 235, 120 });
 	logo.PushBack({ 501, 273, 235, 120 });
 	logo.speed = 0.04f;
+
+	//Push Start Animation
+	start.PushBack({ 362, 181, 141, 10 });
+	start.PushBack({ 362, 181, 141, 10 });
+	start.PushBack({ 0, 0, 141, 10 });
+	start.PushBack({ 0, 0, 141, 10 });
+	start.PushBack({ 0, 0, 141, 10 });
+	start.speed = 0.04f;
 }
 
 ModuleWelcomeScreen::~ModuleWelcomeScreen()
@@ -43,7 +53,7 @@ bool ModuleWelcomeScreen::Start()
 
 bool ModuleWelcomeScreen::CleanUp()
 {
-
+	SDL_DestroyTexture(graphics);
 	return true;
 }
 
@@ -54,7 +64,9 @@ update_status ModuleWelcomeScreen::Update()
 	App->render->Blit(graphics, 0, 0, &welcome, 0.75f);
 
 	//Logo animation
-	App->render->Blit(graphics, 25, 30, &(logo.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 30, 30, &(logo.GetCurrentFrame()), 0.75f);
+	// start animation
+	App->render->Blit(graphics, 72, 160, &(start.GetCurrentFrame()), 0.75f);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
