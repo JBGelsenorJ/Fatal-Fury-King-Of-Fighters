@@ -6,6 +6,8 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
+#include "ModuleMusic.h"
+
 
 #include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
@@ -35,10 +37,15 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 // Load assets
 bool ModuleScenePaoPao::Start()
 {
+	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
 	App->player->Enable();
+
+
+	App->audio->PlayMusic(music);
+	
 	return ret;
 }
 
@@ -47,6 +54,7 @@ bool ModuleScenePaoPao::CleanUp()
 	App->player->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
+	App->audio->CleanUp();
 
 	return true;
 }

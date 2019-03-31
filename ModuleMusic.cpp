@@ -9,25 +9,21 @@
 
 ModuleMusic::ModuleMusic() : Module()
 {
-	// TODO 5: Initialize all texture pointers to nullptr
-	for (int i = 0; i < MAX_AUDIO; i++)
-	{
-		Audios[i] = nullptr;
-	}
+
 }
 
 // Destructor
 ModuleMusic::~ModuleMusic()
 {}
 
-// Called before render is available
 bool ModuleMusic::Init()
 {
 	LOG("Init audio library");
 	bool ret = true;
 
-	// load support for the PNG image format
+
 	int flags = MIX_INIT_OGG;
+	Mix_Init(SDL_INIT_AUDIO);
 	int init = Mix_Init(flags);
 
 	if ((init & flags) != flags)
@@ -35,36 +31,98 @@ bool ModuleMusic::Init()
 		LOG("Could not initialize audi lib. Mix_Init: %s", Mix_GetError());
 		ret = false;
 	}
-
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+	{
+		LOG("Mix_OpenAudio: %s\n", Mix_GetError());
+		//fix error: can't fnd a mastering voice
+		return false;
+	}
 	return ret;
 }
 
 // Called before quitting
 bool ModuleMusic::CleanUp()
 {
+	LOG("Freeing music");
+
 	for (int i = 0; i < MAX_AUDIO; i++)
 	{
-		Mix_FreeMusic(Audios[i]);
+		if (Audios[i] != nullptr)
+		{
+			Audios[i] = nullptr;
+		}
 	}
+	for (int i = 0; i <MAX_FX; i++)
+	{
+		if (fxs[i] != nullptr)
+		{
+			fxs[i] = nullptr;
+		}
+	}
+
 
 	Mix_CloseAudio();
 	Mix_Quit();
 	return true;
 }
 
-Mix_Music* const ModuleMusic::Load(const char* path)
+Mix_Music* const ModuleMusic::LoadMusic(const char* path)
 {
 
-	Audios[0] = Mix_LoadMUS("../Source/Music/a.ogg");
+	Mix_Music* song;
+	song = Mix_LoadMUS(path);
 
-	if (!Audios[0]) {
-		LOG("Error music not Loaded");
+
+	if (!song)
+	{
+		LOG("Error loading music", path, Mix_GetError());
+	}
+	for (int i = 0; i < MAX_AUDIO; i++)
+	{
+		if (Audios[i] == nullptr)
+		{
+			Audios[i] = song;
+			break;
+		}
+	}
+	return song;
+}
+
+Mix_Chunk* ModuleMusic::LoadFX(const char* path) {
+	Mix_Chunk* fx;
+	fx = Mix_LoadWAV(path);
+	if (!fx)
+	{
+		LOG("Error loading fx", Mix_GetError());
+	}
+	for (int i = 0; i < MAX_FX; i++)
+	{
+		if (fxs[i] == nullptr)
+		{
+			fxs[i] = fx;
+			break;
+		}
+	}
+	return fx;
+}
+
+bool ModuleMusic::PlayMusic(Mix_Music* song) {
+
+	if (Mix_PlayMusic(song, -1) == -1)
+	{
+		LOG("Error play music: %s \n", Mix_GetError());
+		return false;
 	}
 
-
-	Mix_PlayMusic(Audios[0], -1);
-
-
-
-	return nullptr;
+	return true;
 }
+
+bool ModuleMusic::PlayFX(Mix_Chunk* fx) {
+	if (Mix_PlayChannel(-1, fx, 0) == -1)
+	{
+		LOG("Error playing fx\n", Mix_GetError());
+		return false;
+	}
+	return true;
+}
+
