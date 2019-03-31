@@ -62,6 +62,9 @@
     <ClInclude Include="ModuleWelcomeScreen.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSceneSoundBeach.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -101,6 +104,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWelcomeScreen.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneSoundBeach.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

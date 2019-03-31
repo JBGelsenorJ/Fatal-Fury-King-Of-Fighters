@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleScenePaoPao.h"
+#include "ModuleSceneSoundBeach.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleMusic.h"
 #include "ModuleWelcomeScreen.h" 
@@ -18,10 +19,11 @@ Application::Application()
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = playerselection = new ModulePlayerSelection();
 	modules[5] = scene_paopao = new ModuleScenePaoPao();
-	modules[6] = scene_welcome = new ModuleWelcomeScreen();
-	modules[7] = player = new ModulePlayer();
-	modules[8] = fade = new ModuleFadeToBlack();
-	modules[9] = audio = new ModuleMusic();
+	modules[6] = scene_soundbeach = new ModuleSceneSoundBeach();
+	modules[7] = scene_welcome = new ModuleWelcomeScreen();
+	modules[8] = player = new ModulePlayer();
+	modules[9] = fade = new ModuleFadeToBlack();
+	modules[10] = audio = new ModuleMusic();
 
 }	
 
@@ -36,6 +38,7 @@ bool Application::Init()
 	bool ret = true;
 	// Disable the map that you do not start with
 	scene_paopao->Disable();
+	scene_soundbeach->Disable();
 	playerselection->Disable();
 	scene_welcome->Enable();
 
