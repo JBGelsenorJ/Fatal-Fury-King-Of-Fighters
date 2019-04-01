@@ -37,8 +37,8 @@ ModuleFFIntro::ModuleFFIntro()
 
 	//Player Animation
 
-	positionplayer.x = -40;
-	positionplayer.y = 225;
+	/*positionplayer.x = -40;
+	positionplayer.y = 225;*/
 	
 	player.PushBack({ 340, 34, 61, 127 });
 	player.PushBack({ 411, 35, 62, 127 });
@@ -48,8 +48,8 @@ ModuleFFIntro::ModuleFFIntro()
 
 	//Rock
 
-	positionrock.x = -40;
-	positionrock.y = 244;
+	/*positionrock.x = -40;
+	positionrock.y = 244; */
 
 	rock.x = 647;
 	rock.y = 129;
@@ -65,8 +65,8 @@ ModuleFFIntro::ModuleFFIntro()
 
 	//Taxi
 
-	positiontaxi.x = 290;
-	positiontaxi.y = 244;
+	/*positiontaxi.x = 290;
+	positiontaxi.y = 244; */
 
 	taxi.x = 482;
 	taxi.y = 322;
@@ -75,8 +75,8 @@ ModuleFFIntro::ModuleFFIntro()
 
 	//Player2 Animation
 
-	positionplayer2.x = 290;
-	positionplayer2.y = 244;
+	/*positionplayer2.x = 290;
+	positionplayer2.y = 244; */
 
 	player2.PushBack({ 929, 323, 61, 66 });
 	player2.PushBack({ 840, 323, 69, 114 });
@@ -92,7 +92,7 @@ bool ModuleFFIntro::Start()
 {
 	LOG("Loading image assets");
 	bool ret = true;
-	graphics = App->textures->Load("Source/UI/Intro/intro1.png");
+	graphics = App->textures->Load("Source/UI/Intro/intro2.png");
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 	App->audio->PlayMusic(introsong);
 	return ret;
@@ -109,8 +109,7 @@ bool ModuleFFIntro::CleanUp()
 update_status ModuleFFIntro::Update()
 {
 
-	//Parte1
-	/*
+
 	// Drawing background - Intro Background
 	
 	App->render->Blit(graphics, 0, 0, &introwin, 0.75f);
@@ -127,10 +126,10 @@ update_status ModuleFFIntro::Update()
 
 	App->render->Blit(graphics, 0, 213, &rock, 0.75f);
 
-	*/
+
 
 	//Parte2
-	/*
+	
 	// Drawing background - Intro Background2
 	
 	App->render->Blit(graphics, 0, 0, &introwin2, 0.75f);
@@ -147,15 +146,13 @@ update_status ModuleFFIntro::Update()
 
 	App->render->Blit(graphics, 290, 244, &taxi, 0.75f);
 
-	for(positiontaxi.x;positiontaxi.x<-290;positiontaxi.x--){
-	positiontaxi.x--;
-	}
-	*/
+
+	
 
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		//App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 2.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 2.5);
 
 	}
 

@@ -1,5 +1,5 @@
-#ifndef __ModuleWelcomeScreen_H__
-#define __ModuleWelcomeScreen_H__
+#ifndef __ModulFFIntro_H__
+#define __ModulFFIntro_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -32,11 +32,11 @@ public:
 	Animation player;
 	Animation player2;
 	Mix_Music* introsong;
-	iPoint positiontaxi;
+	/*iPoint positiontaxi;
 	iPoint positionplayer;
 	iPoint positionrock;
-	iPoint positionplayer2;
+	iPoint positionplayer2;*/
 
 };
 
-#endif
+#endif // __ModulFFIntros_H__

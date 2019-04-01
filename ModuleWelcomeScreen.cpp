@@ -66,12 +66,12 @@ bool ModuleWelcomeScreen::CleanUp()
 update_status ModuleWelcomeScreen::Update()
 {
 	// Drawing background - Pao Pao Background
-	App->render->Blit(graphics, 0, 0, &welcome, 0.75f);
+	App->render->Blit(graphics, 0, 0, &welcome, NULL);
 
 	//Logo animation
-	App->render->Blit(graphics, 30, 30, &(logo.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 30, 30, &(logo.GetCurrentFrame()), NULL);
 	// start animation
-	App->render->Blit(graphics, 72, 160, &(start.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 72, 160, &(start.GetCurrentFrame()), NULL);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

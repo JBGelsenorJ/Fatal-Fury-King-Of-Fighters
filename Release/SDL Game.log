@@ -1,20 +1,7 @@
-﻿  Application.cpp
-  Main.cpp
-  ModuleFFIntro.cpp
-  ModuleMusic.cpp
-  ModulePlayerSelection.cpp
-  ModuleScenePaoPao.cpp
-  ModuleFadeToBlack.cpp
-  ModuleInput.cpp
-  ModulePlayer.cpp
-  ModuleRender.cpp
-  ModuleSceneSoundBeach.cpp
-  ModuleTextures.cpp
-  ModuleWelcomeScreen.cpp
-  ModuleWindow.cpp
+﻿  ModuleFFIntro.cpp
   Generating code
-  112 of 112 functions (100.0%) were compiled.
-    5 functions were new in current compilation
+  1 of 114 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  SDL Game.vcxproj -> C:\Users\christianpl\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> C:\Users\javierbg11\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe

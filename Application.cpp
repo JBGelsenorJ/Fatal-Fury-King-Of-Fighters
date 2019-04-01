@@ -25,7 +25,7 @@ Application::Application()
 	modules[8] = player = new ModulePlayer();
 	modules[9] = fade = new ModuleFadeToBlack();
 	modules[10] = audio = new ModuleMusic();
-	//modules[11] = scene_intro = new ModuleFFIntro();
+	modules[11] = scene_intro = new ModuleFFIntro();
 
 }	
 
@@ -42,7 +42,8 @@ bool Application::Init()
 	scene_paopao->Disable();
 	scene_soundbeach->Disable();
 	playerselection->Disable();
-	scene_welcome->Enable();
+	scene_intro->Enable();
+	scene_welcome->Disable();
 
 	App->player->Disable();
 
