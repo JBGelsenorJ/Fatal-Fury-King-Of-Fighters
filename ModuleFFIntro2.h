@@ -25,6 +25,7 @@ public:
 	SDL_Texture * graphics = nullptr;
 	SDL_Rect introwin2;
 	SDL_Rect taxi;
+	SDL_Rect borders;
 	Animation start;
 	Animation player2;
 	Mix_Music* introsong;

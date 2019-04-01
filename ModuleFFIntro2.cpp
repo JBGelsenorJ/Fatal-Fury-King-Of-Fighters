@@ -47,6 +47,13 @@ ModuleFFIntro2::ModuleFFIntro2()
 	player2.PushBack({ 840, 323, 69, 114 });
 	player2.speed = 0.04f;
 
+	//Borders
+
+	borders.x = 0;
+	borders.y = 446;
+	borders.w = 304;
+	borders.h = 225;
+
 }
 
 ModuleFFIntro2::~ModuleFFIntro2()
@@ -78,7 +85,7 @@ update_status ModuleFFIntro2::Update()
 	
 	// Drawing background - Intro Background2
 	
-	App->render->Blit(graphics, 0, 0, &introwin2, 0.75f);
+	App->render->Blit(graphics, 0, 16, &introwin2, 0.75f);
 
 	//Start animation
 
@@ -91,6 +98,10 @@ update_status ModuleFFIntro2::Update()
 	// Taxi animation
 
 	App->render->Blit(graphics, 300, 124, &taxi, 0.75f);
+
+	// Drawing borders - Intro broders
+
+	App->render->Blit(graphics, 0, 1, &borders, 0.75f);
 	
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

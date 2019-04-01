@@ -33,19 +33,22 @@ ModuleFFIntro::ModuleFFIntro()
 	//Start Animation
 	
 	start.PushBack({ 590, 260, 146, 21 });
-	start.PushBack({ 0, 498, 236, 44 });
-	start.speed = 0.04f;
+	start.PushBack({ 0, 700, 236, 44 });
+	start.speed = 0.06f;
 
 	//Player Animation
 
 	/*positionplayer.x = -40;
 	positionplayer.y = 225;*/
 	
-	player.PushBack({ 340, 34, 61, 127 });
-	player.PushBack({ 411, 35, 62, 127 });
-	player.PushBack({ 485, 38, 61, 124 });
-	player.PushBack({ 554, 38, 61, 124 });
-	player.speed = 0.04f;
+	player.PushBack({ 340, 37, 62, 127 });
+	player.PushBack({ 411, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.PushBack({ 553, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.PushBack({ 411, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.speed = 0.15f;
 
 	//Rock
 
@@ -57,6 +60,12 @@ ModuleFFIntro::ModuleFFIntro()
 	rock.w = 117;
 	rock.h = 31;
 
+	//Borders
+
+	borders.x = 0;
+	borders.y = 446;
+	borders.w = 304;
+	borders.h = 225;
 	
 }
 
@@ -87,19 +96,24 @@ update_status ModuleFFIntro::Update()
 	
 	// Drawing background - Intro Background
 	
-	App->render->Blit(graphics, 0, 0, &introwin, 0.75f);
+	App->render->Blit(graphics, 0, 16, &introwin, 0.75f);
 
 	//Drawing Rock
 
-	App->render->Blit(graphics, -2, 161, &rock, 0.75f);
+	App->render->Blit(graphics, -25, 177, &rock, 0.75f);
 
 	// Player animation
 
-	App->render->Blit(graphics, 50, 58, &(player.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 27, 73, &(player.GetCurrentFrame()), 0.5f);
 
 	//Start animation
 
-	App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.99f);
+
+
+	// Drawing borders - Intro broders
+
+	App->render->Blit(graphics, 0, 0, &borders, 0.75f);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

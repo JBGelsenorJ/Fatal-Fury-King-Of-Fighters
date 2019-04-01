@@ -25,6 +25,7 @@ public:
 	SDL_Texture * graphics = nullptr;
 	SDL_Rect introwin;
 	SDL_Rect rock;
+	SDL_Rect borders;
 	Animation start;
 	Animation player;
 	
