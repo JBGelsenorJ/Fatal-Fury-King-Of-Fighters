@@ -87,37 +87,39 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
-	if(App->input->keyboard[SDL_SCANCODE_D] == 1)
-	{
-		current_animation = &forward;
-		position.x += speed;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
-	{
-		current_animation = &backward;
-		position.x -= speed;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1) {
-		current_animation = &jump;
-		position.y -= speed;
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
-		current_animation = &kick;
-		
-	}
-	bool ban = 0;
-	if (App->input->keyboard[SDL_SCANCODE_E] == 1) {
-
-				current_animation = &punch;
-		}
-
 	if (App->input->keyboard[SDL_SCANCODE_S] == 1) {
 
 		current_animation = &crouch;
 
+	}
+	else
+	{
+		if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+		{
+			current_animation = &forward;
+			position.x += speed;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+		{
+			current_animation = &backward;
+			position.x -= speed;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_W] == 1) {
+			current_animation = &jump;
+			position.y -= speed;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
+			current_animation = &kick;
+
+		}
+		bool ban = 0;
+		if (App->input->keyboard[SDL_SCANCODE_E] == 1) {
+
+			current_animation = &punch;
+		}
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
