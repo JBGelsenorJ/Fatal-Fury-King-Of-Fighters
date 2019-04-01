@@ -12,6 +12,7 @@
 
 
 #include "ModuleFFIntro.h"
+#include "ModuleFFIntro2.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
 #include "ModuleWelcomeScreen.h"
@@ -56,32 +57,7 @@ ModuleFFIntro::ModuleFFIntro()
 	rock.w = 117;
 	rock.h = 31;
 
-	//Intro Background2
-
-	introwin2.x = 7;
-	introwin2.y = 195;
-	introwin2.w = 463;
-	introwin2.h = 241;
-
-	//Taxi
-
-	/*positiontaxi.x = 290;
-	positiontaxi.y = 244; */
-
-	taxi.x = 482;
-	taxi.y = 322;
-	taxi.w = 334;
-	taxi.h = 117;
-
-	//Player2 Animation
-
-	/*positionplayer2.x = 290;
-	positionplayer2.y = 244; */
-
-	player2.PushBack({ 929, 323, 61, 66 });
-	player2.PushBack({ 840, 323, 69, 114 });
-	player2.speed = 0.04f;
-
+	
 }
 
 ModuleFFIntro::~ModuleFFIntro()
@@ -108,51 +84,26 @@ bool ModuleFFIntro::CleanUp()
 // Update: draw background
 update_status ModuleFFIntro::Update()
 {
-
-
+	
 	// Drawing background - Intro Background
 	
 	App->render->Blit(graphics, 0, 0, &introwin, 0.75f);
 
-	//Start animation
-
-	App->render->Blit(graphics, 72, 120, &(start.GetCurrentFrame()), 0.75f);
-	
-	// Player animation
-
-	App->render->Blit(graphics, 97, 225, &(player.GetCurrentFrame()), 0.75f);
-
 	//Drawing Rock
 
-	App->render->Blit(graphics, 0, 213, &rock, 0.75f);
+	App->render->Blit(graphics, -2, 161, &rock, 0.75f);
 
+	// Player animation
 
-
-	//Parte2
-	
-	// Drawing background - Intro Background2
-	
-	App->render->Blit(graphics, 0, 0, &introwin2, 0.75f);
+	App->render->Blit(graphics, 50, 58, &(player.GetCurrentFrame()), 0.75f);
 
 	//Start animation
 
-	App->render->Blit(graphics, 72, 120, &(start.GetCurrentFrame()), 0.75f);
-
-	// Player2 animation
-
-	App->render->Blit(graphics, 320, 244, &(player2.GetCurrentFrame()), 0.75f);
-
-	// Taxi animation
-
-	App->render->Blit(graphics, 300, 124, &taxi, 0.75f);
-
-
-	
-
+	App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_intro2, 1.5);
 
 	}
 

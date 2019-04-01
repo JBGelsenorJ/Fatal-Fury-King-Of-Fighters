@@ -66,6 +66,18 @@ ModulePlayer::ModulePlayer()
 	crouch.PushBack({ 265, 949, 56, 70 });
 	crouch.speed = 0.2f;
 
+	//Special Movement 1
+	
+	sm1.PushBack({ 193, 687, 54, 107 });
+	sm1.PushBack({ 264, 681, 56, 113 });
+	sm1.PushBack({ 323, 698, 62, 96 });
+	sm1.PushBack({ 387, 718, 80, 77 });
+	sm1.PushBack({ 471, 717, 69, 77 });
+	sm1.PushBack({ 540, 726, 67, 69 });
+	sm1.PushBack({ 610, 713, 62, 82 });
+	sm1.speed = 0.18f;
+	
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -120,6 +132,19 @@ update_status ModulePlayer::Update()
 
 			current_animation = &punch;
 		}
+
+		if (App->input->keyboard[SDL_SCANCODE_V] == 1)
+		{
+
+			if(App->input->keyboard[SDL_SCANCODE_B] == 1)
+			{
+
+			current_animation = &sm1;
+
+			}
+
+		}
+
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();

@@ -68,6 +68,9 @@
     <ClInclude Include="ModuleFFIntro.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFFIntro2.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -113,6 +116,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFFIntro.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFFIntro2.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

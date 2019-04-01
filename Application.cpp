@@ -11,6 +11,7 @@
 #include "ModuleMusic.h"
 #include "ModuleWelcomeScreen.h" 
 #include "ModuleFFIntro.h"
+#include "ModuleFFIntro2.h"
 
 Application::Application()
 {
@@ -26,6 +27,7 @@ Application::Application()
 	modules[9] = fade = new ModuleFadeToBlack();
 	modules[10] = audio = new ModuleMusic();
 	modules[11] = scene_intro = new ModuleFFIntro();
+	modules[12] = scene_intro2 = new ModuleFFIntro2();
 
 }	
 
@@ -42,6 +44,7 @@ bool Application::Init()
 	scene_paopao->Disable();
 	scene_soundbeach->Disable();
 	playerselection->Disable();
+	scene_intro2->Disable();
 	scene_intro->Enable();
 	scene_welcome->Disable();
 

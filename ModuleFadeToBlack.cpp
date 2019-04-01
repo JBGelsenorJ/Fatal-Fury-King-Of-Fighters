@@ -11,6 +11,7 @@
 #include "ModulePlayerSelection.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
+#include "ModuleFFIntro2.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {

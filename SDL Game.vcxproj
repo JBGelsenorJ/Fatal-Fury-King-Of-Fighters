@@ -76,6 +76,7 @@
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleFFIntro.h" />
+    <ClInclude Include="ModuleFFIntro2.h" />
     <ClInclude Include="ModuleMusic.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
     <ClInclude Include="ModuleScenePaoPao.h" />
@@ -94,6 +95,7 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleFFIntro.cpp" />
+    <ClCompile Include="ModuleFFIntro2.cpp" />
     <ClCompile Include="ModuleMusic.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
     <ClCompile Include="ModuleScenePaoPao.cpp" />
