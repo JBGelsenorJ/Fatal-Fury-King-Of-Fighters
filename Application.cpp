@@ -12,6 +12,7 @@
 #include "ModuleWelcomeScreen.h" 
 #include "ModuleFFIntro.h"
 #include "ModuleFFIntro2.h"
+#include "ModuleParticles.h"
 
 Application::Application()
 {
@@ -28,6 +29,7 @@ Application::Application()
 	modules[10] = audio = new ModuleMusic();
 	modules[11] = scene_intro = new ModuleFFIntro();
 	modules[12] = scene_intro2 = new ModuleFFIntro2();
+	modules[13] = particles = new ModuleParticles();
 
 }	
 
@@ -41,11 +43,11 @@ bool Application::Init()
 {
 	bool ret = true;
 	// Disable the map that you do not start with
-	scene_paopao->Disable();
+	scene_paopao->Enable();
 	scene_soundbeach->Disable();
 	playerselection->Disable();
 	scene_intro2->Disable();
-	scene_intro->Enable();
+	scene_intro->Disable();
 	scene_welcome->Disable();
 
 	App->player->Disable();

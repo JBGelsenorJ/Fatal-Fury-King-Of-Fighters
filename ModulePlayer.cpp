@@ -5,7 +5,7 @@
 #include "ModuleRender.h"
 #include "SDL\include\SDL.h"
 #include "ModulePlayer.h"
-
+#include "ModuleParticles.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModulePlayer::ModulePlayer()
@@ -74,7 +74,6 @@ ModulePlayer::ModulePlayer()
 	sm1.PushBack({ 387, 718, 80, 77 });
 	sm1.PushBack({ 471, 717, 69, 77 });
 	sm1.PushBack({ 540, 726, 67, 69 });
-	sm1.PushBack({ 610, 713, 62, 82 });
 	sm1.speed = 0.18f;
 	
 
@@ -99,49 +98,47 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1) {
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) {
 
 		current_animation = &crouch;
 
 	}
 	else
 	{
-		if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 		{
 			current_animation = &forward;
 			position.x += speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 		{
 			current_animation = &backward;
 			position.x -= speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == 1) {
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 			current_animation = &jump;
 			position.y -= speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_X] == 1) {
+		if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_REPEAT) {
 			current_animation = &kick;
 
 		}
 		bool ban = 0;
-		if (App->input->keyboard[SDL_SCANCODE_E] == 1) {
+		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_REPEAT) {
 
 			current_animation = &punch;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_V] == 1)
+		if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
 		{
-
-			if(App->input->keyboard[SDL_SCANCODE_B] == 1)
-			{
-
+				App->particles->AddParticle(App->particles->terryspecial1, position.x+10, position.y-90);
+				App->particles->AddParticle(App->particles->terryspecial2, position.x, position.y - 90);
+				App->particles->AddParticle(App->particles->terryspecial3, position.x+5, position.y - 90);
 			current_animation = &sm1;
 
-			}
 
 		}
 

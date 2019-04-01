@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleParticles.h"
 
 struct SDL_Texture;
 
@@ -28,6 +29,7 @@ public:
 	Animation kick;
 	Animation punch;
 	Animation crouch;
+	Particle special;
 	Animation sm1;
 	iPoint position;
 	
