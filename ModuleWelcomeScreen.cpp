@@ -12,6 +12,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
+#include "ModuleFFIntro.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 

@@ -10,6 +10,7 @@
 #include "ModulePlayerSelection.h"
 #include "ModuleMusic.h"
 #include "ModuleWelcomeScreen.h" 
+#include "ModuleFFIntro.h"
 
 Application::Application()
 {
@@ -24,6 +25,7 @@ Application::Application()
 	modules[8] = player = new ModulePlayer();
 	modules[9] = fade = new ModuleFadeToBlack();
 	modules[10] = audio = new ModuleMusic();
+	//modules[11] = scene_intro = new ModuleFFIntro();
 
 }	
 

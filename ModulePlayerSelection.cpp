@@ -12,6 +12,7 @@
 //Scenes that we are going to need
 #include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
+#include "ModuleFFIntro.h"
 
 
 ModulePlayerSelection::ModulePlayerSelection()

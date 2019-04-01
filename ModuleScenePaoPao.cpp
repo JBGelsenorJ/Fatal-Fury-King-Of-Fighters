@@ -13,6 +13,7 @@
 #include "ModuleScenePaoPao.h"
 #include "ModuleSceneSoundBeach.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleFFIntro.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 

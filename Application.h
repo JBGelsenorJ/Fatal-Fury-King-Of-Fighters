@@ -16,6 +16,7 @@ class ModulePlayer;
 class ModuleFadeToBlack;
 class ModulePlayerSelection;
 class ModuleMusic;
+//class ModuleFFIntro;
 
 class Module;
 
@@ -35,6 +36,7 @@ public:
 	ModuleFadeToBlack* fade;
 	ModulePlayerSelection* playerselection;
 	ModuleMusic* audio;
+	//ModuleFFIntro* scene_intro;
 
 
 public:

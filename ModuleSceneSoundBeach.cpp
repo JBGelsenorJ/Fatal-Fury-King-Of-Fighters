@@ -25,6 +25,7 @@
 #include "ModuleScenePaoPao.h"
 #include "ModuleSceneSoundBeach.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleFFIntro.h"
 
 
 ModuleSceneSoundBeach::ModuleSceneSoundBeach()

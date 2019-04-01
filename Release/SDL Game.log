@@ -1,6 +1,6 @@
 ﻿  Application.cpp
-  Globals.cpp
   Main.cpp
+  ModuleFFIntro.cpp
   ModuleMusic.cpp
   ModulePlayerSelection.cpp
   ModuleScenePaoPao.cpp
@@ -12,7 +12,9 @@
   ModuleTextures.cpp
   ModuleWelcomeScreen.cpp
   ModuleWindow.cpp
-  Generando código
-  All 109 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Generación de código finalizada
-  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  Generating code
+  112 of 112 functions (100.0%) were compiled.
+    5 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL Game.vcxproj -> C:\Users\christianpl\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe

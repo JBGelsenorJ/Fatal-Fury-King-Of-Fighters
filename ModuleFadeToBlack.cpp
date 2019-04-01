@@ -10,6 +10,7 @@
 #include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleFFIntro.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {
