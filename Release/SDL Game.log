@@ -1,0 +1,18 @@
+﻿  Application.cpp
+  Globals.cpp
+  Main.cpp
+  ModuleMusic.cpp
+  ModulePlayerSelection.cpp
+  ModuleScenePaoPao.cpp
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+  ModulePlayer.cpp
+  ModuleRender.cpp
+  ModuleSceneSoundBeach.cpp
+  ModuleTextures.cpp
+  ModuleWelcomeScreen.cpp
+  ModuleWindow.cpp
+  Generando código
+  All 109 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generación de código finalizada
+  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
