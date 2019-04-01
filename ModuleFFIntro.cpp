@@ -80,7 +80,7 @@ ModuleFFIntro::ModuleFFIntro()
 
 	player2.PushBack({ 929, 323, 61, 66 });
 	player2.PushBack({ 840, 323, 69, 114 });
-
+	player2.speed = 0.04f;
 
 }
 
@@ -144,7 +144,7 @@ update_status ModuleFFIntro::Update()
 
 	// Taxi animation
 
-	App->render->Blit(graphics, 290, 244, &taxi, 0.75f);
+	App->render->Blit(graphics, 300, 124, &taxi, 0.75f);
 
 
 	
