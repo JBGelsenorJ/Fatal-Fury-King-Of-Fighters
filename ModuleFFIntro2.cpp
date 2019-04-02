@@ -93,11 +93,11 @@ update_status ModuleFFIntro2::Update()
 
 	// Player2 animation
 
-	App->render->Blit(graphics, 320, 244, &(player2.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, 400, 150, &(player2.GetCurrentFrame()), 0.75f);
 
 	// Taxi animation
 
-	App->render->Blit(graphics, 300, 124, &taxi, 0.75f);
+	App->render->Blit(graphics, 400, 150, &taxi, 0.75f);
 
 	// Drawing borders - Intro broders
 
