@@ -17,9 +17,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	bool terryhover = 0;
-	bool andyhover = 0;
-	bool joehover = 0;
+	int selection = 1;	//Default char selection. Terry's Selection
 
 
 public:
@@ -34,6 +32,7 @@ public:
 	Animation hoverjoe;
 	Mix_Music* song;
 	Mix_Chunk* choosefx;
+	Mix_Chunk* hoverfx;
 
 
 };

@@ -1,7 +1,7 @@
-﻿  ModulePlayer.cpp
-  Generating code
+﻿  ModulePlayerSelection.cpp
+  Generando código
+  Generación de código finalizada
   1 of 137 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  SDL Game.vcxproj -> C:\Users\javierbg11\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
