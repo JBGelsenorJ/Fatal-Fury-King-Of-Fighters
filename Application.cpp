@@ -45,8 +45,8 @@ bool Application::Init()
 	// Disable the map that you do not start with
 	scene_paopao->Disable();
 	scene_soundbeach->Disable();
-	playerselection->Disable();
-	scene_intro2->Enable();
+	playerselection->Enable();
+	scene_intro2->Disable();
 	scene_intro->Disable();
 	scene_welcome->Disable();
 

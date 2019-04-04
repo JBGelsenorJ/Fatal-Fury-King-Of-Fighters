@@ -13,7 +13,7 @@ ModulePlayer::ModulePlayer()
 	position.x = 100;
 	position.y = 220;
 
-	// idle animation (arcade sprite sheet)
+	//Terry Bogard Idle Animation
 	idle.PushBack({27, 914, 58, 103});
 	idle.PushBack({95, 916, 59, 102});
 	idle.PushBack({165, 917, 58, 101});
@@ -21,14 +21,14 @@ ModulePlayer::ModulePlayer()
 
 	idle.speed = 0.18f;
 
-	// walk forward animation (arcade sprite sheet)
-	//forward.frames.PushBack({9, 136, 53, 83});
+	//Terry Bogard Forward Animation
 	forward.PushBack({32, 1300, 60, 105});
 	forward.PushBack({108, 1300, 68, 105});
 	forward.PushBack({189, 1300, 68, 105});
 	forward.PushBack({263, 1300, 68, 105});
 	forward.speed = 0.15f;
-	//backward
+	
+	//Terry Bogard Backward Animation
 	backward.PushBack({ 263, 1300, 57, 104 });
 	backward.PushBack({ 453, 1300, 57, 110 });
 	backward.PushBack({ 453, 1300, 57, 110 });
@@ -36,15 +36,15 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 95, 916, 59, 102 });
 	backward.speed = 0.15f;
 
-	// TODO 4: Make ryu walk backwards with the correct animations
-	jump.PushBack({ 78, 131, 60, 88 });
-	jump.PushBack({ 162, 128, 64, 92 });
-	jump.PushBack({ 259, 128, 63, 90 });
-	jump.PushBack({ 352, 128, 54, 91 });
-	jump.PushBack({ 432, 131, 50, 89 });
-	jump.speed = 0.5f;
+	//Terry Bogard Jump Animation
+	jump.PushBack({ 548, 1035, 51, 125 });
+	jump.PushBack({ 611, 1046, 57, 103 });
+	jump.PushBack({ 680, 1056, 57, 94 });
+	
 
-	// kick animation 
+	jump.speed = 0.08f;
+
+	//Terry Bogard Kick Animation
 	kick.PushBack({ 449, 806, 59, 107 });
 	kick.PushBack({ 512, 803, 53, 107 });
 	kick.PushBack({ 31, 1150, 50, 97 });
@@ -98,7 +98,7 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) {
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
 
 		current_animation = &crouch;
 
@@ -121,17 +121,18 @@ update_status ModulePlayer::Update()
 			current_animation = &jump;
 			position.y -= speed;
 		}
-
-		if (App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &kick;
-
-		}
-		bool ban = 0;
-		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_REPEAT) {
+		if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_UP) {
 
 			current_animation = &punch;
 		}
 
+
+		if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_UP) {
+			current_animation = &kick;
+
+		}
+		//bool ban = 0;
+		
 		if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
 		{
 				App->particles->AddParticle(App->particles->terryspecial1, position.x+10, position.y-90);
