@@ -4,5 +4,4 @@
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-Globals.obj : warning LNK4020: a type record in 'c:\users\germanip\documents\github\proyecto1-citm\release\vc141.pdb' is corrupted; some symbols and types may not be accessible from the debugger
-  SDL Game.vcxproj -> C:\Users\germanip\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> C:\Users\javierbg11\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
