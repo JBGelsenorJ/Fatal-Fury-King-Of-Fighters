@@ -32,6 +32,10 @@ public:
 	Particle special;
 	Animation sm1;
 	iPoint position;
+	Mix_Chunk* Specialattack;
+	Mix_Chunk* Punch;
+	Mix_Chunk* Kick;
+	bool jumpreset;
 	
 
 };

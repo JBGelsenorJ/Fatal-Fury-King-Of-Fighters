@@ -15,7 +15,6 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModuleScenePaoPao::ModuleScenePaoPao()
 {
@@ -40,6 +39,8 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 bool ModuleScenePaoPao::Start()
 {
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
+	fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
+	Mix_VolumeChunk(fx, 35);
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
@@ -47,6 +48,7 @@ bool ModuleScenePaoPao::Start()
 
 
 	App->audio->PlayMusic(music);
+	App->audio->PlayFX(fx); //Fix: Less volume and Loop infinite
 	
 	return ret;
 }

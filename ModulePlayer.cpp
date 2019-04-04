@@ -6,7 +6,7 @@
 #include "SDL\include\SDL.h"
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+
 
 ModulePlayer::ModulePlayer()
 {
@@ -88,6 +88,10 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
+	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
+	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
+	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
+
 	return ret;
 }
 
@@ -98,52 +102,58 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
+		//Crouch
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
 
 		current_animation = &crouch;
 
-	}
-	else
-	{
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-		{
-			current_animation = &forward;
-			position.x += speed;
 		}
+		else {
+			//MoveForward
+			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+			{
+				current_animation = &forward;
+				position.x += speed;
+			}
 
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-		{
-			current_animation = &backward;
-			position.x -= speed;
-		}
+			//Move Backward
+			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+			{
+				current_animation = &backward;
+				position.x -= speed;
+			}
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &jump;
-			position.y -= speed;
-		}
-		if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_UP) {
+			//Jump
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
+				current_animation = &jump;
+				position.y -= speed;
 
-			current_animation = &punch;
-		}
+			}
 
+			//Punch
+			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN) {
 
-		if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_UP) {
-			current_animation = &kick;
+				current_animation = &punch;
+				App->audio->PlayFX(Punch);
+			}
 
-		}
-		//bool ban = 0;
-		
-		if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
-		{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x+10, position.y-90);
+			//Kick
+			if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN) {
+				current_animation = &kick;
+				App->audio->PlayFX(Kick);
+			}
+
+			//Special Move
+			if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN)
+			{
+				App->particles->AddParticle(App->particles->terryspecial1, position.x + 10, position.y - 90);
 				App->particles->AddParticle(App->particles->terryspecial2, position.x, position.y - 90);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x+5, position.y - 90);
-			current_animation = &sm1;
+				App->particles->AddParticle(App->particles->terryspecial3, position.x + 5, position.y - 90);
+				current_animation = &sm1;
+				App->audio->PlayFX(Specialattack);
 
-
+			}
 		}
-
-	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 

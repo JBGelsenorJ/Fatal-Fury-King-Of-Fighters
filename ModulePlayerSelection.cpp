@@ -68,7 +68,10 @@ bool ModulePlayerSelection::Start()
 	bool ret = true;
 	//Loading Map Assets Texture
 	graphics = App->textures->Load("Source/UI/Player_Map_Selection/SpriteSheet_PlayerSelection.png"); 
+
+	//Loading Music and FX
 	song = App->audio->LoadMusic("Source/Sound/Music/CharacterSelection.ogg");
+	choosefx = App->audio->LoadFX("Source/Sound/FX/FX/FX_ChooseSelection.wav");
 	App->audio->PlayMusic(song);
 
 	return ret;
@@ -112,6 +115,7 @@ update_status ModulePlayerSelection::Update()
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 	{
 		App->fade->FadeToBlack(App->playerselection, App->scene_paopao, 2.5);
+		App->audio->PlayFX(choosefx);
 	}
 
 	return UPDATE_CONTINUE;

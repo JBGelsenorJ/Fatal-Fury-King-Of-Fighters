@@ -25,6 +25,7 @@ public:
 	SDL_Rect background;
 	Animation people;
 	Mix_Music* music;
+	Mix_Chunk* fx;
 };
 
 #endif

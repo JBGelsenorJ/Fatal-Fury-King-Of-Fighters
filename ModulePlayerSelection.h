@@ -33,6 +33,7 @@ public:
 	Animation hoverandy;
 	Animation hoverjoe;
 	Mix_Music* song;
+	Mix_Chunk* choosefx;
 
 
 };
