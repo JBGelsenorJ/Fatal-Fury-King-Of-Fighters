@@ -68,12 +68,12 @@ ModulePlayer::ModulePlayer()
 
 	//Special Movement 1
 	
-	sm1.PushBack({ 193, 687, 54, 107 });
-	sm1.PushBack({ 264, 681, 56, 113 });
-	sm1.PushBack({ 323, 698, 62, 96 });
-	sm1.PushBack({ 387, 718, 80, 77 });
-	sm1.PushBack({ 471, 717, 69, 77 });
-	sm1.PushBack({ 540, 726, 67, 69 });
+	sm1.PushBack({ 970, 1334, 54, 106 });
+	sm1.PushBack({ 897, 1325, 61, 115 });
+	sm1.PushBack({ 833, 1343, 63, 97 });
+	sm1.PushBack({ 679, 1359, 71, 81 });
+	sm1.PushBack({ 612, 1359, 66, 81 });
+	sm1.PushBack({ 548, 2881, 61, 81 });
 	sm1.speed = 0.18f;
 	
 
@@ -144,13 +144,13 @@ update_status ModulePlayer::Update()
 			}
 
 			//Special Move
-			if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_UP)
+			if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_REPEAT)
 			{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, 0);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, 50);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, 200);
-				App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, 400);
-				App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, 600);
+				App->particles->AddParticle(App->particles->terryspecial1, position.x + 53, position.y - 42, 0);
+				App->particles->AddParticle(App->particles->terryspecial2, position.x + 40, position.y - 70, 50);
+				App->particles->AddParticle(App->particles->terryspecial3, position.x + 23, position.y - 99, 200);
+				App->particles->AddParticle(App->particles->terryspecial4, position.x + 10, position.y - 70, 400);
+				App->particles->AddParticle(App->particles->terryspecial5, position.x - 18, position.y - 42, 600);
 				current_animation = &sm1;
 
 			}
