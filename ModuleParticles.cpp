@@ -32,7 +32,6 @@ bool ModuleParticles::Start()
 	terryspecial1.speed.x = 2;
 	terryspecial1.born = 0;
 
-
 	terryspecial2.anim.PushBack({ 577, 248, 18, 68 });
 	terryspecial2.anim.loop = false;
 	terryspecial2.anim.speed = 0.04f;
@@ -109,7 +108,8 @@ update_status ModuleParticles::Update()
 			{
 				p->fx_played = true;
 				// Play particle fx here
-				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAtacks/PowerWave.wav");
+				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PowerWave.wav");
+
 				App->audio->PlayFX(fx);
 
 			}
@@ -161,3 +161,5 @@ bool Particle::Update()
 
 	return ret;
 }
+
+

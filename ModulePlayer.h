@@ -36,6 +36,9 @@ public:
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 	bool jumpreset;
+	bool TimeAnim = false;
+	bool KickAnim = false;
+	bool TimePunch = false;
 	
 
 };

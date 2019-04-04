@@ -10,11 +10,12 @@ public:
 	bool loop = true;
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
-
-private:
+	bool animend = false;
 	float current_frame;
+private:
 	int last_frame = 0;
 	int loops = 0;
+
 
 public:
 
@@ -26,14 +27,20 @@ public:
 
 	SDL_Rect& GetCurrentFrame()
 	{
+		animend = false;
 		current_frame += speed;
 		if (current_frame >= last_frame)
 		{
 			current_frame = (loop) ? 0.0f : last_frame - 1;
 			loops++;
+			animend = true;
 		}
 
 		return frames[(int)current_frame];
+	}
+	bool AnimFinished(){
+	
+		return animend;
 	}
 
 	bool Finished() const

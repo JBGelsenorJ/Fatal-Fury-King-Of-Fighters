@@ -74,6 +74,7 @@ ModulePlayer::ModulePlayer()
 	sm1.PushBack({ 679, 1359, 71, 81 });
 	sm1.PushBack({ 612, 1359, 66, 81 });
 	sm1.PushBack({ 548, 2881, 61, 81 });
+	sm1.PushBack({ 548, 2881, 61, 81 });
 	sm1.speed = 0.18f;
 	
 
@@ -131,28 +132,44 @@ update_status ModulePlayer::Update()
 			}
 
 			//Punch
-			if (App->input->keyboard[SDL_SCANCODE_T]) {
-
+			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN || (TimePunch == true)) {
 				current_animation = &punch;
+				TimePunch = true;
 				App->audio->PlayFX(Punch);
+				if (current_animation->AnimFinished() == true)
+				{
+					TimePunch = false;
+				}
 			}
 
 			//Kick
-			if (App->input->keyboard[SDL_SCANCODE_Y]) {
+			if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN || (KickAnim == true)) {
+				KickAnim = true;
 				current_animation = &kick;
 				App->audio->PlayFX(Kick);
+				if (current_animation->AnimFinished() == true)
+				{
+					KickAnim = false;
+				}
 			}
 
 			//Special Move
-			if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_REPEAT)
+
+			if ((App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) || (TimeAnim == true))
 			{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x + 53, position.y - 42, 0);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x + 40, position.y - 70, 50);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x + 23, position.y - 99, 200);
-				App->particles->AddParticle(App->particles->terryspecial4, position.x + 10, position.y - 70, 400);
-				App->particles->AddParticle(App->particles->terryspecial5, position.x - 18, position.y - 42, 600);
+				TimeAnim = true;
+				int cont = SDL_GetTicks();
 				current_animation = &sm1;
 
+				if (current_animation->AnimFinished() == true)
+				{
+					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, 0);
+					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, 50);
+					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, 200);
+					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, 400);
+					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, 600);
+					TimeAnim = false;
+				}
 			}
 		}
 
