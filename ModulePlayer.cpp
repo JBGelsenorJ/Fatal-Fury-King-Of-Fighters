@@ -135,9 +135,11 @@ update_status ModulePlayer::Update()
 		
 		if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
 		{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x+10, position.y-90);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x, position.y - 90);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x+5, position.y - 90);
+				App->particles->AddParticle(App->particles->terryspecial1, position.x+50, position.y-90,0);
+				App->particles->AddParticle(App->particles->terryspecial2, position.x+65, position.y-90,200);
+				App->particles->AddParticle(App->particles->terryspecial3, position.x+80, position.y-90,400);
+				App->particles->AddParticle(App->particles->terryspecial4, position.x + 95, position.y - 90, 600);
+				App->particles->AddParticle(App->particles->terryspecial5, position.x + 110, position.y - 90, 800);
 			current_animation = &sm1;
 
 
