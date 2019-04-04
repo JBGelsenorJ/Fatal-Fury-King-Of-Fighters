@@ -17,8 +17,8 @@ struct Particle
 	uint fx = 0;
 	iPoint position;
 	iPoint speed;
-	Uint32 born = 0;
-	Uint32 life = 0;
+	int born = 0;
+	int life = 0;
 	bool fx_played = false;
 
 	Particle();
@@ -36,7 +36,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, int x, int y, Uint32 delay=0U);
+	void AddParticle(const Particle& particle, int x, int y, int delay);
 
 private:
 
@@ -49,6 +49,8 @@ public:
 	Particle terryspecial1;
 	Particle terryspecial2;
 	Particle terryspecial3;
+	Particle terryspecial4;
+	Particle terryspecial5;
 };
 
 #endif // __MODULEPARTICLES_H__
