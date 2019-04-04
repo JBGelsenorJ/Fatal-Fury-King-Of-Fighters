@@ -108,7 +108,6 @@ update_status ModulePlayer::Update()
 		current_animation = &crouch;
 
 		}
-<<<<<<< HEAD
 		else {
 			//MoveForward
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
@@ -132,46 +131,27 @@ update_status ModulePlayer::Update()
 			}
 
 			//Punch
-			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN) {
+			if (App->input->keyboard[SDL_SCANCODE_T]) {
 
 				current_animation = &punch;
 				App->audio->PlayFX(Punch);
 			}
 
 			//Kick
-			if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN) {
+			if (App->input->keyboard[SDL_SCANCODE_Y]) {
 				current_animation = &kick;
 				App->audio->PlayFX(Kick);
 			}
 
 			//Special Move
-			if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN)
+			if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
 			{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x + 10, position.y - 90);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x, position.y - 90);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x + 5, position.y - 90);
-				current_animation = &sm1;
-				App->audio->PlayFX(Specialattack);
-=======
-
-
-		if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_UP) {
-			current_animation = &kick;
-
-		}
-		//bool ban = 0;
-		
-		if (App->input->keyboard[SDL_SCANCODE_F]== KEY_STATE::KEY_DOWN)
-		{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x+50, position.y-90,0);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x+65, position.y-90,200);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x+80, position.y-90,400);
-				App->particles->AddParticle(App->particles->terryspecial4, position.x + 95, position.y - 90, 600);
-				App->particles->AddParticle(App->particles->terryspecial5, position.x + 110, position.y - 90, 800);
+			App->particles->AddParticle(App->particles->terryspecial1, position.x+50, position.y-90,0);
+			App->particles->AddParticle(App->particles->terryspecial2, position.x+65, position.y-90,200);
+			App->particles->AddParticle(App->particles->terryspecial3, position.x+80, position.y-90,400);
+			App->particles->AddParticle(App->particles->terryspecial4, position.x + 95, position.y - 90, 600);
+			App->particles->AddParticle(App->particles->terryspecial5, position.x + 110, position.y - 90, 800);
 			current_animation = &sm1;
-
->>>>>>> 35895ea8949ec217cfd378d3f7bbdd59ebf57232
-
 			}
 		}
 

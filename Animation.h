@@ -23,15 +23,6 @@ public:
 		frames[last_frame++] = rect;
 	}
 
-<<<<<<< HEAD
-	void PushBack(const SDL_Rect& rect, int pos) {
-=======
-	void PushBack( const SDL_Rect& rect, int height)
-	{
->>>>>>> 35895ea8949ec217cfd378d3f7bbdd59ebf57232
-		frames[last_frame++] = rect;
-		
-	}
 
 	SDL_Rect& GetCurrentFrame()
 	{
