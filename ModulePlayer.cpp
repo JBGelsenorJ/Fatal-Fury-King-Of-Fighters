@@ -73,8 +73,8 @@ ModulePlayer::ModulePlayer()
 	sm1.PushBack({ 833, 1343, 63, 97 });
 	sm1.PushBack({ 679, 1359, 71, 81 });
 	sm1.PushBack({ 612, 1359, 66, 81 });
-	sm1.PushBack({ 548, 2881, 61, 81 });
-	sm1.PushBack({ 548, 2881, 61, 81 });
+	sm1.PushBack({ 547, 1359, 61, 81 });
+
 	sm1.speed = 0.18f;
 	
 

@@ -1,7 +1,24 @@
-﻿  ModuleScenePaoPao.cpp
-  Generando código
-  1 of 140 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+﻿  Application.cpp
+  Globals.cpp
+  Main.cpp
+  ModuleFFIntro.cpp
+  ModuleFFIntro2.cpp
+  ModuleMusic.cpp
+  ModuleParticles.cpp
+c:\users\christianpl\documents\github\proyecto1-citm\moduleparticles.cpp(104): warning C4018: '>=': signed/unsigned mismatch
+  ModulePlayerSelection.cpp
+  ModuleScenePaoPao.cpp
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+  ModulePlayer.cpp
+  ModuleRender.cpp
+  ModuleSceneSoundBeach.cpp
+  ModuleTextures.cpp
+  ModuleWelcomeScreen.cpp
+  ModuleWindow.cpp
+  Generating code
+  138 of 138 functions (100.0%) were compiled.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  Finished generating code
+  SDL Game.vcxproj -> C:\Users\christianpl\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
