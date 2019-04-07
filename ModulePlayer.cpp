@@ -77,6 +77,18 @@ ModulePlayer::ModulePlayer()
 
 	sm1.speed = 0.18f;
 	
+	//Low damage
+
+	lowd.PushBack({ 24, 475, 60, 100 });
+	lowd.PushBack({ 88, 469, 68, 107 });
+	lowd.speed = 0.15f;
+
+	//High damage
+
+	highd.PushBack({ 160, 479, 65, 98 });
+	highd.PushBack({ 235, 478, 70, 88 });
+	highd.PushBack({ 88, 469, 68, 107 });
+	highd.speed = 0.15f;
 
 }
 
@@ -182,6 +194,28 @@ update_status ModulePlayer::Update()
 					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, 400);
 					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, 600);
 					TimeAnim = false;
+				}
+			}
+
+			if ((App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN) || (Lowdtime == true))
+			{
+				current_animation = &lowd;
+				Lowdtime = true;
+				//App->audio->PlayFX(Punch);
+				if (current_animation->AnimFinished() == true)
+				{
+					Lowdtime = false;
+				}
+			}
+
+			if ((App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN) || (Highdtime == true))
+			{
+				current_animation = &highd;
+				Highdtime = true;
+				//App->audio->PlayFX(Punch);
+				if (current_animation->AnimFinished() == true)
+				{
+					Highdtime = false;
 				}
 			}
 			

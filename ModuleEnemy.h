@@ -30,6 +30,8 @@ public:
 	Animation kick;
 	Animation punch;
 	Animation crouch;
+	Animation lowd;
+	Animation highd;
 	Particle special;
 	Animation sm1;
 	iPoint position;
