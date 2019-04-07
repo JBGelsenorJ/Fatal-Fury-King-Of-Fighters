@@ -35,6 +35,7 @@ public:
 	Mix_Chunk* Specialattack;
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
+	Collider* player;
 	bool jumpreset;
 	bool TimeAnim = false;
 	bool KickAnim = false;

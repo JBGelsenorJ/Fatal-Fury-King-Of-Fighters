@@ -6,7 +6,7 @@
 #include "SDL\include\SDL.h"
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
-
+#include "ModuleCollision.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -88,10 +88,18 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
+	
+	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
+	
+	//Loading attack audios
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
+
+	//Loading Player Colliders
+	player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
+
 
 	return ret;
 }
@@ -171,6 +179,9 @@ update_status ModulePlayer::Update()
 					TimeAnim = false;
 				}
 			}
+			
+			player->SetPos(position.x , position.y);
+			
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();

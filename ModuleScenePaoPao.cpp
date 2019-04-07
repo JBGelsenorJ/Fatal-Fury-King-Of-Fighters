@@ -27,6 +27,7 @@ ModuleScenePaoPao::ModuleScenePaoPao()
 	background.h = 224;
 
 
+
 	//Background Animation
 	people.PushBack({ 0, 224, 619, 224 });
 	people.PushBack({ 0,448,619,224 });
@@ -47,13 +48,18 @@ bool ModuleScenePaoPao::Start()
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
 	
+	//Enabling game features
 	App->player->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
 
-
+	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayFX(fx); //Fix: Less volume and Loop infinite
+	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
+
+	//Enabling Colliders
+	App->collision->AddCollider({ 224, 120, 25, 100 }, COLLIDER_WALL);
+
 	
 	return ret;
 }
