@@ -1,3 +1,23 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (SDL5 Handout.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (SDL5 Handout.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  Application.cpp
+  Globals.cpp
+  Main.cpp
+  ModuleCollision.cpp
+  ModuleEnemy.cpp
+  ModuleFFIntro.cpp
+  ModuleFFIntro2.cpp
+  ModuleMusic.cpp
+  ModuleParticles.cpp
+\\mac\home\documents\github\proyecto1-citm\moduleparticles.cpp(104): warning C4018: '>=': no coinciden signed/unsigned
+  ModulePlayerSelection.cpp
+  ModuleScenePaoPao.cpp
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+  ModulePlayer.cpp
   ModuleRender.cpp
-  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe
+  ModuleSceneSoundBeach.cpp
+  ModuleTextures.cpp
+  ModuleWelcomeScreen.cpp
+  ModuleWindow.cpp
+  Generando código...
+  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe
