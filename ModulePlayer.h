@@ -30,6 +30,8 @@ public:
 	Animation kick;
 	Animation punch;
 	Animation crouch;
+	Animation lowd;
+	Animation highd;
 	Particle special;
 	Animation sm1;
 	iPoint position;
@@ -42,6 +44,8 @@ public:
 	bool TimeAnim = false;
 	bool KickAnim = false;
 	bool TimePunch = false;
+	bool Lowdtime = false;
+	bool Highdtime = false;
 	
 
 };

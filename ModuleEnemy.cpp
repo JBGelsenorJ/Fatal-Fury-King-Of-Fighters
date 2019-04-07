@@ -79,6 +79,21 @@ ModuleEnemy::ModuleEnemy()
 	sm1.PushBack({ 547, 1359, 61, 81 });
 
 	sm1.speed = 0.18f;
+
+	//Low damage
+
+	lowd.PushBack({ 24, 475, 60, 100 });
+	lowd.PushBack({ 88, 469, 68, 107 });
+	lowd.speed = 0.10f;
+
+	//High damage
+
+	highd.PushBack({ 24, 475, 60, 100 });
+	highd.PushBack({ 88, 469, 68, 107 });
+	highd.PushBack({ 160, 479, 65, 98 });
+	highd.PushBack({ 235, 478, 70, 88 });
+	highd.PushBack({ 88, 469, 68, 107 });
+	highd.speed = 0.20f;
 	
 
 }
