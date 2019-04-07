@@ -1,7 +1,10 @@
 ﻿  ModuleRender.cpp
   Generando código
   1 of 151 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+﻿  ModuleEnemy.cpp
+  Generando código
+  0 of 155 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
-  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
