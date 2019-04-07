@@ -14,6 +14,7 @@
 #include "ModuleFFIntro2.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemy.h"
 
 Application::Application()
 {
@@ -32,6 +33,7 @@ Application::Application()
 	modules[12] = scene_intro2 = new ModuleFFIntro2();
 	modules[13] = particles = new ModuleParticles();
 	modules[14] = collision = new ModuleCollision();
+	modules[15] = enemy = new ModuleEnemy();
 
 }	
 
