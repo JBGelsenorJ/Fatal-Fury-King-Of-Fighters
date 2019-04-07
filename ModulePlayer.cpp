@@ -216,7 +216,23 @@ update_status ModulePlayer::Update()
 					Highdtime = false;
 				}
 			}
-			
+			if ((App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN))
+			{
+				if (godmode == false)
+				{
+					App->collision->Disable();
+					App->collision->Enable();
+					player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_NONE);
+					godmode = true;
+				}
+				else
+				{
+					App->collision->Disable();
+					App->collision->Enable();
+					player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
+					godmode = false;
+				}
+			}
 			player->SetPos(position.x , position.y);
 			
 		}

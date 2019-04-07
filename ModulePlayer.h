@@ -46,6 +46,7 @@ public:
 	bool TimePunch = false;
 	bool Lowdtime = false;
 	bool Highdtime = false;
+	bool godmode = false;
 	
 
 };
