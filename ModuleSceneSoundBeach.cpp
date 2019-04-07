@@ -45,6 +45,7 @@ ModuleSceneSoundBeach::~ModuleSceneSoundBeach()
 // Load assets
 bool ModuleSceneSoundBeach::Start()
 {
+	App->collision->Enable();
 	music = App->audio->LoadMusic("Source/Sound/Music/SoundBeach.ogg");
 	LOG("Loading background assets");
 	bool ret = true;
@@ -60,6 +61,7 @@ bool ModuleSceneSoundBeach::Start()
 bool ModuleSceneSoundBeach::CleanUp()
 {
 	App->player->Disable();
+	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
 	

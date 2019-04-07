@@ -67,6 +67,7 @@ bool ModuleScenePaoPao::Start()
 bool ModuleScenePaoPao::CleanUp()
 {
 	App->player->Disable();
+	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
 	

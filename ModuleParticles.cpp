@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleParticles.h"
 #include "ModuleMusic.h"
+#include "ModuleCollision.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -36,7 +37,7 @@ bool ModuleParticles::Start()
 	terryspecial2.anim.loop = false;
 	terryspecial2.anim.speed = 0.04f;
 	terryspecial2.life = 4000;
-	terryspecial2.fx_played = true;
+	terryspecial2.fx_played = false;
 	terryspecial2.speed.x = 2;
 	terryspecial2.born = 0;
 
@@ -52,7 +53,7 @@ bool ModuleParticles::Start()
 	terryspecial4.anim.loop = false;
 	terryspecial4.anim.speed = 0.08f;
 	terryspecial4.life = 4000;
-	terryspecial4.fx_played = true;
+	terryspecial4.fx_played = false;
 	terryspecial4.speed.x = 2;
 	terryspecial4.born = 0;
 
@@ -60,7 +61,7 @@ bool ModuleParticles::Start()
 	terryspecial5.anim.loop = false;
 	terryspecial5.anim.speed = 0.1f;
 	terryspecial5.life = 4000;
-	terryspecial5.fx_played = true;
+	terryspecial5.fx_played = false;
 	terryspecial5.speed.x = 2;
 	terryspecial5.born = 0;
 
@@ -118,19 +119,36 @@ update_status ModuleParticles::Update()
 
 	return UPDATE_CONTINUE;
 }
-
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int delay)
+void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
-	Particle* p = new Particle(particle);
-	p->born = SDL_GetTicks() + delay;
-	p->position.x = x;
-	p->position.y = y;
-
-	active[last_particle++] = p;
+	/*for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		// Always destroy particles that collide
+		if (active[i] != nullptr && active[i]->collider == c1)
+		{
+			delete active[i];
+			active[i] = nullptr;
+			break;
+		}
+	}*/
 }
-
-// -------------------------------------------------------------
-// -------------------------------------------------------------
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		if (active[i] == nullptr)
+		{
+			Particle* p = new Particle(particle);
+			p->born = SDL_GetTicks() + delay;
+			p->position.x = x;
+			p->position.y = y;
+			if (collider_type != COLLIDER_NONE)
+				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+			active[i] = p;
+			break;
+		}
+	}
+}
 
 Particle::Particle()
 {
@@ -143,6 +161,11 @@ Particle::Particle(const Particle& p) :
 	fx(p.fx), born(p.born), life(p.life)
 {}
 
+Particle::~Particle()
+{
+	if (collider != nullptr)
+		collider->to_delete = true;
+}
 bool Particle::Update()
 {
 	bool ret = true;

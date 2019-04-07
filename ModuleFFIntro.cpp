@@ -8,7 +8,7 @@
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 #include "Application.h"
-
+#include "ModuleCollision.h"
 
 
 #include "ModuleFFIntro.h"
@@ -80,6 +80,8 @@ bool ModuleFFIntro::Start()
 	graphics = App->textures->Load("Source/UI/Intro/intro2.png");
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 	App->audio->PlayMusic(introsong);
+	App->collision->Disable();
+
 	return ret;
 
 }

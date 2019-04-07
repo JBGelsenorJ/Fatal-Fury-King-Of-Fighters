@@ -6,13 +6,15 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleMusic.h"
+#include "ModuleCollision.h"
 
-#define MAX_ACTIVE_PARTICLES 10000000
+#define MAX_ACTIVE_PARTICLES 100
 
 struct SDL_Texture;
 
 struct Particle
 {
+	Collider* collider = nullptr;
 	Animation anim;
 	uint fx = 0;
 	iPoint position;
@@ -23,6 +25,7 @@ struct Particle
 
 	Particle();
 	Particle(const Particle& p);
+	~Particle();
 	bool Update();
 };
 
@@ -35,8 +38,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-
-	void AddParticle(const Particle& particle, int x, int y, int delay);
+	void OnCollision(Collider* c1, Collider* c2);
+	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay);
 
 private:
 

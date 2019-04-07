@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
 
 struct SDL_Texture;
 
@@ -36,6 +37,7 @@ public:
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 	Collider* player;
+	Collider * particles;
 	bool jumpreset;
 	bool TimeAnim = false;
 	bool KickAnim = false;

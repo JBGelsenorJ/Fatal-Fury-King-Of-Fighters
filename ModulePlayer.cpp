@@ -88,7 +88,6 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
 	
@@ -171,16 +170,15 @@ update_status ModulePlayer::Update()
 			if ((App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) || (TimeAnim == true))
 			{
 				TimeAnim = true;
-				int cont = SDL_GetTicks();
 				current_animation = &sm1;
 
 				if (current_animation->AnimFinished() == true)
 				{
-					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, 0);
-					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, 50);
-					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, 200);
-					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, 400);
-					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, 600);
+					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT,0);
+					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
+					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_PLAYER_SHOT, 200);
+					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
+					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT,600);
 					TimeAnim = false;
 				}
 			}
