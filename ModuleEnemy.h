@@ -9,6 +9,7 @@
 
 struct SDL_Texture;
 
+
 class ModuleEnemy : public Module
 {
 public:
@@ -39,6 +40,8 @@ public:
 	bool TimeAnim = false;
 	bool KickAnim = false;
 	bool TimePunch = false;
+	Collider* enemy;
+	void OnCollision(Collider* c1, Collider* c2);
 	
 
 };

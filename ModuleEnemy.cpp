@@ -7,6 +7,8 @@
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
 #include "ModuleEnemy.h"
+#include "ModuleCollision.h"
+#include "ModuleFadeToBlack.h"
 
 
 ModuleEnemy::ModuleEnemy()
@@ -93,7 +95,10 @@ bool ModuleEnemy::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
-
+	
+	//Loading Enemy Colliders
+	enemy = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_ENEMY);
+	
 	return ret;
 }
 
@@ -172,6 +177,8 @@ update_status ModuleEnemy::Update()
 					TimeAnim = false;
 				}
 			}
+
+			enemy->SetPos(position.x, position.y);
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
@@ -179,6 +186,16 @@ update_status ModuleEnemy::Update()
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
+
+	if (enemy->CheckCollision(c1->rect) == true)
+	{
+
+		App->fade->FadeToBlack(this, (Module*)App->playerselection);
+	}
+
 }
 
 bool ModuleEnemy::CleanUp()

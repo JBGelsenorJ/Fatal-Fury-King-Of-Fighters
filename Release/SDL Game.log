@@ -1,9 +1,7 @@
-﻿  Application.cpp
-  ModuleEnemy.cpp
-  ModuleScenePaoPao.cpp
+﻿  ModuleScenePaoPao.cpp
   Generando código
-  28 of 158 functions (17.7%) were compiled, the rest were copied from previous compilation.
-    7 functions were new in current compilation
-    53 functions had inline decision re-evaluated but remain unchanged
+  1 of 159 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
-  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
