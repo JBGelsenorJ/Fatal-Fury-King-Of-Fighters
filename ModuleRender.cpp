@@ -60,11 +60,11 @@ update_status ModuleRender::Update()
 
 	if(App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
 		//Locking Camera
-		if (camera.x >= 319) camera.x += speed;
+		if (camera.x < 0) camera.x += speed;
 
 	if(App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 		//Locking Camera
-		if(camera.x <= 619) camera.x -= speed; 
+		if(camera.x > 619) camera.x -= speed; 
 
 	return update_status::UPDATE_CONTINUE;
 }

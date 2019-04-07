@@ -96,7 +96,7 @@ bool ModulePlayer::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
-
+	
 	//Loading Player Colliders
 	player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
 
@@ -135,8 +135,13 @@ update_status ModulePlayer::Update()
 			//Jump
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 				current_animation = &jump;
-				position.y -= speed;
-
+				//FIX FREEFALL
+				if (position.y == 5 && position.y != 0) {
+					position.y = 10 - 5 * pow(SDL_GetTicks(), 2);
+				}
+				else {
+					position.y -= speed;
+				}
 			}
 
 			//Punch
