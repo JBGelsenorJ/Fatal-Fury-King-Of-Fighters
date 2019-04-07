@@ -1,7 +1,23 @@
-﻿  ModuleRender.cpp
+﻿  Application.cpp
+  ModuleCollision.cpp
+  ModuleFFIntro.cpp
+  ModuleFFIntro2.cpp
+  ModuleMusic.cpp
+  ModuleParticles.cpp
+\\mac\home\documents\github\proyecto1-citm\moduleparticles.cpp(104): warning C4018: '>=': no coinciden signed/unsigned
+  ModulePlayerSelection.cpp
+  ModuleScenePaoPao.cpp
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+  ModulePlayer.cpp
+  ModuleRender.cpp
+  ModuleSceneSoundBeach.cpp
+  ModuleTextures.cpp
+  ModuleWelcomeScreen.cpp
+  ModuleWindow.cpp
   Generando código
-  1 of 138 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  94 of 148 functions (63.5%) were compiled, the rest were copied from previous compilation.
+    10 functions were new in current compilation
+    16 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
-  SDL Game.vcxproj -> C:\Users\Carlos Redolar\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe

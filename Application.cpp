@@ -13,6 +13,7 @@
 #include "ModuleFFIntro.h"
 #include "ModuleFFIntro2.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
 
 Application::Application()
 {
@@ -30,6 +31,7 @@ Application::Application()
 	modules[11] = scene_intro = new ModuleFFIntro();
 	modules[12] = scene_intro2 = new ModuleFFIntro2();
 	modules[13] = particles = new ModuleParticles();
+	modules[14] = collision = new ModuleCollision();
 
 }	
 
@@ -42,15 +44,19 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+	
 	// Disable the map that you do not start with
 	scene_paopao->Disable();
 	scene_soundbeach->Disable();
-	playerselection->Enable();
 	scene_intro2->Disable();
 	scene_intro->Disable();
 	scene_welcome->Disable();
-
+	
+	
+	//Disable game features
 	App->player->Disable();
+	collision->Disable();
+	particles->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

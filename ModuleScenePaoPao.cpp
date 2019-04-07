@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
+#include "ModuleCollision.h"
 
 
 #include "ModulePlayerSelection.h"
@@ -45,7 +46,10 @@ bool ModuleScenePaoPao::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
+	
 	App->player->Enable();
+	App->particles->Enable();
+	App->collision->Enable();
 
 
 	App->audio->PlayMusic(music);
