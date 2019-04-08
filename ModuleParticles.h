@@ -14,7 +14,7 @@ struct SDL_Texture;
 
 struct Particle
 {
-	Collider* collider = nullptr;
+	Collider* collider;
 	Animation anim;
 	uint fx = 0;
 	iPoint position;
@@ -39,7 +39,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
-	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay);
+	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, int delay);
 
 private:
 

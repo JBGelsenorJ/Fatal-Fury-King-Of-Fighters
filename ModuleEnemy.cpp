@@ -193,12 +193,12 @@ update_status ModuleEnemy::Update()
 				}
 			}
 
-			enemy->SetPos(position.x, position.y);
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	enemy->SetPos(position.x, position.y);
 	
 	return UPDATE_CONTINUE;
 }

@@ -1,3 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (SDL5 Handout.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  ModuleRender.cpp
-  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDL5 Handout.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ModulePlayer.cpp
+c:\users\javierbg11\documents\github\proyecto1-citm\moduleplayer.cpp(160): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  SDL Game.vcxproj -> C:\Users\javierbg11\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe

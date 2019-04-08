@@ -134,6 +134,11 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &forward;
 				position.x += speed;
+				if (position.x < 540)
+				{
+					App->render->camera.x -= 6;
+				}
+
 			}
 
 			//Move Backward
@@ -141,6 +146,10 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &backward;
 				position.x -= speed;
+				if (position.x > 130)
+				{
+					App->render->camera.x += 6;
+				}
 			}
 
 			//Jump
@@ -233,12 +242,11 @@ update_status ModulePlayer::Update()
 					godmode = false;
 				}
 			}
-			player->SetPos(position.x , position.y);
 			
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
+	player->SetPos(position.x, position.y);
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 	
 	return UPDATE_CONTINUE;
