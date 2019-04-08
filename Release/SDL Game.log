@@ -1,7 +1,27 @@
-﻿  ModuleScenePaoPao.cpp
-  Generando código
-  1 of 159 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe
+﻿  Application.cpp
+  Globals.cpp
+  Main.cpp
+  ModuleCollision.cpp
+  ModuleEnemy.cpp
+  ModuleFFIntro.cpp
+  ModuleFFIntro2.cpp
+  ModuleMusic.cpp
+  ModuleParticles.cpp
+c:\users\javierbg11\documents\github\proyecto1-citm\moduleparticles.cpp(105): warning C4018: '>=': signed/unsigned mismatch
+  ModulePlayerSelection.cpp
+  ModuleScenePaoPao.cpp
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+  ModulePlayer.cpp
+c:\users\javierbg11\documents\github\proyecto1-citm\moduleplayer.cpp(160): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  ModuleRender.cpp
+  ModuleSceneSoundBeach.cpp
+  ModuleTextures.cpp
+  ModuleWelcomeScreen.cpp
+  ModuleWindow.cpp
+  Generating code
+  162 of 162 functions (100.0%) were compiled.
+    4 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL Game.vcxproj -> C:\Users\javierbg11\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe

@@ -7,6 +7,8 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
+#include "ModuleEnemy.h"
+#include "ModuleCollision.h"
 
 
 #include "ModulePlayerSelection.h"
@@ -45,6 +47,7 @@ ModuleSceneSoundBeach::~ModuleSceneSoundBeach()
 // Load assets
 bool ModuleSceneSoundBeach::Start()
 {
+	App->enemy->Enable();
 	App->collision->Enable();
 	music = App->audio->LoadMusic("Source/Sound/Music/SoundBeach.ogg");
 	LOG("Loading background assets");
@@ -61,6 +64,7 @@ bool ModuleSceneSoundBeach::Start()
 bool ModuleSceneSoundBeach::CleanUp()
 {
 	App->player->Disable();
+	App->enemy->Disable();
 	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");

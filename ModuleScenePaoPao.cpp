@@ -8,6 +8,7 @@
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemy.h"
 
 
 #include "ModulePlayerSelection.h"
@@ -50,6 +51,7 @@ bool ModuleScenePaoPao::Start()
 	
 	//Enabling game features
 	App->player->Enable();
+	App->enemy->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
 
@@ -67,6 +69,7 @@ bool ModuleScenePaoPao::Start()
 bool ModuleScenePaoPao::CleanUp()
 {
 	App->player->Disable();
+	App->enemy->Disable();
 	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Terry From Scene");
