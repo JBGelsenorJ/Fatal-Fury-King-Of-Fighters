@@ -80,6 +80,9 @@
     <ClInclude Include="ModuleEnemy.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="p2Qeue.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
