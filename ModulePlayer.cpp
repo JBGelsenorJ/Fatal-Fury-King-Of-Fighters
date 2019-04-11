@@ -165,7 +165,7 @@ update_status ModulePlayer::Update()
 			}
 
 			//Punch
-			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_DOWN || (TimePunch == true)) {
+			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_REPEAT || (TimePunch == true)) {
 				current_animation = &punch;
 				TimePunch = true;
 				App->audio->PlayFX(Punch);
@@ -472,6 +472,8 @@ ryu_states process_fsm(p2Qeue<ryu_inputs>& inputs)
 			{
 				// TODO: Add Links
 			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks(); break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+
 			}
 		}
 		break;
@@ -483,6 +485,8 @@ ryu_states process_fsm(p2Qeue<ryu_inputs>& inputs)
 				// TODO: Add Links
 
 			case IN_CROUCH_DOWN: state = ST_IDLE; break;
+
+			
 
 			}
 		}

@@ -44,7 +44,7 @@ public:
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 	Collider* player;
-	Collider * particles;
+	Collider* particles;
 	bool jumpreset;
 	bool TimeAnim = false;
 	bool KickAnim = false;
