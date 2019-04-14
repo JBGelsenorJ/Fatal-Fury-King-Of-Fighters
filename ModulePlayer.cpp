@@ -247,18 +247,19 @@ update_status ModulePlayer::Update()
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	player->SetPos(position.x, position.y);
-	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 	
+	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 	return UPDATE_CONTINUE;
 }
 
 Uint32 jump_timer = 0;
 Uint32 punch_timer = 0;
 
+
 bool external_input(p2Qeue<ryu_inputs>& inputs)
 {
 	static bool left = false;
-	static bool right = false;
+	static bool right = false; 
 	static bool down = false;
 	static bool up = false;
 
@@ -505,6 +506,7 @@ ryu_states process_fsm(p2Qeue<ryu_inputs>& inputs)
 
 	return state;
 }
+
 
 bool ModulePlayer::CleanUp()
 {

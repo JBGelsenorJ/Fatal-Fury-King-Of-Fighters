@@ -197,7 +197,7 @@ update_status ModuleEnemy::Update()
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
 	enemy->SetPos(position.x, position.y);
 	
 	return UPDATE_CONTINUE;
