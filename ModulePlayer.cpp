@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
+#include "ModuleFonts.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -110,6 +111,8 @@ bool ModulePlayer::Start()
 	
 	//Loading Player Colliders
 	player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
+
+	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
 
 
 	return ret;
@@ -249,6 +252,8 @@ update_status ModulePlayer::Update()
 	player->SetPos(position.x, position.y);
 	
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
+	App->fonts->BlitText(100, 0, countdown_font, "383");
 	return UPDATE_CONTINUE;
 }
 

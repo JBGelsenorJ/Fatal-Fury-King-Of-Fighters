@@ -79,6 +79,7 @@
     <ClInclude Include="ModuleEnemy.h" />
     <ClInclude Include="ModuleFFIntro.h" />
     <ClInclude Include="ModuleFFIntro2.h" />
+    <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleMusic.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="ModuleEnemy.cpp" />
     <ClCompile Include="ModuleFFIntro.cpp" />
     <ClCompile Include="ModuleFFIntro2.cpp" />
+    <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleMusic.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
