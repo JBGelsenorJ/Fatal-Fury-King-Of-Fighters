@@ -9,15 +9,17 @@
 #include "ModuleCollision.h"
 #include "p2Qeue.h"
 
-
 #define JUMP_TIME 3000
 #define PUNCH_TIME 1000
+#define SP1_TIME 1000
+#define KICK_TIME 1000
 
 struct SDL_Texture;
 
 class ModulePlayer : public Module
 {
 public:
+	
 	ModulePlayer();
 	~ModulePlayer();
 
@@ -52,44 +54,60 @@ public:
 	bool Lowdtime = false;
 	bool Highdtime = false;
 	bool godmode = false;
+	int countdown_font = -1;
 	
-
 };
 
-
-enum ryu_states
+enum player_states
 {
 	ST_UNKNOWN,
-
 	ST_IDLE,
 	ST_WALK_FORWARD,
 	ST_WALK_BACKWARD,
 	ST_JUMP_NEUTRAL,
-	ST_JUMP_FORWARD,
-	ST_JUMP_BACKWARD,
 	ST_CROUCH,
 	ST_PUNCH_STANDING,
-	ST_PUNCH_NEUTRAL_JUMP,
-	ST_PUNCH_FORWARD_JUMP,
-	ST_PUNCH_BACKWARD_JUMP,
-	ST_PUNCH_CROUCH
+	ST_SP1_STANDING,
+	ST_KICK_STANDING,
+	
 };
 
-enum ryu_inputs
+enum player_inputs
 {
 	IN_LEFT_DOWN,
 	IN_LEFT_UP,
+	
 	IN_RIGHT_DOWN,
 	IN_RIGHT_UP,
-	IN_LEFT_AND_RIGHT,
-	IN_JUMP,
+	
+	IN_JUMP_DOWN,
+	IN_JUMP_UP,
+
+	IN_PUNCH_DOWN,
+	IN_PUNCH_UP,
+	
 	IN_CROUCH_UP,
 	IN_CROUCH_DOWN,
-	IN_JUMP_AND_CROUCH,
-	IN_X,
+	
+	IN_SP1_UP,
+	IN_SP1_DOWN,
+	
+	IN_KICK_DOWN,
+	IN_KICK_UP,
+	
 	IN_JUMP_FINISH,
-	IN_PUNCH_FINISH
-};
+	IN_PUNCH_FINISH,
+	IN_SP1_FINISH,
+	IN_KICK_FINISH,
 
+	IN_JUMP_AND_CROUCH,
+	IN_LEFT_AND_RIGHT,
+	IN_PUNCH_AND_KICK,
+	IN_PUNCH_AND_SP1,
+	IN_KICK_AND_SP1,
+	IN_PUNCH_AND_KICK_AND_SP1,
+
+
+};
 
 #endif
