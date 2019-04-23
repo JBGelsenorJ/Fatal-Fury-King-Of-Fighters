@@ -13,7 +13,7 @@
 
 ModuleEnemy::ModuleEnemy()
 {
-	position.x = 300;
+	position.x = 200;
 	position.y = 220;
 
 	//Terry Bogard Idle Animation
