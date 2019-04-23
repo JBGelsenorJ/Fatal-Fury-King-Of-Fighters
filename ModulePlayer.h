@@ -58,8 +58,7 @@ public:
 	
 };
 
-
-enum ryu_states
+enum player_states
 {
 	ST_UNKNOWN,
 	ST_IDLE,
@@ -73,7 +72,7 @@ enum ryu_states
 	
 };
 
-enum ryu_inputs
+enum player_inputs
 {
 	IN_LEFT_DOWN,
 	IN_LEFT_UP,

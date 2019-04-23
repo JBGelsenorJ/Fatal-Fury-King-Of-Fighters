@@ -4,7 +4,6 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "SDL\include\SDL.h"
-#include "ModulePlayer.h"
 #include "ModuleParticles.h"
 #include "ModuleEnemy.h"
 #include "ModuleCollision.h"
@@ -123,7 +122,7 @@ update_status ModuleEnemy::Update()
 	Animation* current_animation = &idle;
 
 	int speed = 2;
-
+	/*
 		//Crouch
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
 
@@ -193,7 +192,9 @@ update_status ModuleEnemy::Update()
 				}
 			}
 
-		}
+			
+
+		}*/
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
@@ -203,7 +204,370 @@ update_status ModuleEnemy::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
+Uint32 jump2_timer = 0;
+Uint32 punch2_timer = 0;
+Uint32 sp12_timer = 0;
+Uint32 kick2_timer = 0;
+
+
+bool external_input(p2Qeue<enemy_inputs>& inputs)
+{
+	static bool backward = false;
+	static bool forward = false;
+	static bool crouch = false;
+	static bool jump = false;
+	static bool punch = false;
+	static bool kick = false;
+	static bool sp1 = false;
+
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event) != 0)
+	{
+		if (event.type == SDL_KEYUP && event.key.repeat == 0)
+		{
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_ESCAPE:
+				return false;
+				break;
+
+			case SDLK_DOWN:
+				inputs.Push(IN_CROUCH2_UP);
+				crouch = false;
+				break;
+
+			case SDLK_UP:
+				inputs.Push(IN_JUMP2_UP);
+				jump = false;
+				break;
+
+			case SDLK_LEFT:
+				inputs.Push(IN_LEFT2_UP);
+				backward = false;
+				break;
+
+			case SDLK_RIGHT:
+				inputs.Push(IN_RIGHT2_UP);
+				forward = false;
+				break;
+
+			case SDLK_t:
+				inputs.Push(IN_PUNCH2_UP);
+				punch = false;
+				break;
+
+			case SDLK_y:
+				inputs.Push(IN_KICK2_UP);
+				kick = false;
+				break;
+
+			case SDLK_f:
+				inputs.Push(IN_SP12_UP);
+				sp1 = false;
+				break;
+			}
+		}
+		if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
+		{
+			switch (event.key.keysym.sym)
+			{
+
+			case SDLK_UP:
+				inputs.Push(IN_JUMP2_DOWN);
+				jump = true;
+				break;
+			case SDLK_DOWN:
+				inputs.Push(IN_CROUCH2_DOWN);
+				crouch = true;
+				break;
+			case SDLK_LEFT:
+				inputs.Push(IN_LEFT2_DOWN);
+				backward = true;
+				break;
+			case SDLK_RIGHT:
+				inputs.Push(IN_RIGHT2_DOWN);
+				forward = true;
+				break;
+
+			case SDLK_t:
+				inputs.Push(IN_PUNCH2_DOWN);
+				punch = true;
+				break;
+
+			case SDLK_y:
+				inputs.Push(IN_KICK2_DOWN);
+				kick = true;
+				break;
+
+			case SDLK_f:
+				inputs.Push(IN_SP12_DOWN);
+				sp1 = true;
+				break;
+			}
+
+		}
+
+	}
+
+	if (backward && forward) {
+
+		inputs.Push(IN_LEFT2_AND_RIGHT);
+	}
+	else
+	{
+		if (backward)
+			inputs.Push(IN_LEFT2_DOWN);
+		if (forward)
+			inputs.Push(IN_RIGHT2_DOWN);
+	}
+
+	if (jump && crouch) {
+		inputs.Push(IN_JUMP2_AND_CROUCH);
+	}
+	else
+	{
+		if (crouch)
+			inputs.Push(IN_CROUCH2_DOWN);
+		if (jump)
+			inputs.Push(IN_JUMP2_DOWN);
+	}
+
+	if (punch && kick) {
+		inputs.Push(IN_PUNCH2_AND_KICK);
+	}
+	else
+	{
+		if (punch)
+			inputs.Push(IN_PUNCH2_DOWN);
+		if (kick)
+			inputs.Push(IN_KICK2_DOWN);
+	}
+
+	if (punch && sp1) {
+		inputs.Push(IN_PUNCH2_AND_SP1);
+	}
+	else
+	{
+		if (punch)
+			inputs.Push(IN_PUNCH2_DOWN);
+		if (sp1)
+			inputs.Push(IN_SP12_DOWN);
+	}
+
+	if (kick && sp1) {
+		inputs.Push(IN_KICK2_AND_SP1);
+	}
+	else
+	{
+		if (kick)
+			inputs.Push(IN_KICK2_DOWN);
+		if (sp1)
+			inputs.Push(IN_SP12_DOWN);
+	}
+
+	if (punch && kick && sp1) {
+		inputs.Push(IN_PUNCH2_AND_KICK_AND_SP1);
+	}
+	else
+	{
+		if (punch)
+			inputs.Push(IN_PUNCH2_DOWN);
+		if (kick)
+			inputs.Push(IN_KICK2_DOWN);
+		if (sp1)
+			inputs.Push(IN_SP12_DOWN);
+
+	}
+
+	return true;
+}
+
+void internal_input(p2Qeue<enemy_inputs>& inputs)
+{
+	if (jump2_timer > 0)
+	{
+		if (SDL_GetTicks() - jump2_timer > JUMP2_TIME)
+		{
+			inputs.Push(IN_JUMP2_FINISH);
+			jump2_timer = 0;
+		}
+	}
+
+	if (punch2_timer > 0)
+	{
+		if (SDL_GetTicks() - punch2_timer > PUNCH2_TIME)
+		{
+			inputs.Push(IN_PUNCH2_FINISH);
+			punch2_timer = 0;
+		}
+	}
+
+	if (kick2_timer > 0)
+	{
+		if (SDL_GetTicks() - kick2_timer > KICK2_TIME)
+		{
+			inputs.Push(IN_KICK2_FINISH);
+			kick2_timer = 0;
+		}
+	}
+
+	if (sp12_timer > 0)
+	{
+		if (SDL_GetTicks() - sp12_timer > SP12_TIME)
+		{
+			inputs.Push(IN_SP12_FINISH);
+			sp12_timer = 0;
+		}
+	}
+}
+
+enemy_states process_fsm(p2Qeue<enemy_inputs>& inputs)
+{
+	static enemy_states state = ST_IDLE2;
+	enemy_inputs last_input;
+
+	while (inputs.Pop(last_input))
+	{
+		switch (state)
+		{
+
+		case ST_IDLE2:
+		{
+			switch (last_input)
+			{
+
+			case IN_RIGHT2_DOWN: state = ST_WALK2_FORWARD; break;
+			case IN_LEFT2_DOWN: state = ST_WALK2_BACKWARD; break;
+			case IN_CROUCH2_DOWN: state = ST_CROUCH2; break;
+			case IN_JUMP2_DOWN: state = ST_JUMP2_NEUTRAL; jump2_timer = SDL_GetTicks();  break;
+
+			case IN_PUNCH2_DOWN: state = ST_PUNCH2_STANDING; punch2_timer = SDL_GetTicks();  break;
+			case IN_SP12_DOWN: state = ST_SP12_STANDING; sp12_timer = SDL_GetTicks(); break;
+			case IN_KICK2_DOWN: state = ST_KICK2_STANDING; kick2_timer = SDL_GetTicks(); break;
+
+			case IN_PUNCH2_AND_KICK: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_SP1: state = ST_IDLE2; break;
+			case IN_KICK2_AND_SP1: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_KICK_AND_SP1: state = ST_IDLE2; break;
+
+			}
+		}
+		break;
+
+		case ST_WALK2_FORWARD:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_RIGHT2_DOWN: state = ST_WALK2_FORWARD; break;
+			case IN_RIGHT2_UP: state = ST_IDLE2; break;
+			case IN_LEFT2_AND_RIGHT: state = ST_IDLE2; break;
+			case IN_CROUCH2_DOWN: state = ST_CROUCH2; break;
+
+			}
+
+		}
+		break;
+
+		case ST_WALK2_BACKWARD:
+		{
+			switch (last_input)
+			{
+			case IN_LEFT2_DOWN: state = ST_WALK2_BACKWARD; break;
+			case IN_LEFT2_UP: state = ST_IDLE2; break;
+			case IN_LEFT2_AND_RIGHT: state = ST_IDLE2; break;
+			case IN_CROUCH2_DOWN: state = ST_CROUCH2; break;
+			}
+		}
+		break;
+
+		case ST_CROUCH2:
+		{
+			switch (last_input)
+			{
+
+			case IN_CROUCH2_DOWN: state = ST_CROUCH2; break;
+			case IN_CROUCH2_UP: state = ST_IDLE2; break;
+			case IN_JUMP2_AND_CROUCH: state = ST_IDLE2; break;
+
+			}
+
+		}
+		break;
+
+		case ST_JUMP2_NEUTRAL:
+		{
+			switch (last_input)
+			{
+			case IN_JUMP2_UP: state = ST_IDLE2; break;
+			case IN_JUMP2_DOWN: state = ST_JUMP2_NEUTRAL; jump2_timer = SDL_GetTicks(); break;
+			case IN_JUMP2_AND_CROUCH: state = ST_IDLE2; break;
+			case IN_JUMP2_FINISH: state = ST_IDLE2; break;
+
+			}
+		}
+		break;
+
+		case ST_PUNCH2_STANDING:
+		{
+			switch (last_input)
+			{
+			case IN_PUNCH2_UP: state = ST_IDLE2; break;
+			case IN_PUNCH2_DOWN: state = ST_PUNCH2_STANDING; punch2_timer = SDL_GetTicks(); break;
+			case IN_PUNCH2_AND_KICK: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_KICK_AND_SP1: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_SP1: state = ST_IDLE2; break;
+			case IN_PUNCH2_FINISH: state = ST_IDLE2; break;
+
+			}
+		}
+		break;
+
+		case ST_KICK2_STANDING:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_KICK2_UP: state = ST_IDLE2; break;
+			case IN_KICK2_DOWN: state = ST_KICK2_STANDING; kick2_timer = SDL_GetTicks(); break;
+			case IN_PUNCH2_AND_KICK: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_KICK_AND_SP1: state = ST_IDLE2; break;
+			case IN_KICK2_AND_SP1: state = ST_IDLE2; break;
+			}
+		}
+
+		case ST_SP12_STANDING:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SP12_UP: state = ST_IDLE2; break;
+			case IN_SP12_DOWN: state = ST_SP12_STANDING; sp12_timer = SDL_GetTicks(); break;
+			case IN_PUNCH2_AND_SP1: state = ST_IDLE2; break;
+			case IN_PUNCH2_AND_KICK_AND_SP1: state = ST_IDLE2; break;
+			case IN_KICK2_AND_SP1: state = ST_IDLE2; break;
+			}
+		}
+		}
+	}
+
+	return state;
+}
+
+bool ModuleEnemy::CleanUp()
+{
+	SDL_DestroyTexture(graphics);
+
+	LOG("Unloading Terry From Scene");
+
+	return true;
+}
+
+/*void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemy->CheckCollision(c1->rect) == true)
 	{
@@ -211,12 +575,6 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 		App->fade->FadeToBlack(this, (Module*)App->playerselection);
 	}
 
-}
+}*/
 
-bool ModuleEnemy::CleanUp()
-{
-	SDL_DestroyTexture(graphics);
-	LOG("Unloading Terry From Scene");
 
-	return true;
-}

@@ -263,7 +263,7 @@ Uint32 sp1_timer = 0;
 Uint32 kick_timer = 0;
 
 
-bool external_input(p2Qeue<ryu_inputs>& inputs)
+bool external_input(p2Qeue<player_inputs>& inputs)
 {
 	static bool backward = false;
 	static bool forward = false; 
@@ -436,7 +436,7 @@ bool external_input(p2Qeue<ryu_inputs>& inputs)
 	return true;
 }
 
-void internal_input(p2Qeue<ryu_inputs>& inputs)
+void internal_input(p2Qeue<player_inputs>& inputs)
 {
 	if (jump_timer > 0)
 	{
@@ -475,10 +475,10 @@ void internal_input(p2Qeue<ryu_inputs>& inputs)
 	}
 }
 
-ryu_states process_fsm(p2Qeue<ryu_inputs>& inputs)
+player_states process_fsm(p2Qeue<player_inputs>& inputs)
 {
-	static ryu_states state = ST_IDLE;
-	ryu_inputs last_input;
+	static player_states state = ST_IDLE;
+	player_inputs last_input;
 
 	while (inputs.Pop(last_input))
 	{
