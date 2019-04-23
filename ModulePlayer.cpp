@@ -138,10 +138,7 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &forward;
 				position.x += speed;
-				if (position.x < 540)
-				{
-					App->render->camera.x -= 6;
-				}
+				
 
 			}
 
@@ -150,10 +147,7 @@ update_status ModulePlayer::Update()
 			{
 				current_animation = &backward;
 				position.x -= speed;
-				if (position.x > 130)
-				{
-					App->render->camera.x += 6;
-				}
+				
 			}
 
 			//Jump
