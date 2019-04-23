@@ -124,14 +124,15 @@ update_status ModulePlayer::Update()
 	Animation* current_animation = &idle;
 
 	int speed = 2;
-	/*
-		//Crouch
+	
+	//Crouch
 		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
 
 		current_animation = &crouch;
 
 		}
 		else {
+			
 			//MoveForward
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && position.x < 670)
 			{
@@ -246,7 +247,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 			
-		}*/
+		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	player->SetPos(position.x, position.y);
