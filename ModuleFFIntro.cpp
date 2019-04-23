@@ -9,6 +9,8 @@
 #include "ModuleMusic.h"
 #include "Application.h"
 #include "ModuleCollision.h"
+#include "p2Point.h"
+#include "ModuleEnemy.h"
 
 
 #include "ModuleFFIntro.h"
@@ -17,18 +19,12 @@
 #include "ModuleScenePaoPao.h"
 #include "ModuleWelcomeScreen.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
-
 ModuleFFIntro::ModuleFFIntro()
 {
 
 	//Intro Background
 
-	introwin.x = 0;
-	introwin.y = 0;
-	introwin.w = 314;
-	introwin.h = 192;
-
+	introwin.PushBack({ 0,0,314,192 });
 
 	//Start Animation
 	
@@ -36,30 +32,36 @@ ModuleFFIntro::ModuleFFIntro()
 	start.PushBack({ 0, 700, 236, 44 });
 	start.speed = 0.06f;
 
+	//player
+
+	player.rect = { 0,0,62,127 };
+	rock.rect = { 0,0,117,31 };
+	//title.rect = { 0,80,200,75 };
+
 	//Player Animation
 
-	/*positionplayer.x = -40;
-	positionplayer.y = 225;*/
+	//positionplayer.x = -40;
+	//positionplayer.y = 73;
 	
-	player.PushBack({ 340, 37, 62, 127 });
+	/*player.PushBack({ 340, 37, 62, 127 });
 	player.PushBack({ 411, 38, 62, 127 });
 	player.PushBack({ 484, 38, 62, 127 });
 	player.PushBack({ 553, 38, 62, 127 });
 	player.PushBack({ 484, 38, 62, 127 });
 	player.PushBack({ 411, 38, 62, 127 });
 	player.PushBack({ 484, 38, 62, 127 });
-	player.speed = 0.15f;
+	player.speed = 0.4f;*/
 
 	//Rock
-
-	/*positionrock.x = -40;
-	positionrock.y = 244; */
+/*
+	positionrock.x = -40;
+	positionrock.y = 244; 
 
 	rock.x = 647;
 	rock.y = 129;
 	rock.w = 117;
 	rock.h = 31;
-
+*/
 	//Borders
 
 	borders.x = 0;
@@ -77,10 +79,22 @@ bool ModuleFFIntro::Start()
 {
 	LOG("Loading image assets");
 	bool ret = true;
+	player.position = { -40,73 };
+	rock.position = { -40,73 };
+	//title.position={50,300}
+	fplayer = { 27,73 };
+	frock = { -25,73 };
+	animationState = Enter;
+	step = 0;
+
 	graphics = App->textures->Load("Source/UI/Intro/intro2.png");
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
+
 	App->audio->PlayMusic(introsong);
 	App->collision->Disable();
+
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 
 	return ret;
 
@@ -88,25 +102,123 @@ bool ModuleFFIntro::Start()
 
 bool ModuleFFIntro::CleanUp()
 {
-	SDL_DestroyTexture(graphics);
+	LOG("Unloading FFINTRO");
+	App->player->Disable();
+	App->enemy->Disable();
+	App->textures->Unload(graphics);
+	
+	//SDL_DestroyTexture(graphics);
 	return true;
+}
+
+void ModuleFFIntro::RenderWords() {
+
+	App->render->Blit(graphics, rock.position.x, rock.position.y, &(rock.rect));
+	App->render->Blit(graphics, player.position.x, player.position.y, &(player.rect));
+	App->render->DrawQuad({ 0,0,SCREEN_WIDTH,SCREEN_HEIGHT }, 255, 255, 255, 255, true);
+
 }
 
 // Update: draw background
 update_status ModuleFFIntro::Update()
 {
+
+	switch (animationState) {
+
+	case Enter:
+
+		rock.position += frock;
+		step++;
+		if (step >= 40) {
+
+			animationState = GoBack;
+			step = 0;
+		}
+
+		RenderWords();
+
+		break;
+
+	case GoBack:
+
+		rock.position -= frock;
+		player.position += {0, -4};
+
+		step++;
+
+		if (step >= 20) {
+
+			step = 0;
+			animationState = Done;
+		}
+
+		RenderWords();
+
+		break;
+
+	/*case Fighting:
+
+		title.position += {0, -7};
+		step++;
+
+		if (step >= 20) {
+
+			animationState = Done;
+		}
+
+		RenderWords;
+		break;*/
+
+	case Done:
+
+		App->render->Blit(graphics, 0, 0, &(introwin.GetCurrentFrame()));
+
+		break;
+
+	default:
+		break;
+
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
+
+		App->fade->FadeToBlack(App->scene_intro,App->scene_intro2);
+	}
 	
-	// Drawing background - Intro Background
-	
+	/*// Drawing background - Intro Background
+
 	App->render->Blit(graphics, 0, 16, &introwin, 0.75f);
 
 	//Drawing Rock
 
-	App->render->Blit(graphics, -25, 177, &rock, 0.75f);
+	App->render->Blit(graphics, positionrock.x, 177, &rock, 0.75f);
+
+	for (positionrock.x = -40; positionrock.x < -25; positionrock.x++) {
+
+		positionrock.x += 1.5;
+
+	}
+
+	/*do {
+
+		positionrock.x += 1.5;
+
+	} while (positionrock.x < -25);
+
+
 
 	// Player animation
 
-	App->render->Blit(graphics, 27, 73, &(player.GetCurrentFrame()), 0.5f);
+	App->render->Blit(graphics, positionplayer.x, 73, &(player.GetCurrentFrame()), 0.75f);
+
+	for (positionplayer.x = -40; positionplayer.x < 27; positionplayer.x++) {
+
+		positionplayer.x += 1;
+		
+	}
+
+
+
 
 	//Start animation
 
@@ -121,7 +233,7 @@ update_status ModuleFFIntro::Update()
 	{
 		App->fade->FadeToBlack(App->scene_intro, App->scene_intro2, 1.5);
 
-	}
+	}*/
 
 	return UPDATE_CONTINUE;
 }

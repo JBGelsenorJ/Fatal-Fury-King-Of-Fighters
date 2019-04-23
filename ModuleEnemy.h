@@ -6,6 +6,13 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
+#include "p2Qeue.h"
+
+#define JUMP2_TIME 3000
+#define PUNCH2_TIME 1000
+#define SP12_TIME 1000
+#define KICK2_TIME 1000
 
 struct SDL_Texture;
 
@@ -43,8 +50,60 @@ public:
 	bool KickAnim = false;
 	bool TimePunch = false;
 	Collider* enemy;
-	void OnCollision(Collider* c1, Collider* c2);
+	//void OnCollision(Collider* c1, Collider* c2);
 	
+
+};
+
+enum enemy_states
+{
+	ST_UNKNOWN2,
+	ST_IDLE2,
+	ST_WALK2_FORWARD,
+	ST_WALK2_BACKWARD,
+	ST_JUMP2_NEUTRAL,
+	ST_CROUCH2,
+	ST_PUNCH2_STANDING,
+	ST_SP12_STANDING,
+	ST_KICK2_STANDING,
+
+};
+
+enum enemy_inputs
+{
+	IN_LEFT2_DOWN,
+	IN_LEFT2_UP,
+
+	IN_RIGHT2_DOWN,
+	IN_RIGHT2_UP,
+
+	IN_JUMP2_DOWN,
+	IN_JUMP2_UP,
+
+	IN_PUNCH2_DOWN,
+	IN_PUNCH2_UP,
+
+	IN_CROUCH2_UP,
+	IN_CROUCH2_DOWN,
+
+	IN_SP12_UP,
+	IN_SP12_DOWN,
+
+	IN_KICK2_DOWN,
+	IN_KICK2_UP,
+
+	IN_JUMP2_FINISH,
+	IN_PUNCH2_FINISH,
+	IN_SP12_FINISH,
+	IN_KICK2_FINISH,
+
+	IN_JUMP2_AND_CROUCH,
+	IN_LEFT2_AND_RIGHT,
+	IN_PUNCH2_AND_KICK,
+	IN_PUNCH2_AND_SP1,
+	IN_KICK2_AND_SP1,
+	IN_PUNCH2_AND_KICK_AND_SP1,
+
 
 };
 

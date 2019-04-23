@@ -29,8 +29,7 @@ public:
 	Animation start;
 	Animation player2;
 	Mix_Music* introsong;
-	/*iPoint positiontaxi;
-	iPoint positionplayer2;*/
+	
 
 };
 
