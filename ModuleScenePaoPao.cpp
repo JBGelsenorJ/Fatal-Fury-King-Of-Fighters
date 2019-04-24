@@ -58,10 +58,6 @@ bool ModuleScenePaoPao::Start()
 	//Enabling audio
 	App->audio->PlayMusic(music);
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
-
-	//Enabling Colliders
-	//App->collision->AddCollider({ 224, 120, 25, 100 }, COLLIDER_WALL);
-
 	
 	return ret;
 }

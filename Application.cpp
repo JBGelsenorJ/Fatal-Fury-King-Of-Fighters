@@ -28,13 +28,13 @@ Application::Application()
 	modules[6] = scene_soundbeach = new ModuleSceneSoundBeach();
 	modules[7] = scene_welcome = new ModuleWelcomeScreen();
 	modules[8] = player = new ModulePlayer();
-	modules[9] = fade = new ModuleFadeToBlack();
-	modules[10] = audio = new ModuleMusic();
-	modules[11] = scene_intro = new ModuleFFIntro();
-	modules[12] = scene_intro2 = new ModuleFFIntro2();
-	modules[13] = particles = new ModuleParticles();
-	modules[14] = collision = new ModuleCollision();
-	modules[15] = enemy = new ModuleEnemy();
+	modules[9] = enemy = new ModuleEnemy();
+	modules[10] = fade = new ModuleFadeToBlack();
+	modules[11] = audio = new ModuleMusic();
+	modules[12] = scene_intro = new ModuleFFIntro();
+	modules[13] = scene_intro2 = new ModuleFFIntro2();
+	modules[14] = particles = new ModuleParticles();
+	modules[15] = collision = new ModuleCollision();
 	modules[16] = fonts = new ModuleFonts();
 }	
 
@@ -52,9 +52,8 @@ bool Application::Init()
 	playerselection->Disable();
 	scene_soundbeach->Disable();
 	scene_intro2->Disable();
-	scene_intro->Enable();
+	scene_intro->Disable();
 	scene_welcome->Disable();
-	scene_paopao->Disable();
 	
 	//Disable game features
 	App->player->Disable();

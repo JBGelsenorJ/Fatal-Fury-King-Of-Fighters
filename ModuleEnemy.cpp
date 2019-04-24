@@ -122,7 +122,7 @@ update_status ModuleEnemy::Update()
 	Animation* current_animation = &idle;
 
 	int speed = 2;
-	/*
+	
 		//Crouch
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
 
@@ -194,7 +194,7 @@ update_status ModuleEnemy::Update()
 
 			
 
-		}*/
+		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 

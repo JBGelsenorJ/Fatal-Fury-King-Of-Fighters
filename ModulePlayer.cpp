@@ -248,7 +248,7 @@ update_status ModulePlayer::Update()
 	
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
-	App->fonts->BlitText(200, 30, countdown_font, "06");
+	App->fonts->BlitText(1, 10, countdown_font, "3ssssssss");
 	return UPDATE_CONTINUE;
 }
 
