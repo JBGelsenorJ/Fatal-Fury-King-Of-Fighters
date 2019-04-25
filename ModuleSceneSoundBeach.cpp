@@ -27,6 +27,7 @@
 #include "ModuleScenePaoPao.h"
 #include "ModuleSceneSoundBeach.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleP1Wins.h"
 #include "ModuleFFIntro.h"
 
 
@@ -82,7 +83,7 @@ update_status ModuleSceneSoundBeach::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_soundbeach, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_soundbeach, App->p1w, 1.5);
 
 	}
 

@@ -19,7 +19,6 @@
 ModuleWelcomeScreen::ModuleWelcomeScreen()
 {
 
-	//Pao Pao Background
 	welcome.x = 0;
 	welcome.y = 0;
 	welcome.w = 619;

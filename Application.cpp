@@ -17,6 +17,8 @@
 #include "ModuleEnemy.h"
 #include "ModuleFonts.h"
 #include "ModuleTime.h"
+#include "ModuleP1Wins.h"
+#include "ModuleP2Wins.h"
 
 Application::Application()
 {
@@ -38,6 +40,9 @@ Application::Application()
 	modules[15] = collision = new ModuleCollision();
 	modules[16] = fonts = new ModuleFonts();
 	modules[17] = timer = new ModuleTime();
+	modules[18] = p1w = new ModuleP1Wins();
+	modules[19] = p2w = new ModuleP2Wins();
+
 }	
 
 Application::~Application()
@@ -56,6 +61,8 @@ bool Application::Init()
 	scene_intro2->Disable();
 	scene_intro->Disable();
 	scene_welcome->Disable();
+	p1w->Disable();
+	p2w->Disable();
 	
 	//Disable game features
 	App->player->Disable();
