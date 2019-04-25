@@ -47,7 +47,7 @@ bool ModuleP1Wins::Start()
 	graphics = App->textures->Load("Source/UI/WinLose/Background.png");
 
 
-	sentence_font = App->fonts->Load("Source/UI/fonts/PlayerWords2.png", "ABCDEFGHIJKLMNOPQRSTUVWZYZ1234567890&?!()abcdefghijklmnopqrstuvwxyz.,'<>", 1);
+	sentence_font = App->fonts->Load("Source/UI/fonts/PlayerWords.png", "ABCDEFGHIJKLMNOPQRSTUVWZYZ1234567890&?!()abcdefghijklmnopqrstuvwxyz.,'<>", 1);
 
 
 	//Enabling audio
@@ -73,7 +73,8 @@ update_status ModuleP1Wins::Update()
 	// Drawing background - WinP1 Background
 	uint cont = SDL_GetTicks();
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
-	App->fonts->BlitText(1, 10, sentence_font, "Hello moto");
+	//App->fonts->BlitText(100, 50, sentence_font, "1");
+
 	if (cont = SDL_GetTicks()+1100)
 	{
 		App->fade->FadeToBlack(App->p1w, App->p2w, 6);

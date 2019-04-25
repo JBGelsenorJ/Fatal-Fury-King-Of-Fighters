@@ -69,9 +69,9 @@ update_status ModuleP2Wins::Update()
 	// Drawing background - WinP1 Background
 	uint cont = SDL_GetTicks();
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
-	if (cont = SDL_GetTicks() + 1100)
+	if (cont = SDL_GetTicks() + 500)
 	{
-		App->fade->FadeToBlack(App->p2w, App->scene_intro, 6);
+		App->fade->FadeToBlack(App->p2w, App->scene_intro, 3);
 	}
 	return UPDATE_CONTINUE;
 }
