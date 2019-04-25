@@ -44,18 +44,19 @@ public:
 	SDL_Texture * graphics = nullptr;
 	Animation introwin;
 	//SDL_Rect rock;
-	SDL_Rect borders;
+	//SDL_Rect borders;
 	Animation start;
-	//Animation player;
-	
+	Animation player;
+	Animation rock;
+	Animation borders;
 	Mix_Music* introsong;
 	iPoint positionplayer;
 	iPoint positionrock;
 
 private:
 
-	AnimationObject rock;
-	AnimationObject player;
+	AnimationObject rock1;
+	AnimationObject player1;
 	IntroAnimationState animationState;
 	int step = 0;
 	iPoint frock;

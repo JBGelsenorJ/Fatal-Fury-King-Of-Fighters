@@ -8,16 +8,12 @@
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 #include "Application.h"
-#include "ModuleCollision.h"
 #include "p2Point.h"
 #include "ModuleEnemy.h"
-
-
 #include "ModuleFFIntro.h"
 #include "ModuleFFIntro2.h"
-#include "ModulePlayerSelection.h"
-#include "ModuleScenePaoPao.h"
-#include "ModuleWelcomeScreen.h"
+#include "ModuleTime.h"
+
 
 ModuleFFIntro::ModuleFFIntro()
 {
@@ -25,24 +21,37 @@ ModuleFFIntro::ModuleFFIntro()
 	//Intro Background
 
 	introwin.PushBack({ 0,0,314,192 });
+	borders.PushBack({ 0,446,304,225 });
 
 	//Start Animation
-	
+
 	start.PushBack({ 590, 260, 146, 21 });
 	start.PushBack({ 0, 700, 236, 44 });
 	start.speed = 0.06f;
 
 	//player
 
-	player.rect = { 0,0,62,127 };
-	rock.rect = { 0,0,117,31 };
+	player.PushBack({ 340, 37, 62, 127 });
+	player.PushBack({ 411, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.PushBack({ 553, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.PushBack({ 411, 38, 62, 127 });
+	player.PushBack({ 484, 38, 62, 127 });
+	player.speed = 0.15f;
+
+	//rock
+
+	rock1.rect = { 0,0,117,31 };
+
+	rock.PushBack({ 647,129,117,31 });
 	//title.rect = { 0,80,200,75 };
 
 	//Player Animation
 
 	//positionplayer.x = -40;
 	//positionplayer.y = 73;
-	
+
 	/*player.PushBack({ 340, 37, 62, 127 });
 	player.PushBack({ 411, 38, 62, 127 });
 	player.PushBack({ 484, 38, 62, 127 });
@@ -55,20 +64,20 @@ ModuleFFIntro::ModuleFFIntro()
 	//Rock
 /*
 	positionrock.x = -40;
-	positionrock.y = 244; 
+	positionrock.y = 244;
 
 	rock.x = 647;
 	rock.y = 129;
 	rock.w = 117;
 	rock.h = 31;
 */
-	//Borders
+//Borders
+/*
+borders.x = 0;
+borders.y = 446;
+borders.w = 304;
+borders.h = 225;*/
 
-	borders.x = 0;
-	borders.y = 446;
-	borders.w = 304;
-	borders.h = 225;
-	
 }
 
 ModuleFFIntro::~ModuleFFIntro()
@@ -79,11 +88,11 @@ bool ModuleFFIntro::Start()
 {
 	LOG("Loading image assets");
 	bool ret = true;
-	player.position = { -40,73 };
-	rock.position = { -40,73 };
+	player1.position = { -40,73 };
+	rock1.position = { -40,177 };
 	//title.position={50,300}
 	fplayer = { 27,73 };
-	frock = { -25,73 };
+	frock = { -25,177 };
 	animationState = Enter;
 	step = 0;
 
@@ -105,16 +114,17 @@ bool ModuleFFIntro::CleanUp()
 	LOG("Unloading FFINTRO");
 	App->player->Disable();
 	App->enemy->Disable();
+	App->timer->Disable();
 	App->textures->Unload(graphics);
-	
+
 	//SDL_DestroyTexture(graphics);
 	return true;
 }
 
 void ModuleFFIntro::RenderWords() {
 
-	App->render->Blit(graphics, rock.position.x, rock.position.y, &(rock.rect));
-	App->render->Blit(graphics, player.position.x, player.position.y, &(player.rect));
+	App->render->Blit(graphics, rock1.position.x, rock1.position.y, &(rock1.rect));
+	App->render->Blit(graphics, player1.position.x, player1.position.y, &(player1.rect));
 	App->render->DrawQuad({ 0,0,SCREEN_WIDTH,SCREEN_HEIGHT }, 255, 255, 255, 255, true);
 
 }
@@ -127,11 +137,13 @@ update_status ModuleFFIntro::Update()
 
 	case Enter:
 
-		rock.position += frock;
+		rock1.position += frock;
 		step++;
+
 		if (step >= 40) {
 
-			animationState = GoBack;
+			animationState = Done;
+
 			step = 0;
 		}
 
@@ -139,39 +151,44 @@ update_status ModuleFFIntro::Update()
 
 		break;
 
-	case GoBack:
+		/*case GoBack:
 
-		rock.position -= frock;
-		player.position += {0, -4};
+			rock1.position -= frock;
+			player1.position += {0, -4};
 
-		step++;
+			step++;
 
-		if (step >= 20) {
+			if (step >= 20) {
 
-			step = 0;
-			animationState = Done;
-		}
+				step = 0;
+				animationState = Done;
+			}
 
-		RenderWords();
+			RenderWords();
 
-		break;
+			break;*/
 
-	/*case Fighting:
+			/*case Fighting:
 
-		title.position += {0, -7};
-		step++;
+				title.position += {0, -7};
+				step++;
 
-		if (step >= 20) {
+				if (step >= 20) {
 
-			animationState = Done;
-		}
+					animationState = Done;
+				}
 
-		RenderWords;
-		break;*/
+				RenderWords;
+				break;*/
 
 	case Done:
 
-		App->render->Blit(graphics, 0, 0, &(introwin.GetCurrentFrame()));
+		App->render->Blit(graphics, 0, 16, &(introwin.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, -25, 177, &(rock.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, 27, 73, &(player.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, 0, 1, &(borders.GetCurrentFrame()), 0.75f);
+
 
 		break;
 
@@ -182,9 +199,9 @@ update_status ModuleFFIntro::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro,App->scene_intro2);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_intro2);
 	}
-	
+
 	/*// Drawing background - Intro Background
 
 	App->render->Blit(graphics, 0, 16, &introwin, 0.75f);
@@ -214,7 +231,7 @@ update_status ModuleFFIntro::Update()
 	for (positionplayer.x = -40; positionplayer.x < 27; positionplayer.x++) {
 
 		positionplayer.x += 1;
-		
+
 	}
 
 

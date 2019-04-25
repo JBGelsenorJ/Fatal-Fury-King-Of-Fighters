@@ -56,6 +56,19 @@ update_status ModuleRender::Update()
 	int speed = 3;
 	float center = (App->player->position.x + App->enemy->position.x) / 2;
 	float cam_pos = (SCREEN_WIDTH / 2) - center;
+
+	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+		camera.y += speed;
+
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+		camera.y -= speed;
+
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
+		//Locking Camera
+		camera.x += speed;
+
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
+		//Locking Camera
 	
 	camera.x = cam_pos;
 	
