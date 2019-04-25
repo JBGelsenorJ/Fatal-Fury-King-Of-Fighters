@@ -16,6 +16,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemy.h"
 #include "ModuleFonts.h"
+#include "ModuleTime.h"
 
 Application::Application()
 {
@@ -36,6 +37,7 @@ Application::Application()
 	modules[14] = particles = new ModuleParticles();
 	modules[15] = collision = new ModuleCollision();
 	modules[16] = fonts = new ModuleFonts();
+	modules[17] = timer = new ModuleTime();
 }	
 
 Application::~Application()

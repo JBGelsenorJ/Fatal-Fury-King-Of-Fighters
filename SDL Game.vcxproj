@@ -90,6 +90,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleSceneSoundBeach.h" />
     <ClInclude Include="ModuleTextures.h" />
+    <ClInclude Include="ModuleTime.h" />
     <ClInclude Include="ModuleWelcomeScreen.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2Point.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleSceneSoundBeach.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
+    <ClCompile Include="ModuleTime.cpp" />
     <ClCompile Include="ModuleWelcomeScreen.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
   </ItemGroup>
