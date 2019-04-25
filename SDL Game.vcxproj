@@ -81,6 +81,8 @@
     <ClInclude Include="ModuleFFIntro2.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleMusic.h" />
+    <ClInclude Include="ModuleP1Wins.h" />
+    <ClInclude Include="ModuleP2Wins.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
     <ClInclude Include="ModuleScenePaoPao.h" />
@@ -105,6 +107,8 @@
     <ClCompile Include="ModuleFFIntro2.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleMusic.cpp" />
+    <ClCompile Include="ModuleP1Wins.cpp" />
+    <ClCompile Include="ModuleP2Wins.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
     <ClCompile Include="ModuleScenePaoPao.cpp" />
