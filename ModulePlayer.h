@@ -58,6 +58,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	int jumpspeed = 6;
 	int speed = 2;
+	int life = 100;
 	
 };
 

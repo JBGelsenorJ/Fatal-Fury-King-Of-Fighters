@@ -24,7 +24,7 @@ class ModuleParticles;
 class ModuleCollision;
 class ModuleEnemy;
 class ModuleFonts;
-class ModuleTime;
+class ModuleUI;
 class ModuleP1Wins;
 class ModuleP2Wins;
 
@@ -52,7 +52,7 @@ public:
 	ModuleCollision* collision;
 	ModuleEnemy* enemy;
 	ModuleFonts* fonts;
-	ModuleTime* timer;
+	ModuleUI* ui;
 	ModuleP1Wins* p1w;
 	ModuleP2Wins* p2w;
 

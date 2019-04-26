@@ -12,7 +12,7 @@
 #include "ModuleEnemy.h"
 #include "ModuleFFIntro.h"
 #include "ModuleFFIntro2.h"
-#include "ModuleTime.h"
+#include "ModuleUI.h"
 #include "ModuleWelcomeScreen.h"
 
 ModuleFFIntro::ModuleFFIntro()
@@ -114,7 +114,7 @@ bool ModuleFFIntro::CleanUp()
 	LOG("Unloading FFINTRO");
 	App->player->Disable();
 	App->enemy->Disable();
-	App->timer->Disable();
+	App->ui->Disable();
 	App->textures->Unload(graphics);
 
 	//SDL_DestroyTexture(graphics);

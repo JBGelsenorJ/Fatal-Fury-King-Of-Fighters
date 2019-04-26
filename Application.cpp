@@ -16,7 +16,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemy.h"
 #include "ModuleFonts.h"
-#include "ModuleTime.h"
+#include "ModuleUI.h"
 #include "ModuleP1Wins.h"
 #include "ModuleP2Wins.h"
 
@@ -39,7 +39,7 @@ Application::Application()
 	modules[14] = particles = new ModuleParticles();
 	modules[15] = collision = new ModuleCollision();
 	modules[16] = fonts = new ModuleFonts();
-	modules[17] = timer = new ModuleTime();
+	modules[17] = ui = new ModuleUI();
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
 
@@ -66,9 +66,12 @@ bool Application::Init()
 	//scene_paopao->Disable();
 	
 	//Disable game features
-	App->player->Disable();
+	player->Disable();
+	enemy->Disable();
+	audio->Disable();
 	collision->Disable();
 	particles->Disable();
+	ui->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

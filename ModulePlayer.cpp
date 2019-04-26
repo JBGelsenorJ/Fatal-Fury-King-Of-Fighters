@@ -11,6 +11,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleEnemy.h"
 #include "ModuleWelcomeScreen.h"
+
+
 ModulePlayer::ModulePlayer()
 {
 	position.x = 100;
@@ -103,6 +105,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
+	App->collision->Enable();
+
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
 	
@@ -617,6 +621,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (player == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		LOG("colisiona");
+
 		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
 
 	}

@@ -52,6 +52,7 @@ public:
 	Collider* enemy;
 	void OnCollision(Collider* c1, Collider* c2);
 	int speed = 2;
+	int life = 100;
 
 };
 

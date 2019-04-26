@@ -19,6 +19,7 @@
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"
 #include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 
 ModuleScenePaoPao::ModuleScenePaoPao()
@@ -57,15 +58,11 @@ bool ModuleScenePaoPao::Start()
 	App->enemy->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->ui->Enable();
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
-
-	countdown = App->fonts->Load("Source/UI/fonts/marcador.png", "0123456789", 1);
-	time = 90000;
-	starting = SDL_GetTicks();
-
 
 	
 	return ret;
@@ -75,9 +72,10 @@ bool ModuleScenePaoPao::CleanUp()
 {
 	App->player->Disable();
 	App->enemy->Disable();
+	App->particles->Disable();
 	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
-	LOG("Unloading Terry From Scene");
+	LOG("Unloading all Features from Scene");
 	
 
 	return true;
@@ -92,19 +90,7 @@ update_status ModuleScenePaoPao::Update()
 	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
 
-
-	//Time
-	if (starting <= SDL_GetTicks() && time > 0) {
-		//starting = SDL_GetTicks();
-		//time -= SDL_GetTicks();
-		time = 90000 - SDL_GetTicks();
-		//time--;
-
-	}
-	
-	sprintf_s(time_text, 10, "%7d", time/1000);	
-	App->fonts->BlitText(177, 40, countdown, time_text);
-
+	App->ui->Timer(100,5);
 
 	//Scene Out
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
