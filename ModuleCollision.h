@@ -37,6 +37,7 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
+	bool Enabled = true;
 };
 
 class ModuleCollision : public Module
@@ -55,9 +56,9 @@ public:
 
 private:
 
-	Collider* colliders[MAX_COLLIDERS];
+	Collider * colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = true;
 };
 
-#endif // __ModuleCollision_H__
+#endif // __ModuleCollision_H__*/
