@@ -9,6 +9,7 @@
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemy.h"
+#include <stdio.h>
 
 
 #include "ModulePlayerSelection.h"
@@ -17,6 +18,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"
+#include "ModuleFonts.h"
 
 
 ModuleScenePaoPao::ModuleScenePaoPao()
@@ -59,6 +61,9 @@ bool ModuleScenePaoPao::Start()
 	//Enabling audio
 	App->audio->PlayMusic(music);
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
+
+	countdown = App->fonts->Load("Source/UI/fonts/marcador.png", "0123456789", 1);
+	time = 90;
 	
 	return ret;
 }
@@ -83,6 +88,16 @@ update_status ModuleScenePaoPao::Update()
 	
 	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
+
+
+	//Time
+	if (starting <= SDL_GetTicks() - 1000 && time > 0) {
+		++time;
+		time = SDL_GetTicks();
+	}
+
+	sprintf_s(time_text, 10, "%2d", time);
+	App->fonts->BlitText(177, 40, countdown, time_text);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
