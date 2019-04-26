@@ -152,15 +152,20 @@ update_status ModulePlayer::Update()
 			}
 
 			//Jump
-			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-				current_animation = &jump;
-				//FIX FREEFALL
-				if (position.y == 5 && position.y != 0) {
-					position.y = 10 - 5 * pow(SDL_GetTicks(), 2);
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+
+				/*current_animation = &jump;
+				position.y += jumpspeed;
+
+				if (position.y <= 220 && jumpspeed > 0) 
+				{
+					jumpspeed -= 0.5;
 				}
-				else {
-					position.y -= speed;
-				}
+
+				if (position.y == 220 && jumpspeed < 0)
+				{
+					jumpspeed = 6;
+				}*/
 			}
 
 			//Punch
@@ -175,6 +180,7 @@ update_status ModulePlayer::Update()
 			}
 
 			//Kick
+
 			if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN || (KickAnim == true)) {
 				KickAnim = true;
 				current_animation = &kick;
