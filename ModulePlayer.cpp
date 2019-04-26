@@ -6,7 +6,6 @@
 #include "SDL\include\SDL.h"
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
-#include "ModuleCollision.h"
 #include "ModuleFonts.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleEnemy.h"
@@ -105,7 +104,6 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	App->collision->Enable();
 
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
@@ -116,7 +114,7 @@ bool ModulePlayer::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 	
 	//Loading Player Colliders
-	player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
+	playercol = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_PLAYER, this);
 
 	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
 
@@ -244,32 +242,34 @@ update_status ModulePlayer::Update()
 			}
 			if ((App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN))
 			{
-				if (godmode == false)
-				{
-					App->collision->Disable();
-					App->collision->Enable();
-					player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_NONE);
-					godmode = true;
-				}
-				else
-				{
-					App->collision->Disable();
-					App->collision->Enable();
-					player = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_PLAYER);
-					godmode = false;
-				}
+
 			}
 			
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	player->SetPos(position.x, position.y);
+	playercol->SetPos(position.x, position.y);
 	
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
-	App->fonts->BlitText(1, 10, countdown_font, "3ssssssss");
 	return UPDATE_CONTINUE;
 }
+
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
+
+
+
+	if (playercol == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
+		LOG("no");
+
+	}
+
+}
+
+
+
 
 Uint32 jump_timer = 0;
 Uint32 punch_timer = 0;
@@ -624,17 +624,7 @@ player_states process_fsm(p2Qeue<player_inputs>& inputs)
 
 	return state;
 }
-void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if (player == c1 && c2->type == COLLIDER_ENEMY)
-	{
-		LOG("colisiona");
-
-		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
-
-	}
-
-}
 bool ModulePlayer::CleanUp()
 {
 	SDL_DestroyTexture(graphics);

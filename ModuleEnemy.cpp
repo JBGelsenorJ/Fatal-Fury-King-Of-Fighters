@@ -113,7 +113,7 @@ bool ModuleEnemy::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 	
 	//Loading Enemy Colliders
-	enemy = App->collision->AddCollider({ 10, 0, 58, -103 }, COLLIDER_ENEMY);
+	enemy = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_ENEMY,this);
 	
 	return ret;
 }

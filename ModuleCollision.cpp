@@ -3,7 +3,6 @@
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
 
-
 ModuleCollision::ModuleCollision()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -27,7 +26,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;
 
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
@@ -46,6 +45,7 @@ ModuleCollision::~ModuleCollision()
 
 update_status ModuleCollision::PreUpdate()
 {
+	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
@@ -66,10 +66,6 @@ update_status ModuleCollision::PreUpdate()
 			continue;
 
 		c1 = colliders[i];
-		if (c1->Enabled == false)
-		{
-			continue;
-		}
 
 		// avoid checking collisions already checked
 		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
@@ -79,14 +75,11 @@ update_status ModuleCollision::PreUpdate()
 				continue;
 
 			c2 = colliders[k];
-			if (c2->Enabled == false)
-			{
-				continue;
-			}
+
 			if (c1->CheckCollision(c2->rect) == true)
 			{
 				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);                       // needs to change
+					c1->callback->OnCollision(c1, c2);
 
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
@@ -96,6 +89,7 @@ update_status ModuleCollision::PreUpdate()
 
 	return UPDATE_CONTINUE;
 }
+
 // Called before render is available
 update_status ModuleCollision::Update()
 {
@@ -180,12 +174,12 @@ Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-
+	// TODO 0: Return true if there is an overlap
+	// between argument "r" and property "rect"
 	if (r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.y + rect.h) {
 		return false;
 	}
 	else {
 		return true;
 	}
-
 }

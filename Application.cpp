@@ -69,7 +69,6 @@ bool Application::Init()
 	player->Disable();
 	enemy->Disable();
 	audio->Disable();
-	collision->Disable();
 	particles->Disable();
 	ui->Disable();
 
