@@ -49,6 +49,7 @@ public:
 	Collider* particles;
 	bool jumpreset;
 	bool TimeAnim = false;
+	bool TimeJump = false;
 	bool KickAnim = false;
 	bool TimePunch = false;
 	bool Lowdtime = false;
