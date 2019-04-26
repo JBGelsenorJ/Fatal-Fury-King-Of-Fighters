@@ -8,6 +8,8 @@
 #include "ModuleEnemy.h"
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleWelcomeScreen.h"
+#include "ModulePlayer.h"
 
 
 ModuleEnemy::ModuleEnemy()
@@ -567,14 +569,12 @@ bool ModuleEnemy::CleanUp()
 	return true;
 }
 
-/*void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
+void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
-	if (enemy->CheckCollision(c1->rect) == true)
+	if (enemy == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
 
-		App->fade->FadeToBlack(this, (Module*)App->playerselection);
 	}
 
-}*/
-
-
+}
