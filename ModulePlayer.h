@@ -55,6 +55,7 @@ public:
 	bool Highdtime = false;
 	bool godmode = false;
 	int countdown_font = -1;
+	void OnCollision(Collider* c1, Collider* c2);
 	
 };
 

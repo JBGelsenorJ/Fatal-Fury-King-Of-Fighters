@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
+#include "ModuleFadeToBlack.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -605,7 +606,15 @@ player_states process_fsm(p2Qeue<player_inputs>& inputs)
 
 	return state;
 }
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
+	if (player->CheckCollision(c1->rect) == true)
+	{
+
+		App->fade->FadeToBlack(this, (Module*)App->playerselection);
+	}
+
+}
 bool ModulePlayer::CleanUp()
 {
 	SDL_DestroyTexture(graphics);

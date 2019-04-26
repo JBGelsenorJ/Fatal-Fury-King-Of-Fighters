@@ -567,7 +567,7 @@ bool ModuleEnemy::CleanUp()
 	return true;
 }
 
-/*void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
+void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemy->CheckCollision(c1->rect) == true)
 	{
@@ -575,6 +575,6 @@ bool ModuleEnemy::CleanUp()
 		App->fade->FadeToBlack(this, (Module*)App->playerselection);
 	}
 
-}*/
+}
 
 

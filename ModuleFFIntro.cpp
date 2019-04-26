@@ -13,7 +13,7 @@
 #include "ModuleFFIntro.h"
 #include "ModuleFFIntro2.h"
 #include "ModuleTime.h"
-
+#include "ModuleWelcomeScreen.h"
 
 ModuleFFIntro::ModuleFFIntro()
 {
@@ -199,7 +199,7 @@ update_status ModuleFFIntro::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro, App->scene_intro2);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 1.5);
 	}
 
 	/*// Drawing background - Intro Background

@@ -50,7 +50,7 @@ public:
 	bool KickAnim = false;
 	bool TimePunch = false;
 	Collider* enemy;
-	//void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c1, Collider* c2);
 	
 
 };
