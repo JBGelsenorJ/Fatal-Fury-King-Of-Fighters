@@ -63,7 +63,10 @@ bool ModuleScenePaoPao::Start()
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
 
 	countdown = App->fonts->Load("Source/UI/fonts/marcador.png", "0123456789", 1);
-	time = 90;
+	time = 90000;
+	starting = SDL_GetTicks();
+
+
 	
 	return ret;
 }
@@ -91,14 +94,19 @@ update_status ModuleScenePaoPao::Update()
 
 
 	//Time
-	if (starting <= SDL_GetTicks() - 1000 && time > 0) {
-		++time;
-		time = SDL_GetTicks();
-	}
+	if (starting <= SDL_GetTicks() && time > 0) {
+		//starting = SDL_GetTicks();
+		//time -= SDL_GetTicks();
+		time = 90000 - SDL_GetTicks();
+		//time--;
 
-	sprintf_s(time_text, 10, "%2d", time);
+	}
+	
+	sprintf_s(time_text, 10, "%7d", time/1000);	
 	App->fonts->BlitText(177, 40, countdown, time_text);
 
+
+	//Scene Out
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
 		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
