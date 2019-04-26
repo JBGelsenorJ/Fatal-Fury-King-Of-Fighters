@@ -27,7 +27,8 @@ public:
 	Mix_Music* music;
 	Mix_Chunk* fx;
 	float starting = 0.0f;
-	int time;
+	float seconds;
+	uint time;
 	char time_text[10];
 	int countdown = -1;
 };
