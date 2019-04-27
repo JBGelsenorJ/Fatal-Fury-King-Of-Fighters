@@ -143,6 +143,7 @@ update_status ModulePlayer::Update()
 	
 			while (external_input(inputs))
 			{
+
 				internal_input(inputs);
 
 				player_states state = process_fsm(inputs);
@@ -236,7 +237,7 @@ update_status ModulePlayer::Update()
 
 					case ST_JUMP_NEUTRAL:
 
-						current_animation = &jump;
+						/*current_animation = &jump;
 						LOG("JUMPING  ^^^^\n");
 
 						position.y -= jumpspeed;
@@ -246,9 +247,39 @@ update_status ModulePlayer::Update()
 						{
 							position.y = 220;
 							jumpspeed = 6;
+						}*/
+						/*if (jump_timer <= 500)
+						{
+							current_animation = &jump;
+							position.y -= jumpspeed;
+							jumpspeed -= 0.2;
+						}*/
+						/*if (jump_timer == 500)
+						{
+							jumpspeed = 0;
+						}*/
+						//if (jump_timer > 500)
+						//{
+						if (position.y <=220)
+						{
+							animdone = false;
+							current_animation = &jump;
+							position.y -= jumpspeed;
+							jumpspeed -= 0.2;
+						}
+						if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
+						{
+							position.y = 220;
+							jumpspeed = 6;
+							animdone == true;
 						}
 						
-
+						/*if (current_animation->AnimFinished() == true)
+						{
+							animdone = true;
+						}*/
+							
+					
 						break;
 					}
 				}
@@ -259,7 +290,7 @@ update_status ModulePlayer::Update()
 				App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
 				playercol->SetPos(position.x, position.y);
-				playerpunch->SetPos(position.x+40, position.y-90);
+				playerpunch->SetPos(position.x + 40, position.y - 90);
 				playerkick->SetPos(position.x + 40, position.y - 60);
 
 
@@ -325,7 +356,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_w:
-
 				jump = false;
 				break;
 
@@ -355,7 +385,11 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			{
 
 			case SDLK_w:
-				jump = true;
+				if (animdone == true)
+				{
+					jump = true;
+				}
+				
 				//App->audio->PlayFX(AUDIOSALTO);
 				break;
 			case SDLK_s:
@@ -432,16 +466,21 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
-	if (jump_timer > 0)
-	{
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME)
+	
+		if (jump_timer > 0)
 		{
-			inputs.Push(IN_JUMP_FINISH);
-			jump_timer = 0;
-			position.y = 220;
-			jumpspeed = 6;
+			if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
+			{
+				inputs.Push(IN_JUMP_FINISH);
+				jump_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 		}
-	}
+	
+	
 
 	if (punch_timer > 0)
 	{
