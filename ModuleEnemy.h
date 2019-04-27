@@ -49,10 +49,12 @@ public:
 	bool TimeAnim = false;
 	bool KickAnim = false;
 	bool TimePunch = false;
+	bool TimeJump = false;
 	Collider* enemy;
 	void OnCollision(Collider* c1, Collider* c2);
 	int speed = 2;
 	int life = 100;
+	float jumpspeed = 6;
 
 };
 

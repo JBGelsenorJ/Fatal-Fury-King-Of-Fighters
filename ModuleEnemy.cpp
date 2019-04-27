@@ -41,13 +41,17 @@ ModuleEnemy::ModuleEnemy()
 	backward.PushBack({ 95, 916, 59, 102 });
 	backward.speed = 0.15f;
 
-	//Terry Bogard Jump Animation
+	//Terry Bogard Jump UP Animation
+	jump.PushBack({ 548, 1035, 51, 125 });
+	jump.PushBack({ 548, 1035, 51, 125 });
+	jump.PushBack({ 548, 1035, 51, 125 });
 	jump.PushBack({ 548, 1035, 51, 125 });
 	jump.PushBack({ 611, 1046, 57, 103 });
 	jump.PushBack({ 680, 1056, 57, 94 });
-	
+	jump.PushBack({ 680, 1056, 57, 94 });
+	jump.PushBack({ 680, 1056, 57, 94 });
 
-	jump.speed = 0.08f;
+	jump.speed = 0.12f;
 
 	//Terry Bogard Kick Animation
 	kick.PushBack({ 449, 806, 59, 107 });
@@ -114,7 +118,7 @@ bool ModuleEnemy::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 	
 	//Loading Enemy Colliders
-	enemy = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_ENEMY, this);
+	enemy = App->collision->AddCollider({200, -250, 55, -103 }, COLLIDER_ENEMY, this);
 	
 	return ret;
 }
@@ -148,9 +152,20 @@ update_status ModuleEnemy::Update()
 			}
 
 			//Jump
-			if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_REPEAT) {
+			if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
+
 				current_animation = &jump;
-				position.y -= speed;
+
+				TimeJump = true;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+
+				if (current_animation->AnimFinished() == true)
+				{
+					TimeJump = false;
+					position.y = 220;
+					jumpspeed = 6;
+				}
 
 			}
 
@@ -571,16 +586,21 @@ bool ModuleEnemy::CleanUp()
 
 void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
-	if (enemy == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemy == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x > App->player->position.x)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
+		App->player->position.x -= 3;
+
+	}
+
+	if (enemy == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x < App->player->position.x)
+	{
+		App->player->position.x += 3;
 
 	}
 
 	else if (enemy == c1 && c2->type == COLLIDER_WALL)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
-
+		position.x = 15;
 	}
 
 }

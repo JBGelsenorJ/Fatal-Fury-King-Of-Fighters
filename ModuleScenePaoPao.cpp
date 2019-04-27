@@ -65,7 +65,7 @@ bool ModuleScenePaoPao::Start()
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
 
 	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
-	wall2 = App->collision->AddCollider({ 0, 300 , 15, -500 }, COLLIDER_WALL, this);
+	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
 
 	return ret;
 }
