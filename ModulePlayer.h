@@ -58,7 +58,7 @@ public:
 	bool godmode = false;
 	int countdown_font = -1;
 	void OnCollision(Collider* c1, Collider* c2);
-	int jumpspeed = 6;
+	float jumpspeed = 6;
 	int speed = 2;
 	int life = 100;
 	
