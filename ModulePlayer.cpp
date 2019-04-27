@@ -257,18 +257,17 @@ update_status ModulePlayer::Update()
 					case ST_JUMP_NEUTRAL:
 
 						current_animation = &jump;
-						LOG("PUNCH STANDING ++++\n");
+						LOG("JUMPING  ^^^^\n");
 
 						position.y -= jumpspeed;
 						jumpspeed -= 0.2;
 
 						if (current_animation->AnimFinished() == true)
 						{
-
 							position.y = 220;
 							jumpspeed = 6;
 						}
-
+						
 
 						break;
 					}
@@ -452,6 +451,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		{
 			inputs.Push(IN_JUMP_FINISH);
 			jump_timer = 0;
+			position.y = 220;
+			jumpspeed = 6;
 		}
 	}
 
