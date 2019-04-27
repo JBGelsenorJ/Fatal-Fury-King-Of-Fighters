@@ -12,8 +12,13 @@
 
 
 #define MAX_KEYS 300
+
 #define JUMP_TIME 1000
 #define PUNCH_TIME 400
+
+#define JUMP_TIME 1020
+#define PUNCH_TIME 250
+
 #define SP1_TIME 500
 #define KICK_TIME 550
 
@@ -73,6 +78,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	
 	float jumpspeed = 6;
+	
 	int speed = 2;
 	int life = 100;
 
@@ -191,7 +197,7 @@ public:
 			{
 				switch (last_input)
 				{
-				case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
+				
 				case IN_LEFT_UP: state = ST_IDLE; break;
 				case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
 				case IN_CROUCH_DOWN: state = ST_CROUCH; break;
@@ -207,7 +213,6 @@ public:
 				switch (last_input)
 				{
 
-				case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 				case IN_CROUCH_UP: state = ST_IDLE; break;
 				case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
 				case IN_PUNCH: state = ST_PUNCH_STANDING, punch_timer = SDL_GetTicks(); break;

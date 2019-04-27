@@ -141,85 +141,117 @@ update_status ModulePlayer::Update()
 	int speed = 2;
 	
 	
-			while (external_input(inputs))
+	while (external_input(inputs))
+	{
+		internal_input(inputs);
+
+		player_states state = process_fsm(inputs);
+
+		if (state != current_state)
+		{
+			switch (state)
 			{
+
 
 				internal_input(inputs);
 
-				player_states state = process_fsm(inputs);
+			case ST_IDLE:
 
-				if (state != current_state)
-				{
-					switch (state)
-					{
-					case ST_IDLE:
-						current_animation = &idle;
-						forward.Reset();
-						backward.Reset();
-						crouch.Reset();
-						crouch.Reset();
-						kick.Reset();
-						punch.Reset();
-						sm1.Reset();
-						break;
 
-					case ST_WALK_FORWARD:
-						current_animation = &forward;
-						position.x += speed;
-						backward.Reset();
-						crouch.Reset();
-						crouch.Reset();
-						kick.Reset();
-						punch.Reset();
-						sm1.Reset();
-						break;
+				current_animation = &idle;
+				forward.Reset();
+				backward.Reset();
+				crouch.Reset();
+				crouch.Reset();
+				kick.Reset();
+				punch.Reset();
+				sm1.Reset();
 
-					case ST_WALK_BACKWARD:
-						current_animation = &backward;
-						position.x -= speed;
-						forward.Reset();
-						crouch.Reset();
-						crouch.Reset();
-						kick.Reset();
-						punch.Reset();
-						sm1.Reset();
-						break;
+				break;
 
-						//case ST_JUMP_FORWARD:
-							//LOG("JUMPING FORWARD ^^>>\n")
-						//case ST_JUMP_BACKWARD:
-							//LOG("JUMPING BACKWARD ^^<<\n");
-							
-					case ST_CROUCH:
-						current_animation = &crouch;
-						current_animation = &crouch;
+			case ST_WALK_FORWARD:
 
-						LOG("CROUCHING ****\n");
-						break;
-						//case ST_PUNCH_CROUCH:
+				current_animation = &forward;
+				position.x += speed;
+				backward.Reset();
+				crouch.Reset();
+				crouch.Reset();
+				kick.Reset();
+				punch.Reset();
+				sm1.Reset();
+
+				break;
+
+			case ST_WALK_BACKWARD:
+
+				current_animation = &backward;
+				position.x -= speed;
+				forward.Reset();
+				crouch.Reset();
+				crouch.Reset();
+				kick.Reset();
+				punch.Reset();
+				sm1.Reset();
+
+				break;
+
+				//case ST_JUMP_FORWARD:
+					//LOG("JUMPING FORWARD ^^>>\n")
+
+				//case ST_JUMP_BACKWARD:
+					//LOG("JUMPING BACKWARD ^^<<\n");
+
+			case ST_CROUCH:
+
+				current_animation = &crouch;
+				LOG("CROUCHING ****\n");
+
+				break;
+
+				//case ST_PUNCH_CROUCH:
 							//LOG("PUNCH CROUCHING **++\n");
-							//break;
-					case ST_PUNCH_STANDING:
-						current_animation = &punch;
-						LOG("PUNCH STANDING ++++\n");
-						break;
-						//case ST_PUNCH_NEUTRAL_JUMP:
-							//LOG("PUNCH NEUTRAL JUMP ++++\n");
-							//break;
-						//case ST_PUNCH_FORWARD_JUMP:
-							//LOG("PUNCH JUMP FORWARD ^>>+\n");
-							//break;
-						//case ST_PUNCH_BACKWARD_JUMP:
-							//LOG("PUNCH JUMP BACKWARD ^<<+\n");
-							//break;
-						//case ST_KICK_CROUCH:
-							//LOG("KICK CROUCHING **--\n");
-							//break;
-					case ST_KICK_STANDING:
-						current_animation = &kick;
-						break;
-						//case ST_KICK_NEUTRAL_JUMP:
+
+				//break;
+
+			case ST_PUNCH_STANDING:
+
+				current_animation = &punch;
+				LOG("PUNCH STANDING ++++\n");
+			break;
+
+				//case ST_PUNCH_NEUTRAL_JUMP:
+
+						//LOG("PUNCH NEUTRAL JUMP ++++\n");
+
+				//break;
+
+				//case ST_PUNCH_FORWARD_JUMP:
+
+						//LOG("PUNCH JUMP FORWARD ^>>+\n");
+
+				//break;
+
+				//case ST_PUNCH_BACKWARD_JUMP:
+
+						//LOG("PUNCH JUMP BACKWARD ^<<+\n");
+
+				//break;
+
+				//case ST_KICK_CROUCH:
+
+						//LOG("KICK CROUCHING **--\n");
+
+				//break;
+
+			case ST_KICK_STANDING:
+				current_animation = &kick;
+
+				break;
+
+				//case ST_KICK_NEUTRAL_JUMP:
+
 						//	LOG("KICK JUMP NEUTRAL ^^--\n");
+
 							//break;
 						//case ST_KICK_FORWARD_JUMP:
 							//LOG("KICK JUMP FORWARD ^>>-\n");
@@ -285,19 +317,76 @@ update_status ModulePlayer::Update()
 				}
 				current_state = state;
 
-				SDL_Rect r = current_animation->GetCurrentFrame();
 
-				App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
+				//break;
+
+				//case ST_KICK_FORWARD_JUMP:
+
 
 				playercol->SetPos(position.x, position.y);
 				playerpunch->SetPos(position.x + 40, position.y - 90);
 				playerkick->SetPos(position.x + 40, position.y - 60);
 
+						//LOG("KICK JUMP FORWARD ^>>-\n");
 
 
-				return UPDATE_CONTINUE;
-			
+				//break;
+
+				//case ST_KICK_BACKWARD_JUMP:
+
+						//LOG("KICK JUMP BACKWARD ^<<-\n");
+
+				//break;
+
+				//case ST_DAMAGE_RECEIVED:
+
+						//current_animation = &beat;
+
+				//break;
+
+			case ST_SP1:
+
+				current_animation = &sm1;
+				Activesm1 = true;
+
+				break;
+
+			case ST_JUMP_NEUTRAL:
+
+				current_animation = &jump;
+				LOG("JUMPING  ^^^^\n");
+
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				
+
+				if (current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+				}
+				break;
+
 			}
+		}
+		current_state = state;
+
+		SDL_Rect r = current_animation->GetCurrentFrame();
+
+		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
+		playercol->SetPos(position.x, position.y);
+		playerpunch->SetPos(position.x + 40, position.y - 90);
+		playerkick->SetPos(position.x + 40, position.y - 60);
+
+
+
+		return UPDATE_CONTINUE;
+
+	}
+
+	
 
 }
 
@@ -416,7 +505,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 			case SDLK_f:
 
-				inputs.Push(IN_SM1);
 				if (Activesm1 = true) {
 
 					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
@@ -469,6 +557,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	
 		if (jump_timer > 0)
 		{
+
 			if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
 			{
 				inputs.Push(IN_JUMP_FINISH);
@@ -478,6 +567,11 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				jumpspeed = 6;
 				animdone = true;
 			}
+
+			inputs.Push(IN_JUMP_FINISH);
+			jump_timer = 0;
+			
+
 		}
 	
 	
@@ -486,8 +580,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
-			playerpunch->to_delete = true;
+			
 			inputs.Push(IN_PUNCH_FINISH);
+			playerpunch->to_delete = true;
 			punch_timer = 0;
 
 		}
