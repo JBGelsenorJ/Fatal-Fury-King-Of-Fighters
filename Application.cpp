@@ -61,6 +61,7 @@ bool Application::Init()
 	scene_intro2->Disable();
 	scene_intro->Disable();
 	scene_welcome->Disable();
+	collision->Disable();
 	p1w->Disable();
 	p2w->Disable();
 	//scene_paopao->Disable();

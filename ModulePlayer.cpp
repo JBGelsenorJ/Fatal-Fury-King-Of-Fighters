@@ -119,7 +119,7 @@ bool ModulePlayer::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 	
 	//Loading Player Colliders
-	playercol = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_PLAYER, this);
+	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 
 	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
 
@@ -258,15 +258,20 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
-		LOG("no");
+		App->enemy->position.x += 3;
+
+	}
+
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	{
+		App->enemy->position.x -= 3;
 
 	}
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
+		position.x = 15;
 	}
 
 }
