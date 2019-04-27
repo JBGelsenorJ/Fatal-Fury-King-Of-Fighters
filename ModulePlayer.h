@@ -7,6 +7,8 @@
 #include "p2Point.h"
 #include "ModuleParticles.h"
 #include "p2Qeue.h"
+#include "SDL\include\SDL_timer.h"
+
 
 
 #define MAX_KEYS 300
@@ -52,7 +54,8 @@ public:
 	Mix_Chunk* Kick;
 	
 	Collider* playercol;
-	Collider* particles;
+	Collider* playerpunch;
+	Collider* playerkick;
 
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;
