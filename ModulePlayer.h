@@ -33,8 +33,7 @@ public:
 	Animation idle;
 	Animation forward;
 	Animation backward;
-	Animation jumpup;
-	Animation jumpdown;
+	Animation jump;
 	Animation kick;
 	Animation punch;
 	Animation crouch;
