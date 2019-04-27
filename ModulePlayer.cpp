@@ -233,6 +233,24 @@ update_status ModulePlayer::Update()
 
 						current_animation = &sm1;
 						Activesm1 = true;
+
+					case ST_JUMP_NEUTRAL:
+
+						current_animation = &jump;
+						LOG("PUNCH STANDING ++++\n");
+
+						position.y -= jumpspeed;
+						jumpspeed -= 0.2;
+
+						if (current_animation->AnimFinished() == true)
+						{
+
+							position.y = 220;
+							jumpspeed = 6;
+						}
+
+
+						break;
 					}
 				}
 				current_state = state;
