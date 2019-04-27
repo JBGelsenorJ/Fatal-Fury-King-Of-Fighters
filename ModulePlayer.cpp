@@ -260,7 +260,7 @@ update_status ModulePlayer::Update()
 				App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
 				playercol->SetPos(position.x, position.y);
-				playerpunch->SetPos(position.x+40, position.y-90);
+				playerpunch->SetPos(position.x + 40, position.y - 90);
 				playerkick->SetPos(position.x + 40, position.y - 60);
 
 
@@ -288,6 +288,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->enemy->position.x += 3;
+
+
+	}
+
+	if (playerkick == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		App->enemy->position.x += 3;
 
