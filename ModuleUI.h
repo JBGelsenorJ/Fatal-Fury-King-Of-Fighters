@@ -23,12 +23,22 @@ public:
 	bool CleanUp();
 
 	bool Timer(int,int);
+	bool DrawLife();
 
 public:
+	//Shape for Timer
+	SDL_Rect timerbackground;
 
 	//Textures and font sprites
-	SDL_Texture* healthbar;
+	SDL_Texture* graphics;
+	SDL_Rect health;
+	SDL_Rect nohealth;
+	SDL_Rect point;
+	SDL_Rect pointred;
+	SDL_Rect pointscored;
+
 	int countdown = -1;
+	int scorefont = -1;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;

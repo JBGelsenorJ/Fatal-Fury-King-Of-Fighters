@@ -90,7 +90,8 @@ update_status ModuleScenePaoPao::Update()
 	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
 
-	App->ui->Timer(100,5);
+	App->ui->Timer(129,20);
+	App->ui->DrawLife();
 
 	//Scene Out
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
