@@ -26,6 +26,8 @@ public:
 	Animation people;
 	Mix_Music* music;
 	Mix_Chunk* fx;
+	Collider* wall1;
+	Collider* wall2;
 	float starting = 0.0f;
 	float seconds;
 	uint time;

@@ -10,7 +10,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleEnemy.h"
 #include "ModuleWelcomeScreen.h"
-
+#include "ModuleScenePaoPao.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -259,11 +259,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-	if (playercol == c1 && c2->type == COLLIDER_ENEMY)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
 		LOG("no");
 
+	}
+	else if (playercol == c1 && c2->type == COLLIDER_WALL)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
 	}
 
 }
@@ -628,7 +632,7 @@ player_states process_fsm(p2Qeue<player_inputs>& inputs)
 bool ModulePlayer::CleanUp()
 {
 	SDL_DestroyTexture(graphics);
-	
+	App->enemy->Disable();
 	LOG("Unloading Terry From Scene");
 
 	return true;

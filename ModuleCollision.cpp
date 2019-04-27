@@ -176,10 +176,11 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
-	if (r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.y + rect.h) {
+	if (r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h > rect.y || r.y < rect.y + rect.h) {
 		return false;
 	}
 	else {
 		return true;
 	}
+	return false;
 }

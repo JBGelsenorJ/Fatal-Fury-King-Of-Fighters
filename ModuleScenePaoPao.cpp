@@ -54,17 +54,19 @@ bool ModuleScenePaoPao::Start()
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
 	
 	//Enabling game features
-	App->player->Enable();
-	App->enemy->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->player->Enable();
+	App->enemy->Enable();
 	App->ui->Enable();
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
 	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
 
-	
+	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
+	wall2 = App->collision->AddCollider({ 0, 300 , 15, -500 }, COLLIDER_WALL, this);
+
 	return ret;
 }
 

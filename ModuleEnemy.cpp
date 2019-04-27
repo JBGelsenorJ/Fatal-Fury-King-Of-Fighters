@@ -9,6 +9,7 @@
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModuleScenePaoPao.h"
 #include "ModulePlayer.h"
 
 
@@ -113,7 +114,7 @@ bool ModuleEnemy::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 	
 	//Loading Enemy Colliders
-	enemy = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_ENEMY,this);
+	enemy = App->collision->AddCollider({ position.x, position.y, 58, -103 }, COLLIDER_ENEMY, this);
 	
 	return ret;
 }
@@ -199,9 +200,8 @@ update_status ModuleEnemy::Update()
 		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
-	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
 	enemy->SetPos(position.x, position.y);
+	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
 	
 	return UPDATE_CONTINUE;
 }
@@ -563,7 +563,7 @@ enemy_states process_fsm(p2Qeue<enemy_inputs>& inputs)
 bool ModuleEnemy::CleanUp()
 {
 	SDL_DestroyTexture(graphics);
-
+	App->player->Disable();
 	LOG("Unloading Terry From Scene");
 
 	return true;
@@ -573,7 +573,13 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemy == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		App->fade->FadeToBlack(this, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
+
+	}
+
+	else if (enemy == c1 && c2->type == COLLIDER_WALL)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_welcome, 1.5);
 
 	}
 

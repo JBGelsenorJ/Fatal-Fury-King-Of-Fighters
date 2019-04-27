@@ -22,6 +22,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
+
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png");
 
 	// Special1

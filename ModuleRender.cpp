@@ -46,7 +46,7 @@ bool ModuleRender::Init()
 // Called every draw update
 update_status ModuleRender::PreUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
 	SDL_RenderClear(renderer);
 
 	return update_status::UPDATE_CONTINUE;
@@ -81,6 +81,7 @@ update_status ModuleRender::Update()
 update_status ModuleRender::PostUpdate()
 {
 	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	return update_status::UPDATE_CONTINUE;
 }
 
