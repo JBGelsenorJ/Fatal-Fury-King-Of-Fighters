@@ -12,6 +12,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenePaoPao.h"
 
+
 ModulePlayer::ModulePlayer()
 {
 	position.x = 100;
@@ -138,7 +139,7 @@ update_status ModulePlayer::Update()
 	
 	
 			//Jump
-			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
+			/*if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 				
 				current_animation = &jump;
 				
@@ -153,7 +154,7 @@ update_status ModulePlayer::Update()
 					jumpspeed = 6;
 				}
 				
-			}
+			}*/
 
 			while (external_input(inputs))
 			{
@@ -204,6 +205,7 @@ update_status ModulePlayer::Update()
 						//case ST_JUMP_BACKWARD:
 							//LOG("JUMPING BACKWARD ^^<<\n");
 							//break;
+					
 					case ST_CROUCH:
 						current_animation = &crouch;
 						current_animation = &crouch;
@@ -213,6 +215,7 @@ update_status ModulePlayer::Update()
 						//case ST_PUNCH_CROUCH:
 							//LOG("PUNCH CROUCHING **++\n");
 							//break;
+					
 					case ST_PUNCH_STANDING:
 						current_animation = &punch;
 						LOG("PUNCH STANDING ++++\n");
@@ -229,6 +232,7 @@ update_status ModulePlayer::Update()
 						//case ST_KICK_CROUCH:
 							//LOG("KICK CROUCHING **--\n");
 							//break;
+					
 					case ST_KICK_STANDING:
 						current_animation = &kick;
 						break;
@@ -244,29 +248,30 @@ update_status ModulePlayer::Update()
 						//case ST_DAMAGE_RECEIVED:
 							//current_animation = &beat;
 							//break;
+					
 					case ST_SP1:
 
 						current_animation = &sm1;
 						Activesm1 = true;
 					}
+				
 				}
+
 				current_state = state;
 
+				SDL_Rect r = current_animation->GetCurrentFrame();
+
+				App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
+				playercol->SetPos(position.x, position.y);
+
+				//Here goes the kick collider punch collider and special movement collider and player life
+
+
 				return UPDATE_CONTINUE;
+			
 			}
 
-		
-	if ((App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)){
-
-	}
-			
-
-	SDL_Rect r = current_animation->GetCurrentFrame();
-	playercol->SetPos(position.x, position.y);
-	
-	App->render->Blit(graphics, position.x, position.y - r.h, &r);
-
-	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
