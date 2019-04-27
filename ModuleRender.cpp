@@ -55,24 +55,33 @@ update_status ModuleRender::PreUpdate()
 update_status ModuleRender::Update()	
 {
 	int speed = 3;
-	float center = (App->player->position.x + App->enemy->position.x) / 2;
-	float cam_pos = (SCREEN_WIDTH / 2) - center;
+	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy->position.y) / 2;
+	cam_pos.x = (SCREEN_WIDTH / 2) - centerx;
+	cam_pos.y = (SCREEN_HEIGHT) - centery;
 
-	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT)
+	camera.x = cam_pos.x;
+	camera.y = cam_pos.y;
+	
+	
+	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 		camera.y += speed;
+	}
 
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT)
+
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
 		camera.y -= speed;
+	}
 
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT)
-		//Locking Camera
+
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
 		camera.x += speed;
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
 		//Locking Camera
 	
 		camera.x -= speed;
-	
 	
 
 	return update_status::UPDATE_CONTINUE;
