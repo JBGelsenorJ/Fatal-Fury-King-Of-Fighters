@@ -131,34 +131,12 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	Animation* current_animation = &idle;
+	p2Qeue<player_inputs> inputs;
+	player_states current_state = ST_UNKNOWN;
 
 	int speed = 2;
 	
-	//Crouch
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-
-		current_animation = &crouch;
-
-		}
-		else {
-			
-			//MoveForward
-			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && position.x < 670)
-			{
-				current_animation = &forward;
-				position.x += speed;
-				
-
-			}
-
-			//Move Backward
-			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && position.x > 0)
-			{
-				current_animation = &backward;
-				position.x -= speed;
-				
-			}
-
+	
 			//Jump
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 				
@@ -177,74 +155,111 @@ update_status ModulePlayer::Update()
 				
 			}
 
-			//Punch
-			if (App->input->keyboard[SDL_SCANCODE_T] == KEY_STATE::KEY_REPEAT || (TimePunch == true)) {
-				current_animation = &punch;
-				TimePunch = true;
-				App->audio->PlayFX(Punch);
-				if (current_animation->AnimFinished() == true)
-				{
-					TimePunch = false;
-				}
-			}
-
-			//Kick
-
-			if (App->input->keyboard[SDL_SCANCODE_Y] == KEY_STATE::KEY_DOWN || (KickAnim == true)) {
-				KickAnim = true;
-				current_animation = &kick;
-				App->audio->PlayFX(Kick);
-				if (current_animation->AnimFinished() == true)
-				{
-					KickAnim = false;
-				}
-			}
-
-			//Special Move
-
-			if ((App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) || (TimeAnim == true))
+			while (external_input(inputs))
 			{
-				TimeAnim = true;
-				current_animation = &sm1;
+				internal_input(inputs);
 
-				if (current_animation->AnimFinished() == true)
+				player_states state = process_fsm(inputs);
+
+				if (state != current_state)
 				{
-					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT,0);
-					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
-					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_PLAYER_SHOT, 200);
-					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
-					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT,600);
-					TimeAnim = false;
+					switch (state)
+					{
+					case ST_IDLE:
+						current_animation = &idle;
+						forward.Reset();
+						backward.Reset();
+						crouch.Reset();
+						crouch.Reset();
+						kick.Reset();
+						punch.Reset();
+						sm1.Reset();
+						break;
+
+					case ST_WALK_FORWARD:
+						current_animation = &forward;
+						position.x += speed;
+						backward.Reset();
+						crouch.Reset();
+						crouch.Reset();
+						kick.Reset();
+						punch.Reset();
+						sm1.Reset();
+						break;
+
+					case ST_WALK_BACKWARD:
+						current_animation = &backward;
+						position.x -= speed;
+						forward.Reset();
+						crouch.Reset();
+						crouch.Reset();
+						kick.Reset();
+						punch.Reset();
+						sm1.Reset();
+						break;
+
+						//case ST_JUMP_FORWARD:
+							//LOG("JUMPING FORWARD ^^>>\n");
+							//break;
+						//case ST_JUMP_BACKWARD:
+							//LOG("JUMPING BACKWARD ^^<<\n");
+							//break;
+					case ST_CROUCH:
+						current_animation = &crouch;
+						current_animation = &crouch;
+
+						LOG("CROUCHING ****\n");
+						break;
+						//case ST_PUNCH_CROUCH:
+							//LOG("PUNCH CROUCHING **++\n");
+							//break;
+					case ST_PUNCH_STANDING:
+						current_animation = &punch;
+						LOG("PUNCH STANDING ++++\n");
+						break;
+						//case ST_PUNCH_NEUTRAL_JUMP:
+							//LOG("PUNCH NEUTRAL JUMP ++++\n");
+							//break;
+						//case ST_PUNCH_FORWARD_JUMP:
+							//LOG("PUNCH JUMP FORWARD ^>>+\n");
+							//break;
+						//case ST_PUNCH_BACKWARD_JUMP:
+							//LOG("PUNCH JUMP BACKWARD ^<<+\n");
+							//break;
+						//case ST_KICK_CROUCH:
+							//LOG("KICK CROUCHING **--\n");
+							//break;
+					case ST_KICK_STANDING:
+						current_animation = &kick;
+						break;
+						//case ST_KICK_NEUTRAL_JUMP:
+						//	LOG("KICK JUMP NEUTRAL ^^--\n");
+							//break;
+						//case ST_KICK_FORWARD_JUMP:
+							//LOG("KICK JUMP FORWARD ^>>-\n");
+							//break;
+						//case ST_KICK_BACKWARD_JUMP:
+							//LOG("KICK JUMP BACKWARD ^<<-\n");
+							//break;
+						//case ST_DAMAGE_RECEIVED:
+							//current_animation = &beat;
+							//break;
+					case ST_SP1:
+
+						current_animation = &sm1;
+						Activesm1 = true;
+					}
 				}
+				current_state = state;
+
+				return UPDATE_CONTINUE;
 			}
 
-			if ((App->input->keyboard[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN) || (Lowdtime == true))
-			{
-				current_animation = &lowd;
-				Lowdtime = true;
-				//App->audio->PlayFX(Punch);
-				if (current_animation->AnimFinished() == true)
-				{
-					Lowdtime = false;
-				}
-			}
+		
+	if ((App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)){
 
-			if ((App->input->keyboard[SDL_SCANCODE_X] == KEY_STATE::KEY_DOWN) || (Highdtime == true))
-			{
-				current_animation = &highd;
-				Highdtime = true;
-				//App->audio->PlayFX(Punch);
-				if (current_animation->AnimFinished() == true)
-				{
-					Highdtime = false;
-				}
-			}
-			if ((App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN))
-			{
-
-			}
+	}
 			
-		}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	playercol->SetPos(position.x, position.y);
@@ -271,24 +286,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 }
 
-
-
-
-Uint32 jump_timer = 0;
-Uint32 punch_timer = 0;
-Uint32 sp1_timer = 0;
-Uint32 kick_timer = 0;
-
-
-bool external_input(p2Qeue<player_inputs>& inputs)
+bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 {
 	static bool backward = false;
-	static bool forward = false; 
+	static bool forward = false;
 	static bool crouch = false;
 	static bool jump = false;
-	static bool punch = false;
-	static bool kick = false;
-	static bool sp1 = false;
+
 
 	SDL_Event event;
 
@@ -302,39 +306,33 @@ bool external_input(p2Qeue<player_inputs>& inputs)
 				return false;
 				break;
 
-			case SDLK_DOWN:
+			case SDLK_s:
 				inputs.Push(IN_CROUCH_UP);
 				crouch = false;
 				break;
 
-			case SDLK_UP:
-				inputs.Push(IN_JUMP_UP);
+			case SDLK_w:
+
 				jump = false;
 				break;
 
-			case SDLK_LEFT:
+			case SDLK_a:
 				inputs.Push(IN_LEFT_UP);
 				backward = false;
 				break;
 
-			case SDLK_RIGHT:
+			case SDLK_d:
 				inputs.Push(IN_RIGHT_UP);
 				forward = false;
 				break;
 
 			case SDLK_t:
-				inputs.Push(IN_PUNCH_UP);
-				punch = false;
 				break;
 
 			case SDLK_y:
-				inputs.Push(IN_KICK_UP);
-				kick = false;
 				break;
 
 			case SDLK_f:
-				inputs.Push(IN_SP1_UP);
-				sp1 = false;
 				break;
 			}
 		}
@@ -343,48 +341,58 @@ bool external_input(p2Qeue<player_inputs>& inputs)
 			switch (event.key.keysym.sym)
 			{
 
-			case SDLK_UP:
-				inputs.Push(IN_JUMP_DOWN);
+			case SDLK_w:
 				jump = true;
+				//App->audio->PlayFX(AUDIOSALTO);
 				break;
-			case SDLK_DOWN:
-				inputs.Push(IN_CROUCH_DOWN);
+			case SDLK_s:
 				crouch = true;
 				break;
-			case SDLK_LEFT:
-				inputs.Push(IN_LEFT_DOWN);
+			case SDLK_a:
 				backward = true;
 				break;
-			case SDLK_RIGHT:
-				inputs.Push(IN_RIGHT_DOWN);
+			case SDLK_d:
 				forward = true;
 				break;
 
 			case SDLK_t:
-				inputs.Push(IN_PUNCH_DOWN);
-				punch = true;
+				inputs.Push(IN_PUNCH);
+				App->audio->PlayFX(Punch);
 				break;
 
 			case SDLK_y:
-				inputs.Push(IN_KICK_DOWN);
-				kick = true;
+
+				inputs.Push(IN_KICK);
+				App->audio->PlayFX(Kick);
 				break;
 
 			case SDLK_f:
-				inputs.Push(IN_SP1_DOWN);
-				sp1 = true;
+
+				inputs.Push(IN_SM1);
+				if (Activesm1 = true) {
+
+					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
+					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
+					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_PLAYER_SHOT, 200);
+					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
+					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT, 600);
+					Activesm1 = false;
+				}
+
+				App->audio->PlayFX(Specialattack);
+
+				inputs.Push(IN_SM1);
+
 				break;
 			}
-			
+
 		}
-		
+
 	}
 
-	if (backward && forward){
-		
+	if (backward && forward)
 		inputs.Push(IN_LEFT_AND_RIGHT);
-	}
-	else
+
 	{
 		if (backward)
 			inputs.Push(IN_LEFT_DOWN);
@@ -392,68 +400,23 @@ bool external_input(p2Qeue<player_inputs>& inputs)
 			inputs.Push(IN_RIGHT_DOWN);
 	}
 
-	if (jump && crouch){
+	if (jump && crouch)
 		inputs.Push(IN_JUMP_AND_CROUCH);
-	}
+
 	else
 	{
 		if (crouch)
 			inputs.Push(IN_CROUCH_DOWN);
 		if (jump)
-			inputs.Push(IN_JUMP_DOWN);
+			inputs.Push(IN_JUMP);
 	}
 
-	if (punch && kick) {
-		inputs.Push(IN_PUNCH_AND_KICK);
-	}
-	else
-	{
-		if (punch)
-			inputs.Push(IN_PUNCH_DOWN);
-		if (kick)
-			inputs.Push(IN_KICK_DOWN);
-	}
-	
-	if (punch && sp1) {
-		inputs.Push(IN_PUNCH_AND_SP1);
-	}
-	else
-	{
-		if (punch)
-			inputs.Push(IN_PUNCH_DOWN);
-		if (sp1)
-			inputs.Push(IN_SP1_DOWN);
-	}
-	
-	if (kick && sp1) {
-		inputs.Push(IN_KICK_AND_SP1);
-	}
-	else
-	{
-		if (kick)
-			inputs.Push(IN_KICK_DOWN);
-		if (sp1)
-			inputs.Push(IN_SP1_DOWN);
-	}
-	
-	if (punch && kick && sp1) {
-		inputs.Push(IN_PUNCH_AND_KICK_AND_SP1);
-	}
-	else
-	{
-		if (punch)
-			inputs.Push(IN_PUNCH_DOWN);
-		if (kick)
-			inputs.Push(IN_KICK_DOWN);
-		if (sp1)
-			inputs.Push(IN_SP1_DOWN);
 
-	}
-	
+
 	return true;
 }
 
-void internal_input(p2Qeue<player_inputs>& inputs)
+void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
 	if (jump_timer > 0)
 	{
@@ -490,142 +453,6 @@ void internal_input(p2Qeue<player_inputs>& inputs)
 			sp1_timer = 0;
 		}
 	}
-}
-
-player_states process_fsm(p2Qeue<player_inputs>& inputs)
-{
-	static player_states state = ST_IDLE;
-	player_inputs last_input;
-
-	while (inputs.Pop(last_input))
-	{
-		switch (state)
-		{
-		
-		case ST_IDLE:
-		{
-			switch (last_input)
-			{
-
-			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
-			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-			case IN_JUMP_DOWN: state = ST_JUMP_NEUTRAL; jump_timer = SDL_GetTicks();  break;
-			
-			case IN_PUNCH_DOWN: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
-			case IN_SP1_DOWN: state = ST_SP1_STANDING; sp1_timer = SDL_GetTicks(); break;
-			case IN_KICK_DOWN: state = ST_KICK_STANDING; kick_timer = SDL_GetTicks(); break;
-			
-			case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-			case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-			case IN_KICK_AND_SP1: state = ST_IDLE; break;
-			case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-
-			}
-		}
-		break;
-
-		case ST_WALK_FORWARD:
-		{
-
-			switch (last_input)
-			{
-
-			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
-			case IN_RIGHT_UP: state = ST_IDLE; break;
-			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-
-			}
-
-		}
-		break;
-
-		case ST_WALK_BACKWARD:
-		{
-			switch (last_input)
-			{
-			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
-			case IN_LEFT_UP: state = ST_IDLE; break;
-			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-			}
-		}
-		break;
-
-		case ST_CROUCH:
-		{
-			switch (last_input)
-			{
-
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-			case IN_CROUCH_UP: state = ST_IDLE; break;
-			case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
-
-			}
-
-		}
-		break;
-
-		case ST_JUMP_NEUTRAL:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_UP: state = ST_IDLE; break;
-			case IN_JUMP_DOWN: state = ST_JUMP_NEUTRAL; jump_timer = SDL_GetTicks(); break;
-			case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
-			case IN_JUMP_FINISH: state = ST_IDLE; break;
-			
-			}
-		}
-		break;
-
-		case ST_PUNCH_STANDING:
-		{
-			switch (last_input)
-			{
-			case IN_PUNCH_UP: state = ST_IDLE; break;
-			case IN_PUNCH_DOWN: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks(); break;
-			case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-			case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-			case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-			case IN_PUNCH_FINISH: state = ST_IDLE; break;
-
-			}
-		}
-		break;
-
-		case ST_KICK_STANDING:
-		{
-
-			switch (last_input)
-			{
-
-			case IN_KICK_UP: state = ST_IDLE; break;
-			case IN_KICK_DOWN: state = ST_KICK_STANDING; kick_timer = SDL_GetTicks(); break;
-			case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-			case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-			case IN_KICK_AND_SP1: state = ST_IDLE; break;
-			}
-		}
-		
-		case ST_SP1_STANDING:
-		{
-
-			switch (last_input)
-			{
-
-			case IN_SP1_UP: state = ST_IDLE; break;
-			case IN_SP1_DOWN: state = ST_SP1_STANDING; sp1_timer = SDL_GetTicks(); break;
-			case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-			case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-			case IN_KICK_AND_SP1: state = ST_IDLE; break;
-			}
-		}
-		}
-	}
-
-	return state;
 }
 
 bool ModulePlayer::CleanUp()
