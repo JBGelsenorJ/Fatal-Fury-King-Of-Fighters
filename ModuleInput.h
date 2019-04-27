@@ -28,7 +28,7 @@ public:
 
 public:
 	KEY_STATE keyboard[MAX_KEYS];
-	int j = 0;
+	
 };
 
 #endif // __Module
