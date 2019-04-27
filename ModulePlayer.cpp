@@ -40,13 +40,16 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 95, 916, 59, 102 });
 	backward.speed = 0.15f;
 
-	//Terry Bogard Jump Animation
-	jump.PushBack({ 548, 1035, 51, 125 });
-	//jump.PushBack({ 611, 1046, 57, 103 });
-	//jump.PushBack({ 680, 1056, 57, 94 });
+	//Terry Bogard Jump UP Animation
+	jumpup.PushBack({ 548, 1035, 51, 125 });
 	
+	jumpup.speed = 0.027f;
 
-	//jump.speed = 0.08f;
+	//Terry Bogard Jump DOWN Animation
+	jumpdown.PushBack({ 611, 1046, 57, 103 });
+	jumpdown.PushBack({ 680, 1056, 57, 94 });
+
+	jumpdown.speed = 0.022f;
 
 	//Terry Bogard Kick Animation
 	kick.PushBack({ 449, 806, 59, 107 });
@@ -157,23 +160,27 @@ update_status ModulePlayer::Update()
 			//Jump
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 				
-				current_animation = &jump;
+				current_animation = &jumpup;
 				TimeJump = true;
 				position.y -= jumpspeed;
 
 				if (position.y == 100)
 				{
+					current_animation = &jumpdown;
 					jumpspeed = -6;
 				}
 
 				if (position.y == 220) 
 				{
+					current_animation = &jumpup;
 					jumpspeed = 6;
 				}
 
 				if (current_animation->AnimFinished() == true)
 				{
 					TimeJump = false;
+					position.y = 220;
+					jumpspeed = 6;
 				}
 				
 			}

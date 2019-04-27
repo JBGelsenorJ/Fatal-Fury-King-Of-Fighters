@@ -9,7 +9,7 @@
 #include "ModuleCollision.h"
 #include "p2Qeue.h"
 
-#define JUMP_TIME 3000
+#define JUMP_TIME 6000
 #define PUNCH_TIME 1000
 #define SP1_TIME 1000
 #define KICK_TIME 1000
@@ -33,7 +33,8 @@ public:
 	Animation idle;
 	Animation forward;
 	Animation backward;
-	Animation jump;
+	Animation jumpup;
+	Animation jumpdown;
 	Animation kick;
 	Animation punch;
 	Animation crouch;
