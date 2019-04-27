@@ -54,7 +54,8 @@ public:
 	Mix_Chunk* Kick;
 	
 	Collider* playercol;
-	Collider* particles;
+	Collider* playerpunch;
+	Collider* playerkick;
 
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;

@@ -121,6 +121,9 @@ bool ModulePlayer::Start()
 	
 	//Loading Player Colliders
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+
 
 	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
 
@@ -138,24 +141,6 @@ update_status ModulePlayer::Update()
 	int speed = 2;
 	
 	
-			//Jump
-			/*if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
-				
-				current_animation = &jump;
-				
-				TimeJump = true;
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-				
-				if (current_animation->AnimFinished() == true)
-				{
-					TimeJump = false;
-					position.y = 220;
-					jumpspeed = 6;
-				}
-				
-			}*/
-
 			while (external_input(inputs))
 			{
 				internal_input(inputs);
@@ -200,12 +185,10 @@ update_status ModulePlayer::Update()
 						break;
 
 						//case ST_JUMP_FORWARD:
-							//LOG("JUMPING FORWARD ^^>>\n");
-							//break;
+							//LOG("JUMPING FORWARD ^^>>\n")
 						//case ST_JUMP_BACKWARD:
 							//LOG("JUMPING BACKWARD ^^<<\n");
-							//break;
-					
+							
 					case ST_CROUCH:
 						current_animation = &crouch;
 						current_animation = &crouch;
@@ -215,7 +198,6 @@ update_status ModulePlayer::Update()
 						//case ST_PUNCH_CROUCH:
 							//LOG("PUNCH CROUCHING **++\n");
 							//break;
-					
 					case ST_PUNCH_STANDING:
 						current_animation = &punch;
 						LOG("PUNCH STANDING ++++\n");
@@ -232,7 +214,6 @@ update_status ModulePlayer::Update()
 						//case ST_KICK_CROUCH:
 							//LOG("KICK CROUCHING **--\n");
 							//break;
-					
 					case ST_KICK_STANDING:
 						current_animation = &kick;
 						break;
@@ -248,7 +229,6 @@ update_status ModulePlayer::Update()
 						//case ST_DAMAGE_RECEIVED:
 							//current_animation = &beat;
 							//break;
-					
 					case ST_SP1:
 
 						current_animation = &sm1;
@@ -271,9 +251,7 @@ update_status ModulePlayer::Update()
 
 						break;
 					}
-				
 				}
-
 				current_state = state;
 
 				SDL_Rect r = current_animation->GetCurrentFrame();
@@ -281,8 +259,9 @@ update_status ModulePlayer::Update()
 				App->render->Blit(graphics, position.x, position.y - r.h, &r);
 
 				playercol->SetPos(position.x, position.y);
+				playerpunch->SetPos(position.x+40, position.y-90);
+				playerkick->SetPos(position.x + 40, position.y - 60);
 
-				//Here goes the kick collider punch collider and special movement collider and player life
 
 
 				return UPDATE_CONTINUE;
@@ -306,6 +285,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy->position.x -= 3;
 
 	}
+
+	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		App->enemy->position.x += 3;
+
+
+	}
+
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
 		position.x = 15;
@@ -319,7 +306,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 	static bool forward = false;
 	static bool crouch = false;
 	static bool jump = false;
-
 
 	SDL_Event event;
 
@@ -383,12 +369,13 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_t:
+				playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 				inputs.Push(IN_PUNCH);
 				App->audio->PlayFX(Punch);
 				break;
 
 			case SDLK_y:
-
+				playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
 				inputs.Push(IN_KICK);
 				App->audio->PlayFX(Kick);
 				break;
@@ -460,8 +447,10 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
+			playerpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
+
 		}
 	}
 
@@ -469,6 +458,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
+			playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
 		}
