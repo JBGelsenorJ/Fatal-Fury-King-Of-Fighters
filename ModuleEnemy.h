@@ -120,8 +120,7 @@ public:
 	bool TimeJump = false;
 
 	bool godmode = false;
-	int countdown_font = -1;
-
+	int cont = 0;
 	void OnCollision(Collider* c1, Collider* c2);
 
 
