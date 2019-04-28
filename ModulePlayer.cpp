@@ -183,7 +183,8 @@ update_status ModulePlayer::Update()
 				kick.Reset();
 				punch.Reset();
 				sm1.Reset();
-
+				playerpunch->to_delete = true;
+				playerkick->to_delete = true;
 				break;
 			}
 			case ST_WALK_FORWARD:
@@ -484,6 +485,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				if (colcreated == true)
 				{
 					playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				App->audio->PlayFX(Punch);
@@ -495,6 +497,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				if (colcreated == true)
 				{
 					playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+					playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				inputs.Push(IN_KICK);
@@ -578,10 +581,10 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
-			playerpunch->to_delete = true;
+			colcreated = true;
 			playercol->to_delete = true;
 			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-			colcreated = true;
+			playerpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
 
