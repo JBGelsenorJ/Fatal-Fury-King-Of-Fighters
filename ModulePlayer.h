@@ -11,12 +11,9 @@
 
 
 
-<<<<<<< HEAD
-#define MAX_KEYS 300
 
-=======
+
 #define MAX_KEYS 1000
->>>>>>> 0f7ff4e1fad009d4e8d4443b6bfeee8a3f2156b7
 #define JUMP_TIME 1000
 #define JUMPF_TIME 1000
 #define JUMPB_TIME 1000
