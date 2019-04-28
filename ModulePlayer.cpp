@@ -289,19 +289,19 @@ update_status ModulePlayer::Update()
 			}
 			case ST_JUMP_NEUTRAL:
 			{
-					int yoriginal = position.y;
+				if (position.y <= 220)
+				{
+					animdone = false;
 					current_animation = &jump;
-					LOG("JUMPING  ^^^^\n");
-
 					position.y -= jumpspeed;
 					jumpspeed -= 0.2;
-
-
-					if (current_animation->AnimFinished() == true)
-					{
-						position.y = 220;
-						jumpspeed = 6;
-					}
+				}
+				if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
 				
 			break;
 			}
@@ -569,9 +569,6 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			inputs.Push(IN_JUMP_FINISH);
-			jump_timer = 0;
 			
 
 		}
