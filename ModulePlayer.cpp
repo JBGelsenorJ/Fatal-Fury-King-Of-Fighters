@@ -283,8 +283,10 @@ update_status ModulePlayer::Update()
 
 				current_animation = &sm1;
 
-				break;
-				case ST_JUMP_NEUTRAL:
+			break;
+
+			case ST_JUMP_NEUTRAL:
+			
 					int yoriginal = position.y;
 					current_animation = &jump;
 					LOG("JUMPING  ^^^^\n");
@@ -298,19 +300,29 @@ update_status ModulePlayer::Update()
 						position.y = 220;
 						jumpspeed = 6;
 					}
+				
+			break;
+
+			case ST_LDAMAGE:
+				/*if ()
+				{
+				current_animation=&lowd
+				}*/
 				break;
+
+			case ST_HDAGAME:
+				/*if ()
+				{
+				current_animation=&highd
+				}*/
+			break;
 
 			}
 		}
 
-
-
-
 		playercol->SetPos(position.x, position.y);
 		playerpunch->SetPos(position.x + 40, position.y - 90);
 		playerkick->SetPos(position.x + 40, position.y - 60);
-
-
 
 		current_state = state;
 
@@ -431,24 +443,35 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			{
 
 			case SDLK_w:
+				
 				if (animdone == true)
 				{
 					jump = true;
 				}
-				
 				//App->audio->PlayFX(AUDIOSALTO);
-				break;
+
+			break;
+
 			case SDLK_s:
+
 				crouch = true;
-				break;
+
+			break;
+
 			case SDLK_a:
+
 				backward = true;
-				break;
+
+			break;
+
 			case SDLK_d:
+
 				forward = true;
-				break;
+
+			break;
 
 			case SDLK_t:
+
 				inputs.Push(IN_PUNCH);
 				if (colcreated == true)
 				{
@@ -456,9 +479,11 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 					colcreated = false;
 				}
 				App->audio->PlayFX(Punch);
-				break;
+
+			break;
 
 			case SDLK_y:
+
 				if (colcreated == true)
 				{
 					playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
@@ -466,9 +491,11 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				}
 				inputs.Push(IN_KICK);
 				App->audio->PlayFX(Kick);
-				break;
+
+			break;
 
 			case SDLK_f:
+
 				if (Activesm1 == true) {
 
 					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
@@ -483,7 +510,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 				inputs.Push(IN_SM1);
 
-				break;
+			break;
 			}
 
 		}
