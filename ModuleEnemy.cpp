@@ -11,11 +11,12 @@
 #include "ModuleEnemy.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenePaoPao.h"
+#include "ModuleInput.h"
 
 
 ModuleEnemy::ModuleEnemy()
 {
-	position.x = 100;
+	position.x = 200;
 	position.y = 220;
 
 	//IDLE
@@ -730,7 +731,7 @@ bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 				break;
 
 			case SDLK_h:
-
+				LOG("atras");
 				backward = true;
 
 				break;

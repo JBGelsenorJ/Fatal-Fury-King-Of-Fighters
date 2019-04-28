@@ -56,6 +56,7 @@ bool ModuleScenePaoPao::Start()
 	
 	//Enabling game features
 	App->particles->Enable();
+	App->input->Enable();
 	App->collision->Enable();
 	App->player->Enable();
 	App->enemy->Enable();

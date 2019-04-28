@@ -269,10 +269,6 @@ bool ModulePlayer::Start()
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 
-
-	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
-
-
 	return ret;
 }
 
@@ -704,6 +700,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			case SDLK_a:
 				inputs.Push(IN_LEFT_UP);
 				backward = false;
+				LOG("atras");
 				break;
 
 			case SDLK_d:

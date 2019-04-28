@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "p2Qeue.h"
 #include "SDL\include\SDL_timer.h"
+#include "ModuleInput.h"
 
 #define MAX_KEYS 500
 #define JUMP_TIME 1000

@@ -7,6 +7,7 @@
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
 #include "ModuleMusic.h"
+#include <string.h>
 
 //Needed to link life with healthbars
 #include "ModulePlayer.h"
@@ -112,18 +113,16 @@ bool ModuleUI::CleanUp()
 
 bool ModuleUI::Timer(int w, int h) {
 
-	if (starting <= SDL_GetTicks() && time > 0 && (SDL_GetTicks() - starting >=	start_delay) ){
+	if (starting <= SDL_GetTicks() && time > 0) {
 		//starting = SDL_GetTicks();
 		//time -= SDL_GetTicks();
-
-		time = 90000 - (SDL_GetTicks() - starting - start_delay);
+		time = (90000 - SDL_GetTicks()) + starttime;
 		//time--;
 	}
 	if (time >= 200000)
 	{
 		time = 0;
 	}
-	
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);
 	App->render->DrawQuad(timerbackground, 255, 255, 255, 255, false);

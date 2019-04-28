@@ -119,9 +119,7 @@ public:
 	bool colcreated = false;
 	
 	bool godmode = false;
-	bool dealtdamage = false;
-	int countdown_font = -1;
-	
+	bool dealtdamage = false;	
 	void OnCollision(Collider* c1, Collider* c2);
 	
 	float jumpspeed = 6;
