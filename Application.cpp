@@ -60,8 +60,8 @@ bool Application::Init()
 	scene_soundbeach->Disable();
 	scene_intro2->Disable();
 
-	scene_intro->Enable();
-	scene_welcome->Disable();
+	scene_intro->Disable();
+	scene_welcome->Enable();
 	collision->Disable();
 	p1w->Disable();
 	p2w->Disable();
