@@ -199,7 +199,7 @@ update_status ModuleFFIntro::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 1);
 	}
 
 	/*// Drawing background - Intro Background

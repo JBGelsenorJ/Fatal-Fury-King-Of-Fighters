@@ -336,7 +336,7 @@ public:
 	Collider* enemypunch;
 	void OnCollision(Collider* c1, Collider* c2);
 	int speed = 2;
-	int life = 100;
+	float life = 100;
 	float jumpspeed = 6;
 
 };

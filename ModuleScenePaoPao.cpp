@@ -95,6 +95,9 @@ void ModuleScenePaoPao::Restart() {
 	App->enemy->life = 100;
 	App->enemy->position.x = 200;
 	App->enemy->position.y = 220;
+	//Restart time
+	App->ui->time = 90000;
+	
 
 }
 
@@ -110,6 +113,7 @@ update_status ModuleScenePaoPao::Update()
 
 	App->ui->Timer(129,20);
 	App->ui->DrawLife();
+
 
 	//Scene Out
 	if (App->player->life<=0)

@@ -22,22 +22,29 @@
 ModuleUI::ModuleUI(){
 
 	//White Square behind Timer
-	timerbackground.x = 128;
-	timerbackground.y = 19;
-	timerbackground.w = 32;
-	timerbackground.h = 24;
 
-	//Health full of life
-	health.x = 8;
-	health.y = 54;
-	health.w = 185;
-	health.h = 28;
+	timerbackground.x = 382;
+	timerbackground.y = 56;
+	timerbackground.w = 100;
+	timerbackground.h = 75;
+
+	//HealthP1 full of life
+	health.x = 1;
+	health.y = 20;
+	health.w = 120;
+	health.h = 13;
+
+	//HealthP2 full of life
+	healthp2.x = 1;
+	healthp2.y = 20;
+	healthp2.w = 120;
+	healthp2.h = 13;
 
 	//Health without life
-	nohealth.x = 0;
+	nohealth.x = 1;
 	nohealth.y = 0;
-	nohealth.w = 0;
-	nohealth.h = 0;
+	nohealth.w = 120;
+	nohealth.h = 12;
 
 	//Point without red dot or scored
 	point.x = 0;
@@ -85,6 +92,9 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update(){
 
 
+	health.w = 120 * (App->enemy->life / 100);
+	healthp2.w = 120 * (App->player->life / 100);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -94,7 +104,7 @@ bool ModuleUI::CleanUp()
 	//Destroying features loaded
 	SDL_DestroyTexture(graphics);
 	App->fonts->UnLoad(countdown);
-	
+	App->fonts->UnLoad(scorefont);
 	LOG("Unloading Textures, Fonts and Audio");
 
 	return true;
@@ -113,7 +123,7 @@ bool ModuleUI::Timer(int w, int h) {
 	
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);
-	App->render->DrawQuad(timerbackground, 255, 255, 255, 255);
+	App->render->DrawQuad(timerbackground, 255, 255, 255, 255, false);
 	App->fonts->BlitText(w, h, countdown, time_text);
 
 	
@@ -121,10 +131,14 @@ bool ModuleUI::Timer(int w, int h) {
 }
 
 bool ModuleUI::DrawLife() {
-
-	App->render->Blit(graphics, 169, 50, &health, false);
-
 	
+	//Rendering P2 Life
+	App->render->Blit(graphics, 166, 25, &nohealth,false);
+	App->render->Blit(graphics, 166, 25, &health, false);
+
+
+	App->render->MirrorBlit(graphics, 2, 25, &nohealth , 0.0f , 0 ,NULL);
+	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
 
 
 	return true;
