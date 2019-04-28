@@ -360,6 +360,7 @@ update_status ModuleEnemy::Update()
 				App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_ENEMY_SHOT, 400);
 				App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_ENEMY_SHOT, 600);
 				TimeAnim = false;
+				App->particles->cont = 0;
 			}
 		}
 

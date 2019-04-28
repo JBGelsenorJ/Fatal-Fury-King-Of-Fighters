@@ -162,7 +162,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		}
 		if (c2->type == COLLIDER_PLAYER && cont < 1)
 		{
-			App->player->life -= 33;
+			App->player->life -= 30;
 			cont++;
 		}
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
