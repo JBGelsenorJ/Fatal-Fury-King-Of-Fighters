@@ -319,7 +319,7 @@ update_status ModuleEnemy::Update()
 			TimePunch = true;
 			App->audio->PlayFX(Punch);
 			enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
-			enemypunch->to_delete = true;
+			
 			if (current_animation->AnimFinished() == true)
 			{
 				TimePunch = false;
@@ -401,11 +401,8 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemypunch == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		if (enemypunch->callback != nullptr)
-		{
 			enemypunch->to_delete = true;
-		}
-		App->player->life -= 25;
+			App->player->life -= 25;
 
 
 	}
