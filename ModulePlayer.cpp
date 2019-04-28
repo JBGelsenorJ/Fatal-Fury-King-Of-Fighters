@@ -306,10 +306,11 @@ update_status ModulePlayer::Update()
 			}
 
 			case ST_LDAMAGE:
-			{	/*if ()
-				{
-				current_animation=&lowd
-				}*/
+			{	if (dealtdamage == true)
+			{
+				current_animation = &lowd;
+			}
+				
 				break;
 			}
 			case ST_HDAGAME:
@@ -387,7 +388,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		position.x = 15;
+		//position.x = 15;
+		dealtdamage = true;
 	}
 
 }
@@ -571,13 +573,14 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 		}
 	
-	
 
 	if (punch_timer > 0)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
 			playerpunch->to_delete = true;
+			playercol->to_delete = true;
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			colcreated = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
@@ -590,6 +593,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
 			colcreated = true;
+			playercol->to_delete = true;
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
@@ -602,6 +607,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		{
 			inputs.Push(IN_SP1_FINISH);
 			sp1_timer = 0;
+			playercol->to_delete = true;
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			
 		}
 		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
