@@ -9,10 +9,6 @@
 #include "p2Qeue.h"
 #include "SDL\include\SDL_timer.h"
 
-
-
-
-
 #define MAX_KEYS 1000
 #define JUMP_TIME 1000
 #define JUMPF_TIME 1000

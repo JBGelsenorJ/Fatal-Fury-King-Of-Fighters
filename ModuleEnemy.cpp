@@ -1,4 +1,4 @@
-/*#include "Globals.h"
+#include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -483,8 +483,8 @@ bool ModuleEnemy::CleanUp()
 	LOG("Unloading Terry From Scene");
 
 	return true;
-}*/
-
+}
+/*
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -1098,4 +1098,4 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 		position.x = 15;
 	}
 
-}
+}*/

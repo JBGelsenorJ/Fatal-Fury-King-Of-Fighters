@@ -1,4 +1,4 @@
-/*#ifndef __ModuleEnemy_H__
+#ifndef __ModuleEnemy_H__
 #define __ModuleEnemy_H__
 
 #include "Module.h"
@@ -277,8 +277,8 @@ public:
 
 };
 
-#endif*/
-
+#endif
+/*
 #ifndef __ModuleEnemy_H__
 #define __ModuleEnemy_H__
 
@@ -393,4 +393,4 @@ enum enemy_inputs
 
 };
 
-#endif
+#endif*/
