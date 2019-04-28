@@ -100,8 +100,6 @@ bool ModuleFFIntro::Start()
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 
 	App->audio->PlayMusic(introsong);
-	App->collision->Disable();
-
 	App->render->camera.x = -33;
 	App->render->camera.y = 0;
 
@@ -112,9 +110,7 @@ bool ModuleFFIntro::Start()
 bool ModuleFFIntro::CleanUp()
 {
 	LOG("Unloading FFINTRO");
-	App->player->Disable();
-	App->enemy->Disable();
-	App->ui->Disable();
+
 	App->textures->Unload(graphics);
 
 	//SDL_DestroyTexture(graphics);

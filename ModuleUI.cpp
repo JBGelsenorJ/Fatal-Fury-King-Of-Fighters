@@ -76,7 +76,7 @@ bool ModuleUI::Start()
 {
 	LOG("Loading features");
 	bool ret = true;
-
+	starttime = SDL_GetTicks();
 
 	//Loading SpriteSheet and fonts
 	graphics = App->textures->Load("Source/UI/combatui/ui.png");
@@ -112,14 +112,17 @@ bool ModuleUI::CleanUp()
 
 bool ModuleUI::Timer(int w, int h) {
 
-	//Time   !FIX DOES START IN 88 SEC NOT IN 90¡
 	if (starting <= SDL_GetTicks() && time > 0 && (SDL_GetTicks() - starting >=	start_delay) ){
 		//starting = SDL_GetTicks();
 		//time -= SDL_GetTicks();
+
 		time = 90000 - (SDL_GetTicks() - starting - start_delay);
 		//time--;
 	}
-
+	if (time >= 200000)
+	{
+		time = 0;
+	}
 	
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);

@@ -47,7 +47,7 @@ public:
 	//Timer
 	int start_delay = 2000;
 	float starting = 0.0f;
-	float seconds;
+	uint starttime;
 	uint time;
 	char time_text[10];
 	
