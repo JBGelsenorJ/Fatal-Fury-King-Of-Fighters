@@ -92,7 +92,7 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update(){
 
 
-	health.w = 120 * (App->enemy->life2 / 100);
+	health.w = 120 * (App->enemy->life / 100);
 	healthp2.w = 120 * (App->player->life / 100);
 
 	return UPDATE_CONTINUE;
@@ -132,14 +132,24 @@ bool ModuleUI::Timer(int w, int h) {
 
 bool ModuleUI::DrawLife() {
 	
+	//Rendering P1 Life
+	App->render->MirrorBlit(graphics, 2, 25, &nohealth, 0.0f, 0, NULL);
+	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
+	
+	/*		FIX FONT SIZE
+	sprintf_s(p2score, 10, "%7d", App->player->score);
+	App->fonts->BlitText(20, 15, scorefont, p2score);
+	*/
+
 	//Rendering P2 Life
 	App->render->Blit(graphics, 166, 10, &nohealth,false);
 	App->render->Blit(graphics, 166, 10, &health, false);
 
 
+
 	App->render->MirrorBlit(graphics, 2, 10, &nohealth , 0.0f , 0 ,NULL);
 	App->render->MirrorBlit(graphics, 2, 10, &healthp2, 0.0f, 180, NULL);
 
-
 	return true;
 }
+

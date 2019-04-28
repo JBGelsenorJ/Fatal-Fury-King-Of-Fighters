@@ -154,7 +154,7 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, center, SDL_FLIP_HORIZONTAL) != 0)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		LOG("Cannot blit to screen. SDL_RenderCopyEx error: %s", SDL_GetError());
 		ret = false;
 	}
 

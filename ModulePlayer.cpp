@@ -281,19 +281,19 @@ update_status ModulePlayer::Update()
 {
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
-		/*if (godmode == false)
+		if (godmode == false)
 		{
-			playercol->to_delete = true;
-			App->enemy->enemycol->to_delete = true;
-
+			
+			playercol->type = COLLIDER_NONE;
+			App->enemy->enemycol->type = COLLIDER_NONE;
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-			App->enemy->enemycol = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, (Module*) App->enemy->enemycol);
+			playercol->type = COLLIDER_PLAYER;
+			App->enemy->enemycol->type = COLLIDER_ENEMY;
 			godmode = false;
-		}*/
+		}
 	}
 	Animation* current_animation = &idle;
 	p2Qeue<player_inputs> inputs;
@@ -597,8 +597,12 @@ update_status ModulePlayer::Update()
 		current_state = state;
 
 		SDL_Rect r = current_animation->GetCurrentFrame();
-
-		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		if (App->enemy->position.x > position.x) {
+			App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		}
+		else {
+			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+		}
 
 		playercol->SetPos(position.x, position.y);
 		playerpunch->SetPos(position.x + 40, position.y - 90);
@@ -612,15 +616,15 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x < App->enemy->position2.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
 	{
-		App->enemy->position2.x += 3;
+		App->enemy->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x > App->enemy->position2.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
 	{
-		App->enemy->position2.x -= 3;
+		App->enemy->position.x -= 3;
 
 	}
 
@@ -630,9 +634,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerpunch->to_delete = true;
 		}
-		App->enemy->position2.x += 3; 
-			App->enemy->life2 -= 25;
 
+
+		App->enemy->position.x += 3; 
+			App->enemy->life -= 25;
+			//score += 200;
 
 	}
 
@@ -642,15 +648,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerkick->to_delete = true;
 		}
-		App->enemy->life2 -= 25;
-		App->enemy->position2.x += 3;
+		App->enemy->life -= 25;
+		App->enemy->position.x += 3;
 
 
 	}
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		position.x = 15;
+		position.x += 15;
 		dealtdamage = true;
 	}
 

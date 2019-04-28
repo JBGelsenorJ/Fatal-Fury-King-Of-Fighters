@@ -47,8 +47,8 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 bool ModuleScenePaoPao::Start()
 {
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
-	fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-	Mix_VolumeChunk(fx, 35);
+	audience = App->audio->LoadMusic("Source/Sound/Music/audience.ogg");
+
 	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
@@ -63,7 +63,7 @@ bool ModuleScenePaoPao::Start()
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
+	App->audio->PlayMusic(audience);
 
 	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
 	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
@@ -92,9 +92,9 @@ void ModuleScenePaoPao::Restart() {
 	//Restart enemy values
 
 
-	App->enemy->life2= 100;
-	App->enemy->position2.x = 200;
-	App->enemy->position2.y = 220;
+	App->enemy->life= 100;
+	App->enemy->position.x = 200;
+	App->enemy->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
 	
@@ -114,8 +114,8 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
 
-	float centerx = (App->player->position.x + App->enemy->position2.x) / 2;
-	float centery = (App->player->position.y + App->enemy->position2.y) / 2;
+	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy->position.y) / 2;
 
 	//camera locked
 	App->render->cam_pos.x = -centerx;
@@ -130,7 +130,7 @@ update_status ModuleScenePaoPao::Update()
 		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
 
 	}
-	else if (App->enemy->life2 <= 0)
+	else if (App->enemy->life <= 0)
 	{
 		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
 
