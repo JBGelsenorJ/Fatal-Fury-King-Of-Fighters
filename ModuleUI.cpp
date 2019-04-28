@@ -92,7 +92,7 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update(){
 
 
-	health.w = 120 * (App->enemy->life / 100);
+	health.w = 120 * (App->enemy->life2 / 100);
 	healthp2.w = 120 * (App->player->life / 100);
 
 	return UPDATE_CONTINUE;

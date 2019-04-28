@@ -612,15 +612,15 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x < App->enemy->position2.x)
 	{
-		App->enemy->position.x += 3;
+		App->enemy->position2.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x > App->enemy->position2.x)
 	{
-		App->enemy->position.x -= 3;
+		App->enemy->position2.x -= 3;
 
 	}
 
@@ -630,8 +630,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerpunch->to_delete = true;
 		}
-		App->enemy->position.x += 3; 
-			App->enemy->life -= 25;
+		App->enemy->position2.x += 3; 
+			App->enemy->life2 -= 25;
 
 
 	}
@@ -642,8 +642,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerkick->to_delete = true;
 		}
-		App->enemy->life -= 25;
-		App->enemy->position.x += 3;
+		App->enemy->life2 -= 25;
+		App->enemy->position2.x += 3;
 
 
 	}
@@ -842,7 +842,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			
 
 		}
-<<<<<<< HEAD
+
 	if (jumpf_timer > 0)
 	{
 
@@ -873,9 +873,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 
 	}
-=======
-	
->>>>>>> 0f7ff4e1fad009d4e8d4443b6bfeee8a3f2156b7
+
 
 	if (punch_timer > 0)
 	{
