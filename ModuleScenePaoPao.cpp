@@ -49,7 +49,7 @@ bool ModuleScenePaoPao::Start()
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
 	fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 	Mix_VolumeChunk(fx, 35);
-
+	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
@@ -83,6 +83,21 @@ bool ModuleScenePaoPao::CleanUp()
 
 	return true;
 }
+
+void ModuleScenePaoPao::Restart() {
+	//Restart Player values
+	App->player->life = 100;
+	App->player->position.x = 100;
+	App->player->position.y = 220;
+	//Restart enemy values
+
+
+	App->enemy->life = 100;
+	App->enemy->position.x = 200;
+	App->enemy->position.y = 220;
+
+}
+
 
 // Update: draw background
 update_status ModuleScenePaoPao::Update()
