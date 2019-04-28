@@ -111,6 +111,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	colcreated = true;
+	Activesm1 = true;
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
 	
@@ -281,7 +282,7 @@ update_status ModulePlayer::Update()
 			case ST_SP1:
 
 				current_animation = &sm1;
-				Activesm1 = true;
+
 				break;
 				case ST_JUMP_NEUTRAL:
 					int yoriginal = position.y;
@@ -468,8 +469,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_f:
-
-				if (Activesm1 = true) {
+				if (Activesm1 == true) {
 
 					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
 					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
@@ -569,10 +569,17 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		{
 			inputs.Push(IN_SP1_FINISH);
 			sp1_timer = 0;
+			
 		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME+3000)
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
+		{
+			Activesm1 = true;
+
+		}
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME+2000)
 		{
 			App->particles->cont = 0;
+			
 		}
 	}
 }
