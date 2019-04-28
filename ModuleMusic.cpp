@@ -108,7 +108,7 @@ Mix_Chunk* ModuleMusic::LoadFX(const char* path) {
 
 bool ModuleMusic::PlayMusic(Mix_Music* song) {
 
-	if (Mix_PlayMusic(song, -1) == -1)
+	if (Mix_FadeInMusic(song, -1, 2000))
 	{
 		LOG("Error play music: %s \n", Mix_GetError());
 		return false;
