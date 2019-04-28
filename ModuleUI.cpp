@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 
-
+#define START_DELAY 2000;
 
 
 ModuleUI::ModuleUI(){
@@ -24,7 +24,7 @@ ModuleUI::ModuleUI(){
 	//White Square behind Timer
 
 	timerbackground.x = 382;
-	timerbackground.y = 56;
+	timerbackground.y = 11;
 	timerbackground.w = 100;
 	timerbackground.h = 75;
 
@@ -113,10 +113,10 @@ bool ModuleUI::CleanUp()
 bool ModuleUI::Timer(int w, int h) {
 
 	//Time   !FIX DOES START IN 88 SEC NOT IN 90¡
-	if (starting <= SDL_GetTicks() && time > 0) {
+	if (starting <= SDL_GetTicks() && time > 0 && (SDL_GetTicks() - starting >=	start_delay) ){
 		//starting = SDL_GetTicks();
 		//time -= SDL_GetTicks();
-		time = 90000 - SDL_GetTicks();
+		time = 90000 - (SDL_GetTicks() - starting - start_delay);
 		//time--;
 	}
 
@@ -133,12 +133,12 @@ bool ModuleUI::Timer(int w, int h) {
 bool ModuleUI::DrawLife() {
 	
 	//Rendering P2 Life
-	App->render->Blit(graphics, 166, 25, &nohealth,false);
-	App->render->Blit(graphics, 166, 25, &health, false);
+	App->render->Blit(graphics, 166, 10, &nohealth,false);
+	App->render->Blit(graphics, 166, 10, &health, false);
 
 
-	App->render->MirrorBlit(graphics, 2, 25, &nohealth , 0.0f , 0 ,NULL);
-	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
+	App->render->MirrorBlit(graphics, 2, 10, &nohealth , 0.0f , 0 ,NULL);
+	App->render->MirrorBlit(graphics, 2, 10, &healthp2, 0.0f, 180, NULL);
 
 
 	return true;

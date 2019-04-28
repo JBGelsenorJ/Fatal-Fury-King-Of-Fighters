@@ -111,7 +111,7 @@ update_status ModuleScenePaoPao::Update()
 	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
 
-	App->ui->Timer(129,20);
+	App->ui->Timer(129,5);
 	App->ui->DrawLife();
 
 	float centerx = (App->player->position.x + App->enemy->position2.x) / 2;
