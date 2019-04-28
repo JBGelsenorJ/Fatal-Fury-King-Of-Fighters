@@ -67,11 +67,13 @@ public:
 	Uint32 punch_timer = 0;
 	Uint32 sp1_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 collider_timer = 0;
 	
 	bool animdone = true;
 	bool jumpreset;
 	bool TimeJump = false;
 	bool anim_done = false;
+	bool colcreated = false;
 	
 	bool godmode = false;
 	bool dealtdamage = false;

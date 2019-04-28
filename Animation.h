@@ -12,9 +12,10 @@ public:
 	SDL_Rect frames[MAX_FRAMES];
 	bool animend = false;
 	float current_frame;
+	int last_frame = 0;
 	
 private:
-	int last_frame = 0;
+
 	int loops = 0;
 
 

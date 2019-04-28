@@ -110,7 +110,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-
+	colcreated = true;
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
 	
@@ -217,7 +217,8 @@ update_status ModulePlayer::Update()
 
 				current_animation = &punch;
 				LOG("PUNCH STANDING ++++\n");
-			break;
+
+				break;
 
 				//case ST_PUNCH_NEUTRAL_JUMP:
 
@@ -245,7 +246,6 @@ update_status ModulePlayer::Update()
 
 			case ST_KICK_STANDING:
 				current_animation = &kick;
-
 				break;
 
 				//case ST_KICK_NEUTRAL_JUMP:
@@ -262,116 +262,39 @@ update_status ModulePlayer::Update()
 						//case ST_DAMAGE_RECEIVED:
 							//current_animation = &beat;
 							//break;
-					case ST_SP1:
-
-						current_animation = &sm1;
-						Activesm1 = true;
-
-					case ST_JUMP_NEUTRAL:
-
-						/*current_animation = &jump;
-						LOG("JUMPING  ^^^^\n");
-
-						position.y -= jumpspeed;
-						jumpspeed -= 0.2;
-
-						if (current_animation->AnimFinished() == true)
-						{
-							position.y = 220;
-							jumpspeed = 6;
-						}*/
-						/*if (jump_timer <= 500)
-						{
-							current_animation = &jump;
-							position.y -= jumpspeed;
-							jumpspeed -= 0.2;
-						}*/
-						/*if (jump_timer == 500)
-						{
-							jumpspeed = 0;
-						}*/
-						//if (jump_timer > 500)
-						//{
-						if (position.y <=220)
-						{
-							animdone = false;
-							current_animation = &jump;
-							position.y -= jumpspeed;
-							jumpspeed -= 0.2;
-						}
-						if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
-						{
-							position.y = 220;
-							jumpspeed = 6;
-							animdone == true;
-						}
-						
-						/*if (current_animation->AnimFinished() == true)
-						{
-							animdone = true;
-						}*/
-							
-					
-						break;
-					}
-				}
-				current_state = state;
-
-
-
-				//break;
-
-				//case ST_KICK_FORWARD_JUMP:
-
-
-				playercol->SetPos(position.x, position.y);
-				playerpunch->SetPos(position.x + 40, position.y - 90);
-				playerkick->SetPos(position.x + 40, position.y - 60);
-
-						//LOG("KICK JUMP FORWARD ^>>-\n");
-
-
-				//break;
-
-				//case ST_KICK_BACKWARD_JUMP:
-
-						//LOG("KICK JUMP BACKWARD ^<<-\n");
-
-				//break;
-
-				//case ST_DAMAGE_RECEIVED:
-
-						//current_animation = &beat;
-
-				//break;
-				playercol->SetPos(position.x, position.y);
-				playerpunch->SetPos(position.x + 40, position.y - 90);
-				playerkick->SetPos(position.x + 40, position.y - 60);
-
 			case ST_SP1:
+
 				current_animation = &sm1;
 				Activesm1 = true;
-
 				break;
+				case ST_JUMP_NEUTRAL:
+					int yoriginal = position.y;
+					current_animation = &jump;
+					LOG("JUMPING  ^^^^\n");
 
-			case ST_JUMP_NEUTRAL:
-				int yoriginal = position.y;
-				current_animation = &jump;
-				LOG("JUMPING  ^^^^\n");
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
 
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-				
 
-				if (current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-				}
+					if (current_animation->AnimFinished() == true)
+					{
+						position.y = 220;
+						jumpspeed = 6;
+					}
 				break;
 
 			}
 		}
+
+
+
+
+		playercol->SetPos(position.x, position.y);
+		playerpunch->SetPos(position.x + 40, position.y - 90);
+		playerkick->SetPos(position.x + 40, position.y - 60);
+
+
+
 		current_state = state;
 
 		SDL_Rect r = current_animation->GetCurrentFrame();
@@ -387,8 +310,6 @@ update_status ModulePlayer::Update()
 		return UPDATE_CONTINUE;
 
 	}
-
-	
 
 }
 
@@ -410,6 +331,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		if (playerpunch->callback!=nullptr)
+		{
+			playerpunch->to_delete = true;
+		}
 		App->enemy->position.x += 3; 
 			App->enemy->life -= 25;
 
@@ -418,15 +343,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
 	{
-	
-		dealtdamage = true;
-		App->enemy->position.x += 3;
-		if (dealtdamage)
+		if (playerkick->callback != nullptr)
 		{
-			App->enemy->life -= 25;
-			dealtdamage = false;
+			playerkick->to_delete = true;
 		}
-		LOG("la vida es de", App->enemy->life);
+		App->enemy->life -= 25;
+		App->enemy->position.x += 3;
+
 
 	}
 
@@ -509,13 +432,21 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_t:
-				playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 				inputs.Push(IN_PUNCH);
+				if (colcreated == true)
+				{
+					playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					colcreated = false;
+				}
 				App->audio->PlayFX(Punch);
 				break;
 
 			case SDLK_y:
-				playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+				if (colcreated == true)
+				{
+					playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+					colcreated = false;
+				}
 				inputs.Push(IN_KICK);
 				App->audio->PlayFX(Kick);
 				break;
@@ -597,9 +528,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
-			
-			inputs.Push(IN_PUNCH_FINISH);
 			playerpunch->to_delete = true;
+			colcreated = true;
+			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
 
 		}
@@ -609,6 +540,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	{
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
+			colcreated = true;
 			playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
