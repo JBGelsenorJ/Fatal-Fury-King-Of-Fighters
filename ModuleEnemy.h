@@ -116,6 +116,9 @@ public:
 	bool animdone = true;
 	bool jumpreset;
 	bool TimeJump = false;
+	bool TimePunch = false;
+	bool TimeKick = false;
+	bool TimeSM1 = false;
 	bool anim_done = false;
 	bool colcreated = false;
 

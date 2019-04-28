@@ -281,28 +281,76 @@ bool ModuleEnemy::Start()
 update_status ModuleEnemy::Update()
 {
 
-	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
-		/*if (godmode == false)
-		{
-			playercol->to_delete = true;
-			App->enemy->enemycol->to_delete = true;
-
-			godmode = true;
-		}
-		else if (godmode == true)
-		{
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-			App->enemy->enemycol = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, (Module*) App->enemy->enemycol);
-			godmode = false;
-		}*/
-	}
 	Animation* current_animation = &idle;
-	p2Qeue<enemy_inputs> inputs;
-	enemy_states current_state = ST_UNKNOWN;
+	
+	if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 
-	int speed = 2;
+		current_animation = &jump;
+		TimeJump = true;
+		position.y -= jumpspeed;
+		jumpspeed -= 0.2;
 
+		if (jumpspeed < -7)
+		{
+			TimeJump = false;
+			position.y = 220;
+			jumpspeed = 6;
+		}
+	}
 
+	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT) {
+
+		current_animation = &forward;
+		position.x += 2;
+		
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT) {
+
+		current_animation = &backward;
+		position.x -= 2;
+
+	}
+	
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
+
+		current_animation = &crouch;
+		
+
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_M]== KEY_STATE::KEY_REPEAT) {
+
+		current_animation = &punchc;
+		
+
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_REPEAT || (TimeKick==true)) {
+
+		current_animation = &kick;
+		TimeKick = false;
+
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_REPEAT || (TimePunch == true)) {
+
+		current_animation = &punch;
+		TimePunch = false;
+
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT || (TimeSM1 == true)) {
+
+		current_animation = &sm1;
+		TimeSM1 = false;
+
+	}
+	
+	/*p2Qeue<enemy_inputs> inputs;
+	enemy_states current_state = ST_UNKNOWN;*/
+
+	/*
 	while (external_input(inputs))
 	{
 		internal_input(inputs);
@@ -582,10 +630,10 @@ update_status ModuleEnemy::Update()
 			}
 			case ST_HDAGAME:
 			{
-				/*if ()
+				if ()
 				{
 				current_animation=&highd
-				}*/
+				}
 				break;
 			}
 			}
@@ -608,6 +656,19 @@ update_status ModuleEnemy::Update()
 		return UPDATE_CONTINUE;
 
 	}
+	*/
+
+	//current_state = state;
+
+	SDL_Rect r = current_animation->GetCurrentFrame();
+
+	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+
+	enemycol->SetPos(position.x, position.y);
+	enemypunch->SetPos(position.x + 40, position.y - 90);
+	enemykick->SetPos(position.x + 40, position.y - 60);
+
+	return UPDATE_CONTINUE;
 
 }
 
@@ -656,7 +717,7 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 }
-
+/*
 bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 {
 	static bool backward = false;
@@ -1012,7 +1073,7 @@ void ModuleEnemy::internal_input(p2Qeue<enemy_inputs>& inputs)
 	}
 
 }
-
+*/
 
 bool ModuleEnemy::CleanUp()
 {
