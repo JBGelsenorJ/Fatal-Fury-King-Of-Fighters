@@ -83,7 +83,7 @@ public:
 	float jumpspeed = 6;
 	
 	int speed = 2;
-	int life = 100;
+	float life = 100;
 
 	enum player_states
 	{
