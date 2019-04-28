@@ -47,7 +47,7 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 bool ModuleScenePaoPao::Start()
 {
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
-	audience = App->audio->LoadMusic("Source/Sound/Music/audience.ogg");
+	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
 	Restart();
 	LOG("Loading background assets");
@@ -64,7 +64,8 @@ bool ModuleScenePaoPao::Start()
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayMusic(audience);
+	App->audio->PlayFX(audience);
+	Mix_VolumeChunk(audience, 35);
 
 	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
 	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
@@ -86,20 +87,18 @@ bool ModuleScenePaoPao::CleanUp()
 }
 
 void ModuleScenePaoPao::Restart() {
+	
 	//Restart Player values
 	App->player->life = 100;
 	App->player->position.x = 100;
 	App->player->position.y = 220;
 	//Restart enemy values
-
-
 	App->enemy->life= 100;
 	App->enemy->position.x = 200;
 	App->enemy->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
-	
-
+	App->ui->starttime = SDL_GetTicks();
 }
 
 

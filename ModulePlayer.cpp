@@ -782,7 +782,9 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 					playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
-				App->audio->PlayFX(Punch);
+				if (SDLK_t) {
+					App->audio->PlayFX(Punch);
+				}
 
 			break;
 
