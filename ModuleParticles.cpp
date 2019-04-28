@@ -33,7 +33,8 @@ bool ModuleParticles::Start()
 	terryspecial1.anim.speed = 0.02f;
 	terryspecial1.life = 4000;
 	terryspecial1.fx_played = true;
-	terryspecial1.speed.x = 2;
+
+	terryspecial1.speed.x = 0;
 	terryspecial1.born = 0;
 
 	terryspecial2.anim.PushBack({ 577, 248, 18, 68 });
@@ -41,7 +42,7 @@ bool ModuleParticles::Start()
 	terryspecial2.anim.speed = 0.04f;
 	terryspecial2.life = 4000;
 	terryspecial2.fx_played = false;
-	terryspecial2.speed.x = 2;
+	terryspecial2.speed.x = 0;
 	terryspecial2.born = 0;
 
 	terryspecial3.anim.PushBack({ 643, 219, 21, 96 });
@@ -49,7 +50,7 @@ bool ModuleParticles::Start()
 	terryspecial3.anim.speed = 0.06f;
 	terryspecial3.life = 4000;
 	terryspecial3.fx_played = false;
-	terryspecial3.speed.x = 2;
+	terryspecial3.speed.x = 0;
 	terryspecial3.born = 0;
 
 	terryspecial4.anim.PushBack({ 577, 248, 18, 68 });
@@ -57,7 +58,7 @@ bool ModuleParticles::Start()
 	terryspecial4.anim.speed = 0.08f;
 	terryspecial4.life = 4000;
 	terryspecial4.fx_played = false;
-	terryspecial4.speed.x = 2;
+	terryspecial4.speed.x = 0;
 	terryspecial4.born = 0;
 
 	terryspecial5.anim.PushBack({ 609, 275, 19, 40 });
@@ -65,7 +66,7 @@ bool ModuleParticles::Start()
 	terryspecial5.anim.speed = 0.1f;
 	terryspecial5.life = 4000;
 	terryspecial5.fx_played = false;
-	terryspecial5.speed.x = 2;
+	terryspecial5.speed.x = 0;
 	terryspecial5.born = 0;
 
 
@@ -117,7 +118,21 @@ update_status ModuleParticles::Update()
 			}
 		}
 	}
+	if (App->enemy->position.x > App->player->position.x) {
+		terryspecial1.speed.x = 2;
+		terryspecial2.speed.x = 2;
+		terryspecial3.speed.x = 2;
+		terryspecial4.speed.x = 2;
+		terryspecial5.speed.x = 2;
 
+	}
+	if (App->enemy->position.x <App->player->position.x) {
+		terryspecial1.speed.x = -2;
+		terryspecial2.speed.x = -2;
+		terryspecial3.speed.x = -2;
+		terryspecial4.speed.x = -2;
+		terryspecial5.speed.x = -2;
+	}
 	return UPDATE_CONTINUE;
 }
 void ModuleParticles::OnCollision(Collider* c1, Collider* c2)

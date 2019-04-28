@@ -593,16 +593,31 @@ update_status ModulePlayer::Update()
 		playercol->SetPos(position.x, position.y);
 		playerpunch->SetPos(position.x + 40, position.y - 90);
 		playerkick->SetPos(position.x + 40, position.y - 60);
+				SDL_Rect r = current_animation->GetCurrentFrame();
+		if (App->enemy->position.x > position.x)
+		{
+			App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		}
+
+		if (App->enemy->position.x < position.x)
+		{
+			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r,1.0f, 0, NULL);
+		}
 
 		current_state = state;
 
-		SDL_Rect r = current_animation->GetCurrentFrame();
 
-		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+
 
 		playercol->SetPos(position.x, position.y);
-		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
+		if (App->enemy->position.x > position.x) {
+			playerpunch->SetPos(position.x + 40, position.y - 90);
+			playerkick->SetPos(position.x + 40, position.y - 60);
+		}
+		if (App->enemy->position.x < position.x) {
+			playerpunch->SetPos(position.x - 40, position.y - 90);
+			playerkick->SetPos(position.x - 40, position.y - 60);
+		}
 
 		return UPDATE_CONTINUE;
 
@@ -651,6 +666,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
 		position.x += 15;
+		life -= 25;
 		dealtdamage = true;
 	}
 

@@ -135,5 +135,14 @@ update_status ModuleScenePaoPao::Update()
 		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
 
 	}
+	else if (App->ui->time <= 0 && App->player->life > App->enemy->life || App->ui->time >= 200000 && App->player->life > App->enemy->life)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
+
+	}
+	else if (App->ui->time <= 0 && App->player->life < App->enemy->life || App->ui->time >= 200000 && App->player->life < App->enemy->life)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
+	}
 	return UPDATE_CONTINUE;
 }
