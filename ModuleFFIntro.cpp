@@ -102,7 +102,7 @@ bool ModuleFFIntro::Start()
 	App->audio->PlayMusic(introsong);
 	App->collision->Disable();
 
-	App->render->camera.x = 0;
+	App->render->camera.x = -33;
 	App->render->camera.y = 0;
 
 	return ret;
