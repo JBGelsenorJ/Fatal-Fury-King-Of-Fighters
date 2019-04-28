@@ -170,7 +170,7 @@ update_status ModulePlayer::Update()
 			{
 
 
-				internal_input(inputs);
+				//internal_input(inputs);
 
 			case ST_IDLE:
 			{
