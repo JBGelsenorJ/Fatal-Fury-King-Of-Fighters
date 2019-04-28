@@ -18,6 +18,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"
+#include "ModuleP2Wins.h"
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
 
@@ -96,11 +97,15 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->DrawLife();
 
 	//Scene Out
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (App->player->life<=0)
 	{
 		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
 
 	}
+	else if (App->enemy->life <= 0)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
 
+	}
 	return UPDATE_CONTINUE;
 }

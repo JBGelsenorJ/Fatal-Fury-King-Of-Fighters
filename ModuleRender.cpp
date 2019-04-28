@@ -79,7 +79,6 @@ update_status ModuleRender::Update()
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
-		//Locking Camera
 	
 		camera.x -= speed;
 	

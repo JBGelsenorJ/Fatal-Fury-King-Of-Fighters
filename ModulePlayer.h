@@ -35,6 +35,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	Animation * current_animation = nullptr;
 	Animation idle;
 	Animation forward;
 	Animation backward;
@@ -66,6 +67,7 @@ public:
 	bool TimeJump = false;
 	
 	bool godmode = false;
+	bool dealtdamage = false;
 	int countdown_font = -1;
 	
 	void OnCollision(Collider* c1, Collider* c2);

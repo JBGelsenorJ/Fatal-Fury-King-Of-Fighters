@@ -270,7 +270,7 @@ update_status ModulePlayer::Update()
 				playerpunch->SetPos(position.x + 40, position.y - 90);
 				playerkick->SetPos(position.x + 40, position.y - 60);
 
-
+			case ST_SP1:
 				current_animation = &sm1;
 				Activesm1 = true;
 
@@ -332,15 +332,23 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		App->enemy->position.x += 3;
+		App->enemy->position.x += 3; 
+			App->enemy->life -= 25;
 
 
 	}
 
-	if (playerkick == c1 && c2->type == COLLIDER_ENEMY)
+	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
 	{
+	
+		dealtdamage = true;
 		App->enemy->position.x += 3;
-
+		if (dealtdamage)
+		{
+			App->enemy->life -= 25;
+			dealtdamage = false;
+		}
+		LOG("la vida es de", App->enemy->life);
 
 	}
 
