@@ -369,7 +369,7 @@ update_status ModulePlayer::Update()
 			}
 			case ST_WALK_BACKWARD:
 			{
-				if (position.x > App->render->camera.x)
+				if (position.x > App->render->camera.x+150)
 				{
 					
 					position.x -= speed;
