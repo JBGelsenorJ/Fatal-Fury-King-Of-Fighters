@@ -607,7 +607,7 @@ bool ModuleEnemy::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
 	//Loading Enemy Colliders
-	enemy = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, this);
+	enemycol = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, this);
 	enemypunch= App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick= App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	return ret;
@@ -710,7 +710,7 @@ update_status ModuleEnemy::Update()
 	}
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	enemy->SetPos(position.x, position.y);
+	enemycol->SetPos(position.x, position.y);
 	enemykick->SetPos(position.x, position.y);
 	enemypunch->SetPos(position.x, position.y);
 	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
@@ -1083,19 +1083,19 @@ bool ModuleEnemy::CleanUp()
 
 void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
-	if (enemy == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x > App->player->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x > App->player->position.x)
 	{
 		App->player->position.x -= 3;
 
 	}
 
-	if (enemy == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x < App->player->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x < App->player->position.x)
 	{
 		App->player->position.x += 3;
 
 	}
 
-	else if (enemy == c1 && c2->type == COLLIDER_WALL)
+	else if (enemycol == c1 && c2->type == COLLIDER_WALL)
 	{
 		position.x = 15;
 	}

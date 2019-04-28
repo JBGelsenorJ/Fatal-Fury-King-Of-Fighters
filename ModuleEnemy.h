@@ -331,7 +331,7 @@ public:
 	bool KickAnim = false;
 	bool TimePunch = false;
 	bool TimeJump = false;
-	Collider* enemy;
+	Collider* enemycol;
 	Collider* enemykick;
 	Collider* enemypunch;
 	void OnCollision(Collider* c1, Collider* c2);

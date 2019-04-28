@@ -134,6 +134,22 @@ bool ModulePlayer::Start()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+		if (godmode == false)
+		{
+			playercol->to_delete = true;
+			App->enemy->enemycol->to_delete = true;
+
+			godmode = true;
+		}
+		else if (godmode == true)
+		{
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+			App->enemy->enemycol = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, (Module*) App->enemy->enemycol);
+			godmode = false;
+		}
+	}
 	Animation* current_animation = &idle;
 	p2Qeue<player_inputs> inputs;
 	player_states current_state = ST_UNKNOWN;
