@@ -12,12 +12,28 @@
 
 
 #define MAX_KEYS 300
+
 #define JUMP_TIME 1000
+#define JUMPF_TIME 1000
+#define JUMPB_TIME 1000
+
 #define PUNCH_TIME 250
+#define PUNCHF_TIME 250
+#define PUNCHB_TIME 250
+#define PUNCHN_TIME 250
+#define PUNCHC_TIME 250
+
 #define SP1_TIME 500
+
 #define KICK_TIME 550
+#define KICKF_TIME 550
+#define KICKB_TIME 550
+#define KICKN_TIME 550
+#define KICKC_TIME 550
+
 #define LDAMAGE_TIME 100
 #define HDAMAGE_TIME 200
+#define HHDAMAGE_TIME 300
 
 struct SDL_Texture;
 
@@ -38,16 +54,33 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	Animation * current_animation = nullptr;
+	
 	Animation idle;
 	Animation forward;
 	Animation backward;
-	Animation jump;
-	Animation kick;
-	Animation punch;
 	Animation crouch;
+
+	Animation jump;
+	Animation jumpf;
+	Animation jumpb;
+	
 	Animation lowd;
 	Animation highd;
+	Animation hhd;
+	
 	Animation sm1;
+	
+	Animation kick;
+	Animation kickf;
+	Animation kickb;
+	Animation kickc;
+	Animation kickn;
+	
+	Animation punch;
+	Animation punchc;
+	Animation punchf;
+	Animation punchb;
+	Animation punchn;
 	
 	Particle special;
 	iPoint position;
@@ -61,12 +94,26 @@ public:
 	Collider* playerkick;
 
 	Uint32 jump_timer = 0;
+	Uint32 jumpf_timer = 0;
+	Uint32 jumpb_timer = 0;
+
 	Uint32 punch_timer = 0;
+	Uint32 punchc_timer = 0;
+	Uint32 punchf_timer = 0;
+	Uint32 punchb_timer = 0;
+	Uint32 punchn_timer = 0;
+
 	Uint32 sp1_timer = 0;
+	
 	Uint32 kick_timer = 0;
+	Uint32 kickc_timer = 0;
+	Uint32 kickf_timer = 0;
+	Uint32 kickb_timer = 0;
+	Uint32 kickn_timer = 0;
+	
 	Uint32 ldamage_timer = 0;
 	Uint32 hdamage_timer = 0;
-
+	Uint32 hhdamage_timer = 0;
 	
 	bool animdone = true;
 	bool jumpreset;
@@ -91,13 +138,29 @@ public:
 		ST_IDLE,
 		ST_WALK_FORWARD,
 		ST_WALK_BACKWARD,
-		ST_JUMP_NEUTRAL,
 		ST_CROUCH,
-		ST_PUNCH_STANDING,
+		
 		ST_SP1,
-		ST_KICK_STANDING,
+		
 		ST_LDAMAGE,
 		ST_HDAGAME,
+		ST_HHDAMAGE,
+		
+		ST_JUMP_FORWARD,
+		ST_JUMP_BACKWARD,
+		ST_JUMP_NEUTRAL,
+		
+		ST_KICK_STANDING,
+		ST_KICK_NEUTRAL_JUMP,
+		ST_KICK_FORWARD_JUMP,
+		ST_KICK_BACKWARD_JUMP,
+		ST_KICK_CROUCH,
+		
+		ST_PUNCH_STANDING,
+		ST_PUNCH_BACKWARD_JUMP,
+		ST_PUNCH_FORWARD_JUMP,
+		ST_PUNCH_NEUTRAL_JUMP,
+		ST_PUNCH_CROUCH
 
 	};
 
@@ -106,45 +169,60 @@ public:
 		IN_LEFT_DOWN,
 		IN_LEFT_UP,
 
-		IN_RIGHT_DOWN,
-		IN_RIGHT_UP,
-
-		
-		IN_JUMP,
-
-		IN_PUNCH_DOWN,
-		IN_PUNCH_UP,
-
 		IN_CROUCH_UP,
 		IN_CROUCH_DOWN,
 
-		IN_SP1_UP,
-		IN_SP1_DOWN,
-
-		IN_KICK_DOWN,
-		IN_KICK_UP,
-
-		IN_JUMP_FINISH,
-		IN_PUNCH_FINISH,
-		IN_SP1_FINISH,
-		IN_KICK_FINISH,
-		IN_LDAMAGE_FINISH,
-		IN_HDAMAGE_FINISH,
+		IN_RIGHT_DOWN,
+		IN_RIGHT_UP,
 
 		IN_JUMP_AND_CROUCH,
+		IN_JUMP_AND_LEFT,
+		IN_JUMP_AND_RIGHT,
 		IN_LEFT_AND_RIGHT,
-		IN_PUNCH_AND_KICK,
-		IN_PUNCH_AND_SP1,
-		IN_KICK_AND_SP1,
-		IN_PUNCH_AND_KICK_AND_SP1,
+
+		IN_JUMP_FINISH,
+		IN_JUMPF_FINISH,
+		IN_JUMPB_FINISH,
+
+		IN_PUNCH_FINISH,
+		IN_PUNCHF_FINISH,
+		IN_PUNCHB_FINISH,
+		IN_PUNCHN_FINISH,
+		IN_PUNCHC_FINISH,
+
+		IN_KICK_FINISH,
+		IN_KICKF_FINISH,
+		IN_KICKB_FINISH,
+		IN_KICKN_FINISH,
+		IN_KICKC_FINISH,
+
+		IN_SP1_FINISH,
+
+		IN_LDAMAGE_FINISH,
+		IN_HDAMAGE_FINISH,
+		IN_HHDAMAGE_FINISH,
+
+		IN_JUMP,
+		IN_JUMPF,
+		IN_JUMB,
 
 		IN_PUNCH,
+		IN_PUNCHF,
+		IN_PUNCHB,
+		IN_PUNCHN,
+		IN_PUNCHC,
+
 		IN_KICK,
+		IN_KICKF,
+		IN_KICKB,
+		IN_KICKN,
+		IN_KICKC,
+
 		IN_SM1,
 
 		IN_LDAMAGE,
 		IN_HDAMAGE,
-
+		IN_HHDAMAGE,
 
 	};
 
@@ -176,10 +254,7 @@ public:
 				case IN_SM1: state = ST_SP1; sp1_timer = SDL_GetTicks(); break;
 				case IN_KICK: state = ST_KICK_STANDING; kick_timer = SDL_GetTicks(); break;
 
-				case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-				case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-				case IN_KICK_AND_SP1: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
+				
 
 				}
 			}
@@ -251,9 +326,7 @@ public:
 				switch (last_input)
 				{
 				case IN_PUNCH_FINISH: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-				case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
+				
 				
 
 				}
@@ -267,9 +340,7 @@ public:
 				{
 
 				case IN_KICK_FINISH: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-				case IN_KICK_AND_SP1: state = ST_IDLE; break;
+				
 				}
 			}
 
@@ -280,9 +351,7 @@ public:
 				{
 
 					case IN_SP1_FINISH: state = ST_IDLE; break;
-					case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-					case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-					case IN_KICK_AND_SP1: state = ST_IDLE; break;
+					
 				}
 				break;
 			
