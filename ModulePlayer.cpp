@@ -579,8 +579,6 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
 			colcreated = true;
-			playercol->to_delete = true;
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			playerpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
@@ -593,8 +591,6 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
 			colcreated = true;
-			playercol->to_delete = true;
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
@@ -607,8 +603,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		{
 			inputs.Push(IN_SP1_FINISH);
 			sp1_timer = 0;
-			playercol->to_delete = true;
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+
 			
 		}
 		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)

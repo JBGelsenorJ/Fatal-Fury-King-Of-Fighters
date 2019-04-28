@@ -11,7 +11,7 @@
 
 
 
-#define MAX_KEYS 300
+#define MAX_KEYS 1000
 #define JUMP_TIME 1000
 #define PUNCH_TIME 250
 #define SP1_TIME 500

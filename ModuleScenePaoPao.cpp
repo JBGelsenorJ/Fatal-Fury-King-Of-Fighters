@@ -95,6 +95,9 @@ void ModuleScenePaoPao::Restart() {
 	App->enemy->life = 100;
 	App->enemy->position.x = 200;
 	App->enemy->position.y = 220;
+	//Restart time
+	App->ui->time = 90000;
+	
 
 }
 
