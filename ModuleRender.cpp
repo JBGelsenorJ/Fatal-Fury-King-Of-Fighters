@@ -57,7 +57,8 @@ update_status ModuleRender::Update()
 	int speed = 3;
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;
-	cam_pos.x = (SCREEN_WIDTH / 2) - centerx;
+
+	cam_pos.x = -centerx;
 	cam_pos.y = (SCREEN_HEIGHT) - centery;
 
 	camera.x = cam_pos.x;
