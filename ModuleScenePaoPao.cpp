@@ -64,11 +64,11 @@ bool ModuleScenePaoPao::Start()
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayFX(audience);
+	Mix_PlayChannel(-1 , audience, -1);
 	Mix_VolumeChunk(audience, 35);
 
-	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
-	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
+	wall1 = App->collision->AddCollider({ -200, 300, 15, -500 }, COLLIDER_WALL, this);
+	wall2 = App->collision->AddCollider({ 500, 300 , 15, -500 }, COLLIDER_WALL, this);
 
 	return ret;
 }
@@ -106,13 +106,17 @@ void ModuleScenePaoPao::Restart() {
 update_status ModuleScenePaoPao::Update()
 {
 	// Drawing background - Pao Pao Background
-	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	App->render->Blit(graphics, -115, 0, &background, 1.4f);
 	
 	//People animation
-	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
+	App->render->Blit(graphics, -115, 0, &(people.GetCurrentFrame()), 1.4f ); 
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
+
+	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
+		App->audio->PlayFX(App->player->Kick);
+	}
 
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;

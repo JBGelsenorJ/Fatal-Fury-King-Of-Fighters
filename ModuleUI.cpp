@@ -82,7 +82,8 @@ bool ModuleUI::Start()
 	graphics = App->textures->Load("Source/UI/combatui/ui.png");
 	countdown = App->fonts->Load("Source/UI/fonts/marcador.png", "0123456789", 1);
 	scorefont = App->fonts->Load("Source/UI/fonts/Score_font.png", "-0123456789abcdefghijklmnopqrstuvwxyz", 1);
-	//We set time on 90s
+	
+//We set time on 90s
 	time = 90000;
 	starting = SDL_GetTicks();
 	starttime = SDL_GetTicks();
@@ -103,7 +104,7 @@ bool ModuleUI::CleanUp()
 {
 	
 	//Destroying features loaded
-	SDL_DestroyTexture(graphics);
+	App->textures->Unload(graphics);
 	App->fonts->UnLoad(countdown);
 	App->fonts->UnLoad(scorefont);
 	LOG("Unloading Textures, Fonts and Audio");
@@ -133,23 +134,14 @@ bool ModuleUI::Timer(int w, int h) {
 }
 
 bool ModuleUI::DrawLife() {
-	
+
 	//Rendering P1 Life
-
+	App->render->MirrorBlit(graphics, 2, 10, &nohealth, 0.0f, 0, NULL);
+	App->render->MirrorBlit(graphics, 2, 10, &healthp2, 0.0f, 180, NULL);
 	
-	/*		FIX FONT SIZE
-	sprintf_s(p2score, 10, "%7d", App->player->score);
-	App->fonts->BlitText(20, 15, scorefont, p2score);
-	*/
-
 	//Rendering P2 Life
 	App->render->Blit(graphics, 166, 10, &nohealth,false);
 	App->render->Blit(graphics, 166, 10, &health, false);
-
-
-
-	App->render->MirrorBlit(graphics, 2, 10, &nohealth , 0.0f , 0 ,NULL);
-	App->render->MirrorBlit(graphics, 2, 10, &healthp2, 0.0f, 180, NULL);
 
 	return true;
 }

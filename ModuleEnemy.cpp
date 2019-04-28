@@ -270,6 +270,9 @@ bool ModuleEnemy::Start()
 	enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 
+	//Set Initial Pos
+	position.x = 300;
+
 
 	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
 

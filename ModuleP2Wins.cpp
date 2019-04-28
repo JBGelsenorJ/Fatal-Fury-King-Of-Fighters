@@ -22,7 +22,6 @@
 
 ModuleP2Wins::ModuleP2Wins()
 {
-
 	//WinP1 Background
 	background.x = 0;
 	background.y = 0;
@@ -36,30 +35,24 @@ ModuleP2Wins::~ModuleP2Wins()
 // Load assets
 bool ModuleP2Wins::Start()
 {
-	music = App->audio->LoadMusic("Source/Sound/Music/winner.ogg");
-	//fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-	//Mix_VolumeChunk(fx, 35);
-
-	LOG("Loading background assets");
 	bool ret = true;
+
+	//Loading Music
+	music = App->audio->LoadMusic("Source/Sound/Music/winner.ogg");
+	
+	//Loading Textures
 	graphics = App->textures->Load("Source/UI/WinLose/Background2.png");
-
-
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	//App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
 
+	LOG("Loading assets");
 	return ret;
 }
 
 bool ModuleP2Wins::CleanUp()
 {
-
-	SDL_DestroyTexture(graphics);
-
-
-
+	App->textures->Unload(graphics);
 	return true;
 }
 
