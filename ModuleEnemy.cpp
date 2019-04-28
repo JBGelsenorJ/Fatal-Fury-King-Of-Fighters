@@ -12,7 +12,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenePaoPao.h"
 #include "ModuleInput.h"
-
+#include "ModuleUI.h"
 
 ModuleEnemy::ModuleEnemy()
 {
@@ -250,439 +250,151 @@ ModuleEnemy::ModuleEnemy()
 ModuleEnemy::~ModuleEnemy()
 {}
 
-// Load assets
 bool ModuleEnemy::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	colcreated = true;
-	Activesm1 = true;
-	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png"); // Terry Bogard Sprites
-
-	//Loading attack audios
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
-	//Loading Player Colliders
-	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+	//Loading Enemy Colliders
+	enemycol = App->collision->AddCollider({ 200, -250, 55, -103 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-
-
-	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
-
-
 	return ret;
 }
 
 // Update: draw background
 update_status ModuleEnemy::Update()
 {
-
 	Animation* current_animation = &idle;
-	
-	if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 
-		current_animation = &jump;
-		TimeJump = true;
-		position.y -= jumpspeed;
-		jumpspeed -= 0.2;
+	int speed = 2;
 
-		if (jumpspeed < -7)
-		{
-			TimeJump = false;
-			position.y = 220;
-			jumpspeed = 6;
-		}
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT) {
-
-		current_animation = &forward;
-		position.x += 2;
-		
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT) {
-
-		current_animation = &backward;
-		position.x -= 2;
-
-	}
-	
+	//Crouch
 	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT) {
 
 		current_animation = &crouch;
-		
 
 	}
-
-	if (App->input->keyboard[SDL_SCANCODE_M]== KEY_STATE::KEY_REPEAT) {
-
-		current_animation = &punchc;
-		
-
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_REPEAT || (TimeKick==true)) {
-
-		current_animation = &kick;
-		TimeKick = false;
-
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_REPEAT || (TimePunch == true)) {
-
-		current_animation = &punch;
-		TimePunch = false;
-
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT || (TimeSM1 == true)) {
-
-		current_animation = &sm1;
-		TimeSM1 = false;
-
-	}
-	
-	/*p2Qeue<enemy_inputs> inputs;
-	enemy_states current_state = ST_UNKNOWN;*/
-
-	/*
-	while (external_input(inputs))
-	{
-		internal_input(inputs);
-
-		enemy_states state = process_fsm(inputs);
-
-		if (state != current_state)
+	else {
+		//MoveForward
+		if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && position.x < 670)
 		{
-			switch (state)
+			current_animation = &forward;
+			position.x += speed;
+		}
+
+		//Move Backward
+		if (App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && position.x > 0)
+		{
+			current_animation = &backward;
+			position.x -= speed;
+		}
+
+		//Jump
+		if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
+
+			current_animation = &jump;
+
+			TimeJump = true;
+			position.y -= jumpspeed;
+			jumpspeed -= 0.2;
+
+			if (current_animation->AnimFinished() == true)
 			{
-
-
-				//internal_input(inputs);
-
-			case ST_IDLE:
-			{
-
-				current_animation = &idle;
-				forward.Reset();
-				backward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();
-				enemypunch->to_delete = true;
-				enemykick->to_delete = true;
-				break;
-			}
-			case ST_WALK_FORWARD:
-			{
-				current_animation = &forward;
-				position.x += speed;
-				backward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();
-
-				break;
-			}
-			case ST_WALK_BACKWARD:
-			{
-				current_animation = &backward;
-				position.x -= speed;
-				forward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();
-
-				break;
-			}
-			case ST_JUMP_FORWARD:
-			{
-				LOG("JUMPING FORWARD ^^>>\n")
-					if (position.y <= 220)
-					{
-						animdone = false;
-						current_animation = &jumpf;
-						position.y -= jumpspeed;
-						jumpspeed -= 0.2;
-					}
-				if ((position.y == 220 && jumpf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_JUMP_BACKWARD:
-			{
-				LOG("JUMPING BACKWARD ^^>>\n")
-					if (position.y <= 220)
-					{
-						animdone = false;
-						current_animation = &jumpb;
-						position.y -= jumpspeed;
-						jumpspeed -= 0.2;
-					}
-				if ((position.y == 220 && jumpb_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_CROUCH:
-			{
-				current_animation = &crouch;
-				LOG("CROUCHING ****\n");
-
-				break;
-			}
-			case ST_PUNCH_CROUCH:
-			{
-				current_animation = &punchc;
-
-				LOG("PUNCH CROUCHING **++\n");
-
-				break;
-			}
-			case ST_PUNCH_STANDING:
-			{
-				current_animation = &punch;
-				LOG("PUNCH STANDING ++++\n");
-
-				break;
+				TimeJump = false;
+				position.y = 220;
+				jumpspeed = 6;
 			}
 
-			case ST_PUNCH_NEUTRAL_JUMP:
+		}
+
+		//Punch
+		if (App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN || (TimePunch == true)) {
+			current_animation = &punch;
+			TimePunch = true;
+			App->audio->PlayFX(Punch);
+			enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+			enemypunch->to_delete = true;
+			if (current_animation->AnimFinished() == true)
 			{
-				LOG("PUNCH NEUTRAL JUMP ++++\n");
-
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchn;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchn_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_PUNCH_FORWARD_JUMP:
-			{
-				LOG("PUNCH JUMP FORWARD ^>>+\n");
-
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-
-			case ST_PUNCH_BACKWARD_JUMP:
-			{
-				LOG("PUNCH JUMP BACKWARD ^<<+\n");
-
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchb;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchb_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			//case ST_KICK_CROUCH:
-
-				//LOG("KICK CROUCHING **--\n");
-
-				//break;
-			case ST_KICK_STANDING:
-			{
-				current_animation = &kick;
-				break;
-			}
-			case ST_KICK_NEUTRAL_JUMP:
-			{
-				LOG("KICK JUMP NEUTRAL ^^--\n");
-
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &kickn;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && kickn_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_KICK_FORWARD_JUMP:
-			{
-				LOG("KICK JUMP FORWARD ^>>-\n");
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &kickf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-				break;
-			}
-
-			case ST_KICK_BACKWARD_JUMP:
-			{
-				LOG("KICK JUMP BACKWARD ^<<-\n");
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &kickf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-				break;
-			}
-
-			case ST_SP1:
-			{
-				current_animation = &sm1;
-
-				break;
-			}
-			case ST_JUMP_NEUTRAL:
-			{
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &jump;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_LDAMAGE:
-			{	if (dealtdamage == true)
-			{
-				current_animation = &lowd;
-			}
-
-			break;
-			}
-			case ST_HDAGAME:
-			{
-				if ()
-				{
-				current_animation=&highd
-				}
-				break;
-			}
+				TimePunch = false;
 			}
 		}
 
-		enemycol->SetPos(position.x, position.y);
-		enemypunch->SetPos(position.x + 40, position.y - 90);
-		enemykick->SetPos(position.x + 40, position.y - 60);
+		//Kick
+		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN || (KickAnim == true)) {
+			KickAnim = true;
+			current_animation = &kick;
+			App->audio->PlayFX(Kick);
+			if (current_animation->AnimFinished() == true)
+			{
+				KickAnim = false;
+			}
+		}
 
-		current_state = state;
+		//Special Move
 
-		SDL_Rect r = current_animation->GetCurrentFrame();
+		if ((App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN) || (TimeAnim == true))
+		{
+			TimeAnim = true;
+			int cont = SDL_GetTicks();
+			current_animation = &sm1;
 
-		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f,0,NULL);
+			if (current_animation->AnimFinished() == true)
+			{
+				App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_ENEMY_SHOT, 0);
+				App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_ENEMY_SHOT, 50);
+				App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_ENEMY_SHOT, 200);
+				App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_ENEMY_SHOT, 400);
+				App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_ENEMY_SHOT, 600);
+				TimeAnim = false;
+			}
+		}
 
-		enemycol->SetPos(position.x, position.y);
-		enemypunch->SetPos(position.x + 40, position.y - 90);
-		enemykick->SetPos(position.x + 40, position.y - 60);
 
-		return UPDATE_CONTINUE;
 
 	}
-	*/
-
-	//current_state = state;
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
-	App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
-
 	enemycol->SetPos(position.x, position.y);
-	enemypunch->SetPos(position.x + 40, position.y - 90);
-	enemykick->SetPos(position.x + 40, position.y - 60);
+
+	if (App->player->position.x > position.x)
+	{
+		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	}
+
+	if (App->player->position.x < position.x)
+	{
+		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+	}
+
+	if (App->player->position.x > position.x) {
+		enemypunch->SetPos(position.x + 40, position.y - 90);
+		enemykick->SetPos(position.x + 40, position.y - 60);
+	}
+	if (App->player->position.x < position.x) {
+		enemypunch->SetPos(position.x - 40, position.y - 90);
+		enemykick->SetPos(position.x - 40, position.y - 60);
+	}
 
 	return UPDATE_CONTINUE;
-
 }
 
 void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
-	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x > App->player->position.x)
 	{
-		App->enemy->position.x += 3;
+		App->player->position.x += 3;
 
 	}
 
-	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x < App->player->position.x)
 	{
-		App->enemy->position.x -= 3;
+		App->player->position.x -= 3;
 
 	}
 
@@ -692,8 +404,7 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 		{
 			enemypunch->to_delete = true;
 		}
-		App->enemy->position.x += 3;
-		App->enemy->life -= 25;
+		App->player->life -= 25;
 
 
 	}
@@ -704,376 +415,18 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 		{
 			enemykick->to_delete = true;
 		}
-		App->enemy->life -= 25;
-		App->enemy->position.x += 3;
+		App->player->life -= 25;
 
 
 	}
 
 	else if (enemycol == c1 && c2->type == COLLIDER_WALL)
 	{
-		position.x = 15;
-		dealtdamage = true;
+		position.x += 15;
 	}
 
 }
-/*
-bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
-{
-	static bool backward = false;
-	static bool forward = false;
-	static bool crouch = false;
-	static bool jump = false;
 
-	SDL_Event event;
-
-	while (SDL_PollEvent(&event) != 0)
-	{
-		if (event.type == SDL_KEYUP && event.key.repeat == 0)
-		{
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				return false;
-				break;
-
-			case SDLK_j:
-				inputs.Push(IN_CROUCH_UP);
-				enemycol->to_delete = true;
-				enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-				crouch = false;
-				break;
-
-			case SDLK_u:
-				jump = false;
-				break;
-
-			case SDLK_h:
-				inputs.Push(IN_LEFT_UP);
-				backward = false;
-				break;
-
-			case SDLK_k:
-				inputs.Push(IN_RIGHT_UP);
-				forward = false;
-				break;
-
-			case SDLK_o:
-				break;
-
-			case SDLK_p:
-				break;
-
-			case SDLK_l:
-				break;
-			}
-		}
-		if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
-		{
-			switch (event.key.keysym.sym)
-			{
-
-			case SDLK_u:
-
-				if (animdone == true)
-				{
-					jump = true;
-				}
-				//App->audio->PlayFX(AUDIOSALTO);
-
-				break;
-
-			case SDLK_j:
-				enemycol->to_delete = true;
-
-				enemycol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
-				crouch = true;
-
-				break;
-
-			case SDLK_h:
-				LOG("atras");
-				backward = true;
-
-				break;
-
-			case SDLK_k:
-
-				forward = true;
-
-				break;
-
-			case SDLK_o:
-
-				inputs.Push(IN_PUNCH);
-				if (colcreated == true)
-				{
-					enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
-					enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-					colcreated = false;
-				}
-				App->audio->PlayFX(Punch);
-
-				break;
-
-			case SDLK_p:
-
-				if (colcreated == true)
-				{
-					enemykick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
-					enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-					colcreated = false;
-				}
-				inputs.Push(IN_KICK);
-				App->audio->PlayFX(Kick);
-
-				break;
-
-			case SDLK_l:
-
-				if (Activesm1 == true) {
-
-					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
-					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
-					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_PLAYER_SHOT, 200);
-					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
-					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT, 600);
-					Activesm1 = false;
-				}
-
-				App->audio->PlayFX(Specialattack);
-
-				inputs.Push(IN_SM1);
-
-				break;
-			}
-
-		}
-
-	}
-
-	if (backward && forward)
-		inputs.Push(IN_LEFT_AND_RIGHT);
-	else
-	{
-		if (backward)
-			inputs.Push(IN_LEFT_DOWN);
-		if (forward)
-			inputs.Push(IN_RIGHT_DOWN);
-	}
-
-	if (jump && forward)
-		inputs.Push(IN_JUMP_AND_RIGHT);
-	else
-	{
-		if (forward)
-			inputs.Push(IN_RIGHT_DOWN);
-		if (jump)
-			inputs.Push(IN_JUMP);
-	}
-
-	if (jump && backward)
-		inputs.Push(IN_JUMP_AND_LEFT);
-	else
-	{
-		if (backward)
-			inputs.Push(IN_LEFT_DOWN);
-		if (jump)
-			inputs.Push(IN_JUMP);
-	}
-
-	return true;
-
-}
-
-void ModuleEnemy::internal_input(p2Qeue<enemy_inputs>& inputs)
-{
-
-	if (jump_timer > 0)
-	{
-
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
-		{
-			inputs.Push(IN_JUMP_FINISH);
-			jump_timer = 0;
-
-			position.y = 220;
-			jumpspeed = 6;
-			animdone = true;
-		}
-
-
-	}
-	if (jumpf_timer > 0)
-	{
-		if (SDL_GetTicks() - jumpf_timer > JUMPF_TIME && position.y == 220)
-		{
-			inputs.Push(IN_JUMPF_FINISH);
-			jumpf_timer = 0;
-
-			position.y = 220;
-			jumpspeed = 6;
-			animdone = true;
-		}
-	}
-	if (punch_timer > 0)
-	{
-		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
-		{
-			colcreated = true;
-			enemypunch->to_delete = true;
-			inputs.Push(IN_PUNCH_FINISH);
-			punch_timer = 0;
-
-		}
-	}
-	if (punchf_timer > 0)
-	{
-		if (SDL_GetTicks() - punchf_timer > PUNCHF_TIME)
-		{
-			//playerpunchf->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHF_FINISH);
-			punchf_timer = 0;
-
-		}
-	}
-	if (punchb_timer > 0)
-	{
-		if (SDL_GetTicks() - punchb_timer > PUNCHB_TIME)
-		{
-			//playerpunchb->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHB_FINISH);
-			punchb_timer = 0;
-
-		}
-	}
-	if (punchn_timer > 0)
-	{
-		if (SDL_GetTicks() - punchn_timer > PUNCHN_TIME)
-		{
-			//playerpunchn->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHN_FINISH);
-			punchn_timer = 0;
-
-		}
-	}
-	if (punchc_timer > 0)
-	{
-		if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
-		{
-			//playerpunchc->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHC_FINISH);
-			punchc_timer = 0;
-
-		}
-	}
-	if (kick_timer > 0)
-	{
-		if (SDL_GetTicks() - kick_timer > KICK_TIME)
-		{
-			colcreated = true;
-			enemykick->to_delete = true;
-			inputs.Push(IN_KICK_FINISH);
-			kick_timer = 0;
-		}
-	}
-	if (kickf_timer > 0)
-	{
-		if (SDL_GetTicks() - kickf_timer > KICKF_TIME)
-		{
-			//colcreated = true;
-			//playerkickf->to_delete = true;
-			inputs.Push(IN_KICKF_FINISH);
-			kickf_timer = 0;
-		}
-	}
-	if (kickb_timer > 0)
-	{
-		if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
-		{
-			//colcreated = true;
-			//playerkickb->to_delete = true;
-			inputs.Push(IN_KICKB_FINISH);
-			kickb_timer = 0;
-		}
-	}
-	if (kickn_timer > 0)
-	{
-		if (SDL_GetTicks() - kickn_timer > KICKN_TIME)
-		{
-			//colcreated = true;
-			//playerkickn->to_delete = true;
-			inputs.Push(IN_KICKN_FINISH);
-			kickn_timer = 0;
-		}
-	}
-	if (kickc_timer > 0)
-	{
-		if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
-		{
-			//colcreated = true;
-			//playerkickc->to_delete = true;
-			inputs.Push(IN_KICKC_FINISH);
-			kickc_timer = 0;
-		}
-	}
-	if (sp1_timer > 0)
-	{
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME)
-		{
-			inputs.Push(IN_SP1_FINISH);
-			sp1_timer = 0;
-
-
-		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
-		{
-			Activesm1 = true;
-
-		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 2000)
-		{
-			App->particles->cont = 0;
-
-		}
-	}
-	if (ldamage_timer > 0)
-	{
-		if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
-		{
-			inputs.Push(IN_LDAMAGE_FINISH);
-			ldamage_timer = 0;
-
-		}
-
-	}
-	if (hdamage_timer > 0)
-	{
-		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
-		{
-			inputs.Push(IN_HDAMAGE_FINISH);
-			hdamage_timer = 0;
-
-		}
-
-	}
-	if (hhdamage_timer > 0)
-	{
-		if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
-		{
-			inputs.Push(IN_HHDAMAGE_FINISH);
-			hhdamage_timer = 0;
-
-		}
-
-	}
-
-}
-*/
 
 bool ModuleEnemy::CleanUp()
 {

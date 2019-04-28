@@ -113,17 +113,13 @@ public:
 	Uint32 hdamage_timer = 0;
 	Uint32 hhdamage_timer = 0;
 
-	bool animdone = true;
 	bool jumpreset;
-	bool TimeJump = false;
+	bool TimeAnim = false;
+	bool KickAnim = false;
 	bool TimePunch = false;
-	bool TimeKick = false;
-	bool TimeSM1 = false;
-	bool anim_done = false;
-	bool colcreated = false;
+	bool TimeJump = false;
 
 	bool godmode = false;
-	bool dealtdamage = false;
 	int countdown_font = -1;
 
 	void OnCollision(Collider* c1, Collider* c2);
