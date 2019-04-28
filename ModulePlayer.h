@@ -97,6 +97,8 @@ public:
 		ST_PUNCH_STANDING,
 		ST_SP1,
 		ST_KICK_STANDING,
+		ST_LDAMAGE,
+		ST_HDAGAME,
 
 	};
 
@@ -127,6 +129,8 @@ public:
 		IN_PUNCH_FINISH,
 		IN_SP1_FINISH,
 		IN_KICK_FINISH,
+		IN_LDAMAGE_FINISH,
+		IN_HDAMAGE_FINISH,
 
 		IN_JUMP_AND_CROUCH,
 		IN_LEFT_AND_RIGHT,
@@ -138,6 +142,9 @@ public:
 		IN_PUNCH,
 		IN_KICK,
 		IN_SM1,
+
+		IN_LDAMAGE,
+		IN_HDAMAGE,
 
 
 	};
@@ -273,14 +280,33 @@ public:
 				switch (last_input)
 				{
 
-				case IN_SP1_FINISH: state = ST_IDLE; break;
-				case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
-				case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
-				case IN_KICK_AND_SP1: state = ST_IDLE; break;
+					case IN_SP1_FINISH: state = ST_IDLE; break;
+					case IN_PUNCH_AND_SP1: state = ST_IDLE; break;
+					case IN_PUNCH_AND_KICK_AND_SP1: state = ST_IDLE; break;
+					case IN_KICK_AND_SP1: state = ST_IDLE; break;
 				}
 				break;
 			
 			}
+
+			case ST_LDAMAGE:
+			{
+
+				switch(last_input) {
+
+					case IN_LDAMAGE_FINISH: state = ST_IDLE; break;
+				}
+			}
+
+			case ST_HDAGAME:
+			{
+
+				switch (last_input) {
+
+					case IN_HDAMAGE_FINISH: state = ST_IDLE; break;
+				}
+			}
+
 			}
 		}
 
