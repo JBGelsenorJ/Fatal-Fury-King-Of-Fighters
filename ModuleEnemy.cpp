@@ -263,6 +263,7 @@ bool ModuleEnemy::Start()
 	enemycol = App->collision->AddCollider({ 200, -250, 55, -103 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+
 	return ret;
 }
 

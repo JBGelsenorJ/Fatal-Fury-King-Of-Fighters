@@ -118,6 +118,7 @@ public:
 	bool anim_done = false;
 	bool colcreated = false;
 	
+	bool playaudio = false;
 	bool godmode = false;
 	bool dealtdamage = false;	
 	void OnCollision(Collider* c1, Collider* c2);

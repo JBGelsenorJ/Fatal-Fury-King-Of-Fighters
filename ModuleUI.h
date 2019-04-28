@@ -47,11 +47,10 @@ public:
 	//Timer
 	int start_delay = 2000;
 	float starting = 0.0f;
-	uint starttime = 0;
 	uint time;
-	char c[10] = "0";
+	uint starttime;
+
 	char time_text[10];
-	
 	
 	char p1score[10];
 	char p2score[10];

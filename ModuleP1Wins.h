@@ -28,7 +28,6 @@ public:
 	Animation people;
 	Mix_Music* music;
 	Mix_Chunk* fx;
-	int sentence_font = -1;
 };
 
 #endif

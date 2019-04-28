@@ -269,6 +269,9 @@ bool ModulePlayer::Start()
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 
+	//SET Initial Pos
+	position.x = 72;
+
 	return ret;
 }
 
@@ -732,6 +735,9 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_y:
+				
+				App->audio->PlayFX(Kick);
+
 				break;
 
 			case SDLK_f:
@@ -782,8 +788,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 					playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
-				App->audio->PlayFX(Punch);
-
 			break;
 
 			case SDLK_y:
@@ -795,7 +799,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 					colcreated = false;
 				}
 				inputs.Push(IN_KICK);
-				App->audio->PlayFX(Kick);
 
 			break;
 

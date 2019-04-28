@@ -47,7 +47,7 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 bool ModuleScenePaoPao::Start()
 {
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
-	audience = App->audio->LoadMusic("Source/Sound/Music/audience.ogg");
+	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
 	Restart();
 	LOG("Loading background assets");
@@ -64,10 +64,11 @@ bool ModuleScenePaoPao::Start()
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayMusic(audience);
+	Mix_PlayChannel(-1 , audience, -1);
+	Mix_VolumeChunk(audience, 35);
 
-	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
-	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
+	wall1 = App->collision->AddCollider({ -200, 300, 15, -500 }, COLLIDER_WALL, this);
+	wall2 = App->collision->AddCollider({ 500, 300 , 15, -500 }, COLLIDER_WALL, this);
 
 	return ret;
 }
@@ -86,20 +87,18 @@ bool ModuleScenePaoPao::CleanUp()
 }
 
 void ModuleScenePaoPao::Restart() {
+	
 	//Restart Player values
 	App->player->life = 100;
 	App->player->position.x = 100;
 	App->player->position.y = 220;
 	//Restart enemy values
-
-
 	App->enemy->life= 100;
 	App->enemy->position.x = 200;
 	App->enemy->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
-	
-
+	App->ui->starttime = SDL_GetTicks();
 }
 
 
@@ -107,13 +106,17 @@ void ModuleScenePaoPao::Restart() {
 update_status ModuleScenePaoPao::Update()
 {
 	// Drawing background - Pao Pao Background
-	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	App->render->Blit(graphics, -115, 0, &background, 1.4f);
 	
 	//People animation
-	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
+	App->render->Blit(graphics, -115, 0, &(people.GetCurrentFrame()), 1.4f ); 
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
+
+	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
+		App->audio->PlayFX(App->player->Kick);
+	}
 
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;

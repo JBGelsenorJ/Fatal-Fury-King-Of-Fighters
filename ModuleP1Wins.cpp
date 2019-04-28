@@ -35,36 +35,29 @@ ModuleP1Wins::ModuleP1Wins()
 ModuleP1Wins::~ModuleP1Wins()
 {}
 
-// Load assets
 bool ModuleP1Wins::Start()
 {
-	music = App->audio->LoadMusic("Source/Sound/Music/winner.ogg");
-	//fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-	//Mix_VolumeChunk(fx, 35);
-
-
-	LOG("Loading background assets");
 	bool ret = true;
+
+	//Texture Loaded
 	graphics = App->textures->Load("Source/UI/WinLose/Background.png");
 
-
-	sentence_font = App->fonts->Load("Source/UI/fonts/PlayerWords.png", "ABCDEFGHIJKLMNOPQRSTUVWZYZ1234567890&?!()abcdefghijklmnopqrstuvwxyz.,'<>", 1);
-
+	//Loading Music
+	music = App->audio->LoadMusic("Source/Sound/Music/winner.ogg");
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	//App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
+
+
+	LOG("Loading assets");
+
 
 	return ret;
 }
 
 bool ModuleP1Wins::CleanUp()
 {
-	
-	SDL_DestroyTexture(graphics);
-
-
-
+	App->textures->Unload(graphics);
 	return true;
 }
 
@@ -77,7 +70,6 @@ update_status ModuleP1Wins::Update()
 	// Drawing background - WinP1 Background
 	uint cont = SDL_GetTicks();
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
-	//App->fonts->BlitText(100, 50, sentence_font, "1");
 	
 
 	if (cont = SDL_GetTicks()+1100)
