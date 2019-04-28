@@ -844,8 +844,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 	}
 	if (jumpf_timer > 0)
 	{
-
-		if (SDL_GetTicks() - jumpf_timer > JUMPF_TIME && position.y == 220)
+	if (SDL_GetTicks() - jumpf_timer > JUMPF_TIME && position.y == 220)
 		{
 			inputs.Push(IN_JUMPF_FINISH);
 			jumpf_timer = 0;
@@ -854,7 +853,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			jumpspeed = 6;
 			animdone = true;
 		}
-		if (punch_timer > 0)
+	}
+	if (punch_timer > 0)
 		{
 			if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 			{
@@ -865,7 +865,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 			}
 		}
-		if (punchf_timer > 0)
+	if (punchf_timer > 0)
 		{
 			if (SDL_GetTicks() - punchf_timer > PUNCHF_TIME)
 			{
@@ -875,9 +875,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				punchf_timer = 0;
 
 			}
-		}
-		if (punchb_timer > 0)
-		{
+	}
+	if (punchb_timer > 0)
+	{
 			if (SDL_GetTicks() - punchb_timer > PUNCHB_TIME)
 			{
 				//playerpunchb->to_delete = true;
@@ -886,9 +886,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				punchb_timer = 0;
 
 			}
-		}
-		if (punchn_timer > 0)
-		{
+	}
+	if (punchn_timer > 0)
+	{
 			if (SDL_GetTicks() - punchn_timer > PUNCHN_TIME)
 			{
 				//playerpunchn->to_delete = true;
@@ -897,9 +897,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				punchn_timer = 0;
 
 			}
-		}
-		if (punchc_timer > 0)
-		{
+	}
+	if (punchc_timer > 0)
+	{
 			if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
 			{
 				//playerpunchc->to_delete = true;
@@ -908,10 +908,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				punchc_timer = 0;
 
 			}
-		}
-
-		if (kick_timer > 0)
-		{
+	}
+	if (kick_timer > 0)
+	{
 			if (SDL_GetTicks() - kick_timer > KICK_TIME)
 			{
 				colcreated = true;
@@ -919,9 +918,9 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				inputs.Push(IN_KICK_FINISH);
 				kick_timer = 0;
 			}
-		}
-		if (kickf_timer > 0)
-		{
+	}
+	if (kickf_timer > 0)
+	{
 			if (SDL_GetTicks() - kickf_timer > KICKF_TIME)
 			{
 				//colcreated = true;
@@ -929,19 +928,19 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				inputs.Push(IN_KICKF_FINISH);
 				kickf_timer = 0;
 			}
-		}
-		if (kickb_timer > 0)
-		{
-			if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
-			{
+	}
+	if (kickb_timer > 0)
+	{
+	if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
+	{
 				//colcreated = true;
 				//playerkickb->to_delete = true;
 				inputs.Push(IN_KICKB_FINISH);
 				kickb_timer = 0;
 			}
-		}
-		if (kickn_timer > 0)
-		{
+	}
+	if (kickn_timer > 0)
+	{
 			if (SDL_GetTicks() - kickn_timer > KICKN_TIME)
 			{
 				//colcreated = true;
@@ -950,7 +949,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				kickn_timer = 0;
 			}
 		}
-		if (kickc_timer > 0)
+	if (kickc_timer > 0)
 		{
 			if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
 			{
@@ -960,8 +959,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				kickc_timer = 0;
 			}
 		}
-
-		if (sp1_timer > 0)
+	if (sp1_timer > 0)
 		{
 			if (SDL_GetTicks() - sp1_timer > SP1_TIME)
 			{
@@ -981,8 +979,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 			}
 		}
-
-		if (ldamage_timer > 0)
+	if (ldamage_timer > 0)
 		{
 			if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
 			{
@@ -992,8 +989,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			}
 
 		}
-		if (hdamage_timer > 0)
-		{
+	if (hdamage_timer > 0)
+	{
 			if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
 			{
 				inputs.Push(IN_HDAMAGE_FINISH);
@@ -1002,7 +999,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			}
 
 		}
-		if (hhdamage_timer > 0)
+	if (hhdamage_timer > 0)
 		{
 			if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
 			{
@@ -1013,8 +1010,8 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 		}
 
-	}
 }
+
 
 bool ModulePlayer::CleanUp()
 {
