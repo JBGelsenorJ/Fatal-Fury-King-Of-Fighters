@@ -114,6 +114,7 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->Timer(129,20);
 	App->ui->DrawLife();
 
+
 	//Scene Out
 	if (App->player->life<=0)
 	{

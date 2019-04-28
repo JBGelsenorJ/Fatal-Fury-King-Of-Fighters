@@ -28,11 +28,17 @@ ModuleUI::ModuleUI(){
 	timerbackground.w = 100;
 	timerbackground.h = 75;
 
-	//Health full of life
+	//HealthP1 full of life
 	health.x = 1;
 	health.y = 20;
 	health.w = 120;
 	health.h = 13;
+
+	//HealthP2 full of life
+	healthp2.x = 1;
+	healthp2.y = 20;
+	healthp2.w = 120;
+	healthp2.h = 13;
 
 	//Health without life
 	nohealth.x = 1;
@@ -84,7 +90,9 @@ bool ModuleUI::Start()
 }
 
 update_status ModuleUI::Update(){
-	health.w = 120 / ((App->enemy->life) / 100);
+
+	health.w = 120 * (App->enemy->life / 100);
+	healthp2.w = 120 * (App->player->life / 100);
 
 	return UPDATE_CONTINUE;
 }
@@ -95,7 +103,7 @@ bool ModuleUI::CleanUp()
 	//Destroying features loaded
 	SDL_DestroyTexture(graphics);
 	App->fonts->UnLoad(countdown);
-	
+	App->fonts->UnLoad(scorefont);
 	LOG("Unloading Textures, Fonts and Audio");
 
 	return true;
@@ -127,9 +135,9 @@ bool ModuleUI::DrawLife() {
 	App->render->Blit(graphics, 166, 25, &nohealth,false);
 	App->render->Blit(graphics, 166, 25, &health, false);
 
-	App->render->MirrorBlit(graphics, 2, 25, &nohealth , 0.0f , 0 ,NULL);
-	App->render->MirrorBlit(graphics, 2, 25, &health, 0.0f, 0, NULL);
 
+	App->render->MirrorBlit(graphics, 2, 25, &nohealth , 0.0f , 0 ,NULL);
+	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
 
 
 	return true;

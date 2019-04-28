@@ -32,6 +32,7 @@ public:
 	//Textures and font sprites
 	SDL_Texture* graphics;
 	SDL_Rect health;
+	SDL_Rect healthp2;
 	SDL_Rect nohealth;
 	SDL_Rect point;
 	SDL_Rect pointred;
@@ -48,6 +49,10 @@ public:
 	float seconds;
 	uint time;
 	char time_text[10];
+	
+	
+	char p1score[10];
+	char p2score[10];
 };
 
 #endif
