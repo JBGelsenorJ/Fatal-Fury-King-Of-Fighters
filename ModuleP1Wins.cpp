@@ -42,6 +42,7 @@ bool ModuleP1Wins::Start()
 	//fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 	//Mix_VolumeChunk(fx, 35);
 
+
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/UI/WinLose/Background.png");
@@ -70,10 +71,14 @@ bool ModuleP1Wins::CleanUp()
 // Update: draw background
 update_status ModuleP1Wins::Update()
 {
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	// Drawing background - WinP1 Background
 	uint cont = SDL_GetTicks();
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	//App->fonts->BlitText(100, 50, sentence_font, "1");
+	
 
 	if (cont = SDL_GetTicks()+1100)
 	{

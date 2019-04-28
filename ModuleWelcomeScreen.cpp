@@ -72,6 +72,7 @@ update_status ModuleWelcomeScreen::Update()
 	// start animation
 	App->render->Blit(graphics, 72, 160, &(start.GetCurrentFrame()), NULL);
 
+
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
 		App->fade->FadeToBlack(App->scene_welcome, App->playerselection, 1.5);

@@ -389,7 +389,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		//position.x = 15;
+		position.x = 15;
 		dealtdamage = true;
 	}
 

@@ -114,16 +114,25 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->Timer(129,20);
 	App->ui->DrawLife();
 
+	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy->position.y) / 2;
+
+	//camera locked
+	App->render->cam_pos.x = -centerx;
+	App->render->cam_pos.y = (SCREEN_HEIGHT)-centery;
+	App->render->camera.x = App->render->cam_pos.x;
+	App->render->camera.y = App->render->cam_pos.y;
+	
 
 	//Scene Out
-	if (App->player->life<=0)
+	if (App->player->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
 
 	}
 	else if (App->enemy->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
+		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
 
 	}
 	return UPDATE_CONTINUE;

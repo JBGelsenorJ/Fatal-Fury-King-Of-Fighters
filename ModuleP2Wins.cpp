@@ -66,6 +66,10 @@ bool ModuleP2Wins::CleanUp()
 // Update: draw background
 update_status ModuleP2Wins::Update()
 {
+
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	// Drawing background - WinP1 Background
 	uint cont = SDL_GetTicks();
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
