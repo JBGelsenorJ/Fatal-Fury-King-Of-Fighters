@@ -1,4 +1,4 @@
-#include "Globals.h"
+/*#include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -183,12 +183,18 @@ update_status ModuleEnemy::Update()
 				sm12.Reset();
 				break;
 
-				
+				//case ST_JUMP_FORWARD:
+					//LOG("JUMPING FORWARD ^^>>\n")
+				//case ST_JUMP_BACKWARD:
+					//LOG("JUMPING BACKWARD ^^<<\n");
+
 			case ST_CROUCH2:
 				current_animation2 = &crouch2;
 				LOG("CROUCHING ****\n");
 				break;
-				
+				//case ST_PUNCH_CROUCH:
+					//LOG("PUNCH CROUCHING **++\n");
+					//break;
 			case ST_PUNCH2_STANDING:
 				current_animation2 = &punch2;
 				LOG("PUNCH STANDING ++++\n");
@@ -197,18 +203,45 @@ update_status ModuleEnemy::Update()
 
 
 
-				
+				//case ST_PUNCH2_NEUTRAL_JUMP:
+						//LOG("PUNCH NEUTRAL JUMP ++++\n");
+						//break;
+				//case ST_PUNCH2_FORWARD_JUMP:
+						//LOG("PUNCH JUMP FORWARD ^>>+\n");
+						//break;
+				//case ST_PUNCH2_BACKWARD_JUMP:
+						//LOG("PUNCH JUMP BACKWARD ^<<+\n");
+						//break;
+				//case ST_KICK2_CROUCH:
+						//LOG("KICK CROUCHING **--\n");
+						//break;
 
 
 			case ST_KICK2_STANDING:
 				current_animation2 = &kick2;
 				break;
+
+				//case ST_KICK2_NEUTRAL_JUMP:
+				//	LOG("KICK JUMP NEUTRAL ^^--\n");
+					//break;
+			//case ST_KICK2_FORWARD_JUMP:
+					//LOG("KICK JUMP FORWARD ^>>-\n");
+					//break;
+			//case ST_KICK2_BACKWARD_JUMP:
+					//LOG("KICK JUMP BACKWARD ^<<-\n");
+					//break;
+			//case ST_DAMAGE2_RECEIVED:
+					//current_animation = &beat;
+					//break;
+
 			case ST_SP12:
 
 				current_animation2 = &sm12;
 				Activesm1 = true;
 				break;
+
 			case ST_JUMP2_NEUTRAL:
+
 				current_animation2 = &jump2;
 				LOG("JUMPING  ^^^^\n");
 
@@ -452,8 +485,8 @@ bool ModuleEnemy::CleanUp()
 	LOG("Unloading Terry From Scene");
 
 	return true;
-}
-/*
+}*/
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -1068,4 +1101,3 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 }
-*/
