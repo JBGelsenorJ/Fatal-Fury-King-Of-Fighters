@@ -45,6 +45,7 @@ public:
 	Mix_Chunk* finalcountdown;
 
 	//Timer
+	int start_delay = 2000;
 	float starting = 0.0f;
 	uint starttime;
 	uint time;

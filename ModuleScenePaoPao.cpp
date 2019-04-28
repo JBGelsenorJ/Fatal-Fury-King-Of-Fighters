@@ -47,8 +47,8 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 bool ModuleScenePaoPao::Start()
 {
 	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
-	fx = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-	Mix_VolumeChunk(fx, 35);
+	audience = App->audio->LoadMusic("Source/Sound/Music/audience.ogg");
+
 	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
@@ -63,7 +63,7 @@ bool ModuleScenePaoPao::Start()
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
-	App->audio->PlayFX(fx); //Fix: Loop infinite(maybe convert to ogg and play as audio)
+	App->audio->PlayMusic(audience);
 
 	wall1 = App->collision->AddCollider({ 0, 300, 15, -500 }, COLLIDER_WALL, this);
 	wall2 = App->collision->AddCollider({ 750, 300 , 15, -500 }, COLLIDER_WALL, this);
@@ -111,7 +111,7 @@ update_status ModuleScenePaoPao::Update()
 	//People animation
 	App->render->Blit(graphics, 0, 0, &(people.GetCurrentFrame()), 0.75f ); 
 
-	App->ui->Timer(129,20);
+	App->ui->Timer(129,5);
 	App->ui->DrawLife();
 
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
