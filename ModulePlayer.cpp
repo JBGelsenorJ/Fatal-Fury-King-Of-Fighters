@@ -151,7 +151,12 @@ update_status ModulePlayer::Update()
 		{
 			switch (state)
 			{
+
+
+				internal_input(inputs);
+
 			case ST_IDLE:
+
 
 				current_animation = &idle;
 				forward.Reset();
@@ -247,11 +252,84 @@ update_status ModulePlayer::Update()
 
 						//	LOG("KICK JUMP NEUTRAL ^^--\n");
 
+							//break;
+						//case ST_KICK_FORWARD_JUMP:
+							//LOG("KICK JUMP FORWARD ^>>-\n");
+							//break;
+						//case ST_KICK_BACKWARD_JUMP:
+							//LOG("KICK JUMP BACKWARD ^<<-\n");
+							//break;
+						//case ST_DAMAGE_RECEIVED:
+							//current_animation = &beat;
+							//break;
+					case ST_SP1:
+
+						current_animation = &sm1;
+						Activesm1 = true;
+
+					case ST_JUMP_NEUTRAL:
+
+						/*current_animation = &jump;
+						LOG("JUMPING  ^^^^\n");
+
+						position.y -= jumpspeed;
+						jumpspeed -= 0.2;
+
+						if (current_animation->AnimFinished() == true)
+						{
+							position.y = 220;
+							jumpspeed = 6;
+						}*/
+						/*if (jump_timer <= 500)
+						{
+							current_animation = &jump;
+							position.y -= jumpspeed;
+							jumpspeed -= 0.2;
+						}*/
+						/*if (jump_timer == 500)
+						{
+							jumpspeed = 0;
+						}*/
+						//if (jump_timer > 500)
+						//{
+						if (position.y <=220)
+						{
+							animdone = false;
+							current_animation = &jump;
+							position.y -= jumpspeed;
+							jumpspeed -= 0.2;
+						}
+						if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
+						{
+							position.y = 220;
+							jumpspeed = 6;
+							animdone == true;
+						}
+						
+						/*if (current_animation->AnimFinished() == true)
+						{
+							animdone = true;
+						}*/
+							
+					
+						break;
+					}
+				}
+				current_state = state;
+
+
+
 				//break;
 
 				//case ST_KICK_FORWARD_JUMP:
 
+
+				playercol->SetPos(position.x, position.y);
+				playerpunch->SetPos(position.x + 40, position.y - 90);
+				playerkick->SetPos(position.x + 40, position.y - 60);
+
 						//LOG("KICK JUMP FORWARD ^>>-\n");
+
 
 				//break;
 
@@ -384,7 +462,6 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				break;
 
 			case SDLK_w:
-
 				jump = false;
 				break;
 
@@ -414,7 +491,11 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			{
 
 			case SDLK_w:
-				jump = true;
+				if (animdone == true)
+				{
+					jump = true;
+				}
+				
 				//App->audio->PlayFX(AUDIOSALTO);
 				break;
 			case SDLK_s:
@@ -490,15 +571,27 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
-	if (jump_timer > 0)
-	{
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME)
+	
+		if (jump_timer > 0)
 		{
+
+			if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
+			{
+				inputs.Push(IN_JUMP_FINISH);
+				jump_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			inputs.Push(IN_JUMP_FINISH);
 			jump_timer = 0;
 			
+
 		}
-	}
+	
+	
 
 	if (punch_timer > 0)
 	{
