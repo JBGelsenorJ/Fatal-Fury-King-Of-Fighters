@@ -82,7 +82,7 @@ update_status ModuleP1Wins::Update()
 
 	if (cont = SDL_GetTicks()+1100)
 	{
-		App->fade->FadeToBlack(App->p1w, App->p2w, 6);
+		App->fade->FadeToBlack(App->p1w, App->scene_intro, 6);
 	}
 	return UPDATE_CONTINUE;
 }
