@@ -126,7 +126,7 @@ update_status ModuleParticles::Update()
 		terryspecial5.speed.x = 2;
 
 	}
-	if (App->enemy->position.x <App->player->position.x) {
+	if (App->enemy->position.x < App->player->position.x) {
 		terryspecial1.speed.x = -2;
 		terryspecial2.speed.x = -2;
 		terryspecial3.speed.x = -2;
