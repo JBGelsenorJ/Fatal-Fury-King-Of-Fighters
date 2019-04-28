@@ -622,6 +622,28 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			
 		}
 	}
+
+	if (ldamage_timer > 0)
+	{
+		if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
+		{
+			inputs.Push(IN_LDAMAGE_FINISH);
+			ldamage_timer = 0;
+
+		}
+		
+	}
+
+	if (hdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
+		{
+			inputs.Push(IN_HDAMAGE_FINISH);
+			hdamage_timer = 0;
+
+		}
+
+	}
 }
 
 bool ModulePlayer::CleanUp()
