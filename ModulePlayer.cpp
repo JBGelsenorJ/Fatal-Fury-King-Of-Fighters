@@ -349,8 +349,15 @@ update_status ModulePlayer::Update()
 			}
 			case ST_WALK_FORWARD:
 			{
+
+				if (position.x < App->render->camera.x + 500)
+				{
+					
+					position.x += speed;
+				}
+				//current_animation = &forward;
+				//position.x += speed;
 				current_animation = &forward;
-				position.x += speed;
 				backward.Reset();
 				crouch.Reset();
 				crouch.Reset();
@@ -362,8 +369,15 @@ update_status ModulePlayer::Update()
 			}
 			case ST_WALK_BACKWARD:
 			{
+				if (position.x > App->render->camera.x)
+				{
+					
+					position.x -= speed;
+					
+				}
+				//current_animation = &backward;
+				//position.x -= speed;
 				current_animation = &backward;
-				position.x -= speed;
 				forward.Reset();
 				crouch.Reset();
 				crouch.Reset();

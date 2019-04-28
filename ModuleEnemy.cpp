@@ -284,15 +284,23 @@ update_status ModuleEnemy::Update()
 		//MoveForward
 		if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && position.x < 670)
 		{
-			current_animation = &forward;
-			position.x += speed;
+			if (position.x < (App->render->camera.x + 500))
+			{
+				current_animation = &forward;
+				position.x += speed;
+			}
+			
 		}
 
 		//Move Backward
 		if (App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && position.x > 0)
 		{
-			current_animation = &backward;
-			position.x -= speed;
+			if (position.x > App->render->camera.x)
+			{
+				current_animation = &backward;
+				position.x -= speed;
+			}
+			
 		}
 
 		//Jump
