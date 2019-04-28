@@ -86,9 +86,9 @@ public:
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 
-	Collider* playercol;
-	Collider* playerpunch;
-	Collider* playerkick;
+	Collider* enemycol;
+	Collider* enemypunch;
+	Collider* enemykick;
 
 	Uint32 jump_timer = 0;
 	Uint32 jumpf_timer = 0;
@@ -124,10 +124,12 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
+
 	float jumpspeed = 6;
 
 	int speed = 2;
 	float life = 100;
+
 
 	enum enemy_states
 	{

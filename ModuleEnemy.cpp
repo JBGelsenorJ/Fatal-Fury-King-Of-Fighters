@@ -265,9 +265,9 @@ bool ModuleEnemy::Start()
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
 	//Loading Player Colliders
-	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+	enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 
 
 	countdown_font = App->fonts->Load("Source/UI/fonts/countdouwn_font.png", "012345678", 1);
@@ -327,8 +327,8 @@ update_status ModuleEnemy::Update()
 				kick.Reset();
 				punch.Reset();
 				sm1.Reset();
-				playerpunch->to_delete = true;
-				playerkick->to_delete = true;
+				enemypunch->to_delete = true;
+				enemykick->to_delete = true;
 				break;
 			}
 			case ST_WALK_FORWARD:
@@ -590,9 +590,9 @@ update_status ModuleEnemy::Update()
 			}
 		}
 
-		playercol->SetPos(position.x, position.y);
-		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
+		enemycol->SetPos(position.x, position.y);
+		enemypunch->SetPos(position.x + 40, position.y - 90);
+		enemykick->SetPos(position.x + 40, position.y - 60);
 
 		current_state = state;
 
@@ -600,9 +600,9 @@ update_status ModuleEnemy::Update()
 
 		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f,0,NULL);
 
-		playercol->SetPos(position.x, position.y);
-		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
+		enemycol->SetPos(position.x, position.y);
+		enemypunch->SetPos(position.x + 40, position.y - 90);
+		enemykick->SetPos(position.x + 40, position.y - 60);
 
 		return UPDATE_CONTINUE;
 
@@ -612,23 +612,23 @@ update_status ModuleEnemy::Update()
 
 void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
-	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
 	{
 		App->enemy->position.x += 3;
 
 	}
 
-	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
 	{
 		App->enemy->position.x -= 3;
 
 	}
 
-	if (playerpunch == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemypunch == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		if (playerpunch->callback != nullptr)
+		if (enemypunch->callback != nullptr)
 		{
-			playerpunch->to_delete = true;
+			enemypunch->to_delete = true;
 		}
 		App->enemy->position.x += 3;
 		App->enemy->life -= 25;
@@ -636,11 +636,11 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (playerkick == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemykick == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		if (playerkick->callback != nullptr)
+		if (enemykick->callback != nullptr)
 		{
-			playerkick->to_delete = true;
+			enemykick->to_delete = true;
 		}
 		App->enemy->life -= 25;
 		App->enemy->position.x += 3;
@@ -648,7 +648,7 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	else if (playercol == c1 && c2->type == COLLIDER_WALL)
+	else if (enemycol == c1 && c2->type == COLLIDER_WALL)
 	{
 		position.x = 15;
 		dealtdamage = true;
@@ -677,8 +677,8 @@ bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 
 			case SDLK_j:
 				inputs.Push(IN_CROUCH_UP);
-				playercol->to_delete = true;
-				playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+				enemycol->to_delete = true;
+				enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 				crouch = false;
 				break;
 
@@ -722,9 +722,9 @@ bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 				break;
 
 			case SDLK_j:
-				playercol->to_delete = true;
+				enemycol->to_delete = true;
 
-				playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
+				enemycol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
 				crouch = true;
 
 				break;
@@ -746,8 +746,8 @@ bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 				inputs.Push(IN_PUNCH);
 				if (colcreated == true)
 				{
-					playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
-					playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+					enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				App->audio->PlayFX(Punch);
@@ -758,8 +758,8 @@ bool ModuleEnemy::external_input(p2Qeue<enemy_inputs>& inputs)
 
 				if (colcreated == true)
 				{
-					playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
-					playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+					enemykick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+					enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				inputs.Push(IN_KICK);
@@ -859,7 +859,7 @@ void ModuleEnemy::internal_input(p2Qeue<enemy_inputs>& inputs)
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
 			colcreated = true;
-			playerpunch->to_delete = true;
+			enemypunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
 
@@ -914,7 +914,7 @@ void ModuleEnemy::internal_input(p2Qeue<enemy_inputs>& inputs)
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
 			colcreated = true;
-			playerkick->to_delete = true;
+			enemykick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
 		}
