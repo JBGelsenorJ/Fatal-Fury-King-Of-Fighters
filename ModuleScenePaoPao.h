@@ -26,7 +26,7 @@ public:
 	SDL_Rect background;
 	Animation people;
 	Mix_Music* music;
-	Mix_Chunk* fx;
+	Mix_Music* audience;
 	Collider* wall1;
 	Collider* wall2;
 	Collider* wall3;

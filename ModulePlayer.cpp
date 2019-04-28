@@ -332,8 +332,12 @@ update_status ModulePlayer::Update()
 		current_state = state;
 
 		SDL_Rect r = current_animation->GetCurrentFrame();
-
-		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		if (App->enemy->position.x > position.x) {
+			App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		}
+		else {
+			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+		}
 
 		playercol->SetPos(position.x, position.y);
 		playerpunch->SetPos(position.x + 40, position.y - 90);
@@ -371,6 +375,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		}
 		App->enemy->position.x += 3; 
 			App->enemy->life -= 25;
+			//score += 200;
 
 
 	}

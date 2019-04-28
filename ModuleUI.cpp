@@ -132,14 +132,19 @@ bool ModuleUI::Timer(int w, int h) {
 
 bool ModuleUI::DrawLife() {
 	
+	//Rendering P1 Life
+	App->render->MirrorBlit(graphics, 2, 25, &nohealth, 0.0f, 0, NULL);
+	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
+	
+	/*		FIX FONT SIZE
+	sprintf_s(p2score, 10, "%7d", App->player->score);
+	App->fonts->BlitText(20, 15, scorefont, p2score);
+	*/
+
 	//Rendering P2 Life
 	App->render->Blit(graphics, 166, 25, &nohealth,false);
 	App->render->Blit(graphics, 166, 25, &health, false);
 
-
-	App->render->MirrorBlit(graphics, 2, 25, &nohealth , 0.0f , 0 ,NULL);
-	App->render->MirrorBlit(graphics, 2, 25, &healthp2, 0.0f, 180, NULL);
-
-
 	return true;
 }
+
