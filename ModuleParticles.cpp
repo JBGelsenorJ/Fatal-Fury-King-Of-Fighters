@@ -9,6 +9,7 @@
 #include "ModuleEnemy.h"
 #include "ModulePlayer.h"
 
+
 #include "SDL/include/SDL_timer.h"
 
 ModuleParticles::ModuleParticles()
@@ -124,7 +125,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 		if (c2->type == COLLIDER_ENEMY && cont < 1)
 		{
-			App->enemy->life -= 30;
+
+			App->enemy->life2 -= 30;
+
 			cont++;
 		}
 		if (c2->type == COLLIDER_PLAYER && cont < 1)

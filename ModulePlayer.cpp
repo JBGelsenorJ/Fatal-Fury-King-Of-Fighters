@@ -18,6 +18,9 @@ ModulePlayer::ModulePlayer()
 	position.x = 100;
 	position.y = 220;
 
+	//IDLE
+	{
+
 	//Terry Bogard Idle Animation
 	idle.PushBack({27, 914, 58, 103});
 	idle.PushBack({95, 916, 59, 102});
@@ -26,6 +29,10 @@ ModulePlayer::ModulePlayer()
 
 	idle.speed = 0.18f;
 
+	}
+
+	//NORMAL MOVEMENTS (WALK AND CROUCH)
+	{
 	//Terry Bogard Forward Animation
 	forward.PushBack({32, 1300, 60, 105});
 	forward.PushBack({108, 1300, 68, 105});
@@ -41,7 +48,17 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 95, 916, 59, 102 });
 	backward.speed = 0.15f;
 
-	//Terry Bogard Jump UP Animation
+	//crouch animation
+
+	crouch.PushBack({ 265, 949, 56, 70 });
+	crouch.speed = 0.2f;
+
+	}
+
+	//JUMP
+	{
+	
+	//Terry Bogard Jump NEUTRAL Animation
 	jump.PushBack({ 548, 1035, 51, 125 });
 	jump.PushBack({ 548, 1035, 51, 125 });
 	jump.PushBack({ 548, 1035, 51, 125 });
@@ -54,6 +71,35 @@ ModulePlayer::ModulePlayer()
 	jump.speed = 0.12f;
 
 
+	//Terry Bogard Jump FORWARD Animation
+
+	jumpf.PushBack({ 716, 927, 60, 96 });
+	jumpf.PushBack({ 716, 927, 60, 96 });
+	jumpf.PushBack({ 716, 927, 60, 96 });
+	jumpf.PushBack({ 716, 927, 60, 96 });
+	jumpf.PushBack({ 782, 918, 59, 106 });
+	jumpf.PushBack({ 841, 941, 89, 55 });
+	jumpf.PushBack({ 841, 941, 89, 55 });
+	jumpf.PushBack({ 841, 941, 89, 55 });
+
+	jumpf.speed = 0.12f;
+
+	//Terry Bogard Jump BACKWARD Animation
+
+	jumpb.PushBack({ 716, 927, 60, 96 });
+	jumpb.PushBack({ 716, 927, 60, 96 });
+	jumpb.PushBack({ 716, 927, 60, 96 });
+	jumpb.PushBack({ 716, 927, 60, 96 });
+	jumpb.PushBack({ 782, 918, 59, 106 });
+	jumpb.PushBack({ 841, 941, 89, 55 });
+	jumpb.PushBack({ 841, 941, 89, 55 });
+	jumpb.PushBack({ 841, 941, 89, 55 });
+
+	jumpb.speed = 0.12f;
+	}
+	
+	//KICK
+	{
 	//Terry Bogard Kick Animation
 	kick.PushBack({ 449, 806, 59, 107 });
 	kick.PushBack({ 512, 803, 53, 107 });
@@ -65,17 +111,98 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 714, 925, 64, 98 });
 	kick.speed = 0.18f;
 
+	//Terry Bogard Kick JUMPF Animation
+	kickf.PushBack({ 577, 482, 59, 74 });
+	kickf.PushBack({ 577, 482, 59, 74 });
+	kickf.PushBack({ 577, 482, 59, 74 });
+	kickf.PushBack({ 577, 482, 59, 74 });
+	kickf.PushBack({ 640, 464, 80, 114 });
+	kickf.PushBack({ 737, 485, 115, 72 });
+	kickf.PushBack({ 737, 485, 115, 72 });
+	kickf.PushBack({ 737, 485, 115, 72 });
+	kickf.speed = 0.18f;
+
+	//Terry Bogard Kick JUMPB Animation
+	kickb.PushBack({ 577, 482, 59, 74 });
+	kickb.PushBack({ 577, 482, 59, 74 });
+	kickb.PushBack({ 577, 482, 59, 74 });
+	kickb.PushBack({ 577, 482, 59, 74 });
+	kickb.PushBack({ 640, 464, 80, 114 });
+	kickb.PushBack({ 737, 485, 115, 72 });
+	kickb.PushBack({ 737, 485, 115, 72 });
+	kickb.PushBack({ 737, 485, 115, 72 });
+	kickb.speed = 0.18f;
+
+	//Terry Bogard Kick JUMPN Animation
+	kickn.PushBack({ 376, 489, 58, 75 });
+	kickn.PushBack({ 376, 489, 58, 75 });
+	kickn.PushBack({ 376, 489, 58, 75 });
+	kickn.PushBack({ 376, 489, 58, 75 });
+	kickn.PushBack({ 447, 477, 75, 97 });
+	kickn.PushBack({ 447, 477, 75, 97 });
+	kickn.PushBack({ 447, 477, 75, 97 });
+	kickn.speed = 0.18f;
+
+	//Terry Bogard Kick Crouch Animation
+	/*kickc.PushBack({ 449, 806, 59, 107 });
+	kickc.PushBack({ 512, 803, 53, 107 });
+	kickc.PushBack({ 31, 1150, 50, 97 });
+	kickc.PushBack({ 84, 1148, 59, 115 });
+	kickc.PushBack({ 149, 1151, 50, 108 });
+	kickc.PushBack({ 211, 1155, 119, 108 });
+	kickc.PushBack({ 342, 1152, 68, 111 });
+	kickc.PushBack({ 714, 925, 64, 98 });
+	kickc.speed = 0.18f;*/
+	}
+	
+	//PUNCH
+	{
 	// punch animation 
 	punch.PushBack({ 506, 918, 60, 101 });
 	punch.PushBack({ 573, 918, 98, 101 });
 	punch.PushBack({ 506, 918, 60, 101 });
 	punch.speed = 0.1f;
 
-	//crouch animation
+	// punch jumpf animation 
+	punchf.PushBack({ 23, 799, 65, 111 });
+	punchf.PushBack({ 23, 799, 65, 111 });
+	punchf.PushBack({ 23, 799, 65, 111 });
+	punchf.PushBack({ 23, 799, 65, 111 });
+	punchf.PushBack({ 91, 807, 53, 104 });
+	punchf.PushBack({ 147, 809, 85, 101 });
+	punchf.PushBack({ 147, 809, 85, 101 });
+	punchf.PushBack({ 147, 809, 85, 101 });
+	punchf.speed = 0.1f;
 
-	crouch.PushBack({ 265, 949, 56, 70 });
-	crouch.speed = 0.2f;
+	// punch jumpb animation 
+	punchb.PushBack({ 23, 799, 65, 111 });
+	punchb.PushBack({ 23, 799, 65, 111 });
+	punchb.PushBack({ 23, 799, 65, 111 });
+	punchb.PushBack({ 23, 799, 65, 111 });
+	punchb.PushBack({ 91, 807, 53, 104 });
+	punchb.PushBack({ 147, 809, 85, 101 });
+	punchb.PushBack({ 147, 809, 85, 101 });
+	punchb.PushBack({ 147, 809, 85, 101 });
+	punchb.speed = 0.1f;
+	
+	// punch jumpn animation 
+	punchn.PushBack({ 719, 695, 46, 46 });
+	punchn.PushBack({ 719, 695, 46, 46 });
+	punchn.PushBack({ 719, 695, 46, 46 });
+	punchn.PushBack({ 719, 695, 46, 46 });
+	punchn.PushBack({ 769, 679, 70, 97 });
+	punchn.PushBack({ 769, 679, 70, 97 });
+	punchn.PushBack({ 769, 679, 70, 97 });
+	punchn.speed = 0.1f;
 
+	// punch crouch animation 
+	punchc.PushBack({ 261, 952, 61, 67 });
+	punchc.PushBack({ 320, 954, 83, 67 });
+	punchc.speed = 0.1f;
+	}
+	
+	//SPECIAL MOVEMENTS
+	{
 	//Special Movement 1
 	
 	sm1.PushBack({ 970, 1334, 54, 106 });
@@ -86,7 +213,10 @@ ModulePlayer::ModulePlayer()
 	sm1.PushBack({ 547, 1359, 61, 81 });
 
 	sm1.speed = 0.18f;
-	
+	}
+
+	//DAMAGE
+	{
 	//Low damage
 
 	lowd.PushBack({ 24, 475, 60, 100 });
@@ -99,6 +229,20 @@ ModulePlayer::ModulePlayer()
 	highd.PushBack({ 235, 478, 70, 88 });
 	highd.PushBack({ 88, 469, 68, 107 });
 	highd.speed = 0.15f;
+
+	//Hihgh High damage
+
+	hhd.PushBack({ 75, 5, 101, 91 });
+	hhd.PushBack({ 185, 48, 112, 44 });
+	hhd.PushBack({ 299, 44, 116, 44 });
+	hhd.PushBack({ 423, 41, 97, 47 });
+	hhd.PushBack({ 523, 22, 82, 70 });
+	hhd.PushBack({ 614, 19, 58, 74 });
+	hhd.PushBack({ 677, 11, 58, 82 });
+	hhd.PushBack({ 88, 469, 68, 107 });
+
+	hhd.speed = 0.15f;
+	}
 
 }
 
@@ -137,7 +281,7 @@ update_status ModulePlayer::Update()
 {
 
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
-		if (godmode == false)
+		/*if (godmode == false)
 		{
 			playercol->to_delete = true;
 			App->enemy->enemycol->to_delete = true;
@@ -149,7 +293,7 @@ update_status ModulePlayer::Update()
 			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			App->enemy->enemycol = App->collision->AddCollider({ 210, -250, 55, -103 }, COLLIDER_ENEMY, (Module*) App->enemy->enemycol);
 			godmode = false;
-		}
+		}*/
 	}
 	Animation* current_animation = &idle;
 	p2Qeue<player_inputs> inputs;
@@ -213,12 +357,44 @@ update_status ModulePlayer::Update()
 
 				break;
 			}
-				//case ST_JUMP_FORWARD:
-					//LOG("JUMPING FORWARD ^^>>\n")
+			case ST_JUMP_FORWARD:
+			{
+				LOG("JUMPING FORWARD ^^>>\n")
+					if (position.y <= 220)
+					{
+						animdone = false;
+						current_animation = &jumpf;
+						position.y -= jumpspeed;
+						jumpspeed -= 0.2;
+					}
+				if ((position.y == 220 && jumpf_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
 
-				//case ST_JUMP_BACKWARD:
-					//LOG("JUMPING BACKWARD ^^<<\n");
+				break;
+			}
+			case ST_JUMP_BACKWARD:
+			{
+				LOG("JUMPING BACKWARD ^^>>\n")
+					if (position.y <= 220)
+					{
+						animdone = false;
+						current_animation = &jumpb;
+						position.y -= jumpspeed;
+						jumpspeed -= 0.2;
+					}
+				if ((position.y == 220 && jumpb_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
 
+				break;
+			}
 			case ST_CROUCH:
 			{
 				current_animation = &crouch;
@@ -226,11 +402,14 @@ update_status ModulePlayer::Update()
 
 				break;
 			}
-				//case ST_PUNCH_CROUCH:
-							//LOG("PUNCH CROUCHING **++\n");
+			case ST_PUNCH_CROUCH:
+			{
+				current_animation = &punchc;
 
-				//break;
+				LOG("PUNCH CROUCHING **++\n");
 
+				break;
+			}
 			case ST_PUNCH_STANDING:
 			{
 				current_animation = &punch;
@@ -238,49 +417,136 @@ update_status ModulePlayer::Update()
 
 				break;
 			}
-				//case ST_PUNCH_NEUTRAL_JUMP:
 
-						//LOG("PUNCH NEUTRAL JUMP ++++\n");
+			case ST_PUNCH_NEUTRAL_JUMP:
+			{
+				LOG("PUNCH NEUTRAL JUMP ++++\n");
+				
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &punchn;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && punchn_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
+
+				break;
+			}
+			case ST_PUNCH_FORWARD_JUMP:
+			{
+				LOG("PUNCH JUMP FORWARD ^>>+\n");
+
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &punchf;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && punchf_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
+
+				break;
+			}
+			
+			case ST_PUNCH_BACKWARD_JUMP:
+			{
+				LOG("PUNCH JUMP BACKWARD ^<<+\n");
+
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &punchb;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && punchb_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
+
+				break;
+			}
+			//case ST_KICK_CROUCH:
+
+				//LOG("KICK CROUCHING **--\n");
 
 				//break;
-
-				//case ST_PUNCH_FORWARD_JUMP:
-
-						//LOG("PUNCH JUMP FORWARD ^>>+\n");
-
-				//break;
-
-				//case ST_PUNCH_BACKWARD_JUMP:
-
-						//LOG("PUNCH JUMP BACKWARD ^<<+\n");
-
-				//break;
-
-				//case ST_KICK_CROUCH:
-
-						//LOG("KICK CROUCHING **--\n");
-
-				//break;
-
 			case ST_KICK_STANDING:
 			{
 				current_animation = &kick;
 				break;
 			}
-				//case ST_KICK_NEUTRAL_JUMP:
+			case ST_KICK_NEUTRAL_JUMP:
+			{
+				LOG("KICK JUMP NEUTRAL ^^--\n");
 
-						//	LOG("KICK JUMP NEUTRAL ^^--\n");
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &kickn;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && kickn_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
 
-							//break;
-						//case ST_KICK_FORWARD_JUMP:
-							//LOG("KICK JUMP FORWARD ^>>-\n");
-							//break;
-						//case ST_KICK_BACKWARD_JUMP:
-							//LOG("KICK JUMP BACKWARD ^<<-\n");
-							//break;
-						//case ST_DAMAGE_RECEIVED:
-							//current_animation = &beat;
-							//break;
+				break;
+			}
+			case ST_KICK_FORWARD_JUMP:
+			{
+				LOG("KICK JUMP FORWARD ^>>-\n");
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &kickf;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
+				break;
+			}
+
+			case ST_KICK_BACKWARD_JUMP:
+			{
+				LOG("KICK JUMP BACKWARD ^<<-\n");
+				if (position.y <= 220)
+				{
+					animdone = false;
+					current_animation = &kickf;
+					position.y -= jumpspeed;
+					jumpspeed -= 0.2;
+				}
+				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
+				break;
+			}
+			
 			case ST_SP1:
 			{
 				current_animation = &sm1;
@@ -305,7 +571,6 @@ update_status ModulePlayer::Update()
 				
 			break;
 			}
-
 			case ST_LDAMAGE:
 			{	if (dealtdamage == true)
 			{
@@ -339,8 +604,6 @@ update_status ModulePlayer::Update()
 		playerpunch->SetPos(position.x + 40, position.y - 90);
 		playerkick->SetPos(position.x + 40, position.y - 60);
 
-
-
 		return UPDATE_CONTINUE;
 
 	}
@@ -349,17 +612,15 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-
-
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x < App->enemy->position2.x)
 	{
-		App->enemy->position.x += 3;
+		App->enemy->position2.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x > App->enemy->position2.x)
 	{
-		App->enemy->position.x -= 3;
+		App->enemy->position2.x -= 3;
 
 	}
 
@@ -369,8 +630,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerpunch->to_delete = true;
 		}
-		App->enemy->position.x += 3; 
-			App->enemy->life -= 25;
+		App->enemy->position2.x += 3; 
+			App->enemy->life2 -= 25;
 
 
 	}
@@ -381,8 +642,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerkick->to_delete = true;
 		}
-		App->enemy->life -= 25;
-		App->enemy->position.x += 3;
+		App->enemy->life2 -= 25;
+		App->enemy->position2.x += 3;
 
 
 	}
@@ -401,7 +662,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 	static bool forward = false;
 	static bool crouch = false;
 	static bool jump = false;
-
+	
 	SDL_Event event;
 
 	while (SDL_PollEvent(&event) != 0)
@@ -462,7 +723,8 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 			case SDLK_s:
 				playercol->to_delete = true;
-				playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
+				
+					playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
 				crouch = true;
 
 			break;
@@ -530,7 +792,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 	if (backward && forward)
 		inputs.Push(IN_LEFT_AND_RIGHT);
-
+	else
 	{
 		if (backward)
 			inputs.Push(IN_LEFT_DOWN);
@@ -538,26 +800,34 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			inputs.Push(IN_RIGHT_DOWN);
 	}
 
-	if (jump && crouch)
-		inputs.Push(IN_JUMP_AND_CROUCH);
-
+	if (jump && forward)
+		inputs.Push(IN_JUMP_AND_RIGHT);
 	else
 	{
-		if (crouch)
-			inputs.Push(IN_CROUCH_DOWN);
+		if (forward)
+			inputs.Push(IN_RIGHT_DOWN);
 		if (jump)
 			inputs.Push(IN_JUMP);
 	}
 
-
+	if (jump && backward)
+		inputs.Push(IN_JUMP_AND_LEFT);
+	else
+	{
+		if (backward)
+			inputs.Push(IN_LEFT_DOWN);
+		if (jump)
+			inputs.Push(IN_JUMP);
+	}
 
 	return true;
+
 }
 
 void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
 	
-		if (jump_timer > 0)
+	if (jump_timer > 0)
 		{
 
 			if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
@@ -572,7 +842,38 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			
 
 		}
-	
+
+	if (jumpf_timer > 0)
+	{
+
+		if (SDL_GetTicks() - jumpf_timer > JUMPF_TIME && position.y == 220)
+		{
+			inputs.Push(IN_JUMPF_FINISH);
+			jumpf_timer = 0;
+
+			position.y = 220;
+			jumpspeed = 6;
+			animdone = true;
+		}
+
+
+	}
+	if (jumpb_timer > 0)
+	{
+
+		if (SDL_GetTicks() - jumpb_timer > JUMPB_TIME && position.y == 220)
+		{
+			inputs.Push(IN_JUMPB_FINISH);
+			jumpb_timer = 0;
+
+			position.y = 220;
+			jumpspeed = 6;
+			animdone = true;
+		}
+
+
+	}
+
 
 	if (punch_timer > 0)
 	{
@@ -585,6 +886,50 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 
 		}
 	}
+	if (punchf_timer > 0)
+	{
+		if (SDL_GetTicks() - punchf_timer > PUNCHF_TIME)
+		{
+			//playerpunchf->to_delete = true;
+			//colcreated = true;
+			inputs.Push(IN_PUNCHF_FINISH);
+			punchf_timer = 0;
+
+		}
+	}
+	if (punchb_timer > 0)
+	{
+		if (SDL_GetTicks() - punchb_timer > PUNCHB_TIME)
+		{
+			//playerpunchb->to_delete = true;
+			//colcreated = true;
+			inputs.Push(IN_PUNCHB_FINISH);
+			punchb_timer = 0;
+
+		}
+	}
+	if (punchn_timer > 0)
+	{
+		if (SDL_GetTicks() - punchn_timer > PUNCHN_TIME)
+		{
+			//playerpunchn->to_delete = true;
+			//colcreated = true;
+			inputs.Push(IN_PUNCHN_FINISH);
+			punchn_timer = 0;
+
+		}
+	}
+	if (punchc_timer > 0)
+	{
+		if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
+		{
+			//playerpunchc->to_delete = true;
+			//colcreated = true;
+			inputs.Push(IN_PUNCHC_FINISH);
+			punchc_timer = 0;
+
+		}
+	}
 
 	if (kick_timer > 0)
 	{
@@ -594,6 +939,46 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
+		}
+	}
+	if (kickf_timer > 0)
+	{
+		if (SDL_GetTicks() - kickf_timer > KICKF_TIME)
+		{
+			//colcreated = true;
+			//playerkickf->to_delete = true;
+			inputs.Push(IN_KICKF_FINISH);
+			kickf_timer = 0;
+		}
+	}
+	if (kickb_timer > 0)
+	{
+		if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
+		{
+			//colcreated = true;
+			//playerkickb->to_delete = true;
+			inputs.Push(IN_KICKB_FINISH);
+			kickb_timer = 0;
+		}
+	}
+	if (kickn_timer > 0)
+	{
+		if (SDL_GetTicks() - kickn_timer > KICKN_TIME)
+		{
+			//colcreated = true;
+			//playerkickn->to_delete = true;
+			inputs.Push(IN_KICKN_FINISH);
+			kickn_timer = 0;
+		}
+	}
+	if (kickc_timer > 0)
+	{
+		if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
+		{
+			//colcreated = true;
+			//playerkickc->to_delete = true;
+			inputs.Push(IN_KICKC_FINISH);
+			kickc_timer = 0;
 		}
 	}
 
@@ -628,7 +1013,6 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		}
 		
 	}
-
 	if (hdamage_timer > 0)
 	{
 		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
@@ -639,6 +1023,17 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		}
 
 	}
+	if (hhdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
+		{
+			inputs.Push(IN_HHDAMAGE_FINISH);
+			hhdamage_timer = 0;
+
+		}
+
+	}
+
 }
 
 bool ModulePlayer::CleanUp()
