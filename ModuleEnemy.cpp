@@ -271,7 +271,11 @@ bool ModuleEnemy::Start()
 update_status ModuleEnemy::Update()
 {
 	Animation* current_animation = &idle;
-
+	if (current_animation = &idle)
+	{
+		enemypunch->to_delete = true;
+		enemykick->to_delete = true;
+	}
 	int speed = 2;
 
 	//Crouch
@@ -327,10 +331,10 @@ update_status ModuleEnemy::Update()
 			TimePunch = true;
 			App->audio->PlayFX(Punch);
 			enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
-			enemypunch->to_delete = true;
 			if (current_animation->AnimFinished() == true)
-			{
+			{	
 				TimePunch = false;
+				cont = 0;
 			}
 		}
 
@@ -338,10 +342,13 @@ update_status ModuleEnemy::Update()
 		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN || (KickAnim == true)) {
 			KickAnim = true;
 			current_animation = &kick;
+			enemykick = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 			App->audio->PlayFX(Kick);
 			if (current_animation->AnimFinished() == true)
 			{
+				enemykick->to_delete = true;
 				KickAnim = false;
+				cont = 0;
 			}
 		}
 
@@ -352,7 +359,7 @@ update_status ModuleEnemy::Update()
 			TimeAnim = true;
 			int cont = SDL_GetTicks();
 			current_animation = &sm1;
-
+			forenemy = true;
 			if (current_animation->AnimFinished() == true)
 			{
 				App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_ENEMY_SHOT, 0);
@@ -361,6 +368,7 @@ update_status ModuleEnemy::Update()
 				App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_ENEMY_SHOT, 400);
 				App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_ENEMY_SHOT, 600);
 				TimeAnim = false;
+				App->particles->cont = 0;
 			}
 		}
 
@@ -407,25 +415,22 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (enemypunch == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemypunch == c1 && c2->type == COLLIDER_PLAYER && cont < 1)
 	{
-		if (enemypunch->callback != nullptr)
-		{
-			enemypunch->to_delete = true;
-		}
+		enemypunch->to_delete = true;
 		App->player->life -= 25;
-
+		cont++;
 
 	}
 
-	if (enemykick == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemykick == c1 && c2->type == COLLIDER_PLAYER && cont < 1)
 	{
 		if (enemykick->callback != nullptr)
 		{
 			enemykick->to_delete = true;
 		}
 		App->player->life -= 25;
-
+		cont++;
 
 	}
 

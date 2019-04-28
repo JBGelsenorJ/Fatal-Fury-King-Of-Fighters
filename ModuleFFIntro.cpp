@@ -14,6 +14,7 @@
 #include "ModuleFFIntro2.h"
 #include "ModuleUI.h"
 #include "ModuleWelcomeScreen.h"
+#include "ModulePlayerSelection.h"
 
 ModuleFFIntro::ModuleFFIntro()
 {
@@ -195,7 +196,7 @@ update_status ModuleFFIntro::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro, App->scene_welcome, 1);
+		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
 	}
 
 	/*// Drawing background - Intro Background

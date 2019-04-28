@@ -118,10 +118,9 @@ public:
 	bool KickAnim = false;
 	bool TimePunch = false;
 	bool TimeJump = false;
-
+	bool forenemy = false;
 	bool godmode = false;
-	int countdown_font = -1;
-
+	int cont = 0;
 	void OnCollision(Collider* c1, Collider* c2);
 
 

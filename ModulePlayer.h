@@ -117,6 +117,7 @@ public:
 	bool TimeJump = false;
 	bool anim_done = false;
 	bool colcreated = false;
+	bool forplayer = false;
 	
 	bool playaudio = false;
 	bool godmode = false;
