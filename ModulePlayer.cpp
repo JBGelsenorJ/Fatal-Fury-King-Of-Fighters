@@ -413,6 +413,8 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 			case SDLK_s:
 				inputs.Push(IN_CROUCH_UP);
+				playercol->to_delete = true;
+				playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 				crouch = false;
 				break;
 
@@ -456,7 +458,8 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			break;
 
 			case SDLK_s:
-
+				playercol->to_delete = true;
+				playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
 				crouch = true;
 
 			break;
