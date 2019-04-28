@@ -72,7 +72,7 @@ public:
 
 	float jumpspeed2 = 6;
 	int speed2 = 2;
-	int life2 = 100;
+	float life2 = 100;
 
 	enum enemy_states
 	{
