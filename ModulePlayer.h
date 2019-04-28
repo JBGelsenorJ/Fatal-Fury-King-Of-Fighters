@@ -11,16 +11,13 @@
 
 
 
-#define MAX_KEYS 300
-
+#define MAX_KEYS 1000
 #define JUMP_TIME 1000
-#define PUNCH_TIME 400
-
-#define JUMP_TIME 1020
 #define PUNCH_TIME 250
-
 #define SP1_TIME 500
 #define KICK_TIME 550
+#define LDAMAGE_TIME 100
+#define HDAMAGE_TIME 200
 
 struct SDL_Texture;
 
@@ -67,6 +64,8 @@ public:
 	Uint32 punch_timer = 0;
 	Uint32 sp1_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 ldamage_timer = 0;
+	Uint32 hdamage_timer = 0;
 
 	
 	bool animdone = true;

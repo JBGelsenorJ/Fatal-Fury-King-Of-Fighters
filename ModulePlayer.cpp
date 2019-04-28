@@ -183,7 +183,8 @@ update_status ModulePlayer::Update()
 				kick.Reset();
 				punch.Reset();
 				sm1.Reset();
-
+				playerpunch->to_delete = true;
+				playerkick->to_delete = true;
 				break;
 			}
 			case ST_WALK_FORWARD:
@@ -288,28 +289,29 @@ update_status ModulePlayer::Update()
 			}
 			case ST_JUMP_NEUTRAL:
 			{
-					int yoriginal = position.y;
+				if (position.y <= 220)
+				{
+					animdone = false;
 					current_animation = &jump;
-					LOG("JUMPING  ^^^^\n");
-
 					position.y -= jumpspeed;
 					jumpspeed -= 0.2;
-
-
-					if (current_animation->AnimFinished() == true)
-					{
-						position.y = 220;
-						jumpspeed = 6;
-					}
+				}
+				if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
+				{
+					position.y = 220;
+					jumpspeed = 6;
+					animdone == true;
+				}
 				
 			break;
 			}
 
 			case ST_LDAMAGE:
-			{	/*if ()
-				{
-				current_animation=&lowd
-				}*/
+			{	if (dealtdamage == true)
+			{
+				current_animation = &lowd;
+			}
+				
 				break;
 			}
 			case ST_HDAGAME:
@@ -387,7 +389,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		position.x = 15;
+		//position.x = 15;
+		dealtdamage = true;
 	}
 
 }
@@ -482,6 +485,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				if (colcreated == true)
 				{
 					playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				App->audio->PlayFX(Punch);
@@ -493,6 +497,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				if (colcreated == true)
 				{
 					playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+					playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					colcreated = false;
 				}
 				inputs.Push(IN_KICK);
@@ -564,21 +569,17 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			inputs.Push(IN_JUMP_FINISH);
-			jump_timer = 0;
 			
 
 		}
-	
 	
 
 	if (punch_timer > 0)
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
-			playerpunch->to_delete = true;
 			colcreated = true;
+			playerpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
 
@@ -602,6 +603,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 		{
 			inputs.Push(IN_SP1_FINISH);
 			sp1_timer = 0;
+
 			
 		}
 		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
@@ -614,6 +616,28 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			App->particles->cont = 0;
 			
 		}
+	}
+
+	if (ldamage_timer > 0)
+	{
+		if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
+		{
+			inputs.Push(IN_LDAMAGE_FINISH);
+			ldamage_timer = 0;
+
+		}
+		
+	}
+
+	if (hdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
+		{
+			inputs.Push(IN_HDAMAGE_FINISH);
+			hdamage_timer = 0;
+
+		}
+
 	}
 }
 
