@@ -24,7 +24,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-
+	App->player->forplayer = true;
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png");
 
 	// Special1
@@ -118,7 +118,7 @@ update_status ModuleParticles::Update()
 			}
 		}
 	}
-	if (App->enemy->position.x > App->player->position.x) {
+	if (App->enemy->position.x > App->player->position.x && App->player->forplayer == true) {
 		terryspecial1.speed.x = 2;
 		terryspecial2.speed.x = 2;
 		terryspecial3.speed.x = 2;
@@ -126,13 +126,31 @@ update_status ModuleParticles::Update()
 		terryspecial5.speed.x = 2;
 
 	}
-	if (App->enemy->position.x < App->player->position.x) {
+	if (App->enemy->position.x < App->player->position.x && App->player->forplayer == true) {
 		terryspecial1.speed.x = -2;
 		terryspecial2.speed.x = -2;
 		terryspecial3.speed.x = -2;
 		terryspecial4.speed.x = -2;
 		terryspecial5.speed.x = -2;
+
 	}
+	if (App->enemy->position.x > App->player->position.x && App->enemy->forenemy == true) {
+		terryspecial1.speed.x = -2;
+		terryspecial2.speed.x = -2;
+		terryspecial3.speed.x = -2;
+		terryspecial4.speed.x = -2;
+		terryspecial5.speed.x = -2;
+
+	}
+	if (App->enemy->position.x < App->player->position.x && App->enemy->forenemy == true) {
+		terryspecial1.speed.x = 2;
+		terryspecial2.speed.x = 2;
+		terryspecial3.speed.x = 2;
+		terryspecial4.speed.x = 2;
+		terryspecial5.speed.x = 2;
+
+	}
+
 	return UPDATE_CONTINUE;
 }
 void ModuleParticles::OnCollision(Collider* c1, Collider* c2)

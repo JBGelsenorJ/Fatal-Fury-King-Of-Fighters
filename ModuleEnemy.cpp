@@ -351,7 +351,7 @@ update_status ModuleEnemy::Update()
 			TimeAnim = true;
 			int cont = SDL_GetTicks();
 			current_animation = &sm1;
-
+			forenemy = true;
 			if (current_animation->AnimFinished() == true)
 			{
 				App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_ENEMY_SHOT, 0);

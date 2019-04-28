@@ -812,6 +812,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
 					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT, 600);
 					Activesm1 = false;
+					forplayer = true;
 				}
 
 				App->audio->PlayFX(Specialattack);
@@ -1011,6 +1012,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			if (SDL_GetTicks() - sp1_timer > SP1_TIME + 2000)
 			{
 				App->particles->cont = 0;
+				forplayer = false;
 
 			}
 		}
