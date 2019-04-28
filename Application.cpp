@@ -59,12 +59,13 @@ bool Application::Init()
 	playerselection->Disable();
 	scene_soundbeach->Disable();
 	scene_intro2->Disable();
-	scene_intro->Disable();
+
+	scene_intro->Enable();
 	scene_welcome->Disable();
 	collision->Disable();
 	p1w->Disable();
 	p2w->Disable();
-	//scene_paopao->Disable();
+	scene_paopao->Disable();
 	
 	//Disable game features
 	player->Disable();
