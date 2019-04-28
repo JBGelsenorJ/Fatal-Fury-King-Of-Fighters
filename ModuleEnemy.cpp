@@ -166,7 +166,6 @@ update_status ModuleEnemy::Update()
 				position2.x += speed;
 				backward2.Reset();
 				crouch2.Reset();
-
 				kick2.Reset();
 				punch2.Reset();
 				sm12.Reset();
@@ -177,7 +176,6 @@ update_status ModuleEnemy::Update()
 				position2.x -= speed;
 				forward2.Reset();
 				crouch2.Reset();
-
 				kick2.Reset();
 				punch2.Reset();
 				sm12.Reset();
