@@ -55,14 +55,7 @@ update_status ModuleRender::PreUpdate()
 update_status ModuleRender::Update()	
 {
 	int speed = 3;
-	float centerx = (App->player->position.x + App->enemy->position2.x) / 2;
-	float centery = (App->player->position.y + App->enemy->position2.y) / 2;
 
-	cam_pos.x = -centerx;
-	cam_pos.y = (SCREEN_HEIGHT) - centery;
-
-	camera.x = cam_pos.x;
-	camera.y = cam_pos.y;
 	
 	
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {

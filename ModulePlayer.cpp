@@ -612,15 +612,15 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x < App->enemy->position2.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
 	{
-		App->enemy->position2.x += 3;
+		App->enemy->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position2.y == position.y && position.x > App->enemy->position2.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
 	{
-		App->enemy->position2.x -= 3;
+		App->enemy->position.x -= 3;
 
 	}
 
@@ -630,8 +630,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerpunch->to_delete = true;
 		}
-		App->enemy->position2.x += 3; 
-			App->enemy->life2 -= 25;
+		App->enemy->position.x += 3; 
+			App->enemy->life -= 25;
 
 
 	}
@@ -642,15 +642,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerkick->to_delete = true;
 		}
-		App->enemy->life2 -= 25;
-		App->enemy->position2.x += 3;
+		App->enemy->life -= 25;
+		App->enemy->position.x += 3;
 
 
 	}
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		//position.x = 15;
+		position.x = 15;
 		dealtdamage = true;
 	}
 
@@ -826,23 +826,22 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
-	
+
 	if (jump_timer > 0)
+	{
+
+		if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
 		{
+			inputs.Push(IN_JUMP_FINISH);
+			jump_timer = 0;
 
-			if (SDL_GetTicks() - jump_timer > JUMP_TIME && position.y == 220)
-			{
-				inputs.Push(IN_JUMP_FINISH);
-				jump_timer = 0;
-
-				position.y = 220;
-				jumpspeed = 6;
-				animdone = true;
-			}
-			
-
+			position.y = 220;
+			jumpspeed = 6;
+			animdone = true;
 		}
 
+
+	}
 	if (jumpf_timer > 0)
 	{
 
@@ -855,185 +854,166 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			jumpspeed = 6;
 			animdone = true;
 		}
-
-
-	}
-	if (jumpb_timer > 0)
-	{
-
-		if (SDL_GetTicks() - jumpb_timer > JUMPB_TIME && position.y == 220)
+		if (punch_timer > 0)
 		{
-			inputs.Push(IN_JUMPB_FINISH);
-			jumpb_timer = 0;
+			if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
+			{
+				colcreated = true;
+				playerpunch->to_delete = true;
+				inputs.Push(IN_PUNCH_FINISH);
+				punch_timer = 0;
 
-			position.y = 220;
-			jumpspeed = 6;
-			animdone = true;
+			}
+		}
+		if (punchf_timer > 0)
+		{
+			if (SDL_GetTicks() - punchf_timer > PUNCHF_TIME)
+			{
+				//playerpunchf->to_delete = true;
+				//colcreated = true;
+				inputs.Push(IN_PUNCHF_FINISH);
+				punchf_timer = 0;
+
+			}
+		}
+		if (punchb_timer > 0)
+		{
+			if (SDL_GetTicks() - punchb_timer > PUNCHB_TIME)
+			{
+				//playerpunchb->to_delete = true;
+				//colcreated = true;
+				inputs.Push(IN_PUNCHB_FINISH);
+				punchb_timer = 0;
+
+			}
+		}
+		if (punchn_timer > 0)
+		{
+			if (SDL_GetTicks() - punchn_timer > PUNCHN_TIME)
+			{
+				//playerpunchn->to_delete = true;
+				//colcreated = true;
+				inputs.Push(IN_PUNCHN_FINISH);
+				punchn_timer = 0;
+
+			}
+		}
+		if (punchc_timer > 0)
+		{
+			if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
+			{
+				//playerpunchc->to_delete = true;
+				//colcreated = true;
+				inputs.Push(IN_PUNCHC_FINISH);
+				punchc_timer = 0;
+
+			}
 		}
 
-
-	}
-
-
-	if (punch_timer > 0)
-	{
-		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
+		if (kick_timer > 0)
 		{
-			colcreated = true;
-			playerpunch->to_delete = true;
-			inputs.Push(IN_PUNCH_FINISH);
-			punch_timer = 0;
-
+			if (SDL_GetTicks() - kick_timer > KICK_TIME)
+			{
+				colcreated = true;
+				playerkick->to_delete = true;
+				inputs.Push(IN_KICK_FINISH);
+				kick_timer = 0;
+			}
 		}
-	}
-	if (punchf_timer > 0)
-	{
-		if (SDL_GetTicks() - punchf_timer > PUNCHF_TIME)
+		if (kickf_timer > 0)
 		{
-			//playerpunchf->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHF_FINISH);
-			punchf_timer = 0;
+			if (SDL_GetTicks() - kickf_timer > KICKF_TIME)
+			{
+				//colcreated = true;
+				//playerkickf->to_delete = true;
+				inputs.Push(IN_KICKF_FINISH);
+				kickf_timer = 0;
+			}
+		}
+		if (kickb_timer > 0)
+		{
+			if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
+			{
+				//colcreated = true;
+				//playerkickb->to_delete = true;
+				inputs.Push(IN_KICKB_FINISH);
+				kickb_timer = 0;
+			}
+		}
+		if (kickn_timer > 0)
+		{
+			if (SDL_GetTicks() - kickn_timer > KICKN_TIME)
+			{
+				//colcreated = true;
+				//playerkickn->to_delete = true;
+				inputs.Push(IN_KICKN_FINISH);
+				kickn_timer = 0;
+			}
+		}
+		if (kickc_timer > 0)
+		{
+			if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
+			{
+				//colcreated = true;
+				//playerkickc->to_delete = true;
+				inputs.Push(IN_KICKC_FINISH);
+				kickc_timer = 0;
+			}
+		}
 
-		}
-	}
-	if (punchb_timer > 0)
-	{
-		if (SDL_GetTicks() - punchb_timer > PUNCHB_TIME)
+		if (sp1_timer > 0)
 		{
-			//playerpunchb->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHB_FINISH);
-			punchb_timer = 0;
+			if (SDL_GetTicks() - sp1_timer > SP1_TIME)
+			{
+				inputs.Push(IN_SP1_FINISH);
+				sp1_timer = 0;
 
-		}
-	}
-	if (punchn_timer > 0)
-	{
-		if (SDL_GetTicks() - punchn_timer > PUNCHN_TIME)
-		{
-			//playerpunchn->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHN_FINISH);
-			punchn_timer = 0;
 
-		}
-	}
-	if (punchc_timer > 0)
-	{
-		if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
-		{
-			//playerpunchc->to_delete = true;
-			//colcreated = true;
-			inputs.Push(IN_PUNCHC_FINISH);
-			punchc_timer = 0;
+			}
+			if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
+			{
+				Activesm1 = true;
 
-		}
-	}
+			}
+			if (SDL_GetTicks() - sp1_timer > SP1_TIME + 2000)
+			{
+				App->particles->cont = 0;
 
-	if (kick_timer > 0)
-	{
-		if (SDL_GetTicks() - kick_timer > KICK_TIME)
-		{
-			colcreated = true;
-			playerkick->to_delete = true;
-			inputs.Push(IN_KICK_FINISH);
-			kick_timer = 0;
+			}
 		}
-	}
-	if (kickf_timer > 0)
-	{
-		if (SDL_GetTicks() - kickf_timer > KICKF_TIME)
-		{
-			//colcreated = true;
-			//playerkickf->to_delete = true;
-			inputs.Push(IN_KICKF_FINISH);
-			kickf_timer = 0;
-		}
-	}
-	if (kickb_timer > 0)
-	{
-		if (SDL_GetTicks() - kickb_timer > KICKB_TIME)
-		{
-			//colcreated = true;
-			//playerkickb->to_delete = true;
-			inputs.Push(IN_KICKB_FINISH);
-			kickb_timer = 0;
-		}
-	}
-	if (kickn_timer > 0)
-	{
-		if (SDL_GetTicks() - kickn_timer > KICKN_TIME)
-		{
-			//colcreated = true;
-			//playerkickn->to_delete = true;
-			inputs.Push(IN_KICKN_FINISH);
-			kickn_timer = 0;
-		}
-	}
-	if (kickc_timer > 0)
-	{
-		if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
-		{
-			//colcreated = true;
-			//playerkickc->to_delete = true;
-			inputs.Push(IN_KICKC_FINISH);
-			kickc_timer = 0;
-		}
-	}
 
-	if (sp1_timer > 0)
-	{
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME)
+		if (ldamage_timer > 0)
 		{
-			inputs.Push(IN_SP1_FINISH);
-			sp1_timer = 0;
+			if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
+			{
+				inputs.Push(IN_LDAMAGE_FINISH);
+				ldamage_timer = 0;
 
-			
-		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
-		{
-			Activesm1 = true;
+			}
 
 		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME+2000)
+		if (hdamage_timer > 0)
 		{
-			App->particles->cont = 0;
-			
-		}
-	}
+			if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
+			{
+				inputs.Push(IN_HDAMAGE_FINISH);
+				hdamage_timer = 0;
 
-	if (ldamage_timer > 0)
-	{
-		if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
-		{
-			inputs.Push(IN_LDAMAGE_FINISH);
-			ldamage_timer = 0;
+			}
 
 		}
-		
-	}
-	if (hdamage_timer > 0)
-	{
-		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
+		if (hhdamage_timer > 0)
 		{
-			inputs.Push(IN_HDAMAGE_FINISH);
-			hdamage_timer = 0;
+			if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
+			{
+				inputs.Push(IN_HHDAMAGE_FINISH);
+				hhdamage_timer = 0;
+
+			}
 
 		}
 
 	}
-	if (hhdamage_timer > 0)
-	{
-		if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
-		{
-			inputs.Push(IN_HHDAMAGE_FINISH);
-			hhdamage_timer = 0;
-
-		}
-
-	}
-
 }
 
 bool ModulePlayer::CleanUp()

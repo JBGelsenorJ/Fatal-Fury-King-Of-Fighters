@@ -92,9 +92,9 @@ void ModuleScenePaoPao::Restart() {
 	//Restart enemy values
 
 
-	App->enemy->life2 = 100;
-	App->enemy->position2.x = 200;
-	App->enemy->position2.y = 220;
+	App->enemy->life = 100;
+	App->enemy->position.x = 200;
+	App->enemy->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
 	
@@ -114,16 +114,25 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->Timer(129,20);
 	App->ui->DrawLife();
 
+	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy->position.y) / 2;
+
+	//camera locked
+	App->render->cam_pos.x = -centerx;
+	App->render->cam_pos.y = (SCREEN_HEIGHT)-centery;
+	App->render->camera.x = App->render->cam_pos.x;
+	App->render->camera.y = App->render->cam_pos.y;
+	
 
 	//Scene Out
-	if (App->player->life<=0)
-	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
-
-	}
-	else if (App->enemy->life2 <= 0)
+	if (App->player->life <= 0)
 	{
 		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
+
+	}
+	else if (App->enemy->life <= 0)
+	{
+		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
 
 	}
 	return UPDATE_CONTINUE;

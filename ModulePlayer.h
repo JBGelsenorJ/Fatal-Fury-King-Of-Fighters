@@ -11,8 +11,9 @@
 
 
 
-#define MAX_KEYS 1000
 
+
+#define MAX_KEYS 1000
 #define JUMP_TIME 1000
 #define JUMPF_TIME 1000
 #define JUMPB_TIME 1000
