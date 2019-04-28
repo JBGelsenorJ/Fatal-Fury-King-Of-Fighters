@@ -75,7 +75,7 @@ update_status ModuleWelcomeScreen::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(App->scene_welcome, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_welcome, App->scene_intro, 1.5);
 
 	}
 
