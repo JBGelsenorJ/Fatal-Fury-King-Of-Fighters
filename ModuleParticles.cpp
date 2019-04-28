@@ -6,6 +6,8 @@
 #include "ModuleParticles.h"
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemy.h"
+#include "ModulePlayer.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -96,8 +98,7 @@ update_status ModuleParticles::Update()
 		Particle* p = active[i];
 
 		if (p == nullptr)
-			continue;
-
+			continue;	
 		if (p->Update() == false)
 		{
 			delete p;
@@ -122,6 +123,16 @@ update_status ModuleParticles::Update()
 }
 void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
+		if (c2->type == COLLIDER_ENEMY && cont < 1)
+		{
+			App->enemy->life -= 33;
+			cont++;
+		}
+		if (c2->type == COLLIDER_PLAYER && cont < 1)
+		{
+			App->player->life -= 33;
+			cont++;
+		}
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		// Always destroy particles that collide

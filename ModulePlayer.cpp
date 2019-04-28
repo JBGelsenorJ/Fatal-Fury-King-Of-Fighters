@@ -554,6 +554,10 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			inputs.Push(IN_SP1_FINISH);
 			sp1_timer = 0;
 		}
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME+3000)
+		{
+			App->particles->cont = 0;
+		}
 	}
 }
 
