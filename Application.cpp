@@ -19,6 +19,7 @@
 #include "ModuleUI.h"
 #include "ModuleP1Wins.h"
 #include "ModuleP2Wins.h"
+#include "ModuleSceneBillyKane.h"
 
 Application::Application()
 {
@@ -42,6 +43,7 @@ Application::Application()
 	modules[17] = ui = new ModuleUI();
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
+	modules[20] = scene_billykane = new ModuleBillyKane();
 
 }	
 

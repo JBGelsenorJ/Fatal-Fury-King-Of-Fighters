@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 
-#define NUM_MODULES 20
+#define NUM_MODULES 21
 
 
 class ModuleWindow;
@@ -27,6 +27,7 @@ class ModuleFonts;
 class ModuleUI;
 class ModuleP1Wins;
 class ModuleP2Wins;
+class ModuleBillyKane;
 
 class Module;
 
@@ -55,6 +56,7 @@ public:
 	ModuleUI* ui;
 	ModuleP1Wins* p1w;
 	ModuleP2Wins* p2w;
+	ModuleBillyKane* scene_billykane;
 
 
 public:

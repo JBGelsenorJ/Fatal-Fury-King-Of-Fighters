@@ -85,6 +85,7 @@
     <ClInclude Include="ModuleP2Wins.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
+    <ClInclude Include="ModuleSceneBillyKane.h" />
     <ClInclude Include="ModuleScenePaoPao.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="ModuleP2Wins.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
+    <ClCompile Include="ModuleSceneBillyKane.cpp" />
     <ClCompile Include="ModuleScenePaoPao.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
