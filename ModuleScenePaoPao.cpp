@@ -21,6 +21,7 @@
 #include "ModuleP2Wins.h"
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
+#include "ModulePlayer2.h"
 
 
 ModuleScenePaoPao::ModuleScenePaoPao()
@@ -58,9 +59,10 @@ bool ModuleScenePaoPao::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->player->Enable();
+	//App->player->Enable();
 	App->enemy->Enable();
 	App->ui->Enable();
+	App->player2->Enable();
 
 	//Enabling audio
 	App->audio->PlayMusic(music);

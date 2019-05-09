@@ -20,6 +20,7 @@
 #include "ModuleFFIntro.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFonts.h"
+#include "ModuleSceneBillyKane.h"
 
 
 ModuleP1Wins::ModuleP1Wins()
@@ -74,7 +75,7 @@ update_status ModuleP1Wins::Update()
 
 	if (cont = SDL_GetTicks()+1100)
 	{
-		App->fade->FadeToBlack(App->p1w, App->scene_intro, 6);
+		App->fade->FadeToBlack(App->p1w, App->scene_billykane, 6);
 	}
 	return UPDATE_CONTINUE;
 }

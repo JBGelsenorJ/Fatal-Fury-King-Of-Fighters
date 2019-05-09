@@ -20,6 +20,7 @@
 #include "ModuleP1Wins.h"
 #include "ModuleP2Wins.h"
 #include "ModuleSceneBillyKane.h"
+#include "ModulePlayer2.h"
 
 Application::Application()
 {
@@ -44,6 +45,7 @@ Application::Application()
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
 	modules[20] = scene_billykane = new ModuleBillyKane();
+	modules[21] = player2 = new ModulePlayer2();
 
 }	
 
@@ -61,6 +63,7 @@ bool Application::Init()
 	playerselection->Disable();
 	scene_soundbeach->Disable();
 	scene_intro2->Disable();
+	scene_billykane->Disable();
 
 	scene_intro->Disable();
 	scene_welcome->Enable();
@@ -71,6 +74,7 @@ bool Application::Init()
 	
 	//Disable game features
 	player->Disable();
+	player2->Disable();
 	enemy->Disable();
 	audio->Disable();
 	particles->Disable();

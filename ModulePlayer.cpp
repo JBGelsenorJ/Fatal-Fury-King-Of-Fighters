@@ -279,7 +279,7 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	//jump
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
+	/*if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 
 		current_animation = &jump;
 		TimeJump = true;
@@ -292,9 +292,8 @@ update_status ModulePlayer::Update()
 			position.y = 220;
 			jumpspeed = 6;
 		}
-	}
+	}*/
 
-	
 	//god mode
 	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
 		if (godmode == false)
@@ -583,7 +582,8 @@ update_status ModulePlayer::Update()
 
 			break;
 			}
-			/*case ST_JUMP_NEUTRAL:
+			
+			case ST_JUMP_NEUTRAL:
 			{
 				
 
@@ -603,7 +603,7 @@ update_status ModulePlayer::Update()
 				}
 				
 			break;
-			}*/
+			}
 			case ST_LDAMAGE:
 			{	if (dealtdamage == true)
 			{
@@ -620,7 +620,7 @@ update_status ModulePlayer::Update()
 				}*/
 			break;
 			}
-			}
+		}
 		}
 
 		playercol->SetPos(position.x, position.y);
@@ -730,14 +730,13 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				crouch = false;
 				break;
 
-			/*case SDLK_w:
+			case SDLK_w:
 				jump = false;
-				break;*/
+				break;
 
 			case SDLK_a:
 				inputs.Push(IN_LEFT_UP);
 				backward = false;
-				LOG("atras");
 				break;
 
 			case SDLK_d:
@@ -763,7 +762,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 			switch (event.key.keysym.sym)
 			{
 
-			/*case SDLK_w:
+			case SDLK_w:
 				
 				if (animdone == true)
 				{
@@ -771,7 +770,7 @@ bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
 				}
 				//App->audio->PlayFX(AUDIOSALTO);
 
-			break;*/
+			break;
 
 			case SDLK_s:
 				playercol->to_delete = true;

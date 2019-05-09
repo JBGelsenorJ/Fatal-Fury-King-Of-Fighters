@@ -84,6 +84,7 @@
     <ClInclude Include="ModuleP1Wins.h" />
     <ClInclude Include="ModuleP2Wins.h" />
     <ClInclude Include="ModuleParticles.h" />
+    <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
     <ClInclude Include="ModuleSceneBillyKane.h" />
     <ClInclude Include="ModuleScenePaoPao.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="ModuleP1Wins.cpp" />
     <ClCompile Include="ModuleP2Wins.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
+    <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
     <ClCompile Include="ModuleSceneBillyKane.cpp" />
     <ClCompile Include="ModuleScenePaoPao.cpp" />

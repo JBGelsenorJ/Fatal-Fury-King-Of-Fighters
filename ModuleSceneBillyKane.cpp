@@ -21,6 +21,7 @@
 #include "ModuleP2Wins.h"
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
+#include "ModulePlayer2.h"
 
 
 ModuleBillyKane::ModuleBillyKane()
@@ -58,7 +59,7 @@ bool ModuleBillyKane::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->player->Enable();
+	App->player2->Enable();
 	App->enemy->Enable();
 	App->ui->Enable();
 
@@ -131,22 +132,22 @@ update_status ModuleBillyKane::Update()
 	//Scene Out
 	if (App->player->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
+		App->fade->FadeToBlack(App->scene_billykane, App->p2w, 1.5);
 
 	}
 	else if (App->enemy->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
+		App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
 
 	}
 	else if (App->ui->time <= 0 && App->player->life > App->enemy->life || App->ui->time >= 200000 && App->player->life > App->enemy->life)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p1w, 1.5);
+		App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
 
 	}
 	else if (App->ui->time <= 0 && App->player->life < App->enemy->life || App->ui->time >= 200000 && App->player->life < App->enemy->life)
 	{
-		App->fade->FadeToBlack(App->scene_paopao, App->p2w, 1.5);
+		App->fade->FadeToBlack(App->scene_billykane, App->p2w, 1.5);
 	}
 	return UPDATE_CONTINUE;
 }
