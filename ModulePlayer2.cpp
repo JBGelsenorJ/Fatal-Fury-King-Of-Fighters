@@ -59,15 +59,13 @@ ModulePlayer2::ModulePlayer2()
 	{
 
 		//Andy Bogard Jump NEUTRAL Animation
-		jump.PushBack({ 548, 1035, 51, 125 });
-		jump.PushBack({ 548, 1035, 51, 125 });
-		jump.PushBack({ 548, 1035, 51, 125 });
-		jump.PushBack({ 548, 1035, 51, 125 });
-		jump.PushBack({ 611, 1046, 57, 103 });
-		jump.PushBack({ 680, 1056, 57, 94 });
-		jump.PushBack({ 680, 1056, 57, 94 });
-		jump.PushBack({ 680, 1056, 57, 94 });
-
+		jump.PushBack({ 375, 121, 61, 102 });
+		jump.PushBack({ 441, 142, 55, 81 });
+		jump.PushBack({ 514, 118, 44, 106 });
+		jump.PushBack({ 577, 117, 52, 95 });
+		jump.PushBack({ 647, 121, 51, 85 });
+		jump.PushBack({ 707, 142, 55, 81 });
+		
 		jump.speed = 0.12f;
 
 
