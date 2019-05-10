@@ -32,7 +32,7 @@ Application::Application()
 	modules[5] = scene_paopao = new ModuleScenePaoPao();
 	modules[6] = scene_soundbeach = new ModuleSceneSoundBeach();
 	modules[7] = scene_welcome = new ModuleWelcomeScreen();
-	modules[8] = player = new ModulePlayer();
+	modules[20] = player = new ModulePlayer();
 	modules[9] = enemy = new ModuleEnemy();
 	modules[10] = fade = new ModuleFadeToBlack();
 	modules[11] = audio = new ModuleMusic();
@@ -44,7 +44,7 @@ Application::Application()
 	modules[17] = ui = new ModuleUI();
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
-	modules[20] = scene_billykane = new ModuleBillyKane();
+	modules[8] = scene_billykane = new ModuleBillyKane();
 	modules[21] = player2 = new ModulePlayer2();
 
 }	

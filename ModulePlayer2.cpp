@@ -160,7 +160,7 @@ ModulePlayer2::ModulePlayer2()
 		punch.PushBack({ 88, 129, 51, 90 });
 		punch.PushBack({ 151, 121, 53, 103  });
 		punch.PushBack({ 220, 121, 98, 98 });
-		punch.speed = 0.01f;
+		punch.speed = 0.09f;
 
 		/*// punch jumpf animation
 		punchf.PushBack({ 23, 799, 65, 111 });
