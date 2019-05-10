@@ -14,7 +14,7 @@
 
 #include "ModulePlayerSelection.h"
 #include "ModuleScenePaoPao.h"
-#include "ModuleSceneSoundBeach.h"
+#include "ModuleSceneBillyKane.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"
@@ -59,7 +59,6 @@ bool ModuleScenePaoPao::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	//App->player->Enable();
 	App->enemy->Enable();
 	App->ui->Enable();
 	App->player2->Enable();
@@ -77,7 +76,7 @@ bool ModuleScenePaoPao::Start()
 
 bool ModuleScenePaoPao::CleanUp()
 {
-	App->player->Disable();
+	App->player2->Disable();
 	App->enemy->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
@@ -91,9 +90,9 @@ bool ModuleScenePaoPao::CleanUp()
 void ModuleScenePaoPao::Restart() {
 	
 	//Restart Player values
-	App->player->life = 100;
-	App->player->position.x = 100;
-	App->player->position.y = 220;
+	App->player2->life = 100;
+	App->player2->position.x = 100;
+	App->player2->position.y = 220;
 	//Restart enemy values
 	App->enemy->life= 100;
 	App->enemy->position.x = 200;
@@ -119,7 +118,9 @@ update_status ModuleScenePaoPao::Update()
 	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
 		App->audio->PlayFX(App->player->Kick);
 	}
-
+	if (App->input->keyboard[SDL_SCANCODE_F2] == 1) {
+		App->fade->FadeToBlack(App->scene_paopao, App->scene_billykane, 1);
+	}
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;
 

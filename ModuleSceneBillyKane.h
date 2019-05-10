@@ -24,7 +24,10 @@ public:
 	
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect background;
-	Animation people;
+	Animation people1;
+	Animation people2;
+	Animation people3;
+	Animation sea;
 	Mix_Music* music;
 	Mix_Chunk* audience;
 	Collider* wall1;

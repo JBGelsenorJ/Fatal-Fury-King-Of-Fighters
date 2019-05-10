@@ -24,9 +24,9 @@ ModulePlayer2::ModulePlayer2()
 
 		//Terry Bogard Idle Animation
 		idle.PushBack({ 870, 121, 60, 102 });
-		idle.PushBack({ 877, 601, 64, 100 });
+		/*idle.PushBack({ 877, 601, 64, 100 });
 		idle.PushBack({ 870, 121, 60, 102 });
-		idle.PushBack({ 877, 601, 64, 100 });
+		idle.PushBack({ 877, 601, 64, 100 });*/
 
 		idle.speed = 0.18f;
 
@@ -157,10 +157,10 @@ ModulePlayer2::ModulePlayer2()
 
 		// punch animation 
 
-		punch.PushBack({ 506, 918, 60, 101 });
-		punch.PushBack({ 573, 918, 98, 101 });
-		punch.PushBack({ 506, 918, 60, 101 });
-		punch.speed = 0.1f;
+		punch.PushBack({ 88, 129, 51, 90 });
+		punch.PushBack({ 151, 121, 53, 103  });
+		punch.PushBack({ 220, 121, 98, 98 });
+		punch.speed = 0.01f;
 
 		/*// punch jumpf animation
 		punchf.PushBack({ 23, 799, 65, 111 });

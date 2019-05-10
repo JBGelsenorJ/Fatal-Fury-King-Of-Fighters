@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
@@ -21,24 +22,33 @@
 #include "ModuleP2Wins.h"
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
-#include "ModulePlayer2.h"
 
 
 ModuleBillyKane::ModuleBillyKane()
 {
 
-	//Pao Pao Background
-	background.x = 0;
-	background.y = 0;
-	background.w = 619;
-	background.h = 224;
+	//Background
 
+	//sea.PushBack({ 51,567,620,237 });
+	sea.PushBack({ 51,822,620,237 });
+	sea.PushBack({ 51,1071,620,237 });
+	sea.PushBack({ 51,1319,620,237 });
+	sea.speed = 0.09f;
 
+	//purple people animation
+	people1.PushBack({ 72, 50, 65, 99 });
+	people1.PushBack({ 161,50,65,97 });
+	people1.speed = 0.09f;
+	// fat and thin people
+	people2.PushBack({ 70, 408, 68, 99 });
+	people2.PushBack({ 164,408,62,105 });
+	people2.speed = 0.09f;
 
-	//Background Animation
-	people.PushBack({ 0, 224, 619, 224 });
-	people.PushBack({ 0,448,619,224 });
-	people.speed = 0.09f;
+	//blonde people
+	people3.PushBack({ 60, 272, 61, 95 });
+	people3.PushBack({ 151,274,62,100 });
+	people3.speed = 0.09f;
+
 }
 
 ModuleBillyKane::~ModuleBillyKane()
@@ -47,20 +57,20 @@ ModuleBillyKane::~ModuleBillyKane()
 // Load assets
 bool ModuleBillyKane::Start()
 {
-	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
+	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
 	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/PaoPao_Cafe/Background.png");
+	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 	
 	//Enabling game features
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->player2->Enable();
 	App->enemy->Enable();
+	App->player2->Enable();
 	App->ui->Enable();
 
 	//Enabling audio
@@ -76,7 +86,7 @@ bool ModuleBillyKane::Start()
 
 bool ModuleBillyKane::CleanUp()
 {
-	App->player->Disable();
+	App->player2->Disable();
 	App->enemy->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
@@ -106,11 +116,13 @@ void ModuleBillyKane::Restart() {
 // Update: draw background
 update_status ModuleBillyKane::Update()
 {
-	// Drawing background - Pao Pao Background
-	App->render->Blit(graphics, -115, 0, &background, 1.4f);
-	
+	//background
+	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
 	//People animation
-	App->render->Blit(graphics, -115, 0, &(people.GetCurrentFrame()), 1.4f ); 
+	App->render->Blit(graphics, 250, 115, &(people1.GetCurrentFrame()), 1.4f);
+	App->render->Blit(graphics, 187, 115, &(people2.GetCurrentFrame()), 1.4f);
+	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
+
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
@@ -123,10 +135,10 @@ update_status ModuleBillyKane::Update()
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;
 
 	//camera locked
-	App->render->cam_pos.x = -centerx;
+	/*App->render->cam_pos.x = -centerx;
 	App->render->cam_pos.y = (SCREEN_HEIGHT)-centery;
 	App->render->camera.x = App->render->cam_pos.x;
-	App->render->camera.y = App->render->cam_pos.y;
+	App->render->camera.y = App->render->cam_pos.y;*/
 	
 
 	//Scene Out
