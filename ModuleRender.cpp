@@ -25,7 +25,6 @@ bool ModuleRender::Init()
 	LOG("Creating Renderer context");
 	bool ret = true;
 	Uint32 flags = 0;
-
 	if (REN_VSYNC == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
@@ -54,9 +53,10 @@ update_status ModuleRender::PreUpdate()
 
 update_status ModuleRender::Update()	
 {
+
 	int speed = 3;
 
-	
+
 	
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 		camera.y += speed;
@@ -82,6 +82,7 @@ update_status ModuleRender::Update()
 
 update_status ModuleRender::PostUpdate()
 {
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	SDL_RenderPresent(renderer);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	return update_status::UPDATE_CONTINUE;

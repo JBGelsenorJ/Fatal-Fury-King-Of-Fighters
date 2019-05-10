@@ -125,10 +125,10 @@ update_status ModuleScenePaoPao::Update()
 	float centery = (App->player->position.y + App->enemy->position.y) / 2;
 
 	//camera locked
-	App->render->cam_pos.x = -centerx;
+	/*App->render->cam_pos.x = -centerx;
 	App->render->cam_pos.y = (SCREEN_HEIGHT)-centery;
 	App->render->camera.x = App->render->cam_pos.x;
-	App->render->camera.y = App->render->cam_pos.y;
+	App->render->camera.y = App->render->cam_pos.y; */
 	
 
 	//Scene Out

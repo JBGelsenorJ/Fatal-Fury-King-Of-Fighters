@@ -131,8 +131,8 @@ update_status ModuleBillyKane::Update()
 		App->audio->PlayFX(App->player->Kick);
 	}
 
-	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
-	float centery = (App->player->position.y + App->enemy->position.y) / 2;
+	/*float centerx = (App->player->position.x + App->enemy->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy->position.y) / 2; */
 
 	//camera locked
 	/*App->render->cam_pos.x = -centerx;

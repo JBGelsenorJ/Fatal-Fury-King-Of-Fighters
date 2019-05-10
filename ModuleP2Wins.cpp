@@ -69,7 +69,7 @@ update_status ModuleP2Wins::Update()
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	if (cont = SDL_GetTicks() + 500)
 	{
-		App->fade->FadeToBlack(App->p2w, App->scene_billykane, 3);
+		App->fade->FadeToBlack(App->p2w, App->scene_welcome, 3);
 	}
 	return UPDATE_CONTINUE;
 }
