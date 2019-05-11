@@ -157,10 +157,11 @@ ModulePlayer2::ModulePlayer2()
 
 		// punch animation 
 
-		punch.PushBack({ 88, 129, 51, 90 });
-		punch.PushBack({ 151, 121, 53, 103  });
-		punch.PushBack({ 220, 121, 98, 98 });
-		punch.speed = 0.09f;
+		punch.PushBack({ 15, 121, 60, 101 });
+		punch.PushBack({ 88, 131, 51, 92  });
+		punch.PushBack({ 154, 127, 50, 97 });
+		punch.PushBack({ 219, 126, 95, 97 });
+		punch.speed = 0.18f;
 
 		/*// punch jumpf animation
 		punchf.PushBack({ 23, 799, 65, 111 });
@@ -299,7 +300,7 @@ update_status ModulePlayer2::Update()
 
 	
 	//god mode
-	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+	/*if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
 		if (godmode == false)
 		{
 			
@@ -313,13 +314,13 @@ update_status ModulePlayer2::Update()
 			App->enemy->enemycol->type = COLLIDER_ENEMY;
 			godmode = false;
 		}
-	}
+	}*/
+	
 	Animation* current_animation = &idle;
 	p2Qeue<player_inputs> inputs;
 	player_states current_state = ST_UNKNOWN;
 
 	int speed = 2;
-	
 	
 	while (external_input(inputs))
 	{
@@ -339,13 +340,13 @@ update_status ModulePlayer2::Update()
 			{
 
 				current_animation = &idle;
-				forward.Reset();
+				/*forward.Reset();
 				backward.Reset();
 				crouch.Reset();
 				crouch.Reset();
 				kick.Reset();
 				punch.Reset();
-				sm1.Reset();
+				sm1.Reset();*/
 				playerpunch->to_delete = true;
 				playerkick->to_delete = true;
 				break;
@@ -361,12 +362,14 @@ update_status ModulePlayer2::Update()
 				//current_animation = &forward;
 				//position.x += speed;
 				current_animation = &forward;
-				backward.Reset();
+				position.x += speed;
+
+				/*backward.Reset();
 				crouch.Reset();
 				crouch.Reset();
 				kick.Reset();
 				punch.Reset();
-				sm1.Reset();
+				sm1.Reset();*/
 
 				break;
 			}
@@ -381,12 +384,14 @@ update_status ModulePlayer2::Update()
 				//current_animation = &backward;
 				//position.x -= speed;
 				current_animation = &backward;
-				forward.Reset();
+				position.x -= speed;
+
+				/*forward.Reset();
 				crouch.Reset();
 				crouch.Reset();
 				kick.Reset();
 				punch.Reset();
-				sm1.Reset();
+				sm1.Reset();*/
 
 				break;
 			}
@@ -437,7 +442,7 @@ update_status ModulePlayer2::Update()
 			}
 			case ST_PUNCH_CROUCH:
 			{
-				current_animation = &punchc;
+				//current_animation = &punchc;
 
 				LOG("PUNCH CROUCHING **++\n");
 
@@ -455,7 +460,7 @@ update_status ModulePlayer2::Update()
 			{
 				LOG("PUNCH NEUTRAL JUMP ++++\n");
 
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &punchn;
@@ -467,7 +472,7 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 
 				break;
 			}
@@ -475,7 +480,7 @@ update_status ModulePlayer2::Update()
 			{
 				LOG("PUNCH JUMP FORWARD ^>>+\n");
 
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &punchf;
@@ -487,7 +492,7 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 
 				break;
 			}
@@ -496,7 +501,7 @@ update_status ModulePlayer2::Update()
 			{
 				LOG("PUNCH JUMP BACKWARD ^<<+\n");
 
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &punchb;
@@ -508,15 +513,16 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 
 				break;
 			}
-			//case ST_KICK_CROUCH:
-
+			case ST_KICK_CROUCH:
+			{
 				//LOG("KICK CROUCHING **--\n");
 
-				//break;
+			break;
+			}
 			case ST_KICK_STANDING:
 			{
 				current_animation = &kick;
@@ -526,7 +532,7 @@ update_status ModulePlayer2::Update()
 			{
 				LOG("KICK JUMP NEUTRAL ^^--\n");
 
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &kickn;
@@ -538,14 +544,14 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 
 				break;
 			}
 			case ST_KICK_FORWARD_JUMP:
 			{
 				LOG("KICK JUMP FORWARD ^>>-\n");
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &kickf;
@@ -557,14 +563,14 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 				break;
 			}
 
 			case ST_KICK_BACKWARD_JUMP:
 			{
 				LOG("KICK JUMP BACKWARD ^<<-\n");
-				if (position.y <= 220)
+				/*if (position.y <= 220)
 				{
 					animdone = false;
 					current_animation = &kickf;
@@ -576,7 +582,7 @@ update_status ModulePlayer2::Update()
 					position.y = 220;
 					jumpspeed = 6;
 					animdone == true;
-				}
+				}*/
 				break;
 			}
 
@@ -642,10 +648,8 @@ update_status ModulePlayer2::Update()
 
 		current_state = state;
 
-
-
-
 		playercol->SetPos(position.x, position.y);
+		
 		if (App->enemy->position.x > position.x) {
 			playerpunch->SetPos(position.x + 40, position.y - 90);
 			playerkick->SetPos(position.x + 40, position.y - 60);
@@ -660,6 +664,8 @@ update_status ModulePlayer2::Update()
 	
 
 	}
+
+	
 
 }
 
@@ -781,7 +787,7 @@ bool ModulePlayer2::external_input(p2Qeue<player_inputs>& inputs)
 			case SDLK_s:
 				playercol->to_delete = true;
 				
-					playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
+				playercol = App->collision->AddCollider({ 50, -70, 45, -70 }, COLLIDER_PLAYER, this);
 				crouch = true;
 
 			break;
@@ -1067,7 +1073,6 @@ void ModulePlayer2::internal_input(p2Qeue<player_inputs>& inputs)
 		}
 
 }
-
 
 bool ModulePlayer2::CleanUp()
 {

@@ -128,7 +128,7 @@ update_status ModuleBillyKane::Update()
 	App->ui->DrawLife();
 
 	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
-		App->audio->PlayFX(App->player->Kick);
+		//App->audio->PlayFX(App->player->Kick);
 	}
 
 	float centerx = (App->player->position.x + App->enemy->position.x) / 2;

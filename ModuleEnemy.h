@@ -10,12 +10,12 @@
 #include "SDL\include\SDL_timer.h"
 #include "ModuleInput.h"
 
-#define MAX_KEYS 500
+//#define MAX_KEYS 500
 #define JUMP_TIME 1000
 #define JUMPF_TIME 1000
 #define JUMPB_TIME 1000
 
-#define PUNCH_TIME 250
+//#define PUNCH_TIME 250
 #define PUNCHF_TIME 250
 #define PUNCHB_TIME 250
 #define PUNCHN_TIME 250

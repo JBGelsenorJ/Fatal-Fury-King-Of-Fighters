@@ -6,7 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
-#include "ModuleMusic.h"
+//#include "ModuleMusic.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemy.h"
 #include <stdio.h>
@@ -47,8 +47,8 @@ ModuleScenePaoPao::~ModuleScenePaoPao()
 // Load assets
 bool ModuleScenePaoPao::Start()
 {
-	music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
-	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
+	//music = App->audio->LoadMusic("Source/Sound/Music/paopao.ogg");
+	//audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
 	Restart();
 	LOG("Loading background assets");
@@ -64,9 +64,9 @@ bool ModuleScenePaoPao::Start()
 	App->player2->Enable();
 
 	//Enabling audio
-	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1 , audience, -1);
-	Mix_VolumeChunk(audience, 35);
+	//App->audio->PlayMusic(music);
+	//Mix_PlayChannel(-1 , audience, -1);
+	//Mix_VolumeChunk(audience, 35);
 
 	wall1 = App->collision->AddCollider({ -200, 300, 15, -500 }, COLLIDER_WALL, this);
 	wall2 = App->collision->AddCollider({ 500, 300 , 15, -500 }, COLLIDER_WALL, this);
@@ -116,7 +116,7 @@ update_status ModuleScenePaoPao::Update()
 	App->ui->DrawLife();
 
 	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
-		App->audio->PlayFX(App->player->Kick);
+		//App->audio->PlayFX(App->player->Kick);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_F2] == 1) {
 		App->fade->FadeToBlack(App->scene_paopao, App->scene_billykane, 1);
