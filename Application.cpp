@@ -21,6 +21,7 @@
 #include "ModuleP2Wins.h"
 #include "ModuleSceneBillyKane.h"
 #include "ModulePlayer2.h"
+#include "ModuleEnemy2.h"
 
 Application::Application()
 {
@@ -46,6 +47,7 @@ Application::Application()
 	modules[19] = p2w = new ModuleP2Wins();
 	modules[8] = scene_billykane = new ModuleBillyKane();
 	modules[21] = player2 = new ModulePlayer2();
+	modules[22] = enemy2 = new ModuleEnemy2();
 
 }	
 
@@ -76,6 +78,7 @@ bool Application::Init()
 	player->Disable();
 	player2->Disable();
 	enemy->Disable();
+	enemy2->Disable();
 	audio->Disable();
 	particles->Disable();
 	ui->Disable();

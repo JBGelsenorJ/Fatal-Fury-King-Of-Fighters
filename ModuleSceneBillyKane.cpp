@@ -10,7 +10,7 @@
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
-#include "ModuleEnemy.h"
+#include "ModuleEnemy2.h"
 #include <stdio.h>
 
 
@@ -69,7 +69,7 @@ bool ModuleBillyKane::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->enemy->Enable();
+	App->enemy2->Enable();
 	App->player2->Enable();
 	App->ui->Enable();
 
@@ -87,7 +87,7 @@ bool ModuleBillyKane::Start()
 bool ModuleBillyKane::CleanUp()
 {
 	App->player2->Disable();
-	App->enemy->Disable();
+	App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
@@ -104,9 +104,9 @@ void ModuleBillyKane::Restart() {
 	App->player->position.x = 100;
 	App->player->position.y = 220;
 	//Restart enemy values
-	App->enemy->life= 100;
-	App->enemy->position.x = 200;
-	App->enemy->position.y = 220;
+	App->enemy2->life= 100;
+	App->enemy2->position.x = 200;
+	App->enemy2->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
@@ -131,8 +131,8 @@ update_status ModuleBillyKane::Update()
 		//App->audio->PlayFX(App->player->Kick);
 	}
 
-	float centerx = (App->player->position.x + App->enemy->position.x) / 2;
-	float centery = (App->player->position.y + App->enemy->position.y) / 2; 
+	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
+	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
 
 	//camera locked
 	/*App->render->cam_pos.x = -centerx;
@@ -147,17 +147,17 @@ update_status ModuleBillyKane::Update()
 		App->fade->FadeToBlack(App->scene_billykane, App->p2w, 1.5);
 
 	}
-	else if (App->enemy->life <= 0)
+	else if (App->enemy2->life <= 0)
 	{
 		App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
 
 	}
-	else if (App->ui->time <= 0 && App->player->life > App->enemy->life || App->ui->time >= 200000 && App->player->life > App->enemy->life)
+	else if (App->ui->time <= 0 && App->player->life > App->enemy2->life || App->ui->time >= 200000 && App->player->life > App->enemy2->life)
 	{
 		App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
 
 	}
-	else if (App->ui->time <= 0 && App->player->life < App->enemy->life || App->ui->time >= 200000 && App->player->life < App->enemy->life)
+	else if (App->ui->time <= 0 && App->player->life < App->enemy2->life || App->ui->time >= 200000 && App->player->life < App->enemy2->life)
 	{
 		App->fade->FadeToBlack(App->scene_billykane, App->p2w, 1.5);
 	}

@@ -77,6 +77,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEnemy.h" />
+    <ClInclude Include="ModuleEnemy2.h" />
     <ClInclude Include="ModuleFFIntro.h" />
     <ClInclude Include="ModuleFFIntro2.h" />
     <ClInclude Include="ModuleFonts.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleEnemy.cpp" />
+    <ClCompile Include="ModuleEnemy2.cpp" />
     <ClCompile Include="ModuleFFIntro.cpp" />
     <ClCompile Include="ModuleFFIntro2.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />

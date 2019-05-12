@@ -8,7 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleEnemy.h"
+#include "ModuleEnemy2.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenePaoPao.h"
 #include "ModuleSceneBillyKane.h"
@@ -636,12 +636,12 @@ update_status ModulePlayer2::Update()
 		playerpunch->SetPos(position.x + 40, position.y - 90);
 		playerkick->SetPos(position.x + 40, position.y - 60);
 		SDL_Rect r = current_animation->GetCurrentFrame();
-		if (App->enemy->position.x > position.x)
+		if (App->enemy2->position.x > position.x)
 		{
 			App->render->Blit(graphics, position.x, position.y - r.h, &r);
 		}
 
-		if (App->enemy->position.x < position.x)
+		if (App->enemy2->position.x < position.x)
 		{
 			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
 		}
@@ -650,11 +650,11 @@ update_status ModulePlayer2::Update()
 
 		playercol->SetPos(position.x, position.y);
 		
-		if (App->enemy->position.x > position.x) {
+		if (App->enemy2->position.x > position.x) {
 			playerpunch->SetPos(position.x + 40, position.y - 90);
 			playerkick->SetPos(position.x + 40, position.y - 60);
 		}
-		if (App->enemy->position.x < position.x) {
+		if (App->enemy2->position.x < position.x) {
 			playerpunch->SetPos(position.x - 40, position.y - 90);
 			playerkick->SetPos(position.x - 40, position.y - 60);
 		}
@@ -671,15 +671,15 @@ update_status ModulePlayer2::Update()
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x < App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x)
 	{
-		App->enemy->position.x += 3;
+		App->enemy2->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy->position.y == position.y && position.x > App->enemy->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x)
 	{
-		App->enemy->position.x -= 3;
+		App->enemy2->position.x -= 3;
 
 	}
 
@@ -689,8 +689,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerpunch->to_delete = true;
 		}
-		App->enemy->position.x += 3; 
-			App->enemy->life -= 25;
+		App->enemy2->position.x += 3; 
+			App->enemy2->life -= 25;
 
 
 	}
@@ -701,8 +701,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		{
 			playerkick->to_delete = true;
 		}
-		App->enemy->life -= 25;
-		App->enemy->position.x += 3;
+		App->enemy2->life -= 25;
+		App->enemy2->position.x += 3;
 
 
 	}
@@ -1077,8 +1077,8 @@ void ModulePlayer2::internal_input(p2Qeue<player_inputs>& inputs)
 bool ModulePlayer2::CleanUp()
 {
 	SDL_DestroyTexture(graphics);
-	App->enemy->Disable();
-	LOG("Unloading Terry From Scene");
+	App->player2->Disable();
+	LOG("Unloading Andy From Scene");
 
 	return true;
 }
