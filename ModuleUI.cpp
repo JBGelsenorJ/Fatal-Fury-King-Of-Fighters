@@ -12,6 +12,8 @@
 //Needed to link life with healthbars
 #include "ModulePlayer.h"
 #include "ModuleEnemy.h"
+#include "ModuleEnemy2.h"
+#include "ModulePlayer2.h"
 
 //Needed to make sprintf_s
 #include <stdio.h>

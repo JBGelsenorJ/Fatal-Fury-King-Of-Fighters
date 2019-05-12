@@ -3,12 +3,12 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
-#include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 //#include "ModuleMusic.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemy.h"
+#include "ModulePlayer.h"
 #include <stdio.h>
 
 
@@ -21,7 +21,7 @@
 #include "ModuleP2Wins.h"
 #include "ModuleFonts.h"
 #include "ModuleUI.h"
-#include "ModulePlayer2.h"
+
 
 
 ModuleScenePaoPao::ModuleScenePaoPao()
@@ -61,7 +61,7 @@ bool ModuleScenePaoPao::Start()
 	App->collision->Enable();
 	App->enemy->Enable();
 	App->ui->Enable();
-	App->player2->Enable();
+	App->player->Enable();
 
 	//Enabling audio
 	//App->audio->PlayMusic(music);
@@ -76,7 +76,7 @@ bool ModuleScenePaoPao::Start()
 
 bool ModuleScenePaoPao::CleanUp()
 {
-	App->player2->Disable();
+	App->player->Disable();
 	App->enemy->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
@@ -90,9 +90,9 @@ bool ModuleScenePaoPao::CleanUp()
 void ModuleScenePaoPao::Restart() {
 	
 	//Restart Player values
-	App->player2->life = 100;
-	App->player2->position.x = 100;
-	App->player2->position.y = 220;
+	App->player->life = 100;
+	App->player->position.x = 100;
+	App->player->position.y = 220;
 	//Restart enemy values
 	App->enemy->life= 100;
 	App->enemy->position.x = 200;
