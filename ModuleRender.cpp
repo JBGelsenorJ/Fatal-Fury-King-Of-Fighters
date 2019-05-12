@@ -133,7 +133,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 }
 
 // Blit to screen Sprite Mirrored
-bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle, SDL_Point* center)
+bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle, SDL_Point* center, bool color)
 {
 	bool ret = true;
 	SDL_Rect rect;
@@ -153,6 +153,12 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
 
+	//If we set true color we will change enemy color
+	if (color == true) {
+		SDL_SetTextureColorMod(texture, 0, 200, 240);
+	}
+
+	//Then render
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, center, SDL_FLIP_HORIZONTAL) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopyEx error: %s", SDL_GetError());

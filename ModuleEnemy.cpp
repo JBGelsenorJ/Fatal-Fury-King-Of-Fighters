@@ -386,7 +386,7 @@ update_status ModuleEnemy::Update()
 
 	if (App->player->position.x < position.x)
 	{
-		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL, true);
 	}
 
 	if (App->player->position.x > position.x) {
