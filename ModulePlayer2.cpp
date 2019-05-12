@@ -203,19 +203,16 @@ ModulePlayer2::ModulePlayer2()
 
 		//SPECIAL MOVEMENTS
 
-		/*//Special Movement 1
+		//Special Movement 1
 
-			sm1.PushBack({ 970, 1334, 54, 106 });
-			sm1.PushBack({ 897, 1325, 61, 115 });
-			sm1.PushBack({ 833, 1343, 63, 97 });
-			sm1.PushBack({ 679, 1359, 71, 81 });
-			sm1.PushBack({ 612, 1359, 66, 81 });
-			sm1.PushBack({ 547, 1359, 61, 81 });
+			sm1.PushBack({ 23, 357, 66, 99 });
+			sm1.PushBack({ 92, 361, 52, 94 });
+			sm1.PushBack({ 153, 364, 51, 94 });
+			sm1.PushBack({ 216, 363, 99, 92 });
 
-			sm1.speed = 0.18f;
-			}
+			sm1.speed = 0.17f;
 
-			//DAMAGE
+	/*		//DAMAGE
 			{
 			//Low damage
 
@@ -262,7 +259,6 @@ bool ModulePlayer2::Start()
 	Activesm1 = true;
 	//Loading SpriteSheet
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png"); // Terry Bogard Sprites
-	
 	//Loading attack audios
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
@@ -831,11 +827,7 @@ bool ModulePlayer2::external_input(p2Qeue<player_inputs>& inputs)
 
 				if (Activesm1 == true) {
 
-					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_PLAYER_SHOT, 0);
-					App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_PLAYER_SHOT, 50);
-					App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_PLAYER_SHOT, 200);
-					App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_PLAYER_SHOT, 400);
-					App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_PLAYER_SHOT, 600);
+					App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y-90, COLLIDER_PLAYER_SHOT, 0);
 					Activesm1 = false;
 					forplayer = true;
 				}
@@ -1029,7 +1021,7 @@ void ModulePlayer2::internal_input(p2Qeue<player_inputs>& inputs)
 
 
 			}
-			if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
+			if (SDL_GetTicks() - sp1_timer > SP1_TIME + 1500)
 			{
 				Activesm1 = true;
 

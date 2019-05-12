@@ -55,6 +55,9 @@ public:
 	Particle terryspecial3;
 	Particle terryspecial4;
 	Particle terryspecial5;
+	Particle terryspecial6;
+	Particle terryspecial7;
+	Particle terryspecial8;
 };
 
 #endif // __MODULEPARTICLES_H__

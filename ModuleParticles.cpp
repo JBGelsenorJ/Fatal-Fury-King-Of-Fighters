@@ -25,49 +25,23 @@ bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
 	App->player->forplayer = true;
-	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Terry_Bogard/terry.png");
+	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
 
 	// Special1
-	terryspecial1.anim.PushBack({ 609, 275, 19, 40 });
+	terryspecial1.anim.PushBack({ 327, 375, 23, 26 });
+	terryspecial1.anim.PushBack({ 362, 354, 39, 68 });
+	terryspecial1.anim.PushBack({ 403, 355, 52, 65 });
+	terryspecial1.anim.PushBack({ 458, 342, 67, 94 });
+	terryspecial1.anim.PushBack({ 533, 340, 49, 96 });
+	terryspecial1.anim.PushBack({ 458, 342, 67, 94 });
+	terryspecial1.anim.PushBack({ 533, 340, 49, 96 });
+	terryspecial1.anim.PushBack({ 721, 342, 73, 101 });
 	terryspecial1.anim.loop = false;
-	terryspecial1.anim.speed = 0.02f;
+	terryspecial1.anim.speed = 0.07f;
 	terryspecial1.life = 4000;
 	terryspecial1.fx_played = true;
-
 	terryspecial1.speed.x = 0;
 	terryspecial1.born = 0;
-
-	terryspecial2.anim.PushBack({ 577, 248, 18, 68 });
-	terryspecial2.anim.loop = false;
-	terryspecial2.anim.speed = 0.04f;
-	terryspecial2.life = 4000;
-	terryspecial2.fx_played = false;
-	terryspecial2.speed.x = 0;
-	terryspecial2.born = 0;
-
-	terryspecial3.anim.PushBack({ 643, 219, 21, 96 });
-	terryspecial3.anim.loop = false;
-	terryspecial3.anim.speed = 0.06f;
-	terryspecial3.life = 4000;
-	terryspecial3.fx_played = false;
-	terryspecial3.speed.x = 0;
-	terryspecial3.born = 0;
-
-	terryspecial4.anim.PushBack({ 577, 248, 18, 68 });
-	terryspecial4.anim.loop = false;
-	terryspecial4.anim.speed = 0.08f;
-	terryspecial4.life = 4000;
-	terryspecial4.fx_played = false;
-	terryspecial4.speed.x = 0;
-	terryspecial4.born = 0;
-
-	terryspecial5.anim.PushBack({ 609, 275, 19, 40 });
-	terryspecial5.anim.loop = false;
-	terryspecial5.anim.speed = 0.1f;
-	terryspecial5.life = 4000;
-	terryspecial5.fx_played = false;
-	terryspecial5.speed.x = 0;
-	terryspecial5.born = 0;
 
 
 	return true;

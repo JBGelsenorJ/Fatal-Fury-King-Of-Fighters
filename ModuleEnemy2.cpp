@@ -254,7 +254,7 @@ bool ModuleEnemy2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png"); // Andy Bogard Sprites
+	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy2.png"); // Andy Bogard Sprites
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
