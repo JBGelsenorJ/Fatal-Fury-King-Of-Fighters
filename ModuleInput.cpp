@@ -5,9 +5,30 @@
 
 ModuleInput::ModuleInput() : Module()
 {
-	for (uint i = 0; i < MAX_KEYS; ++i)
+	for (uint i = 0; i < MAX_KEYS; ++i) {
 		keyboard[i] = KEY_IDLE;
+	}
+
+	//On start we set how many gamepads are conected to our computer
+	for (uint j = 0; j < SDL_NumJoysticks(); j++) {
+		//If we recognize that are a gamepad then
+		if (SDL_IsGameController(j)) {
+			controller = SDL_GameControllerOpen(j);
+			if (controller) {
+				LOG("Success Opening Gamepad");
+				break;
+			}
+			else {
+				LOG("Error opening Gamepad %i: %s\n");
+			}
+			//LOG(SDL_GameControllerMapping(controller));
+			//break;
+		}
+	}
 }
+
+
+	
 
 // Destructor
 ModuleInput::~ModuleInput()
