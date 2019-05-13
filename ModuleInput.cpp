@@ -2,29 +2,26 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
+#include <iostream>
+
+using namespace std;
 
 ModuleInput::ModuleInput() : Module()
 {
+	//Starting Keyboard inputs
 	for (uint i = 0; i < MAX_KEYS; ++i) {
 		keyboard[i] = KEY_IDLE;
 	}
 
-	//On start we set how many gamepads are conected to our computer
+	//Starting Gamepad inputs
 	for (uint j = 0; j < SDL_NumJoysticks(); j++) {
-		//If we recognize that are a gamepad then
 		if (SDL_IsGameController(j)) {
 			controller = SDL_GameControllerOpen(j);
-			if (controller) {
-				LOG("Success Opening Gamepad");
-				break;
-			}
-			else {
-				LOG("Error opening Gamepad %i: %s\n");
-			}
-			//LOG(SDL_GameControllerMapping(controller));
-			//break;
+			cout << SDL_GameControllerMapping(controller) << endl;
+			break;
 		}
 	}
+
 }
 
 
@@ -41,6 +38,7 @@ bool ModuleInput::Init()
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+	SDL_Init(SDL_INIT_GAMECONTROLLER);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
