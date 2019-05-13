@@ -68,152 +68,123 @@ ModulePlayer2::ModulePlayer2()
 		jump.PushBack({ 577, 117, 52, 95 });
 		jump.PushBack({ 647, 121, 51, 85 });
 		jump.PushBack({ 707, 142, 55, 81 });
-		
+
 		jump.speed = 0.12f;
 
 
-		/*//Andy Bogard Jump FORWARD Animation
+		//Andy Bogard Jump FORWARD Animation
 
-		jumpf.PushBack({ 716, 927, 60, 96 });
-		jumpf.PushBack({ 716, 927, 60, 96 });
-		jumpf.PushBack({ 716, 927, 60, 96 });
-		jumpf.PushBack({ 716, 927, 60, 96 });
-		jumpf.PushBack({ 782, 918, 59, 106 });
-		jumpf.PushBack({ 841, 941, 89, 55 });
-		jumpf.PushBack({ 841, 941, 89, 55 });
-		jumpf.PushBack({ 841, 941, 89, 55 });
+		jumpf.PushBack({ 728, 822, 58, 95 });
+		jumpf.PushBack({ 802, 831, 69, 57 });
+		jumpf.PushBack({ 884, 810, 50, 107 });
 
 		jumpf.speed = 0.12f;
 
 		//Terry Bogard Jump BACKWARD Animation
 
-		jumpb.PushBack({ 716, 927, 60, 96 });
-		jumpb.PushBack({ 716, 927, 60, 96 });
-		jumpb.PushBack({ 716, 927, 60, 96 });
-		jumpb.PushBack({ 716, 927, 60, 96 });
-		jumpb.PushBack({ 782, 918, 59, 106 });
-		jumpb.PushBack({ 841, 941, 89, 55 });
-		jumpb.PushBack({ 841, 941, 89, 55 });
-		jumpb.PushBack({ 841, 941, 89, 55 });
+		jumpb.PushBack({ 728, 822, 58, 95 });
+		jumpb.PushBack({ 802, 831, 69, 57 });
+		jumpb.PushBack({ 884, 810, 50, 107 });
 
 		jumpb.speed = 0.12f;
-		}*/
 
-		//KICK
-		{
-			//Terry Bogard Kick Animation
-			kick.PushBack({ 449, 806, 59, 107 });
-			kick.PushBack({ 512, 803, 53, 107 });
-			kick.PushBack({ 31, 1150, 50, 97 });
-			kick.PushBack({ 84, 1148, 59, 115 });
-			kick.PushBack({ 149, 1151, 50, 108 });
-			kick.PushBack({ 211, 1155, 119, 108 });
-			kick.PushBack({ 342, 1152, 68, 111 });
-			kick.PushBack({ 714, 925, 64, 98 });
-			kick.speed = 0.18f;
+	}
 
-			/*//Terry Bogard Kick JUMPF Animation
-			kickf.PushBack({ 577, 482, 59, 74 });
-			kickf.PushBack({ 577, 482, 59, 74 });
-			kickf.PushBack({ 577, 482, 59, 74 });
-			kickf.PushBack({ 577, 482, 59, 74 });
-			kickf.PushBack({ 640, 464, 80, 114 });
-			kickf.PushBack({ 737, 485, 115, 72 });
-			kickf.PushBack({ 737, 485, 115, 72 });
-			kickf.PushBack({ 737, 485, 115, 72 });
-			kickf.speed = 0.18f;
+	//KICK
+	{
+		//Terry Bogard Kick Animation
+		kick.PushBack({ 310, 13, 47, 100 });
+		kick.PushBack({ 378, 24, 57, 89 });
+		kick.PushBack({ 448, 20, 54, 92 });
+		kick.PushBack({ 515, 24, 114, 77 });
+		kick.PushBack({ 641, 11, 85, 96 });
+		kick.PushBack({ 747, 26, 55, 82 });
+		kick.PushBack({ 832, 11, 61, 102 });
 
-			//Terry Bogard Kick JUMPB Animation
-			kickb.PushBack({ 577, 482, 59, 74 });
-			kickb.PushBack({ 577, 482, 59, 74 });
-			kickb.PushBack({ 577, 482, 59, 74 });
-			kickb.PushBack({ 577, 482, 59, 74 });
-			kickb.PushBack({ 640, 464, 80, 114 });
-			kickb.PushBack({ 737, 485, 115, 72 });
-			kickb.PushBack({ 737, 485, 115, 72 });
-			kickb.PushBack({ 737, 485, 115, 72 });
-			kickb.speed = 0.18f;
+		kick.speed = 0.18f;
 
-			//Terry Bogard Kick JUMPN Animation
-			kickn.PushBack({ 376, 489, 58, 75 });
-			kickn.PushBack({ 376, 489, 58, 75 });
-			kickn.PushBack({ 376, 489, 58, 75 });
-			kickn.PushBack({ 376, 489, 58, 75 });
-			kickn.PushBack({ 447, 477, 75, 97 });
-			kickn.PushBack({ 447, 477, 75, 97 });
-			kickn.PushBack({ 447, 477, 75, 97 });
-			kickn.speed = 0.18f;
+		//Terry Bogard Kick JUMPF Animation
+		kickf.PushBack({ 305, 718, 52, 83 });
+		kickf.PushBack({ 369, 721, 58, 77 });
+		kickf.PushBack({ 435, 727, 96, 71 });
 
-			//Terry Bogard Kick Crouch Animation
-			/*kickc.PushBack({ 449, 806, 59, 107 });
-			kickc.PushBack({ 512, 803, 53, 107 });
-			kickc.PushBack({ 31, 1150, 50, 97 });
-			kickc.PushBack({ 84, 1148, 59, 115 });
-			kickc.PushBack({ 149, 1151, 50, 108 });
-			kickc.PushBack({ 211, 1155, 119, 108 });
-			kickc.PushBack({ 342, 1152, 68, 111 });
-			kickc.PushBack({ 714, 925, 64, 98 });
-			kickc.speed = 0.18f;*/
-		}
+		kickf.speed = 0.18f;
 
-		//PUNCH
+		//Terry Bogard Kick JUMPB Animation
+		kickb.PushBack({ 305, 718, 52, 83 });
+		kickb.PushBack({ 369, 721, 58, 77 });
+		kickb.PushBack({ 435, 727, 96, 71 });
 
+		kickb.speed = 0.18f;
+
+		//Terry Bogard Kick JUMPN Animation
+		kickn.PushBack({ 713, 709, 57, 87 });
+		kickn.PushBack({ 778, 710, 94, 89 });
+
+		kickn.speed = 0.18f;
+
+		//Terry Bogard Kick Crouch Animation
+		kickc.PushBack({ 23, 739, 54, 62 });
+		kickc.PushBack({ 93, 744, 68, 57 });
+		kickc.PushBack({ 165, 765, 121, 36 });
+
+		kickc.speed = 0.18f;
+	}
+
+	//PUNCH
+	{
 		// punch animation 
 
 		punch.PushBack({ 15, 121, 60, 101 });
-		punch.PushBack({ 88, 131, 51, 92  });
+		punch.PushBack({ 88, 131, 51, 92 });
 		punch.PushBack({ 154, 127, 50, 97 });
 		punch.PushBack({ 219, 126, 95, 97 });
+
 		punch.speed = 0.18f;
 
-		/*// punch jumpf animation
-		punchf.PushBack({ 23, 799, 65, 111 });
-		punchf.PushBack({ 23, 799, 65, 111 });
-		punchf.PushBack({ 23, 799, 65, 111 });
-		punchf.PushBack({ 23, 799, 65, 111 });
-		punchf.PushBack({ 91, 807, 53, 104 });
-		punchf.PushBack({ 147, 809, 85, 101 });
-		punchf.PushBack({ 147, 809, 85, 101 });
-		punchf.PushBack({ 147, 809, 85, 101 });
+		// punch jumpf animation
+		punchf.PushBack({ 19, 824, 52, 100 });
+		punchf.PushBack({ 79, 824, 68, 94 });
+		punchf.PushBack({ 152, 803, 57, 121 });
+		punchf.PushBack({ 237, 815, 64, 97 });
+		punchf.PushBack({ 314, 811, 81, 99 });
+
 		punchf.speed = 0.1f;
 
 		// punch jumpb animation
-		punchb.PushBack({ 23, 799, 65, 111 });
-		punchb.PushBack({ 23, 799, 65, 111 });
-		punchb.PushBack({ 23, 799, 65, 111 });
-		punchb.PushBack({ 23, 799, 65, 111 });
-		punchb.PushBack({ 91, 807, 53, 104 });
-		punchb.PushBack({ 147, 809, 85, 101 });
-		punchb.PushBack({ 147, 809, 85, 101 });
-		punchb.PushBack({ 147, 809, 85, 101 });
+		punchb.PushBack({ 19, 824, 52, 100 });
+		punchb.PushBack({ 79, 824, 68, 94 });
+		punchb.PushBack({ 152, 803, 57, 121 });
+		punchb.PushBack({ 237, 815, 64, 97 });
+		punchb.PushBack({ 314, 811, 81, 99 });
+
 		punchb.speed = 0.1f;
 
 		// punch jumpn animation
-		punchn.PushBack({ 719, 695, 46, 46 });
-		punchn.PushBack({ 719, 695, 46, 46 });
-		punchn.PushBack({ 719, 695, 46, 46 });
-		punchn.PushBack({ 719, 695, 46, 46 });
-		punchn.PushBack({ 769, 679, 70, 97 });
-		punchn.PushBack({ 769, 679, 70, 97 });
-		punchn.PushBack({ 769, 679, 70, 97 });
+		punchn.PushBack({ 22, 21, 60, 87 });
+		punchn.PushBack({ 81, 28, 74, 80 });
+		punchn.PushBack({ 167, 21, 60, 86 });
+
 		punchn.speed = 0.1f;
 
 		// punch crouch animation
-		punchc.PushBack({ 261, 952, 61, 67 });
-		punchc.PushBack({ 320, 954, 83, 67 });
+		punchc.PushBack({ 880, 734, 51, 65 });
+		punchc.PushBack({ 942, 735, 79, 64 });
+
 		punchc.speed = 0.1f;
-		}*/
 
-		//SPECIAL MOVEMENTS
+	}
 
-		//Special Movement 1
+	//SPECIAL MOVEMENTS
 
-			sm1.PushBack({ 23, 357, 66, 99 });
-			sm1.PushBack({ 92, 361, 52, 94 });
-			sm1.PushBack({ 153, 364, 51, 94 });
-			sm1.PushBack({ 216, 363, 99, 92 });
+	//Special Movement 1
 
-			sm1.speed = 0.17f;
+	sm1.PushBack({ 23, 357, 66, 99 });
+	sm1.PushBack({ 92, 361, 52, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+
+	sm1.speed = 0.17f;
 
 	/*		//DAMAGE
 			{
@@ -243,11 +214,6 @@ ModulePlayer2::ModulePlayer2()
 
 			hhd.speed = 0.15f;
 			}*/
-
-
-
-
-	}
 }
 
 ModulePlayer2::~ModulePlayer2(){
@@ -473,8 +439,8 @@ update_status ModulePlayer2::Update()
 
 			current_animation = &crouch;
 
-			punchc.Reset();
-			kickc.Reset();
+			//punchc.Reset();
+			//kickc.Reset();
 			LOG("CROUCHING ****\n");
 
 			break;
@@ -553,7 +519,6 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_CROUCH:
 
-			position.x += 0.5*speed;
 			if (attack == true)
 			{
 				//App->audio->PlayFX(Audio);

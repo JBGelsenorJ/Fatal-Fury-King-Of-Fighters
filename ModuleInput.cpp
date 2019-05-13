@@ -343,7 +343,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 
 	if (kickc_timer > 0)
 	{
-		if (SDL_GetTicks() - kickc_timer > KICK_TIME)
+		if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
 		{
 			inputs.Push(IN_KICK_CROUCH_FINISH);
 			kickc_timer = 0;
@@ -398,7 +398,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 
 	if (kickc_timer2 > 0)
 	{
-		if (SDL_GetTicks() - kickc_timer2 > KICK_TIME)
+		if (SDL_GetTicks() - kickc_timer2 > KICKC_TIME)
 		{
 			inputs2.Push(IN_KICK_CROUCH_FINISH2);
 			kickc_timer2 = 0;

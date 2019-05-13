@@ -8,23 +8,23 @@
 #include "p2Qeue.h"
 
 #define MAX_KEYS 500
-#define JUMP_TIME 1000
-#define JUMPF_TIME 1000
-#define JUMPB_TIME 1000
+#define JUMP_TIME 500
+#define JUMPF_TIME 500
+#define JUMPB_TIME 500
 
-#define PUNCH_TIME 250
-#define PUNCHF_TIME 250
-#define PUNCHB_TIME 250
-#define PUNCHN_TIME 250
-#define PUNCHC_TIME 250
+#define PUNCH_TIME 400
+#define PUNCHF_TIME 400
+#define PUNCHB_TIME 400
+#define PUNCHN_TIME 400
+#define PUNCHC_TIME 400
 
 #define SP1_TIME 500
 
 #define KICK_TIME 550
-#define KICKF_TIME 550
-#define KICKB_TIME 550
-#define KICKN_TIME 550
-#define KICKC_TIME 550
+#define KICKF_TIME 150
+#define KICKB_TIME 150
+#define KICKN_TIME 150
+#define KICKC_TIME 300
 
 #define LDAMAGE_TIME 100
 #define HDAMAGE_TIME 200
