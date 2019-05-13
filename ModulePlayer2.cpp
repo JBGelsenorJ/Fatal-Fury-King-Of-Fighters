@@ -1,23 +1,26 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
+#include "ModuleParticles.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "SDL\include\SDL.h"
 #include "ModulePlayer2.h"
-#include "ModuleParticles.h"
-#include "ModuleFonts.h"
+#include "ModuleMusic.h"
+#include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleEnemy2.h"
+#include "SDL\include\SDL.h"
+#include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleScenePaoPao.h"
 #include "ModuleSceneBillyKane.h"
 
 
+
 ModulePlayer2::ModulePlayer2()
 {
-	position.x = 100;
-	position.y = 220;
+	current_animation = NULL;
+	graphics = NULL;
 
 	//IDLE
 	{
@@ -253,414 +256,726 @@ ModulePlayer2::~ModulePlayer2(){
 // Load assets
 bool ModulePlayer2::Start()
 {
+
 	LOG("Loading player textures");
 	bool ret = true;
 	colcreated = true;
 	Activesm1 = true;
-	//Loading SpriteSheet
-	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png"); // Terry Bogard Sprites
-	//Loading attack audios
+
+	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
-	
-	//Loading Player Colliders
+
+	position.x = 100;
+	position.y = 220;
+	initialPos = position.y;
+
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 
-	//SET Initial Pos
-	position.x = 72;
-
 	return ret;
+
+}
+
+bool ModulePlayer2::CleanUp()
+{
+	SDL_DestroyTexture(graphics);
+	App->player2->Disable();
+	LOG("Unloading Andy From Scene");
+
+	return true;
 }
 
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
-	//jump
-	/*if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT || (TimeJump == true)) {
 
-		current_animation = &jump;
-		TimeJump = true;
-		position.y -= jumpspeed;
-		jumpspeed -= 0.2;
+	Animation* current_animation = &idle;
 
-		if (jumpspeed < -7)
-		{
-			TimeJump = false;
-			position.y = 220;
-			jumpspeed = 6;
-		}
-	}*/
+	player_states current_state = ST_UNKNOWN;
+	player_states state = process_fsm(App->input->inputs);
 
+	int speed = 2;
+	
 	
 	//god mode
-	/*if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+		
 		if (godmode == false)
 		{
 			
-			playercol->type = COLLIDER_NONE;
-			App->enemy->enemycol->type = COLLIDER_NONE;
+			playercol->to_delete = true;
+
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
-			playercol->type = COLLIDER_PLAYER;
-			App->enemy->enemycol->type = COLLIDER_ENEMY;
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+
 			godmode = false;
 		}
-	}*/
-	
-	Animation* current_animation = &idle;
-	p2Qeue<player_inputs> inputs;
-	player_states current_state = ST_UNKNOWN;
+	}
 
-	int speed = 2;
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+
+		App->enemy2->life = 0; //Kill Enemy
+
+	}
 	
-	while (external_input(inputs))
+	if (state != current_state)
 	{
-		internal_input(inputs);
 
-		player_states state = process_fsm(inputs);
-
-		if (state != current_state)
+		switch (state)
 		{
-			switch (state)
+
+		case ST_IDLE:
+
+			current_animation = &idle;
+
+			forward.Reset();
+			backward.Reset();
+			crouch.Reset();
+			kick.Reset();
+			punch.Reset();
+			sm1.Reset();
+			jump.Reset();
+
+			break;
+
+		case ST_WALK_FORWARD:
+
+			current_animation = &forward;
+			position.x += speed;
+
+			backward.Reset();
+			crouch.Reset();
+			jump.Reset();
+			kick.Reset();
+			punch.Reset();
+			sm1.Reset();
+
+			break;
+
+		case ST_WALK_BACKWARD:
+
+			current_animation = &backward;
+			position.x -= speed;
+
+			forward.Reset();
+			crouch.Reset();
+			crouch.Reset();
+			kick.Reset();
+			punch.Reset();
+			sm1.Reset();
+
+			break;
+
+		case ST_JUMP_NEUTRAL:
+
+			/*if (position.y <= 220)
 			{
-
-
-				//internal_input(inputs);
-
-			case ST_IDLE:
-			{
-
-				current_animation = &idle;
-				/*forward.Reset();
-				backward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();*/
-				playerpunch->to_delete = true;
-				playerkick->to_delete = true;
-				break;
+				animdone = false;
+				current_animation = &jump;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
 			}
-			case ST_WALK_FORWARD:
+
+			if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
 			{
+				position.y = 220;
+				jumpspeed = 6;
+				animdone == true;
+			}*/
+			if (Active == 0)
+			{
+				position.y -= jumpSpeed;
+				current_animation = &jump;
 
-				if (position.x < (App->render->camera.x + 500))
+				if (attack == true)
 				{
-
-					position.x += speed;
+					//App->audio->PlayFX("AudioJUMP");
+					attack = false;
 				}
-				//current_animation = &forward;
-				//position.x += speed;
-				current_animation = &forward;
 
-				/*backward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();*/
-
-				break;
-			}
-			case ST_WALK_BACKWARD:
-			{
-				if (position.x > (App->render->camera.x + 150))
-				{
-
-					position.x -= speed;
-
+				if (position.y < 220) {
+					jumpSpeed -= 0.5;
+					if (jumpSpeed < 0) jumpSpeed = -6;
 				}
-				//current_animation = &backward;
-				//position.x -= speed;
-				current_animation = &backward;
-				position.x -= speed;
-
-				/*forward.Reset();
-				crouch.Reset();
-				crouch.Reset();
-				kick.Reset();
-				punch.Reset();
-				sm1.Reset();*/
-
-				break;
-			}
-			case ST_JUMP_FORWARD:
-			{
-				LOG("JUMPING FORWARD ^^>>\n")
-					/*if (position.y <= 220)
-					{
-						animdone = false;
-						current_animation = &jumpf;
-						position.y -= jumpspeed;
-						jumpspeed -= 0.2;
-					}
-				if ((position.y == 220 && jumpf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
+				if (position.y >= initialPos && jumpSpeed < 0) {
+					Active = 1;
+					position.y = initialPos;
+					jumpSpeed = 6;
 				}
-				*/
-					break;
+				LOG("JUMPING ^^\n")
 			}
-			case ST_JUMP_BACKWARD:
+
+			break;
+
+		case ST_JUMP_FORWARD:
+
+			if (Active == 0)
 			{
-				LOG("JUMPING BACKWARD ^^>>\n")
-					/*if (position.y <= 220)
-					{
-						animdone = false;
-						current_animation = &jumpb;
-						position.y -= jumpspeed;
-						jumpspeed -= 0.2;
-					}
-				if ((position.y == 220 && jumpb_timer > 0) || current_animation->AnimFinished() == true)
+				current_animation = &jump;
+				position.y -= jumpSpeed;
+				position.x += 3;
+
+				if (attack == true)
 				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
+					//App->audio->PlayFX("AudioJUMP");
+					attack = false;
+				}
 
-					break;
+				if (position.y < 220) {
+					jumpSpeed -= 0.5;
+					if (jumpSpeed < 0) jumpSpeed = -6;
+				}
+				if (position.y >= initialPos && jumpSpeed < 0) {
+					Active = 1;
+					position.y = initialPos;
+					jumpSpeed = 6;
+				}
 			}
-			case ST_CROUCH:
+			LOG("JUMPING FORWARD ^^>>\n");
+
+			break;
+
+		case ST_JUMP_BACKWARD:
+
+			if (Active == 0)
 			{
-				current_animation = &crouch;
-				LOG("CROUCHING ****\n");
+				current_animation = &jump;
+				position.y -= jumpSpeed;
+				position.x -= 3;
 
-				break;
+				if (attack == true)
+				{
+					//App->audio->PlayFX("AudioJUMP");
+					attack = false;
+				}
+
+				if (position.y < 220) {
+					jumpSpeed -= 0.5;
+					if (jumpSpeed < 0) jumpSpeed = -6;
+				}
+				if (position.y >= initialPos && jumpSpeed < 0) {
+					Active = 1;
+					position.y = initialPos;
+					jumpSpeed = 6;
+				}
 			}
-			case ST_PUNCH_CROUCH:
+			LOG("JUMPING BACKWARD ^^<<\n");
+
+			break;
+
+		case ST_CROUCH:
+
+			current_animation = &crouch;
+
+			punchc.Reset();
+			kickc.Reset();
+			LOG("CROUCHING ****\n");
+
+			break;
+
+		case ST_PUNCH_CROUCH:
+
+			if (attack == true)
 			{
-				//current_animation = &punchc;
-
-				LOG("PUNCH CROUCHING **++\n");
-
-				break;
+				//App->audio->PlayFX("Audio");
+				attack = false;
 			}
-			case ST_PUNCH_STANDING:
+			if (Active == 0)
+			{
+				current_animation = &punchc;
+			}
+
+			LOG("PUNCH CROUCHING **++\n");
+
+			break;
+
+		case ST_PUNCH_STANDING:
+			if (attack == true)
+			{
+				App->audio->PlayFX(Punch);
+				attack = false;
+			}
+			if (Active == 0)
 			{
 				current_animation = &punch;
-				LOG("PUNCH STANDING ++++\n");
-
-				break;
 			}
-
-			case ST_PUNCH_NEUTRAL_JUMP:
-			{
-				LOG("PUNCH NEUTRAL JUMP ++++\n");
-
-				/*if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchn;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchn_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-
-				break;
-			}
-			case ST_PUNCH_FORWARD_JUMP:
-			{
-				LOG("PUNCH JUMP FORWARD ^>>+\n");
-
-				/*if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-
-				break;
-			}
-
-			case ST_PUNCH_BACKWARD_JUMP:
-			{
-				LOG("PUNCH JUMP BACKWARD ^<<+\n");
-
-				/*if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &punchb;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && punchb_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-
-				break;
-			}
-			case ST_KICK_CROUCH:
-			{
-				//LOG("KICK CROUCHING **--\n");
+			LOG("PUNCH STANDING ++++\n");
 
 			break;
+
+		case ST_PUNCH_NEUTRAL_JUMP:
+
+
+			if (attack == true)
+			{
+				//App->audio->PlayFX(Audio);
+				attack = false;
 			}
-			case ST_KICK_STANDING:
+			if (Active == 0)
+			{
+				current_animation = &punchn;
+			}
+			LOG("PUNCH NEUTRAL JUMP ++++\n");
+
+			/*if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchn;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+			}
+			if ((position.y == 220 && punchn_timer > 0) || current_animation->AnimFinished() == true)
+			{
+				position.y = 220;
+				jumpspeed = 6;
+				animdone == true;
+			}*/
+
+			break;
+
+		case ST_PUNCH_FORWARD_JUMP:
+
+			LOG("PUNCH JUMP FORWARD ^>>+\n");
+
+			break;
+
+		case ST_PUNCH_BACKWARD_JUMP:
+
+			LOG("PUNCH JUMP BACKWARD ^<<+\n");
+
+			break;
+
+		case ST_KICK_CROUCH:
+
+			position.x += 0.5*speed;
+			if (attack == true)
+			{
+				//App->audio->PlayFX(Audio);
+
+				attack = false;
+			}
+			if (Active == 0)
+			{
+				current_animation = &kickc;
+			}
+
+			LOG("KICK CROUCHING **--\n");
+
+			break;
+
+		case ST_KICK_STANDING:
+
+			if (attack == true)
+			{
+				//App->audio->PlayFX(Audio);
+				attack = false;
+			}
+			if (Active == 0)
 			{
 				current_animation = &kick;
-				break;
 			}
-			case ST_KICK_NEUTRAL_JUMP:
+
+			LOG("KICK --\n")
+
+				break;
+
+		case ST_KICK_NEUTRAL_JUMP:
+
+			if (attack == true)
 			{
-				LOG("KICK JUMP NEUTRAL ^^--\n");
-
-				/*if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &kickn;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && kickn_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-
-				break;
+				//App->audio->PlayFX(ryokick);
+				attack = false;
 			}
-			case ST_KICK_FORWARD_JUMP:
+			if (Active == 0)
 			{
-				LOG("KICK JUMP FORWARD ^>>-\n");
-				/*if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &kickf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-				break;
+				current_animation = &kickn;
 			}
+			LOG("KICK JUMP NEUTRAL ^^--\n");
 
-			case ST_KICK_BACKWARD_JUMP:
+			break;
+
+		case ST_KICK_FORWARD_JUMP:
+
+			LOG("KICK JUMP FORWARD ^>>-\n");
+
+			break;
+
+		case ST_KICK_BACKWARD_JUMP:
+
+			LOG("KICK JUMP BACKWARD ^<<-\n");
+
+			break;
+
+		case ST_SM1:
+
+			if (Activesm1 == true)
 			{
-				LOG("KICK JUMP BACKWARD ^<<-\n");
-				/*if (position.y <= 220)
+
+				if (shoot == true)
 				{
-					animdone = false;
-					current_animation = &kickf;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
+					//App->audio->PlayFX(Audio);
+
+					/*if ((position.x + 25) >= (App->player2->position.x - 25))
+					{
+						App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->terryspecial2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+						App->particles->AddParticle(App->particles->terryspecial3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+					}
+					else {
+						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
+						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
+					}*/
+					shoot = false;
 				}
-				if ((position.y == 220 && kickf_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}*/
-				break;
+
 			}
 
-			case ST_SP1:
+			Activesm1 = false;
+
+			if (Active == 0)
 			{
 				current_animation = &sm1;
-
-				break;
-			}
-			case ST_JUMP_NEUTRAL:
-			{
-
-
-				if (position.y <= 220)
-				{
-					animdone = false;
-					current_animation = &jump;
-					position.y -= jumpspeed;
-					jumpspeed -= 0.2;
-				}
-
-				if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
-				{
-					position.y = 220;
-					jumpspeed = 6;
-					animdone == true;
-				}
-
-				break;
-			}
-			case ST_LDAMAGE:
-			{	if (dealtdamage == true)
-			{
-				current_animation = &lowd;
 			}
 
 			break;
+
+
+		/*case ST_LDAMAGE:
+
+			if (dealtdamage == true) {
+
+				current_animation = &lowd;
+
 			}
-			case ST_HDAGAME:
+
+			break;
+
+		case ST_HDAGAME:
+
+			/*if ()
 			{
-				/*if ()
-				{
-				current_animation=&highd
-				}*/
-				break;
+			current_animation=&highd
 			}
-			}
+
+			break;*/
+
 		}
-
-		playercol->SetPos(position.x, position.y);
-		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
-		SDL_Rect r = current_animation->GetCurrentFrame();
-		if (App->enemy2->position.x > position.x)
-		{
-			App->render->Blit(graphics, position.x, position.y - r.h, &r);
-		}
-
-		if (App->enemy2->position.x < position.x)
-		{
-			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
-		}
-
-		current_state = state;
-
-		playercol->SetPos(position.x, position.y);
-		
-		if (App->enemy2->position.x > position.x) {
-			playerpunch->SetPos(position.x + 40, position.y - 90);
-			playerkick->SetPos(position.x + 40, position.y - 60);
-		}
-		if (App->enemy2->position.x < position.x) {
-			playerpunch->SetPos(position.x - 40, position.y - 90);
-			playerkick->SetPos(position.x - 40, position.y - 60);
-		}
-
-		return UPDATE_CONTINUE;
-
-	
 
 	}
 
+	current_state = state;
+
+	SDL_Rect r = current_animation->GetCurrentFrame();
+
+	playercol->SetPos(position.x, position.y);
+	playerpunch->SetPos(position.x + 40, position.y - 90);
+	playerkick->SetPos(position.x + 40, position.y - 60);
+		
+	if (App->enemy2->position.x > position.x)
+	{
+			App->render->Blit(graphics, position.x, position.y - r.h, &r);
+	}
+
+	if (App->enemy2->position.x < position.x)
+	{
+			App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+	}
+
+	if (App->enemy2->position.x > position.x) {
+			
+		playerpunch->SetPos(position.x + 40, position.y - 90);
+		playerkick->SetPos(position.x + 40, position.y - 60);
+
+	}
 	
+	if (App->enemy2->position.x < position.x) {
+			
+		playerpunch->SetPos(position.x - 40, position.y - 90);
+		playerkick->SetPos(position.x - 40, position.y - 60);
+
+	}
+
+	playercol->SetPos(position.x, position.y);
+
+	return UPDATE_CONTINUE;
+
+}
+
+player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
+{
+	
+	static player_states state = ST_IDLE;
+	player_inputs last_input;
+
+	while (inputs.Pop(last_input))
+	{
+		switch (state)
+		{
+
+		case ST_IDLE:
+		{
+			switch (last_input)
+			{
+
+			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
+			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
+			case IN_JUMP: state = ST_JUMP_NEUTRAL; App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
+			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+
+			}
+		}
+		break;
+
+		case ST_WALK_FORWARD:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_RIGHT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_JUMP: state = ST_JUMP_FORWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
+			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+
+			}
+
+		}
+		break;
+
+		case ST_WALK_BACKWARD:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_LEFT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_JUMP: state = ST_JUMP_BACKWARD;  App->input->jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
+			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
+			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+			}
+		}
+		break;
+
+		case ST_JUMP_NEUTRAL:
+		{
+
+			switch (last_input)
+			{
+			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+				//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+				//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+
+			}
+		}
+		break;
+
+		case ST_JUMP_FORWARD:
+		{
+
+			switch (last_input)
+			{
+			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+				//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+
+
+			}
+		}
+		break;
+
+		case ST_JUMP_BACKWARD:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+				//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+
+			}
+
+		}
+		break;
+
+		case ST_PUNCH_NEUTRAL_JUMP:
+		{
+			switch (last_input)
+			{
+
+				//case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
+
+		case ST_PUNCH_FORWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_PUNCH_FINISH: state = ST_JUMP_FORWARD; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
+
+		case ST_PUNCH_BACKWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_PUNCH_FINISH: state = ST_JUMP_BACKWARD; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+
+			}
+		}
+		break;
+
+		case ST_PUNCH_STANDING:
+		{
+			switch (last_input)
+			{
+
+			case IN_PUNCH_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+
+			}
+		}
+		break;
+
+		case ST_CROUCH:
+		{
+			switch (last_input)
+			{
+
+			case IN_CROUCH_UP: state = ST_IDLE; break;
+			case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
+			case IN_T: state = ST_PUNCH_CROUCH; App->input->punchc_timer = SDL_GetTicks(); break;
+			case IN_R: state = ST_KICK_CROUCH; App->input->kickc_timer = SDL_GetTicks(); break;
+
+			}
+		}
+		break;
+
+		case ST_PUNCH_CROUCH:
+		{
+			switch (last_input)
+			{
+
+			case IN_PUNCH_CROUCH_FINISH:
+
+				if (IN_CROUCH_DOWN == true)
+				{
+					state = ST_CROUCH; Active = 0; attack = true;
+
+				}
+				else
+				{
+					state = ST_IDLE; Active = 0; attack = true;
+				}
+
+			}
+		}
+
+		break;
+
+		case ST_KICK_STANDING:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+
+			}
+
+		}
+		break;
+
+		case ST_KICK_NEUTRAL_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH: state = ST_JUMP_NEUTRAL; Active = 0; attack = true; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+			}
+		}
+
+		case ST_KICK_CROUCH:
+		{
+			switch (last_input)
+			{
+			case IN_KICK_CROUCH_FINISH:
+
+				if (IN_CROUCH_DOWN == true)
+				{
+					state = ST_CROUCH; Active = 0; attack = true;
+
+				}
+
+				else
+				{
+					state = ST_IDLE; Active = 0; attack = true;
+				}
+
+			}
+		}
+
+		case ST_SM1:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM1_FINISH: state = ST_IDLE; Active = 0; Activesm1 = true; break;
+
+			}
+			break;
+
+		}
+
+		/*case ST_LDAMAGE:
+		{
+
+			switch (last_input) {
+
+			case IN_LDAMAGE_FINISH: state = ST_IDLE; break;
+			}
+		}
+
+		case ST_HDAGAME:
+		{
+
+			switch (last_input) {
+
+			case IN_HDAMAGE_FINISH: state = ST_IDLE; break;
+			}
+		}
+
+		}*/
+		}
+	}
+	return state;
 
 }
 
@@ -710,7 +1025,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 }
 
-bool ModulePlayer2::external_input(p2Qeue<player_inputs>& inputs)
+/*bool ModulePlayer2::external_input(p2Qeue<player_inputs>& inputs)
 {
 	static bool backward = false;
 	static bool forward = false;
@@ -1063,13 +1378,5 @@ void ModulePlayer2::internal_input(p2Qeue<player_inputs>& inputs)
 
 		}
 
-}
+}*/
 
-bool ModulePlayer2::CleanUp()
-{
-	SDL_DestroyTexture(graphics);
-	App->player2->Disable();
-	LOG("Unloading Andy From Scene");
-
-	return true;
-}
