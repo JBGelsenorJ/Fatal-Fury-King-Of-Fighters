@@ -614,36 +614,18 @@ update_status ModulePlayer2::Update()
 
 		case ST_SM1:
 
+			current_animation = &sm1;
 			if (Activesm1 == true)
 			{
-
-				if (shoot == true)
+				if ((position.x + 25) >= (App->player2->position.x - 25))
 				{
-					//App->audio->PlayFX(Audio);
-
-					/*if ((position.x + 25) >= (App->player2->position.x - 25))
-					{
-						App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->terryspecial2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->terryspecial3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-					}
-					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-					}*/
-					shoot = false;
+					App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
 				}
-
-			}
 
 			Activesm1 = false;
 
-			if (Active == 0)
-			{
-				current_animation = &sm1;
-			}
 
+			}
 			break;
 
 

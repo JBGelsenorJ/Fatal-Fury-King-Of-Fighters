@@ -312,7 +312,7 @@ update_status ModuleEnemy2::Update()
 		}
 		else if (godmode == true)
 		{
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 
 			godmode = false;
 		}
@@ -622,37 +622,17 @@ update_status ModuleEnemy2::Update()
 
 		case ST_SM1:
 
+			current_animation = &sm1;
 			if (Activesm1 == true)
-			{
-
-				if (shoot == true)
-				{
+			{	
 					//App->audio->PlayFX(Audio);
-
-					/*if ((position.x + 25) >= (App->player2->position.x - 25))
-					{
-						App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->terryspecial2, position.x + 28, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->terryspecial3, position.x + 30, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-					}
-					else {
-						App->particles->AddParticle(App->particles->Hadouken1, position.x - 10, position.y - 110, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->Hadouken2, position.x - 8, position.y - 85, COLLIDER_PLAYER_SHOT, 100);
-						App->particles->AddParticle(App->particles->Hadouken3, position.x - 10, position.y - 80, COLLIDER_PLAYER_SHOT, 300);
-					}*/
-					shoot = false;
-				}
-
-			}
-
+			App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT);
 			Activesm1 = false;
+			break;
 
-			if (Active == 0)
-			{
-				current_animation = &sm1;
 			}
 
-			break;
+
 
 
 			/*case ST_LDAMAGE:
@@ -991,13 +971,13 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
-		App->player2->position.x += 3;
+		App->player2->position.x -= 3;
 
 	}
 
 	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
-		App->player2->position.x -= 3;
+		App->player2->position.x += 3;
 
 	}
 
