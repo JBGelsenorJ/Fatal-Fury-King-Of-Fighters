@@ -254,7 +254,7 @@ bool ModuleEnemy2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy2.png"); // Andy Bogard Sprites
+	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png"); // Andy Bogard Sprites
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
@@ -386,7 +386,7 @@ update_status ModuleEnemy2::Update()
 
 	if (App->player2->position.x < position.x)
 	{
-		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL, true);
 	}
 
 	if (App->player2->position.x > position.x) {
@@ -405,13 +405,13 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
-		App->player2->position.x += 3;
+		App->player2->position.x -= 3;
 
 	}
 
 	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
-		App->player2->position.x -= 3;
+		App->player2->position.x += 3;
 
 	}
 

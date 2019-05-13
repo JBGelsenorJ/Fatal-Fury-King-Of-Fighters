@@ -100,9 +100,9 @@ bool ModuleBillyKane::CleanUp()
 void ModuleBillyKane::Restart() {
 	
 	//Restart Player values
-	App->player->life = 100;
-	App->player->position.x = 100;
-	App->player->position.y = 220;
+	App->player2->life = 100;
+	App->player2->position.x = 100;
+	App->player2->position.y = 220;
 	//Restart enemy values
 	App->enemy2->life= 100;
 	App->enemy2->position.x = 200;
@@ -142,7 +142,7 @@ update_status ModuleBillyKane::Update()
 	
 
 	//Scene Out
-	if (App->player->life <= 0)
+	if (App->player2->life <= 0)
 	{
 		App->fade->FadeToBlack(App->scene_billykane, App->p2w, 1.5);
 

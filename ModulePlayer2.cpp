@@ -358,7 +358,6 @@ update_status ModulePlayer2::Update()
 				//current_animation = &forward;
 				//position.x += speed;
 				current_animation = &forward;
-				position.x += speed;
 
 				/*backward.Reset();
 				crouch.Reset();

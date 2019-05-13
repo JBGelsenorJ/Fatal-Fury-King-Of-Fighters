@@ -405,13 +405,13 @@ void ModuleEnemy::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x > App->player->position.x)
 	{
-		App->player->position.x += 3;
+		App->player->position.x -= 3;
 
 	}
 
 	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT && App->player->position.y == position.y && position.x < App->player->position.x)
 	{
-		App->player->position.x -= 3;
+		App->player->position.x += 3;
 
 	}
 
