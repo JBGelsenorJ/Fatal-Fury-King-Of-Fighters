@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include <iostream>
+#include "SDL/include/SDL_gamecontroller.h"
 
 using namespace std;
 
@@ -39,12 +40,29 @@ bool ModuleInput::Init()
 	bool ret = true;
 	SDL_Init(0);
 	SDL_Init(SDL_INIT_GAMECONTROLLER);
+	//SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+	//Joystick
+	/*if (SDL_NumJoysticks() < 1) {
+
+		LOG("No Joysticks connected!\n");
+
+	}
+
+	else {
+		//Load Joystick
+
+		gGameController = SDL_JoystickOpen(0);
+		if (gGameController == NULL) {
+
+			LOG("Couldn't Open Controller! SDL Error: %s\n", SDL_GetError());
+		}
+	}*/
 
 	return ret;
 }
@@ -85,5 +103,9 @@ bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	//Joystick
+	/*SDL_JoystickClose(gGameController);
+	gGameController = NULL;
+	LOG("Quitting Input");*/
 	return true;
 }

@@ -30,6 +30,8 @@ public:
 public:
 	KEY_STATE keyboard[MAX_KEYS];
 	SDL_GameController* controller = nullptr;
+	//const int JOYSTICK_DEAD_ZONE = 8000;
+	//SDL_Joystick* gGameController = NULL;
 	
 };
 
