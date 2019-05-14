@@ -937,36 +937,32 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
-	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
-	{
-		App->player2->position.x -= 3;
+	
 
-	}
-
-	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
+	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
 		App->player2->position.x += 3;
 
 	}
 
-	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
+	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
-		if (playerpunch->callback != nullptr)
-		{
-			playerpunch->to_delete = true;
-		}
+		App->player2->position.x -= 3;
+
+	}
+
+	if (playerpunch == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		
 		App->player2->position.x += 3;
 		App->player2->life -= 25;
 
 
 	}
 
-	if (playerkick == c1 && c2->type == COLLIDER_ENEMY)
+	if (playerkick == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		if (playerkick->callback != nullptr)
-		{
-			playerkick->to_delete = true;
-		}
+		
 		App->player2->life -= 25;
 		App->player2->position.x += 3;
 
@@ -975,6 +971,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	else if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
+		
 		position.x += 15;
 		dealtdamage = true;
 	}
