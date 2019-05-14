@@ -313,8 +313,8 @@ update_status ModulePlayer2::Update()
 		case ST_WALK_FORWARD:
 
 			current_animation = &forward;
+			controllermover = true;
 			position.x += speed;
-
 			backward.Reset();
 			crouch.Reset();
 			jump.Reset();
@@ -327,8 +327,8 @@ update_status ModulePlayer2::Update()
 		case ST_WALK_BACKWARD:
 
 			current_animation = &backward;
+			controllermovel = true;
 			position.x -= speed;
-
 			forward.Reset();
 			crouch.Reset();
 			crouch.Reset();
@@ -928,13 +928,13 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermover == true)
 	{
 		App->enemy2->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermovel == true )
 	{
 		App->enemy2->position.x -= 3;
 

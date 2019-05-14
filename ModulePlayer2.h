@@ -83,6 +83,8 @@ public:
 	bool forplayer = false;
 	
 	bool playaudio = false;
+	bool controllermover = false;
+	bool controllermovel = false;
 	bool godmode = false;
 	bool dealtdamage = false;	
 	void OnCollision(Collider* c1, Collider* c2);

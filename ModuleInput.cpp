@@ -83,10 +83,12 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_a:
 				inputs.Push(IN_LEFT_UP);
+
 				left = false;
 				break;
 			case SDLK_d:
 				inputs.Push(IN_RIGHT_UP);
+
 				right = false;
 				break;
 				//PLAYER 2
