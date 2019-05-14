@@ -12,6 +12,7 @@
 //Scenes that we are going to need
 #include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
+#include "ModuleSceneBillyKane.h"
 #include "ModuleFFIntro.h"
 
 
@@ -125,7 +126,7 @@ update_status ModulePlayerSelection::Update()
 	//If enter
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 	{
-		App->fade->FadeToBlack(App->playerselection, App->scene_paopao, 2.5);
+		App->fade->FadeToBlack(App->playerselection, App->scene_billykane, 1.0);
 		App->audio->PlayFX(choosefx);
 	}
 
