@@ -938,14 +938,14 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 
-	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
+	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
 		App->player2->position.x += 3;
 
 	}
 
 
-	if (playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
+	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
 		App->player2->position.x -= 3;
 
