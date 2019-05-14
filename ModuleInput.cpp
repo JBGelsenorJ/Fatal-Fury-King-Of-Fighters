@@ -314,11 +314,11 @@ bool ModuleInput::external_input()
 		}
 		///////////////////////////////////////
 		if (!left2)
-			inputs.Push(IN_LEFT_UP2);
+			inputs2.Push(IN_LEFT_UP2);
 		if (!right2)
-			inputs.Push(IN_RIGHT_UP2);
+			inputs2.Push(IN_RIGHT_UP2);
 		if (!down2)
-			inputs.Push(IN_CROUCH_UP2);
+			inputs2.Push(IN_CROUCH_UP2);
 		////////////////////////////////////////
 		if (up2 && down2)
 			inputs2.Push(IN_JUMP_AND_CROUCH2);

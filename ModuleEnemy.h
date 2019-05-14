@@ -10,28 +10,8 @@
 #include "SDL\include\SDL_timer.h"
 #include "ModuleInput.h"
 
-//#define MAX_KEYS 500
-#define JUMP_TIME 1000
-#define JUMPF_TIME 1000
-#define JUMPB_TIME 1000
 
-//#define PUNCH_TIME 250
-#define PUNCHF_TIME 250
-#define PUNCHB_TIME 250
-#define PUNCHN_TIME 250
-#define PUNCHC_TIME 250
 
-#define SP1_TIME 500
-
-#define KICK_TIME 550
-#define KICKF_TIME 550
-#define KICKB_TIME 550
-#define KICKN_TIME 550
-#define KICKC_TIME 550
-
-#define LDAMAGE_TIME 100
-#define HDAMAGE_TIME 200
-#define HHDAMAGE_TIME 300
 
 struct SDL_Texture;
 
