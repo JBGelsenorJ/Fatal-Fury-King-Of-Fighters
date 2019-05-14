@@ -593,8 +593,8 @@ update_status ModuleEnemy2::Update()
 			current_animation = &sm1;
 			if (Activesm1 == true)
 			{	
-					//App->audio->PlayFX(Audio);
-				App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 110, COLLIDER_PLAYER_SHOT, 0);
+			//App->audio->PlayFX(Audio);
+			App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
 			Activesm1 = false;
 			break;
 

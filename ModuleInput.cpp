@@ -5,6 +5,9 @@
 #include "p2Qeue.h"
 #include <iostream>
 #include "SDL/include/SDL_gamecontroller.h"
+#include "ModuleParticles.h"
+#include "ModulePlayer2.h"
+#include "ModuleEnemy2.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -111,9 +114,21 @@ bool ModuleInput::external_input()
 				//PLAYER 1
 			case SDLK_r:
 				inputs.Push(IN_R);
+				if (App->player2->colcreated == true)
+				{
+					App->player2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
+					App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+					App->player2->colcreated = false;
+				}
 				break;
 			case SDLK_t:
 				inputs.Push(IN_T);
+				if (App->player2->colcreated == true)
+				{
+					App->player2->playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					App->player2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+					App->player2->colcreated = false;
+				}
 				break;
 			case SDLK_f:
 				inputs.Push(IN_F);
@@ -130,12 +145,26 @@ bool ModuleInput::external_input()
 			case SDLK_d:
 				right = true;
 				break;
+
 				//PLAYER 2
+
 			case SDLK_u:
 				inputs2.Push(IN_U);
+				if (App->enemy2->colcreated == true)
+				{
+					App->enemy2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_ENEMY_SHOT, this);
+					App->enemy2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->colcreated = false;
+				}
 				break;
 			case SDLK_y:
 				inputs2.Push(IN_Y);
+				if (App->enemy2->colcreated == true)
+				{
+					App->enemy2->playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					App->enemy2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->colcreated = false;
+				}
 				break;
 			case SDLK_h:
 				inputs2.Push(IN_H);
@@ -318,6 +347,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 	{
 		if (SDL_GetTicks() - punch_timer > PUNCH_TIME)
 		{
+			App->player2->colcreated = true;
+			App->player2->playerpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
 		}
@@ -356,6 +387,18 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			inputs.Push(IN_SM1_FINISH);
 			sp1_timer = 0;
+
+
+		}
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 500)
+		{
+			App->player2->Activesm1 = true;
+			App->enemy2->Activesm1 = true;
+
+		}
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 2000)
+		{
+			App->particles->cont = 0;
 		}
 	}
 
