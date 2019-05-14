@@ -942,22 +942,16 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		if (playerpunch->callback!=nullptr)
-		{
-			playerpunch->to_delete = true;
-		}
+		LOG("hit");
 		App->enemy2->position.x += 3; 
-			App->enemy2->life -= 25;
+		App->enemy2->life -= 25;
 
 
 	}
 
 	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
 	{
-		if (playerkick->callback != nullptr)
-		{
-			playerkick->to_delete = true;
-		}
+
 		App->enemy2->life -= 25;
 		App->enemy2->position.x += 3;
 
@@ -970,7 +964,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		dealtdamage = true;
 	}
 
+
 }
-
-
 

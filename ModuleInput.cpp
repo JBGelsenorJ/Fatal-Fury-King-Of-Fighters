@@ -367,6 +367,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 	{
 		if (SDL_GetTicks() - kick_timer > KICK_TIME)
 		{
+			App->player2->colcreated = true;
+			App->player2->playerkick->to_delete = true;
 			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
 		}
