@@ -22,6 +22,7 @@
 #include "ModuleSceneBillyKane.h"
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
+#include "ModuleNeogeo.h"
 
 Application::Application()
 {
@@ -48,6 +49,7 @@ Application::Application()
 	modules[8] = scene_billykane = new ModuleBillyKane();
 	modules[21] = player2 = new ModulePlayer2();
 	modules[22] = enemy2 = new ModuleEnemy2();
+	modules[23] = scene_neogeo = new ModuleNeogeo();
 
 }	
 
