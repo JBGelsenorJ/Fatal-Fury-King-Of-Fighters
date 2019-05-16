@@ -52,6 +52,9 @@ public:
 	Mix_Music* introsong;
 	iPoint positionplayer;
 	iPoint positionrock;
+	float pos_player;
+	float pos_rock;
+	float pos_background;
 
 private:
 
