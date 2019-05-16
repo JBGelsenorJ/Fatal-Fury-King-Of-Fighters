@@ -69,7 +69,7 @@ bool ModuleFFIntro::Start()
 	App->render->camera.y = 0;
 
 	pos_player = -40;
-	pos_rock = -60;
+	pos_rock = -70;
 
 
 
@@ -101,7 +101,7 @@ update_status ModuleFFIntro::Update()
 
 		App->render->Blit(graphics, pos_background, 16, &(introwin.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
-		App->render->Blit(graphics, pos_rock, 177, &(rock.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, pos_rock, 176, &(rock.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_player, 73, &(player.GetCurrentFrame()), 0.75f);
 
 		if (pos_rock < 0)
