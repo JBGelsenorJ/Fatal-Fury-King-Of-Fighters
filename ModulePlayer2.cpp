@@ -350,7 +350,7 @@ update_status ModulePlayer2::Update()
 
 		
 
-			if (SDL_GetTicks() - App->input->jump_timer > JUMPF_TIME && position.y == 220)
+			if (SDL_GetTicks() - App->input->jump_timer > JUMP_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH);
 				App->input->jump_timer = 0;
@@ -360,7 +360,7 @@ update_status ModulePlayer2::Update()
 				animdone = true;
 			}
 
-			if (Active == 0)
+			/*if (Active == 0)
 			{
 				position.y -= jumpSpeed;
 				current_animation = &jump;
@@ -381,13 +381,34 @@ update_status ModulePlayer2::Update()
 					jumpSpeed = 6;
 				}
 				LOG("JUMPING ^^\n")
-			}
+			}*/
 
 			break;
 
 		case ST_JUMP_FORWARD:
 
-			if (Active == 0)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jumpf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->jump_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (Active == 0)
 			{
 				current_animation = &jump;
 				position.y -= jumpSpeed;
@@ -408,14 +429,35 @@ update_status ModulePlayer2::Update()
 					position.y = initialPos;
 					jumpSpeed = 6;
 				}
-			}
+			}*/
 			LOG("JUMPING FORWARD ^^>>\n");
 
 			break;
 
 		case ST_JUMP_BACKWARD:
 
-			if (Active == 0)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jumpb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->jump_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (Active == 0)
 			{
 				current_animation = &jump;
 				position.y -= jumpSpeed;
@@ -436,7 +478,7 @@ update_status ModulePlayer2::Update()
 					position.y = initialPos;
 					jumpSpeed = 6;
 				}
-			}
+			}*/
 			LOG("JUMPING BACKWARD ^^<<\n");
 
 			break;
