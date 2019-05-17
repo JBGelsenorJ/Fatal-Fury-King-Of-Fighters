@@ -89,6 +89,8 @@
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayerSelection.h" />
     <ClInclude Include="ModuleSceneBillyKane.h" />
+    <ClInclude Include="ModuleSceneBillyKane2.h" />
+    <ClInclude Include="ModuleSceneBillyKane3.h" />
     <ClInclude Include="ModuleScenePaoPao.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -120,6 +122,8 @@
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModulePlayerSelection.cpp" />
     <ClCompile Include="ModuleSceneBillyKane.cpp" />
+    <ClCompile Include="ModuleSceneBillyKane2.cpp" />
+    <ClCompile Include="ModuleSceneBillyKane3.cpp" />
     <ClCompile Include="ModuleScenePaoPao.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleInput.cpp" />

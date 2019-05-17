@@ -14,7 +14,8 @@
 
 
 #include "ModulePlayerSelection.h"
-#include "ModuleSceneSoundBeach.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"

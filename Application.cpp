@@ -20,9 +20,12 @@
 #include "ModuleP1Wins.h"
 #include "ModuleP2Wins.h"
 #include "ModuleSceneBillyKane.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
 #include "ModuleNeogeo.h"
+
 
 Application::Application()
 {
@@ -47,9 +50,12 @@ Application::Application()
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
 	modules[8] = scene_billykane = new ModuleBillyKane();
+	modules[24] = scene_billykane2 = new ModuleBillyKane2();
+	modules[25] = scene_billykane3 = new ModuleBillyKane3();
 	modules[21] = player2 = new ModulePlayer2();
 	modules[22] = enemy2 = new ModuleEnemy2();
 	modules[23] = scene_neogeo = new ModuleNeogeo();
+	
 
 }	
 
@@ -68,6 +74,8 @@ bool Application::Init()
 	scene_soundbeach->Disable();
 	scene_intro2->Disable();
 	scene_billykane->Disable();
+	scene_billykane2->Disable();
+	scene_billykane3->Disable();
 
 	scene_intro->Disable();
 	scene_welcome->Enable();
