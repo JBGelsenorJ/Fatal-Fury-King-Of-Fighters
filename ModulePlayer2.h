@@ -91,6 +91,7 @@ public:
 	player_states process_fsm(p2Qeue<player_inputs>& inputs);
 	
 	float jumpspeed = 6;
+	float kick_jumpspeed = 6;
 	
 	int speed = 2;
 	float life = 100;

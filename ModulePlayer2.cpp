@@ -96,7 +96,7 @@ ModulePlayer2::ModulePlayer2()
 		kick.PushBack({ 310, 13, 47, 100 });
 		kick.PushBack({ 378, 24, 57, 89 });
 		kick.PushBack({ 448, 20, 54, 92 });
-		kick.PushBack({ 515, 24, 114, 77 });
+		kick.PushBack({ 506, 23, 126, 93 });
 		kick.PushBack({ 641, 11, 85, 96 });
 		kick.PushBack({ 747, 26, 55, 82 });
 		kick.PushBack({ 832, 11, 61, 102 });
@@ -588,7 +588,38 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_STANDING:
 
-			if (attack == true)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kick;
+				if (SDL_GetTicks() - App->input->kick_timer > 350 && position.y == 220)
+				{
+					position.y = 200;
+					playercol->to_delete = true;
+					
+					playercol = App->collision->AddCollider({ 50, -250, 45, -90 }, COLLIDER_PLAYER, this);
+				}
+				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 220)
+				{
+					position.y = 220;
+
+				}
+				
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kick_timer > KICK_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_KICK_FINISH);
+				App->input->kick_timer = 0;
+
+				position.y = 220;
+				kick_jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(Audio);
 				attack = false;
@@ -596,7 +627,7 @@ update_status ModulePlayer2::Update()
 			if (Active == 0)
 			{
 				current_animation = &kick;
-			}
+			}*/
 
 			LOG("KICK --\n")
 			if (App->player2->colcreated == true)
@@ -910,7 +941,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 
-			case IN_KICK_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
+			case IN_KICK_FINISH: state = ST_IDLE; playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this); attack = true; break;
 
 			}
 
