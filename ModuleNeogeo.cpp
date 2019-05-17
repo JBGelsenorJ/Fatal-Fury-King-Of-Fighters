@@ -91,5 +91,14 @@ update_status ModuleNeogeo::Update()
 
 	}
 
+	if (SDL_GameControllerGetButton(App->input->gamepad2, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1.5);
+	}
+	if (SDL_GameControllerGetButton(App->input->gamepad1, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1.5);
+	}
+
 	return UPDATE_CONTINUE;
 }

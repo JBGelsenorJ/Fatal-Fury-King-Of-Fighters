@@ -130,5 +130,17 @@ update_status ModulePlayerSelection::Update()
 		App->audio->PlayFX(choosefx);
 	}
 
+	if (SDL_GameControllerGetButton(App->input->gamepad2, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->playerselection, App->scene_billykane, 1.5);
+		App->audio->PlayFX(choosefx);
+	}
+	if (SDL_GameControllerGetButton(App->input->gamepad1, SDL_CONTROLLER_BUTTON_START) == 1)
+	{
+		App->fade->FadeToBlack(App->playerselection, App->scene_billykane, 1.5);
+		App->audio->PlayFX(choosefx);
+	}
+
+
 	return UPDATE_CONTINUE;
 }
