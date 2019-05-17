@@ -88,8 +88,8 @@ bool ModuleBillyKane::Start()
 	App->audio->PlayMusic(music);
 	Mix_PlayChannel(-1 , audience, -1);
 	Mix_VolumeChunk(audience, 35);
-	/*wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
-	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);*/
+	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
+	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
 
 	return ret;
 }
@@ -141,8 +141,8 @@ update_status ModuleBillyKane::Update()
 	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
 	
-	/*wall1c->SetPos(wall1.x, wall1.y); 
-	wall2c->SetPos(wall2.x, wall2.y);*/
+	wall1c->SetPos(wall1.x, wall1.y); 
+	wall2c->SetPos(wall2.x, wall2.y);
 
 	//Scene Out
 	if (App->player2->life <= 0)

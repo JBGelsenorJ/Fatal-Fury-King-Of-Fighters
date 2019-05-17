@@ -25,11 +25,11 @@ ModulePlayer2::ModulePlayer2()
 	//IDLE
 	{
 
-		//Terry Bogard Idle Animation
-		idle.PushBack({ 870, 121, 60, 102 });
-		/*idle.PushBack({ 877, 601, 64, 100 });
-		idle.PushBack({ 870, 121, 60, 102 });
-		idle.PushBack({ 877, 601, 64, 100 });*/
+		//Andy Bogard Idle Animation
+		idle.PushBack({ 811, 341, 60, 101 });
+		idle.PushBack({ 873, 343, 61, 100 });
+		idle.PushBack({ 937, 346, 61, 98 });
+		idle.PushBack({ 873, 343, 61, 100 });
 
 		idle.speed = 0.18f;
 
@@ -821,10 +821,12 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_CROUCH:
 		{
+			playercol->to_delete = true;
+			playercol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_PLAYER, this);
 			switch (last_input)
 			{
-
-			case IN_CROUCH_UP: state = ST_IDLE; break;
+			
+			case IN_CROUCH_UP: state = ST_IDLE; playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this); break;
 			case IN_JUMP_AND_CROUCH: state = ST_IDLE; break;
 			case IN_T: state = ST_PUNCH_CROUCH; App->input->punchc_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_CROUCH; App->input->kickc_timer = SDL_GetTicks(); break;

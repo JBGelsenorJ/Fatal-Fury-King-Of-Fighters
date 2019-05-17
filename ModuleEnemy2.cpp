@@ -836,10 +836,14 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_CROUCH:
 		{
-			switch (last_input)
-			{
 
-			case IN_CROUCH_UP2: state = ST_IDLE; break;
+		playercol->to_delete = true;
+		playercol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
+
+		switch (last_input)
+		{
+
+		case IN_CROUCH_UP2: state = ST_IDLE; playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); break;
 			case IN_JUMP_AND_CROUCH2: state = ST_IDLE; break;
 			case IN_Y: state = ST_PUNCH_CROUCH; App->input->punchc_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_CROUCH; App->input->kickc_timer2 = SDL_GetTicks(); break;

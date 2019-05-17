@@ -448,13 +448,22 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			kickc_timer2 = 0;
 		}
 	}
-
 	if (sp1_timer2 > 0)
 	{
 		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME)
 		{
 			inputs2.Push(IN_SM1_FINISH2);
 			sp1_timer2 = 0;
+		}
+		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 500)
+		{
+			App->player2->Activesm1 = true;
+			App->enemy2->Activesm1 = true;
+
+		}
+		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 2000)
+		{
+			App->particles->cont = 0;
 		}
 	}
 
