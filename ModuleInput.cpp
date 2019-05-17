@@ -9,6 +9,7 @@
 #include "ModuleCollision.h"
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
+#include "ModulePlayer.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -19,7 +20,6 @@ ModuleInput::ModuleInput() : Module()
 	
 }
 
-// Destructor
 ModuleInput::~ModuleInput()
 {
 }
@@ -31,7 +31,7 @@ bool ModuleInput::Init()
 	
 	bool ret = true;
 	SDL_Init(0);
-	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);		//Starting gamepad controllers
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -39,21 +39,17 @@ bool ModuleInput::Init()
 		ret = false;
 	}
 	
-	//Joystick
+	//Testing if there arent devices connected
 	if (SDL_NumJoysticks() < 1) {
-
-		LOG("No Joysticks connected!\n");
-
+		LOG("No Joysticks or Gamepads connected!\n");
 	}
-
 	else {
-		//Load Joystick
+		//Loading devices.(Must be connected and will be open). -- GAMEPADS
+		gamepad1 = SDL_GameControllerOpen(0);
+		gamepad2 = SDL_GameControllerOpen(1);
 
-		gGameController = SDL_JoystickOpen(0);
-		gGameController = SDL_JoystickOpen(1);
-		if (gGameController == NULL) {
-
-			LOG("Couldn't Open Controller! SDL Error: %s\n", SDL_GetError());
+		if (gamepad1 == NULL || gamepad2 == NULL) {
+			LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
 		}
 	}
 
@@ -67,6 +63,8 @@ bool ModuleInput::external_input()
 
 	while (SDL_PollEvent(&event))
 	{
+
+		//CONTROLS FOR KEYBOARD --- KEYUP
 		if (event.type == SDL_KEYUP && event.key.repeat == 0)
 		{
 			switch (event.key.keysym.sym)
@@ -74,7 +72,7 @@ bool ModuleInput::external_input()
 			case SDLK_ESCAPE:
 				return false;
 				break;
-				//PLAYER 1
+			//PLAYER 1 KEYBOARD CONTROLS
 			case SDLK_s:
 				inputs.Push(IN_CROUCH_UP);
 				down = false;
@@ -92,7 +90,7 @@ bool ModuleInput::external_input()
 
 				right = false;
 				break;
-				//PLAYER 2
+			//PLAYER 2 KEYBOARD CONTROLS
 			case SDLK_k:
 				inputs2.Push(IN_CROUCH_UP2);
 				down2 = false;
@@ -110,6 +108,7 @@ bool ModuleInput::external_input()
 				break;
 			}
 		}
+		//CONTROLS FOR KEYBOARD --- KEYDOWN
 		if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
 		{
 			switch (event.key.keysym.sym)
@@ -163,18 +162,22 @@ bool ModuleInput::external_input()
 				break;
 			}
 		}
-		if (event.type == SDL_JOYAXISMOTION) {
-			if (event.jaxis.which == 0) { //En el gamepad 0
-				if (event.jaxis.axis == 0)
+
+		
+		//GAMEPADS AXIS CONTROL
+		if (event.type == SDL_CONTROLLERAXISMOTION) {
+			//GAMEPAD 1
+			if (event.caxis.which == 0) { 
+				if (event.caxis.axis == 0)
 				{
 					//Left of dead zone
-					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					if (event.caxis.value < -GAMEPAD_DEAD_ZONE)
 					{
 						left = true;
 						right = false;
-					}
+					} 
 					//Right of dead zone
-					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					else if (event.caxis.value > GAMEPAD_DEAD_ZONE)
 					{
 						right = true;
 						left = false;
@@ -185,16 +188,16 @@ bool ModuleInput::external_input()
 						right = false;
 					}
 				}
-				else if (event.jaxis.axis == 1)
+				else if (event.caxis.axis == 1)
 				{
 					//Below of dead zone
-					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					if (event.caxis.value < -GAMEPAD_DEAD_ZONE)
 					{
 						down = false;
 						up = true;
 					}
 					//Above of dead zone
-					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					else if (event.caxis.value > GAMEPAD_DEAD_ZONE)
 					{
 						up = false;
 						down = true;
@@ -207,17 +210,18 @@ bool ModuleInput::external_input()
 				}
 			}
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			if (event.jaxis.which == 1) { //En el gamepad 2
-				if (event.jaxis.axis == 0)
+			//GAMEPAD 2
+			if (event.caxis.which == 1) { //En el gamepad 2
+				if (event.caxis.axis == 0)
 				{
 					//Left of dead zone
-					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					if (event.caxis.value < -GAMEPAD_DEAD_ZONE)
 					{
 						left2 = true;
 						right2 = false;
 					}
 					//Right of dead zone
-					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					else if (event.caxis.value > GAMEPAD_DEAD_ZONE)
 					{
 						right2 = true;
 						left2 = false;
@@ -228,16 +232,16 @@ bool ModuleInput::external_input()
 						right2 = false;
 					}
 				}
-				else if (event.jaxis.axis == 1)
+				else if (event.caxis.axis == 1)
 				{
 					//Below of dead zone
-					if (event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					if (event.caxis.value < -GAMEPAD_DEAD_ZONE)
 					{
 						down2 = false;
 						up2 = true;
 					}
 					//Above of dead zone
-					else if (event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					else if (event.caxis.value > GAMEPAD_DEAD_ZONE)
 					{
 						up2 = false;
 						down2 = true;
@@ -250,7 +254,18 @@ bool ModuleInput::external_input()
 				}
 			}
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		}
+		//GAMEPADS BUTTON CONTROLS
+		if (event.type == SDL_CONTROLLERBUTTONDOWN) {
+			if (event.cbutton.which == 0) {
+				//STUFF FOR GAMEPAD1
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X) {		//SQUARE(DUALSHOCK) X(XBOX) PUNCH
 
+				}
+			}
+			if (event.cbutton.which == 1) {
+				//STUFF FOR GAMEPAD2
+			}
 		}
 
 
@@ -493,11 +508,14 @@ update_status ModuleInput::PostUpdate() {
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	
-	
-	//Joystick
-	SDL_JoystickClose(gGameController);
-	gGameController = NULL;
+
+	//Cleaning Gamepads
+	SDL_GameControllerClose(gamepad1);
+	SDL_GameControllerClose(gamepad2);
+
+	gamepad1 = NULL;
+	gamepad2 = NULL;
+
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	

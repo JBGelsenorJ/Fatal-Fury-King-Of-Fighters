@@ -199,9 +199,10 @@ public:
 	Uint32 hdamage_timer2 = 0;
 	Uint32 hhdamage_timer2 = 0;
 
-	const int JOYSTICK_DEAD_ZONE = 8000;
-	SDL_Joystick* gGameController = NULL;
-	SDL_Joystick* gGameController2 = NULL;
+	const int GAMEPAD_DEAD_ZONE = 8000;
+
+	SDL_GameController* gamepad1 = NULL;
+	SDL_GameController* gamepad2 = NULL;
 
 };
 
