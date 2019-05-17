@@ -260,11 +260,32 @@ bool ModuleInput::external_input()
 			if (event.cbutton.which == 0) {
 				//STUFF FOR GAMEPAD1
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X) {		//SQUARE(DUALSHOCK) X(XBOX) PUNCH
-
+					inputs.Push(IN_T);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
+					inputs.Push(IN_F);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B) {		//SQUARE(DUALSHOCK) B(XBOX) PUNCH
+					inputs.Push(IN_R);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
+					inputs.Push(IN_CROUCH_DOWN);
 				}
 			}
 			if (event.cbutton.which == 1) {
 				//STUFF FOR GAMEPAD2
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X) {		//SQUARE(DUALSHOCK) X(XBOX) PUNCH
+					inputs2.Push(IN_U);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
+					inputs2.Push(IN_H);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B) {		//SQUARE(DUALSHOCK) B(XBOX) PUNCH
+					inputs2.Push(IN_Y);
+				}
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
+					inputs2.Push(IN_CROUCH_DOWN);
+				}
 			}
 		}
 
