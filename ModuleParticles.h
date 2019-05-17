@@ -50,14 +50,9 @@ private:
 
 public:
 	Mix_Chunk * fx;
-	Particle terryspecial1;
-	Particle terryspecial2;
-	Particle terryspecial3;
-	Particle terryspecial4;
-	Particle terryspecial5;
-	Particle terryspecial6;
-	Particle terryspecial7;
-	Particle terryspecial8;
+	Particle andyspecial1;
+	Particle andyspecial2;
+
 };
 
 #endif // __MODULEPARTICLES_H__

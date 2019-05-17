@@ -240,7 +240,7 @@ bool ModuleEnemy2::Start()
 	initialPos = position.y;
 
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	playerpunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 
 	return ret;
@@ -482,6 +482,16 @@ update_status ModuleEnemy2::Update()
 				current_animation = &punch;
 			}
 			LOG("PUNCH STANDING ++++\n");
+			{
+				if (App->enemy2->colcreated == true)
+				{
+					App->enemy2->playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					App->enemy2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->colcreated = false;
+				}
+
+			}
+			
 
 			break;
 
@@ -558,7 +568,13 @@ update_status ModuleEnemy2::Update()
 			}
 
 			LOG("KICK --\n")
-
+				if (App->enemy2->colcreated == true)
+				{
+					App->enemy2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->colcreated = false;
+				}
+				if (App->enemy2->colcreated == true)
 				break;
 
 		case ST_KICK_NEUTRAL_JUMP:
@@ -594,7 +610,7 @@ update_status ModuleEnemy2::Update()
 			if (Activesm1 == true)
 			{	
 			//App->audio->PlayFX(Audio);
-			App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
+			App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
 			Activesm1 = false;
 			break;
 
@@ -953,7 +969,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_PLAYER)
 	{
-
+		playerpunch->to_delete = true;
 		App->player2->position.x += 3;
 		App->player2->life -= 25;
 
@@ -962,18 +978,30 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerkick == c1 && c2->type == COLLIDER_PLAYER)
 	{
-
+		playerkick->to_delete = true;
 		App->player2->life -= 25;
 		App->player2->position.x += 3;
 
 
 	}
 
-	else if (playercol == c1 && c2->type == COLLIDER_WALL)
-	{
-		
-		position.x += 15;
-		dealtdamage = true;
-	}
 
+	if (playercol == c1 && c2->type == COLLIDER_WALL)
+	{
+		if (App->render->camera.x >= -200)
+		{
+			position.x ++;
+			App->render->camera.x+=10;
+			App->scene_billykane->wall1.x-=5;
+			App->scene_billykane->wall2.x-=5;
+		}
+	}
+	if (playercol == c1 && c2->type == COLLIDER_WALL_RIGHT)
+	{
+		position.x --;
+		App->render->camera.x-=10;
+		App->scene_billykane->wall1.x += 5;
+		App->scene_billykane->wall2.x += 5;
+
+	}
 }

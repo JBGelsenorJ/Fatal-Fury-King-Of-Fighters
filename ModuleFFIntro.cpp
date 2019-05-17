@@ -106,9 +106,9 @@ update_status ModuleFFIntro::Update()
 
 		if (pos_rock < 0)
 		{
-			pos_player += 0.2;
-			pos_rock += 0.2;
-			pos_background -= 0.02;
+			pos_player += 0.6;
+			pos_rock += 0.6;
+			pos_background -= 0.09;
 		}
 		
 

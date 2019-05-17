@@ -362,11 +362,7 @@ update_status ModuleEnemy::Update()
 			forenemy = true;
 			if (current_animation->AnimFinished() == true)
 			{
-				App->particles->AddParticle(App->particles->terryspecial1, position.x + 48, position.y - 42, COLLIDER_ENEMY_SHOT, 0);
-				App->particles->AddParticle(App->particles->terryspecial2, position.x + 35, position.y - 70, COLLIDER_ENEMY_SHOT, 50);
-				App->particles->AddParticle(App->particles->terryspecial3, position.x + 18, position.y - 99, COLLIDER_ENEMY_SHOT, 200);
-				App->particles->AddParticle(App->particles->terryspecial4, position.x + 5, position.y - 70, COLLIDER_ENEMY_SHOT, 400);
-				App->particles->AddParticle(App->particles->terryspecial5, position.x - 13, position.y - 42, COLLIDER_ENEMY_SHOT, 600);
+				App->particles->AddParticle(App->particles->andyspecial2, position.x + 48, position.y - 42, COLLIDER_ENEMY_SHOT, 0);
 				TimeAnim = false;
 				App->particles->cont = 0;
 			}

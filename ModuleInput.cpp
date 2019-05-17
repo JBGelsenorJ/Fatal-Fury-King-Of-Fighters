@@ -6,6 +6,7 @@
 #include <iostream>
 #include "SDL/include/SDL_gamecontroller.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
 
@@ -116,21 +117,10 @@ bool ModuleInput::external_input()
 				//PLAYER 1
 			case SDLK_r:
 				inputs.Push(IN_R);
-				if (App->player2->colcreated == true)
-				{
-					App->player2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_PLAYER_SHOT, this);
-					App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-					App->player2->colcreated = false;
-				}
+				
 				break;
 			case SDLK_t:
 				inputs.Push(IN_T);
-				if (App->player2->colcreated == true)
-				{
-					App->player2->playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
-					App->player2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-					App->player2->colcreated = false;
-				}
 				break;
 			case SDLK_f:
 				inputs.Push(IN_F);
@@ -152,21 +142,9 @@ bool ModuleInput::external_input()
 
 			case SDLK_u:
 				inputs2.Push(IN_U);
-				if (App->enemy2->colcreated == true)
-				{
-					App->enemy2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_ENEMY_SHOT, this);
-					App->enemy2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-					App->enemy2->colcreated = false;
-				}
 				break;
 			case SDLK_y:
 				inputs2.Push(IN_Y);
-				if (App->enemy2->colcreated == true)
-				{
-					App->enemy2->playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
-					App->enemy2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-					App->enemy2->colcreated = false;
-				}
 				break;
 			case SDLK_h:
 				inputs2.Push(IN_H);
@@ -422,6 +400,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			inputs2.Push(IN_PUNCH_FINISH2);
 			punch_timer2 = 0;
+			App->enemy2->colcreated = true;
+			App->enemy2->playerpunch->to_delete = true;
 		}
 	}
 
@@ -440,6 +420,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			inputs2.Push(IN_KICK_FINISH2);
 			kick_timer2 = 0;
+			App->enemy2->colcreated = true;
+			App->enemy2->playerkick->to_delete = true;
 		}
 	}
 

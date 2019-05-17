@@ -11,7 +11,6 @@
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemy2.h"
-#include <stdio.h>
 
 
 #include "ModulePlayerSelection.h"
@@ -49,6 +48,18 @@ ModuleBillyKane::ModuleBillyKane()
 	people3.PushBack({ 151,274,62,100 });
 	people3.speed = 0.09f;
 
+	//walls
+	wall1.x = 30;
+	wall1.y = 0;
+	wall1.h = 300;
+	wall1.w = 30;
+
+	wall2.x = 280;
+	wall2.y = 0;
+	wall2.h = 300;
+	wall2.w = 30;
+
+
 }
 
 ModuleBillyKane::~ModuleBillyKane()
@@ -77,9 +88,8 @@ bool ModuleBillyKane::Start()
 	App->audio->PlayMusic(music);
 	Mix_PlayChannel(-1 , audience, -1);
 	Mix_VolumeChunk(audience, 35);
-
-	wall1 = App->collision->AddCollider({ -200, 300, 15, -500 }, COLLIDER_WALL, this);
-	wall2 = App->collision->AddCollider({ 500, 300 , 15, -500 }, COLLIDER_WALL, this);
+	/*wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
+	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);*/
 
 	return ret;
 }
@@ -122,24 +132,17 @@ update_status ModuleBillyKane::Update()
 	App->render->Blit(graphics, 250, 115, &(people1.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 187, 115, &(people2.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
-
+	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
+	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
-
-	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {
-		//App->audio->PlayFX(App->player->Kick);
-	}
-
+	
 	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
-
-	//camera locked
-	/*App->render->cam_pos.x = -centerx;
-	App->render->cam_pos.y = (SCREEN_HEIGHT)-centery;
-	App->render->camera.x = App->render->cam_pos.x;
-	App->render->camera.y = App->render->cam_pos.y;*/
 	
+	/*wall1c->SetPos(wall1.x, wall1.y); 
+	wall2c->SetPos(wall2.x, wall2.y);*/
 
 	//Scene Out
 	if (App->player2->life <= 0)

@@ -30,9 +30,10 @@ public:
 	Animation sea;
 	Mix_Music* music;
 	Mix_Chunk* audience;
-	Collider* wall1;
-	Collider* wall2;
-	Collider* wall3;
+	SDL_Rect wall1;
+	SDL_Rect wall2;
+	Collider* wall1c;
+	Collider* wall2c;
 	float starting = 0.0f;
 	float seconds;
 	uint time;

@@ -446,7 +446,6 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_PUNCH_CROUCH:
-
 			if (attack == true)
 			{
 				//App->audio->PlayFX("Audio");
@@ -472,7 +471,12 @@ update_status ModulePlayer2::Update()
 				current_animation = &punch;
 			}
 			LOG("PUNCH STANDING ++++\n");
-
+			if (colcreated == true)
+			{
+				playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+				playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+				colcreated = false;
+			}
 			break;
 
 		case ST_PUNCH_NEUTRAL_JUMP:
@@ -547,7 +551,12 @@ update_status ModulePlayer2::Update()
 			}
 
 			LOG("KICK --\n")
-
+			if (App->player2->colcreated == true)
+			{
+				App->player2->playerkick = App->collision->AddCollider({ 30, 200, 50, 10 }, COLLIDER_PLAYER_SHOT, this);
+				App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+				App->player2->colcreated = false;
+			}
 				break;
 
 		case ST_KICK_NEUTRAL_JUMP:
@@ -584,7 +593,8 @@ update_status ModulePlayer2::Update()
 			{
 				if ((position.x + 25) >= (App->player2->position.x - 25))
 				{
-					App->particles->AddParticle(App->particles->terryspecial1, position.x + 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+					App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+
 				}
 
 			Activesm1 = false;
@@ -645,7 +655,7 @@ update_status ModulePlayer2::Update()
 	if (App->enemy2->position.x < position.x) {
 			
 		playerpunch->SetPos(position.x - 40, position.y - 90);
-		playerkick->SetPos(position.x - 40, position.y - 60);
+		playerkick->SetPos(position.x - 50, position.y - 80);
 
 	}
 
@@ -928,13 +938,13 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermover == true)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermover == true*/)
 	{
 		App->enemy2->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermovel == true )
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermovel == true*/ )
 	{
 		App->enemy2->position.x -= 3;
 
@@ -942,7 +952,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
-		LOG("hit");
+		playerpunch->to_delete = true;
 		App->enemy2->position.x += 3; 
 		App->enemy2->life -= 25;
 
@@ -951,19 +961,36 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
 	{
-
+		playerkick->to_delete = true;
 		App->enemy2->life -= 25;
 		App->enemy2->position.x += 3;
 
 
 	}
 
-	else if (playercol == c1 && c2->type == COLLIDER_WALL)
+	if (playercol == c1 && c2->type == COLLIDER_WALL)
 	{
-		position.x += 15;
-		dealtdamage = true;
+		//position.x += 10;
+		if (App->render->camera.x >= -200)
+		{
+			position.x ++;
+			App->render->camera.x+=10;
+			App->scene_billykane->wall1.x-=5;
+			App->scene_billykane->wall2.x-=5;
+		}
+
+		
 	}
 
+	if (playercol == c1 && c2->type == COLLIDER_WALL_RIGHT)
+	{
+
+			position.x --;
+			App->render->camera.x-=10;
+			App->scene_billykane->wall1.x+=5;
+			App->scene_billykane->wall2.x+=5;
+
+	}
 
 }
 

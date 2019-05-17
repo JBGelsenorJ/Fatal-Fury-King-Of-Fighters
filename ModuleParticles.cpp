@@ -30,20 +30,35 @@ bool ModuleParticles::Start()
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
 
 	// Special1
-	terryspecial1.anim.PushBack({ 327, 375, 23, 26 });
-	terryspecial1.anim.PushBack({ 362, 354, 39, 68 });
-	terryspecial1.anim.PushBack({ 403, 355, 52, 65 });
-	terryspecial1.anim.PushBack({ 458, 342, 67, 94 });
-	terryspecial1.anim.PushBack({ 533, 340, 49, 96 });
-	terryspecial1.anim.PushBack({ 458, 342, 67, 94 });
-	terryspecial1.anim.PushBack({ 533, 340, 49, 96 });
-	terryspecial1.anim.PushBack({ 721, 342, 73, 101 });
-	terryspecial1.anim.loop = false;
-	terryspecial1.anim.speed = 0.07f;
-	terryspecial1.life = 4000;
-	terryspecial1.fx_played = true;
-	terryspecial1.speed.x = 0;
-	terryspecial1.born = 0;
+	andyspecial1.anim.PushBack({ 327, 375, 23, 26 });
+	andyspecial1.anim.PushBack({ 362, 354, 39, 68 });
+	andyspecial1.anim.PushBack({ 403, 355, 52, 65 });
+	andyspecial1.anim.PushBack({ 458, 342, 67, 94 });
+	andyspecial1.anim.PushBack({ 533, 340, 49, 96 });
+	andyspecial1.anim.PushBack({ 458, 342, 67, 94 });
+	andyspecial1.anim.PushBack({ 533, 340, 49, 96 });
+	andyspecial1.anim.PushBack({ 721, 342, 73, 101 });
+	andyspecial1.anim.loop = false;
+	andyspecial1.anim.speed = 0.07f;
+	andyspecial1.life = 4000;
+	andyspecial1.fx_played = true;
+	andyspecial1.speed.x = 0;
+	andyspecial1.born = 0;
+
+	andyspecial2.anim.PushBack({ 327, 375, 23, 26 });
+	andyspecial2.anim.PushBack({ 362, 354, 39, 68 });
+	andyspecial2.anim.PushBack({ 403, 355, 52, 65 });
+	andyspecial2.anim.PushBack({ 458, 342, 67, 94 });
+	andyspecial2.anim.PushBack({ 533, 340, 49, 96 });
+	andyspecial2.anim.PushBack({ 458, 342, 67, 94 });
+	andyspecial2.anim.PushBack({ 533, 340, 49, 96 });
+	andyspecial2.anim.PushBack({ 721, 342, 73, 101 });
+	andyspecial2.anim.loop = false;
+	andyspecial2.anim.speed = 0.07f;
+	andyspecial2.life = 4000;
+	andyspecial2.fx_played = true;
+	andyspecial2.speed.x = 0;
+	andyspecial2.born = 0;
 
 
 	return true;
@@ -82,7 +97,12 @@ update_status ModuleParticles::Update()
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			if (App->enemy2->position.x > App->player2->position.x){
+				App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			}
+			if (App->enemy2->position.x < App->player2->position.x) {
+				App->render->MirrorBlit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()),1,0,0,0);
+			}
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -94,36 +114,23 @@ update_status ModuleParticles::Update()
 			}
 		}
 	}
-	if (App->enemy->position.x > App->player->position.x && App->player->forplayer == true) {
-		terryspecial1.speed.x = 2;
-		terryspecial2.speed.x = 2;
-		terryspecial3.speed.x = 2;
-		terryspecial4.speed.x = 2;
-		terryspecial5.speed.x = 2;
+	if (App->enemy2->position.x > App->player2->position.x) {
+		andyspecial1.speed.x = 2;
+
 
 	}
-	if (App->enemy->position.x < App->player->position.x && App->player->forplayer == true) {
-		terryspecial1.speed.x = -2;
-		terryspecial2.speed.x = -2;
-		terryspecial3.speed.x = -2;
-		terryspecial4.speed.x = -2;
-		terryspecial5.speed.x = -2;
+	if (App->enemy2->position.x < App->player2->position.x ) {
+		andyspecial1.speed.x = -2;
+
 
 	}
-	if (App->enemy->position.x > App->player->position.x && App->enemy->forenemy == true) {
-		terryspecial1.speed.x = -2;
-		terryspecial2.speed.x = -2;
-		terryspecial3.speed.x = -2;
-		terryspecial4.speed.x = -2;
-		terryspecial5.speed.x = -2;
+	if (App->enemy2->position.x > App->player2->position.x) {
+		andyspecial2.speed.x = -2;
+
 
 	}
-	if (App->enemy->position.x < App->player->position.x && App->enemy->forenemy == true) {
-		terryspecial1.speed.x = 2;
-		terryspecial2.speed.x = 2;
-		terryspecial3.speed.x = 2;
-		terryspecial4.speed.x = 2;
-		terryspecial5.speed.x = 2;
+	if (App->enemy2->position.x < App->player2->position.x ) {
+		andyspecial2.speed.x = 2;
 
 	}
 

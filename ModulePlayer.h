@@ -106,6 +106,7 @@ public:
 	int speed = 2;
 	float life = 100;
 	int score = 0;
+	int cont = 0;
 
 	enum player_states
 	{
