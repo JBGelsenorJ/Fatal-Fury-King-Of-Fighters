@@ -8,7 +8,7 @@
 #include "p2Qeue.h"
 
 #define MAX_KEYS 500
-#define JUMP_TIME 500
+#define JUMP_TIME 2000
 #define JUMPF_TIME 500
 #define JUMPB_TIME 500
 

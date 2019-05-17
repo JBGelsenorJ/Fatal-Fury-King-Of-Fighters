@@ -340,7 +340,7 @@ update_status ModulePlayer2::Update()
 
 		case ST_JUMP_NEUTRAL:
 
-			/*if (position.y <= 220)
+			if (position.y <= 220)
 			{
 				animdone = false;
 				current_animation = &jump;
@@ -348,12 +348,18 @@ update_status ModulePlayer2::Update()
 				jumpspeed -= 0.2;
 			}
 
-			if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
+		
+
+			if (SDL_GetTicks() - App->input->jump_timer > JUMPF_TIME && position.y == 220)
 			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->jump_timer = 0;
+
 				position.y = 220;
 				jumpspeed = 6;
-				animdone == true;
-			}*/
+				animdone = true;
+			}
+
 			if (Active == 0)
 			{
 				position.y -= jumpSpeed;

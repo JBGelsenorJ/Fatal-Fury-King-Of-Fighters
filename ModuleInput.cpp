@@ -334,6 +334,10 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		if (SDL_GetTicks() - jump_timer > JUMP_TIME)
 		{
 			inputs.Push(IN_JUMP_FINISH);
+			App->player2->position.y = 220;
+			App->player2->jumpspeed = 6;
+			App->player2->animdone = true;
+		
 			jump_timer = 0;
 		}
 	}
