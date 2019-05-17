@@ -25,11 +25,11 @@ ModuleEnemy2::ModuleEnemy2()
 	//IDLE
 	{
 
-		//Terry Bogard Idle Animation
-		idle.PushBack({ 870, 121, 60, 102 });
-		/*idle.PushBack({ 877, 601, 64, 100 });
-		idle.PushBack({ 870, 121, 60, 102 });
-		idle.PushBack({ 877, 601, 64, 100 });*/
+		//Andy Bogard Idle Animation
+		idle.PushBack({ 811, 341, 60, 101 });
+		idle.PushBack({ 873, 343, 61, 100 });
+		idle.PushBack({ 937, 346, 61, 98 });
+		idle.PushBack({ 873, 343, 61, 100 });
 
 		idle.speed = 0.18f;
 
