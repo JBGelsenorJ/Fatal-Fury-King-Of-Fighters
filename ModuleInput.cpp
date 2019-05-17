@@ -430,6 +430,10 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		if (SDL_GetTicks() - jump_timer2 > JUMP_TIME)
 		{
 			inputs2.Push(IN_JUMP_FINISH2);
+			App->enemy2->position.y = 220;
+			App->enemy2->jumpspeed = 6;
+			App->enemy2->animdone = true;
+
 			jump_timer2 = 0;
 		}
 	}

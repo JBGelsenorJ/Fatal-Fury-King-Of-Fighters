@@ -342,6 +342,26 @@ update_status ModuleEnemy2::Update()
 
 		case ST_JUMP_NEUTRAL:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jump;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer2 > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->jump_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			/*if (position.y <= 220)
 			{
 				animdone = false;
@@ -355,7 +375,7 @@ update_status ModuleEnemy2::Update()
 				position.y = 220;
 				jumpspeed = 6;
 				animdone == true;
-			}*/
+			}
 			if (Active == 0)
 			{
 				position.y -= jumpSpeed;
@@ -375,15 +395,57 @@ update_status ModuleEnemy2::Update()
 					Active = 1;
 					position.y = initialPos;
 					jumpSpeed = 6;
-				}
+				}*/
 				LOG("JUMPING ^^\n")
-			}
+			
 
 			break;
 
 		case ST_JUMP_FORWARD:
 
-			if (Active == 0)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jumpf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer2 > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->jump_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jumpf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer2 > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->jump_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}*/
+
+			/*if (Active == 0)
 			{
 				current_animation = &jump;
 				position.y -= jumpSpeed;
@@ -404,14 +466,35 @@ update_status ModuleEnemy2::Update()
 					position.y = initialPos;
 					jumpSpeed = 6;
 				}
-			}
+			}*/
 			LOG("JUMPING FORWARD ^^>>\n");
 
 			break;
 
 		case ST_JUMP_BACKWARD:
 
-			if (Active == 0)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &jumpb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->jump_timer2 > JUMP_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->jump_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (Active == 0)
 			{
 				current_animation = &jump;
 				position.y -= jumpSpeed;
@@ -440,7 +523,7 @@ update_status ModuleEnemy2::Update()
 					jumpSpeed = 6;
 
 				}
-			}
+			}*/
 			LOG("JUMPING BACKWARD ^^<<\n");
 
 			break;
