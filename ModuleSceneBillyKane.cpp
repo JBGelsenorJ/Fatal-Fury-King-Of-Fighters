@@ -60,6 +60,14 @@ ModuleBillyKane::ModuleBillyKane()
 	wall2.h = 300;
 	wall2.w = 30;
 
+	//Shadow
+
+	/*shadow.x = 46;
+	shadow.y = 28;
+	shadow.w = 79;
+	shadow.h = 15;*/
+
+
 
 }
 
@@ -75,7 +83,7 @@ bool ModuleBillyKane::Start()
 	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
+	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png"); //rest add the shadow texture
 	
 	//Enabling game features
 	App->particles->Enable();
@@ -144,6 +152,18 @@ update_status ModuleBillyKane::Update()
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);
+
+	//Draw shadows of players
+	
+	/*if ((SDL_GetTicks() - timerstart) % 2 == 0)
+	{
+		App->render->Blit(graphics, App->player2->position.x - 10, 220, &shadow, 1.0);
+	}
+	else
+	{
+		App->render->Blit(graphics, App->enemy2->position.x - 10, 220, &shadow, 1.0);
+	}*/
+
 
 	//Scene Out
 	if (App->player2->life <= 0)

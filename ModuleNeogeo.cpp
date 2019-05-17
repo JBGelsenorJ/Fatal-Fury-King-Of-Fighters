@@ -36,6 +36,8 @@ ModuleNeogeo::ModuleNeogeo()
 	rect2.PushBack({ 0, 0, 138, 18 });
 	rect3.PushBack({ 0, 0, 83, 24 });
 	
+
+
 }
 
 ModuleNeogeo::~ModuleNeogeo()

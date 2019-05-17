@@ -39,6 +39,11 @@ public:
 	uint time;
 	char time_text[10];
 	int countdown = -1;
+
+	//Shadow
+	SDL_Rect shadow;
+	int shadowtime;
+	int timerstart;
 };
 
 #endif
