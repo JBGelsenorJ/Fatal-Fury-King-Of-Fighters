@@ -3,7 +3,6 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleSceneBillyKane2.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
@@ -29,19 +28,19 @@ ModuleBillyKane2::ModuleBillyKane2()
 
 	//Background
 
-	//sea.PushBack({ 51,567,620,237 });
-	sea.PushBack({ 720,556,620,237 });
-	sea.PushBack({ 720,809,620,237 });
-	sea.PushBack({ 720,1057,620,237 });
+	//sea.PushBack({ 721,567,621,234  });
+	//sea.PushBack({ 721,821,621,239 });
+	sea.PushBack({ 721,1062,621,237 });
+	sea.PushBack({ 721,1311,621,237 });
 	sea.speed = 0.09f;
 
-	//purple people animation
+	//purple people animation<
 	people1.PushBack({ 757, 51, 64, 95 });
 	people1.PushBack({ 843,51,64,95 });
 	people1.speed = 0.09f;
 	// fat and thin people
-	people2.PushBack({ 753, 277, 62, 88 });
-	people2.PushBack({ 846,270,61,95 });
+	people2.PushBack({ 753, 268, 62, 150 });
+	people2.PushBack({ 846, 277,61,150 });
 	people2.speed = 0.09f;
 
 	//blonde people
@@ -131,16 +130,14 @@ update_status ModuleBillyKane2::Update()
 	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
 	//People animation
 	App->render->Blit(graphics, 250, 115, &(people1.GetCurrentFrame()), 1.4f);
-	App->render->Blit(graphics, 187, 115, &(people2.GetCurrentFrame()), 1.4f);
-	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
+	App->render->Blit(graphics, 187, 115, &(people3.GetCurrentFrame()), 1.4f);
+	App->render->Blit(graphics, -108, 115, &(people2.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();
 	
-	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
-	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);

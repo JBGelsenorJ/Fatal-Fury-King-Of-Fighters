@@ -43,17 +43,17 @@ Application::Application()
 	modules[11] = audio = new ModuleMusic();
 	modules[12] = scene_intro = new ModuleFFIntro();
 	modules[13] = scene_intro2 = new ModuleFFIntro2();
-	modules[14] = particles = new ModuleParticles();
-	modules[15] = collision = new ModuleCollision();
+	modules[22] = particles = new ModuleParticles();
+	modules[21] = collision = new ModuleCollision();
 	modules[16] = fonts = new ModuleFonts();
 	modules[17] = ui = new ModuleUI();
 	modules[18] = p1w = new ModuleP1Wins();
 	modules[19] = p2w = new ModuleP2Wins();
 	modules[8] = scene_billykane = new ModuleBillyKane();
-	modules[24] = scene_billykane2 = new ModuleBillyKane2();
-	modules[25] = scene_billykane3 = new ModuleBillyKane3();
-	modules[21] = player2 = new ModulePlayer2();
-	modules[22] = enemy2 = new ModuleEnemy2();
+	modules[15] = scene_billykane2 = new ModuleBillyKane2();
+	modules[14] = scene_billykane3 = new ModuleBillyKane3();
+	modules[24] = player2 = new ModulePlayer2();
+	modules[25] = enemy2 = new ModuleEnemy2();
 	modules[23] = scene_neogeo = new ModuleNeogeo();
 	
 
