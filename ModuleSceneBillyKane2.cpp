@@ -141,26 +141,71 @@ update_status ModuleBillyKane2::Update()
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);
+	// Scene out
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 
-	//Scene Out
+		App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+
+	}
 	if (App->player2->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_billykane2, App->p2w, 1.5);
+		App->enemy2->rounds++;
 
+		 if (App->enemy2->rounds == 2)
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->p2w, 1.5);
+		}
+		else
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+		}
 	}
+	// Player wins by defeating enemy
 	else if (App->enemy2->life <= 0)
 	{
-		App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 1.5);
+		App->player2->rounds++;
+		if (App->player2->rounds == 2)
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 1.5);
+		}
+		else
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+		}
 
 	}
-	else if (App->ui->time <= 0 && App->player->life > App->enemy2->life || App->ui->time >= 200000 && App->player->life > App->enemy2->life)
+	// Time's out player wins because he has more life
+	else if (App->ui->time <= 0 && App->player2->life > App->enemy2->life || App->ui->time >= 200000 && App->player2->life > App->enemy2->life)
 	{
-		App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 1.5);
 
+		App->player2->rounds++;
+		if (App->player2->rounds == 2)
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 1.5);
+		}
+		else
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+		}
 	}
-	else if (App->ui->time <= 0 && App->player->life < App->enemy2->life || App->ui->time >= 200000 && App->player->life < App->enemy2->life)
+	// Time's out enemy wins because he has more life
+	else if (App->ui->time <= 0 && App->player2->life < App->enemy2->life || App->ui->time >= 200000 && App->player2->life < App->enemy2->life)
+	{
+		App->enemy2->rounds++;
+		 if (App->enemy2->rounds == 2)
+		{
+			App->fade->FadeToBlack(App->scene_billykane3, App->p2w, 1.5);
+		}
+		else
+		{
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+		}
+	}
+	// Tie
+	else if (App->ui->time <= 0 && App->player2->life == App->enemy2->life || App->ui->time >= 200000 && App->player2->life == App->enemy2->life)
 	{
 		App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 1.5);
+
 	}
 	return UPDATE_CONTINUE;
 }

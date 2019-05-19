@@ -3,12 +3,12 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
-#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
-#include "ModuleEnemy.h"
+#include "ModuleEnemy2.h"
 
 
 #include "ModulePlayerSelection.h"
@@ -49,6 +49,8 @@ bool ModuleP2Wins::Start()
 
 	LOG("Loading assets");
 	return ret;
+	App->player2->rounds = 0;
+	App->enemy2->rounds = 0;
 }
 
 bool ModuleP2Wins::CleanUp()

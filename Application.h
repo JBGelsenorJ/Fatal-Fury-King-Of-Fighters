@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 
-#define NUM_MODULES 26
+#define NUM_MODULES 27
 
 
 class ModuleWindow;
@@ -33,6 +33,7 @@ class ModuleEnemy2;
 class ModuleNeogeo;
 class ModuleBillyKane2;
 class ModuleBillyKane3;
+class ModuleSlowdown;
 
 class Module;
 
@@ -67,6 +68,7 @@ public:
 	ModuleNeogeo* scene_neogeo;
 	ModuleBillyKane2* scene_billykane2;
 	ModuleBillyKane3* scene_billykane3;
+	ModuleSlowdown* slowdown;
 
 
 public:

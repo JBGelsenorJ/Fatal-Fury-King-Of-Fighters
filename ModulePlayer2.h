@@ -97,6 +97,7 @@ public:
 	float life = 100;
 	int score = 0;
 	int cont = 0;
+	int rounds = 0;
 };
 
 #endif

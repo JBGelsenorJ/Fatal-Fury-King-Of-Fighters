@@ -25,6 +25,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
 #include "ModuleNeogeo.h"
+#include "ModuleSlowdown.h"
 
 
 Application::Application()
@@ -55,6 +56,7 @@ Application::Application()
 	modules[24] = player2 = new ModulePlayer2();
 	modules[25] = enemy2 = new ModuleEnemy2();
 	modules[23] = scene_neogeo = new ModuleNeogeo();
+	modules[26] = slowdown = new ModuleSlowdown();
 	
 
 }	
@@ -92,6 +94,7 @@ bool Application::Init()
 	audio->Disable();
 	particles->Disable();
 	ui->Disable();
+	slowdown->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
