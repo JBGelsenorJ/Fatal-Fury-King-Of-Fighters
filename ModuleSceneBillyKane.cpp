@@ -141,8 +141,8 @@ update_status ModuleBillyKane::Update()
 	App->render->Blit(graphics, 250, 115, &(people1.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 187, 115, &(people2.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
-	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
-	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
+	App->render->Blit(graphics, 0, 0, &wall1, 1.4, true);
+	App->render->Blit(graphics, 0, 0, &wall2, 1.4, true);
 
 	App->ui->Timer(129,5);
 	App->ui->DrawLife();

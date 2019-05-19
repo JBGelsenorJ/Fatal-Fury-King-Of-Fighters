@@ -1056,6 +1056,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerpunch == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
 		playerpunch->to_delete = true;
 		App->player2->position.x += 3;
 		App->player2->life -= 25;
@@ -1065,6 +1067,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (playerkick == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
 		playerkick->to_delete = true;
 		App->player2->life -= 25;
 		App->player2->position.x += 3;

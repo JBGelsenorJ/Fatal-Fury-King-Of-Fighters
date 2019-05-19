@@ -6,6 +6,8 @@
 #include "SDL/include/SDL.h"
 #include "ModulePlayer.h"
 #include "ModuleEnemy.h"
+#include <cstdlib>
+#include <time.h>
 
 
 ModuleRender::ModuleRender() : Module()
@@ -13,6 +15,9 @@ ModuleRender::ModuleRender() : Module()
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
+	camera_offset.x = camera_offset.y = 0;
+
+	srand(time(NULL));
 }
 
 // Destructor
@@ -51,13 +56,13 @@ update_status ModuleRender::PreUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
-update_status ModuleRender::Update()	
+update_status ModuleRender::Update()
 {
 
 	int speed = 3;
 
 
-	
+
 	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 		camera.y += speed;
 	}
@@ -72,10 +77,12 @@ update_status ModuleRender::Update()
 		camera.x += speed;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT)
-	
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT){
+
 		camera.x -= speed;
-	
+	}
+	if (shaking)
+		UpdateCameraShake();
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -107,8 +114,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 {
 	bool ret = true;
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+	rect.x = (int)((camera.x + camera_offset.x) * speed) + x * SCREEN_SIZE;
+	rect.y = (int)((camera.y + camera_offset.y) * speed) + y * SCREEN_SIZE;
 
 	if(section != NULL)
 	{
@@ -137,8 +144,8 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 {
 	bool ret = true;
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+	rect.x = (int)((camera.x + camera_offset.x) * speed) + x * SCREEN_SIZE;
+	rect.y = (int)((camera.y + camera_offset.y) * speed) + y * SCREEN_SIZE;
 
 	if (section != NULL)
 	{
@@ -153,12 +160,6 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
 
-	//If we set true color we will change enemy color
-	if (color == true) {
-		SDL_SetTextureColorMod(texture, 0, 200, 240);
-	}
-
-	//Then render
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, center, SDL_FLIP_HORIZONTAL) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopyEx error: %s", SDL_GetError());
@@ -191,4 +192,27 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+void ModuleRender::StartCameraShake(int duration, float magnitude)
+{
+	//TODO 1: Store the data and start the shake
+	shake_duration = duration;
+	shake_magnitude = magnitude;
+	shaking = true;
+	shake_timer = SDL_GetTicks();
+}
+
+void ModuleRender::UpdateCameraShake()
+{
+	if (SDL_GetTicks() - shake_duration < shake_timer)
+	{
+		camera_offset.x = rand() % (int)shake_magnitude;
+		camera_offset.y = rand() % (int)shake_magnitude;
+	}
+	else
+	{
+		camera_offset.x = 0;
+		camera_offset.y = 0;
+	}
+
 }
