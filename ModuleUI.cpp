@@ -18,6 +18,13 @@
 //Needed to make sprintf_s
 #include <stdio.h>
 
+//Needed to make scene change
+#include "ModuleSceneBillyKane.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
+#include "ModuleP1Wins.h"
+#include "ModuleFadeToBlack.h"
+
 
 #define START_DELAY 2000;
 
@@ -25,49 +32,75 @@
 ModuleUI::ModuleUI(){
 
 	//White Square behind Timer
+	timerbackground.x = (SCREEN_WIDTH / 2) - 16; //CENTER OF THE SCREEN LESS TIMER
+	timerbackground.y = 18;
+	timerbackground.w = 32;
+	timerbackground.h = 24;
 
-	timerbackground.x = 382;
-	timerbackground.y = 11;
-	timerbackground.w = 100;
-	timerbackground.h = 75;
+	//Time Text Upp timer
+	timetext.x = 34;
+	timetext.y = 89;
+	timetext.w = 33;
+	timetext.h = 10;
 
-	//HealthP1 full of life
-	health.x = 1;
-	health.y = 20;
-	health.w = 120;
-	health.h = 13;
+	//P1 Yellow Healthbar
+	health.x = 5;
+	health.y = 11;
+	health.w = 98;
+	health.h = 9;
 
-	//HealthP2 full of life
-	healthp2.x = 1;
-	healthp2.y = 20;
-	healthp2.w = 120;
-	healthp2.h = 13;
+	//P2 Yellow Healthbar
+	healthp2.x = 5;
+	healthp2.y = 11;
+	healthp2.w = 98;
+	healthp2.h = 9;
 
-	//Health without life
-	nohealth.x = 1;
-	nohealth.y = 0;
-	nohealth.w = 120;
-	nohealth.h = 12;
+	//Gray HealthBar
+	nohealth.x = 5;
+	nohealth.y = 25;
+	nohealth.w = 98;
+	nohealth.h = 9;
 
-	//Point without red dot or scored
-	point.x = 0;
-	point.y = 0;
-	point.w = 0;
-	point.h = 0;
+	//RedLife Animation
+	redlife.PushBack({ 5,42,98,9 });
+	redlife.PushBack({ 5,25,98,9 });
+	redlife.speed = 0.1f;
 
-	//Red Point
-	pointred.x = 0;
-	pointred.y = 0;
-	pointred.w = 0;
-	pointred.h = 0;
+	//Redpoint Animation
+	redpoint.PushBack({22,63,18,18});
+	redpoint.PushBack({ 40,63,18,18 });
+	redpoint.speed = 0.1f;
 
-	//Point Scored
-	pointscored.x = 0;
-	pointscored.y = 0;
-	pointscored.w = 0;
-	pointscored.h = 0;
+	//Black Dot
+	point.x = 22;
+	point.y = 63;
+	point.w = 18;
+	point.h = 18;
 
+	//Red Dot Point
+	pointred.x = 40;
+	pointred.y = 63;
+	pointred.w = 18;
+	pointred.h = 18;
 
+	//Point Scored Dot
+	pointscored.x = 4;
+	pointscored.y = 63;
+	pointscored.w = 18;
+	pointscored.h = 18;
+
+	//Andy and Terry Square
+	andybogard.x = 62;
+	andybogard.y = 63;
+	andybogard.w = 18;
+	andybogard.h = 18;
+
+	terrybogard.x = 84;
+	terrybogard.y = 64;
+	terrybogard.w = 18; //maybe 17
+	terrybogard.h = 18;
+
+	healthwidth = 98;
 	
 }
 
@@ -96,8 +129,8 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update(){
 
 
-	health.w = 120 * (App->enemy2->life / 100);
-	healthp2.w = 120 * (App->player2->life / 100);
+	health.w = 98 * (App->enemy2->life / 100);
+	healthp2.w = 98 * (App->player2->life / 100);
 
 	return UPDATE_CONTINUE;
 }
@@ -114,7 +147,7 @@ bool ModuleUI::CleanUp()
 	return true;
 }
 
-bool ModuleUI::Timer(int w, int h) {
+bool ModuleUI::Timer() {
 
 	if (starting <= SDL_GetTicks() && time > 0) {
 		//starting = SDL_GetTicks();
@@ -129,7 +162,9 @@ bool ModuleUI::Timer(int w, int h) {
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);
 	App->render->DrawQuad(timerbackground, 255, 255, 255, 255, false);
-	App->fonts->BlitText(w, h, countdown, time_text);
+	App->fonts->BlitText(((SCREEN_WIDTH/2)-15), 19, countdown, time_text);
+	App->render->Blit(graphics, ((SCREEN_WIDTH / 2) - 17), 9, &timetext, false);
+
 
 	
 	return true;
@@ -137,13 +172,59 @@ bool ModuleUI::Timer(int w, int h) {
 
 bool ModuleUI::DrawLife() {
 
-	//Rendering P1 Life
-	App->render->MirrorBlit(graphics, 2, 10, &nohealth, 0.0f, 0, NULL);
-	App->render->MirrorBlit(graphics, 2, 10, &healthp2, 0.0f, 180, NULL);
+	//Rendering P1 Life and character square
 	
-	//Rendering P2 Life
-	App->render->Blit(graphics, 166, 10, &nohealth,false);
-	App->render->Blit(graphics, 166, 10, &health, false);
+	if (App->player->IsEnabled() == true) App->render->Blit(graphics, 21, 17, &terrybogard, false);
+	if (App->player2->IsEnabled() == true)App->render->Blit(graphics, 21, 17, &andybogard, false);
+	
+	//Life and Animation
+	App->render->MirrorBlit(graphics, 37, 25, &nohealth, 0.0f, 0, NULL);
+	if (App->player->life < 50 || App->player2->life < 50) {
+		App->render->Blit(graphics, 37, 25, &(redlife.GetCurrentFrame()), 0.1f);
+	}
+	App->render->MirrorBlit(graphics, 37, 25, &healthp2, 0.0f, 0, NULL);
+	
+
+	//Rendering P2 Life and character square
+	if (App->enemy->IsEnabled() == true) App->render->MirrorBlit(graphics, (SCREEN_WIDTH - terrybogard.w - 21), 17, &terrybogard, 0.0f, 0, NULL);
+	if (App->enemy2->IsEnabled() == true)App->render->MirrorBlit(graphics, (SCREEN_WIDTH - andybogard.w - 21), 17, &andybogard, 0.0f, 0, NULL);
+
+	//Life and Animation
+	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &nohealth,false);
+	if (App->enemy->life < 50 || App->enemy2->life < 50) {
+		App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &(redlife.GetCurrentFrame()), 0.1f);
+	}
+	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &health, false);
+
+	return true;
+}
+
+bool ModuleUI::Score(int p1score, int p2score, float p1life, float p2life, int p1points, int p2points){
+
+	//DEFAULT RENDER
+	App->render->Blit(graphics, 21, 49, &point, false);
+	App->render->Blit(graphics, 39, 49, &point, false);
+
+	App->render->Blit(graphics, (SCREEN_WIDTH - 57), 49, &point, false);
+	App->render->Blit(graphics, (SCREEN_WIDTH - 39), 49, &point, false);
+
+
+	//P1
+	if (p2life <= 0) {
+		p1score++;
+		if (p1score == 1) { 
+			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f); 
+			App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 10.0f);
+
+		}
+
+		if (p1score == 2) { 
+			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
+			App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
+
+		}
+	}
+	
 
 	return true;
 }

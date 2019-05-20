@@ -147,8 +147,9 @@ update_status ModuleBillyKane::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.4, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.4, true);
 
-	App->ui->Timer(129,5);
+	App->ui->Timer();
 	App->ui->DrawLife();
+	App->ui->Score(App->player2->rounds, App->enemy2->rounds, App->player2->life, App->enemy2->life, App->player2->score, App->enemy2->score);
 	
 	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
@@ -183,7 +184,8 @@ update_status ModuleBillyKane::Update()
 		}
 	}
 	// Player wins by defeating enemy
-	else if (App->enemy2->life <= 0)
+	/*
+	if (App->enemy2->life <= 0)
 	{
 		App->player2->rounds++;
 		if (App->player2->rounds == 2)
@@ -196,6 +198,9 @@ update_status ModuleBillyKane::Update()
 		}
 
 	}
+	*/
+
+
 	// Time's out player wins because he has more life
 	else if (App->ui->time <= 0 && App->player2->life > App->enemy2->life || App->ui->time >= 200000 && App->player2->life > App->enemy2->life)
 	{

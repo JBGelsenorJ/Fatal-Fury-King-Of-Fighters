@@ -135,7 +135,7 @@ update_status ModuleBillyKane2::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
-	App->ui->Timer(129,5);
+	App->ui->Timer();
 	App->ui->DrawLife();
 	
 	

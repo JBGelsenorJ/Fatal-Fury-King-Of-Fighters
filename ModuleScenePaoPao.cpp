@@ -112,7 +112,7 @@ update_status ModuleScenePaoPao::Update()
 	//People animation
 	App->render->Blit(graphics, -115, 0, &(people.GetCurrentFrame()), 1.4f ); 
 
-	App->ui->Timer(129,5);
+	App->ui->Timer();
 	App->ui->DrawLife();
 
 	if (App->input->keyboard[SDL_SCANCODE_T] == 1) {

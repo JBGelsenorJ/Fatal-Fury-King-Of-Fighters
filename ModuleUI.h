@@ -22,8 +22,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	bool Timer(int,int);
+	bool Timer();
 	bool DrawLife();
+	bool Score(int,int, float, float, int, int);
 
 public:
 	//Shape for Timer
@@ -31,15 +32,23 @@ public:
 
 	//Textures and font sprites
 	SDL_Texture* graphics;
+	SDL_Rect timetext;
 	SDL_Rect health;
 	SDL_Rect healthp2;
 	SDL_Rect nohealth;
+	SDL_Rect redhealth;
 	SDL_Rect point;
 	SDL_Rect pointred;
 	SDL_Rect pointscored;
+	SDL_Rect andybogard;
+	SDL_Rect terrybogard;
+
+	Animation redlife;
+	Animation redpoint;
 
 	int countdown = -1;
 	int scorefont = -1;
+	int healthwidth = 0;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;
