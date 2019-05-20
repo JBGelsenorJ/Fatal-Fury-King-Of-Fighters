@@ -63,10 +63,10 @@ ModuleBillyKane::ModuleBillyKane()
 
 	//Shadow
 
-	/*shadow.x = 46;
-	shadow.y = 28;
-	shadow.w = 79;
-	shadow.h = 15;*/
+	shadow.x = 53;
+	shadow.y = 1589;
+	shadow.w = 66;
+	shadow.h = 14;
 
 
 
@@ -159,14 +159,13 @@ update_status ModuleBillyKane::Update()
 
 	//Draw shadows of players
 	
-	/*if ((SDL_GetTicks() - timerstart) % 2 == 0)
-	{
-		App->render->Blit(graphics, App->player2->position.x - 10, 220, &shadow, 1.0);
-	}
-	else
-	{
-		App->render->Blit(graphics, App->enemy2->position.x - 10, 220, &shadow, 1.0);
-	}*/
+	
+		App->render->Blit(graphics, App->player2->position.x - 5, 210, &shadow, 0, false);
+	
+	
+	
+		App->render->Blit(graphics, App->enemy2->position.x, 210, &shadow, 0, false);
+	
 
 
 	//Scene Out
