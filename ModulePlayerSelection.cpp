@@ -3,14 +3,12 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
-#include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
 #include "ModuleMusic.h"
 
 
 //Scenes that we are going to need
-#include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleSceneBillyKane.h"
 #include "ModuleFFIntro.h"

@@ -12,7 +12,6 @@
 #include "SDL\include\SDL.h"
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
-#include "ModuleScenePaoPao.h"
 #include "ModuleSceneBillyKane.h"
 
 
@@ -215,6 +214,12 @@ ModuleEnemy2::ModuleEnemy2()
 				hhd.speed = 0.15f;
 				}*/
 
+				//Shadow
+		shadow.x = 644;
+		shadow.y = 695;
+		shadow.w = 66;
+		shadow.h = 14;
+
 }
 
 
@@ -264,6 +269,7 @@ update_status ModuleEnemy2::Update()
 
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs2);
+	App->render->Blit(graphics, position.x, 210, &shadow, 0, false);
 
 	int speed = 2;
 

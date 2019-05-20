@@ -9,7 +9,7 @@
 #include "ModuleCollision.h"
 #include "ModulePlayer2.h"
 #include "ModuleEnemy2.h"
-#include "ModulePlayer.h"
+
 
 ModuleInput::ModuleInput() : Module()
 {

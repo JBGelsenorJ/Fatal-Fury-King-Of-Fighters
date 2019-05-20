@@ -4,8 +4,6 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
-#include "ModulePlayer.h"
-#include "ModuleEnemy.h"
 #include <cstdlib>
 #include <time.h>
 

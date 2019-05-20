@@ -6,8 +6,6 @@
 #include "ModuleParticles.h"
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
-#include "ModuleEnemy.h"
-#include "ModulePlayer.h"
 #include "ModuleEnemy2.h"
 #include "ModulePlayer2.h"
 
@@ -26,7 +24,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	App->player->forplayer = true;
+	//App->player->forplayer = true;
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
 
 	// Special1

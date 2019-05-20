@@ -10,8 +10,6 @@
 #include <string.h>
 
 //Needed to link life with healthbars
-#include "ModulePlayer.h"
-#include "ModuleEnemy.h"
 #include "ModuleEnemy2.h"
 #include "ModulePlayer2.h"
 
@@ -174,24 +172,22 @@ bool ModuleUI::DrawLife() {
 
 	//Rendering P1 Life and character square
 	
-	if (App->player->IsEnabled() == true) App->render->Blit(graphics, 21, 17, &terrybogard, false);
 	if (App->player2->IsEnabled() == true)App->render->Blit(graphics, 21, 17, &andybogard, false);
 	
 	//Life and Animation
 	App->render->MirrorBlit(graphics, 37, 25, &nohealth, 0.0f, 0, NULL);
-	if (App->player->life < 50 || App->player2->life < 50) {
+	if (App->player2->life < 50) {
 		App->render->Blit(graphics, 37, 25, &(redlife.GetCurrentFrame()), 0, false);
 	}
 	App->render->MirrorBlit(graphics, 37, 25, &healthp2, 0.0f, 0, NULL);
 	
 
 	//Rendering P2 Life and character square
-	if (App->enemy->IsEnabled() == true) App->render->MirrorBlit(graphics, (SCREEN_WIDTH - terrybogard.w - 21), 17, &terrybogard, 0.0f, 0, NULL);
 	if (App->enemy2->IsEnabled() == true)App->render->MirrorBlit(graphics, (SCREEN_WIDTH - andybogard.w - 21), 17, &andybogard, 0.0f, 0, NULL);
 
 	//Life and Animation
 	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &nohealth,false);
-	if (App->enemy->life < 50 || App->enemy2->life < 50) {
+	if (App->enemy2->life < 50) {
 		App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &(redlife.GetCurrentFrame()), 0, false);
 	}
 	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &health, false);

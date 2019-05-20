@@ -12,8 +12,6 @@
 
 
 #include "ModulePlayerSelection.h"
-#include "ModuleScenePaoPao.h"
-#include "ModuleSceneSoundBeach.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleP1Wins.h"
 #include "ModuleP2Wins.h"

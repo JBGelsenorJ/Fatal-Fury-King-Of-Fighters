@@ -7,7 +7,6 @@
 #include "SDL/include/SDL_timer.h"
 
 //Load Scenes
-#include "ModuleScenePaoPao.h"
 #include "ModulePlayerSelection.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"

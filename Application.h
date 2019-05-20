@@ -4,17 +4,14 @@
 #include "Globals.h"
 
 
-#define NUM_MODULES 27
+#define NUM_MODULES 23
 
 
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleScenePaoPao;
-class ModuleSceneSoundBeach;
 class ModuleWelcomeScreen;
-class ModulePlayer;
 class ModuleFadeToBlack;
 class ModulePlayerSelection;
 class ModuleMusic;
@@ -22,7 +19,6 @@ class ModuleFFIntro;
 class ModuleFFIntro2;
 class ModuleParticles;
 class ModuleCollision;
-class ModuleEnemy;
 class ModuleFonts;
 class ModuleUI;
 class ModuleP1Wins;
@@ -46,10 +42,7 @@ public:
 	ModuleRender* render;
 	ModuleInput* input;
 	ModuleTextures* textures;
-	ModuleScenePaoPao* scene_paopao;
-	ModuleSceneSoundBeach* scene_soundbeach;
 	ModuleWelcomeScreen* scene_welcome;
-	ModulePlayer* player;
 	ModuleFadeToBlack* fade;
 	ModulePlayerSelection* playerselection;
 	ModuleMusic* audio;
@@ -57,7 +50,6 @@ public:
 	ModuleFFIntro2* scene_intro2;
 	ModuleParticles* particles;
 	ModuleCollision* collision;
-	ModuleEnemy* enemy;
 	ModuleFonts* fonts;
 	ModuleUI* ui;
 	ModuleP1Wins* p1w;

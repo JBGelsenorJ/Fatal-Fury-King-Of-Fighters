@@ -5,7 +5,6 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneBillyKane3.h"
 #include "ModuleSceneBillyKane.h"
-#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"
@@ -15,7 +14,6 @@
 
 
 #include "ModulePlayerSelection.h"
-#include "ModuleSceneSoundBeach.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleFFIntro.h"
 #include "ModuleP1Wins.h"
@@ -139,8 +137,8 @@ update_status ModuleBillyKane3::Update()
 	App->ui->Timer();
 	App->ui->DrawLife();
 	
-	float centerx = (App->player->position.x + App->enemy2->position.x) / 2;
-	float centery = (App->player->position.y + App->enemy2->position.y) / 2; 
+	float centerx = (App->player2->position.x + App->enemy2->position.x) / 2;
+	float centery = (App->player2->position.y + App->enemy2->position.y) / 2; 
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);

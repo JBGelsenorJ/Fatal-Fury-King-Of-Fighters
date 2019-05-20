@@ -3,7 +3,6 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
-#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "SDL\include\SDL.h"

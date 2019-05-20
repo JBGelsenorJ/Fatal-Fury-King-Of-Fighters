@@ -12,7 +12,6 @@
 #include "SDL\include\SDL.h"
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
-#include "ModuleScenePaoPao.h"
 #include "ModuleSceneBillyKane.h"
 
 
@@ -216,9 +215,9 @@ ModulePlayer2::ModulePlayer2()
 			}*/
 
 		//Shadow
-		shadow.x = 53;
-		shadow.y = 1589;
-		shadow.w = 66;
+		shadow.x = 644;
+		shadow.y = 696;
+		shadow.w = 65;
 		shadow.h = 14;
 
 
@@ -270,7 +269,7 @@ update_status ModulePlayer2::Update()
 
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs);
-	App->render->Blit(graphics, App->player2->position.x - 5, 210, &shadow, 0, false);
+	App->render->Blit(graphics, position.x - 5, 210, &shadow, 0, false);
 
 
 	int speed = 2;
