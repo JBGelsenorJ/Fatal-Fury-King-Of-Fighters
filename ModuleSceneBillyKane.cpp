@@ -61,15 +61,6 @@ ModuleBillyKane::ModuleBillyKane()
 	wall2.h = 300;
 	wall2.w = 30;
 
-	//Shadow
-
-	shadow.x = 53;
-	shadow.y = 1589;
-	shadow.w = 66;
-	shadow.h = 14;
-
-
-
 }
 
 ModuleBillyKane::~ModuleBillyKane()
@@ -156,18 +147,9 @@ update_status ModuleBillyKane::Update()
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);
-
-	//Draw shadows of players
-	
-	
-		App->render->Blit(graphics, App->player2->position.x - 5, 210, &shadow, 0, false);
 	
 	
 	
-		App->render->Blit(graphics, App->enemy2->position.x, 210, &shadow, 0, false);
-	
-
-
 	//Scene Out
 	// Enemy wins by defeating player
 	if (App->player2->life <= 0)

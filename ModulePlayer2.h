@@ -32,6 +32,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Rect shadow;
 	Animation * current_animation = nullptr;
 	
 	Animation idle;

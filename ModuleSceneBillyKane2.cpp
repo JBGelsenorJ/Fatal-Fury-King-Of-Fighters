@@ -137,7 +137,8 @@ update_status ModuleBillyKane2::Update()
 
 	App->ui->Timer();
 	App->ui->DrawLife();
-	
+	App->ui->Score(App->player2->rounds, App->enemy2->rounds, App->player2->life, App->enemy2->life, App->player2->score, App->enemy2->score);
+
 	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);

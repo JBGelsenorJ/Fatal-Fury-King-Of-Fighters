@@ -180,7 +180,7 @@ bool ModuleUI::DrawLife() {
 	//Life and Animation
 	App->render->MirrorBlit(graphics, 37, 25, &nohealth, 0.0f, 0, NULL);
 	if (App->player->life < 50 || App->player2->life < 50) {
-		App->render->Blit(graphics, 37, 25, &(redlife.GetCurrentFrame()), 0.1f);
+		App->render->Blit(graphics, 37, 25, &(redlife.GetCurrentFrame()), 0, false);
 	}
 	App->render->MirrorBlit(graphics, 37, 25, &healthp2, 0.0f, 0, NULL);
 	
@@ -192,7 +192,7 @@ bool ModuleUI::DrawLife() {
 	//Life and Animation
 	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &nohealth,false);
 	if (App->enemy->life < 50 || App->enemy2->life < 50) {
-		App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &(redlife.GetCurrentFrame()), 0.1f);
+		App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &(redlife.GetCurrentFrame()), 0, false);
 	}
 	App->render->Blit(graphics, (SCREEN_WIDTH - 37 - healthwidth), 25, &health, false);
 

@@ -214,6 +214,14 @@ ModulePlayer2::ModulePlayer2()
 
 			hhd.speed = 0.15f;
 			}*/
+
+		//Shadow
+		shadow.x = 53;
+		shadow.y = 1589;
+		shadow.w = 66;
+		shadow.h = 14;
+
+
 }
 
 ModulePlayer2::~ModulePlayer2(){
@@ -262,8 +270,12 @@ update_status ModulePlayer2::Update()
 
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs);
+	App->render->Blit(graphics, App->player2->position.x - 5, 210, &shadow, 0, false);
+
 
 	int speed = 2;
+
+
 	
 	
 	//god mode
@@ -1078,4 +1090,3 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 }
-
