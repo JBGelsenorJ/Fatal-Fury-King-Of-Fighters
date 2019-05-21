@@ -10,6 +10,12 @@ public:
 	bool loop = true;
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
+
+	int pivotx[MAX_FRAMES];
+	int pivoty[MAX_FRAMES];
+	int pivotx2[MAX_FRAMES];
+	int pivoty2[MAX_FRAMES];
+
 	bool animend = false;
 	float current_frame;
 	int last_frame = 0;
@@ -48,6 +54,10 @@ public:
 	bool Finished() const
 	{
 		return loops > 0;
+	}
+
+	int returnCurrentFrame() {
+		return (int)current_frame;
 	}
 
 	void Reset()

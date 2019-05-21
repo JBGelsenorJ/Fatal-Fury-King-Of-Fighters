@@ -35,6 +35,8 @@ public:
 	Animation * current_animation = nullptr;
 	SDL_Rect shadow;
 
+
+
 	Animation idle;
 	Animation forward;
 	Animation backward;

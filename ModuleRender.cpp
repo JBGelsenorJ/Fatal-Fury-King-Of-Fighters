@@ -167,6 +167,62 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 	return ret;
 }
 
+bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect * _section, float scale, float speed, float fillAmount, RENDER_PIVOT pivot)
+{
+	bool ret = true;
+	SDL_Rect rect;
+	SDL_Rect section = *_section;
+	int w = section.w - section.w * fillAmount;
+
+	section.w -= w;
+
+	switch (pivot)
+	{
+	case TOP_RIGHT:
+		rect.x = (int)(camera.x * speed) + (x - section.w)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		break;
+	case TOP_LEFT:
+		rect.x = (int)(camera.x * speed) + (x)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		break;
+	case MIDDLE:
+		rect.x = (int)(camera.x * speed) + (x + w + section.x / 2)* SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed) + (y + section.y / 2)* SCREEN_SIZE;
+		break;
+	}
+	
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	if (scale < 0)
+	{
+		scale = fabsf(scale);
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+
+	if (&section != NULL)
+	{
+		rect.w = section.w * scale;
+		rect.h = section.h * scale;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	rect.w *= SCREEN_SIZE;
+	rect.h *= SCREEN_SIZE;
+
+	if (SDL_RenderCopyEx(renderer, texture, &section, &rect, 0, NULL, flip) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+
+}
+
 bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera)
 {
 	bool ret = true;

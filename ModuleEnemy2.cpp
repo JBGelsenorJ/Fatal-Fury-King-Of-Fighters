@@ -13,6 +13,7 @@
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleSceneBillyKane.h"
+#include "Animation.h"
 
 
 
@@ -269,7 +270,7 @@ update_status ModuleEnemy2::Update()
 
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs2);
-	App->render->Blit(graphics, position.x, 210, &shadow, 0, false);
+	App->render->Blit(graphics, position.x - 5, 210, &shadow, 0, false);
 
 	int speed = 2;
 
@@ -733,7 +734,7 @@ update_status ModuleEnemy2::Update()
 
 	current_state = state;
 
-	SDL_Rect r = current_animation->GetCurrentFrame();
+	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	playercol->SetPos(position.x, position.y);
 	playerpunch->SetPos(position.x + 40, position.y - 90);
@@ -741,12 +742,12 @@ update_status ModuleEnemy2::Update()
 
 	if (App->player2->position.x > position.x)
 	{
-		App->render->Blit(graphics, position.x, position.y - r.h, &r);
+		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
 	}
 
 	if (App->player2->position.x < position.x)
 	{
-		App->render->MirrorBlit(graphics, position.x, position.y - r.h, &r, 1.0f, 0, NULL);
+		App->render->BlitWithScale(graphics, position.x + 50 + (-current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r, -1, 1.0f, 1, TOP_RIGHT);
 	}
 
 	if (App->player2->position.x > position.x) {
