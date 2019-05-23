@@ -108,20 +108,20 @@ ModulePlayer2::ModulePlayer2()
 		kickf.PushBack({ 369, 721, 58, 77 });
 		kickf.PushBack({ 435, 727, 96, 71 });
 
-		kickf.speed = 0.18f;
+		kickf.speed = 0.1f;
 
 		//Terry Bogard Kick JUMPB Animation
 		kickb.PushBack({ 305, 718, 52, 83 });
 		kickb.PushBack({ 369, 721, 58, 77 });
 		kickb.PushBack({ 435, 727, 96, 71 });
 
-		kickb.speed = 0.18f;
+		kickb.speed = 0.1f;
 
 		//Terry Bogard Kick JUMPN Animation
 		kickn.PushBack({ 713, 709, 57, 87 });
 		kickn.PushBack({ 778, 710, 94, 89 });
 
-		kickn.speed = 0.18f;
+		kickn.speed = 0.1f;
 
 		//Terry Bogard Kick Crouch Animation
 		kickc.PushBack({ 23, 739, 54, 62 });
@@ -140,7 +140,7 @@ ModulePlayer2::ModulePlayer2()
 		punch.PushBack({ 154, 127, 50, 97 });
 		punch.PushBack({ 219, 126, 95, 97 });
 
-		punch.speed = 0.18f;
+		punch.speed = 0.1f;
 
 		// punch jumpf animation
 		punchf.PushBack({ 19, 824, 52, 100 });
@@ -551,6 +551,37 @@ update_status ModulePlayer2::Update()
 			{
 				current_animation = &punchn;
 			}*/
+
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchn;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+			}
+
+			if (position.x < App->enemy2->position.x)
+			{
+				position.x += 2;
+			}
+			if (position.x > App->enemy2->position.x)
+			{
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchn_timer > PUNCHN_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->punchn_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("PUNCH NEUTRAL JUMP ++++\n");
 
 			/*if (position.y <= 220)
@@ -571,12 +602,53 @@ update_status ModulePlayer2::Update()
 
 		case ST_PUNCH_FORWARD_JUMP:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchf_timer > PUNCHF_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->punchf_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("PUNCH JUMP FORWARD ^>>+\n");
 
 			break;
 
 		case ST_PUNCH_BACKWARD_JUMP:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchb_timer > PUNCHB_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->punchb_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 			LOG("PUNCH JUMP BACKWARD ^<<+\n");
 
 			break;
@@ -665,7 +737,7 @@ update_status ModulePlayer2::Update()
 			if (position.y <= 220)
 			{
 				animdone = false;
-				current_animation = &kickf;
+				current_animation = &kickn;
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 			}

@@ -12,11 +12,11 @@
 #define JUMPF_TIME 1000
 #define JUMPB_TIME 1000
 
-#define PUNCH_TIME 400
-#define PUNCHF_TIME 400
-#define PUNCHB_TIME 400
-#define PUNCHN_TIME 400
-#define PUNCHC_TIME 400
+#define PUNCH_TIME 500
+#define PUNCHF_TIME 500
+#define PUNCHB_TIME 500
+#define PUNCHN_TIME 500
+#define PUNCHC_TIME 500
 
 #define SP1_TIME 500
 
