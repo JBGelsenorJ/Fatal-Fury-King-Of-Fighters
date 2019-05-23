@@ -101,7 +101,7 @@ ModuleEnemy2::ModuleEnemy2()
 			kick.PushBack({ 747, 26, 55, 82 });
 			kick.PushBack({ 832, 11, 61, 102 });
 			
-			kick.speed = 0.18f;
+			kick.speed = 0.13f;
 
 			//Terry Bogard Kick JUMPF Animation
 			kickf.PushBack({ 305, 718, 52, 83 });
@@ -245,9 +245,9 @@ bool ModuleEnemy2::Start()
 	position.y = 220;
 	initialPos = position.y;
 
-	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-	playerpunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 
 	return ret;
 
@@ -281,13 +281,13 @@ update_status ModuleEnemy2::Update()
 		if (godmode == false)
 		{
 
-			playercol->to_delete = true;
+			enemycol->to_delete = true;
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
-			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+			enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 
 			godmode = false;
 		}
@@ -575,8 +575,8 @@ update_status ModuleEnemy2::Update()
 			{
 				if (App->enemy2->colcreated == true)
 				{
-					App->enemy2->playerpunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
-					App->enemy2->playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+					App->enemy2->enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					App->enemy2->enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 					App->enemy2->colcreated = false;
 				}
 
@@ -720,7 +720,38 @@ update_status ModuleEnemy2::Update()
 
 		case ST_KICK_STANDING:
 
-			if (attack == true)
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kick;
+				if (SDL_GetTicks() - App->input->kick_timer2 > 350 && position.y == 220)
+				{
+					position.y = 180;
+					enemycol->to_delete = true;
+
+					enemycol = App->collision->AddCollider({ 50, -250, 45, -90 }, COLLIDER_ENEMY, this);
+				}
+				if (SDL_GetTicks() - App->input->kick_timer2 > 400 && position.y == 180)
+				{
+					position.y = 220;
+
+				}
+
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kick_timer2 > KICK_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_KICK_FINISH2);
+				App->input->kick_timer2 = 0;
+
+				position.y = 220;
+				kick_jumpspeed = 6;
+				animdone = true;
+			}
+
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(Audio);
 				attack = false;
@@ -728,16 +759,16 @@ update_status ModuleEnemy2::Update()
 			if (Active == 0)
 			{
 				current_animation = &kick;
-			}
+			}*/
 
 			LOG("KICK --\n")
-				if (App->enemy2->colcreated == true)
+				/*if (App->enemy2->colcreated == true)
 				{
 					App->enemy2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_ENEMY_SHOT, 0);
 					App->enemy2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 					App->enemy2->colcreated = false;
 				}
-				if (App->enemy2->colcreated == true)
+				if (App->enemy2->colcreated == true)*/
 				break;
 
 		case ST_KICK_NEUTRAL_JUMP:
@@ -882,9 +913,9 @@ update_status ModuleEnemy2::Update()
 
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
-	playercol->SetPos(position.x, position.y);
-	playerpunch->SetPos(position.x + 40, position.y - 90);
-	playerkick->SetPos(position.x + 40, position.y - 60);
+	enemycol->SetPos(position.x, position.y);
+	enemypunch->SetPos(position.x + 40, position.y - 90);
+	enemykick->SetPos(position.x + 40, position.y - 60);
 
 	if (App->player2->position.x > position.x)
 	{
@@ -898,19 +929,19 @@ update_status ModuleEnemy2::Update()
 
 	if (App->player2->position.x > position.x) {
 
-		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
+		enemypunch->SetPos(position.x + 40, position.y - 90);
+		enemykick->SetPos(position.x + 40, position.y - 60);
 
 	}
 
 	if (App->player2->position.x < position.x) {
 
-		playerpunch->SetPos(position.x - 40, position.y - 90);
-		playerkick->SetPos(position.x - 40, position.y - 60);
+		enemypunch->SetPos(position.x - 40, position.y - 90);
+		enemykick->SetPos(position.x - 40, position.y - 60);
 
 	}
 
-	playercol->SetPos(position.x, position.y);
+	enemycol->SetPos(position.x, position.y);
 
 	return UPDATE_CONTINUE;
 
@@ -1075,13 +1106,13 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		case ST_CROUCH:
 		{
 
-		playercol->to_delete = true;
-		playercol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
+			enemycol->to_delete = true;
+			enemycol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 
 		switch (last_input)
 		{
 
-		case IN_CROUCH_UP2: state = ST_IDLE; playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); break;
+		case IN_CROUCH_UP2: state = ST_IDLE; enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); break;
 			case IN_JUMP_AND_CROUCH2: state = ST_IDLE; break;
 			case IN_Y: state = ST_PUNCH_CROUCH; App->input->punchc_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_CROUCH; App->input->kickc_timer2 = SDL_GetTicks(); break;
@@ -1117,7 +1148,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 
-			case IN_KICK_FINISH2: state = ST_IDLE; Active = 0; attack = true; break;
+			case IN_KICK_FINISH2: state = ST_IDLE; enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); attack = true; break;
 
 			}
 
@@ -1222,35 +1253,35 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 
-	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
 		App->player2->position.x += 3;
 
 	}
 
 
-	if (playercol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
 		App->player2->position.x -= 3;
 
 	}
 
-	if (playerpunch == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemypunch == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
-		playerpunch->to_delete = true;
+		enemypunch->to_delete = true;
 		App->player2->position.x += 3;
 		App->player2->life -= 25;
 
 
 	}
 
-	if (playerkick == c1 && c2->type == COLLIDER_PLAYER)
+	if (enemykick == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
-		playerkick->to_delete = true;
+		enemykick->to_delete = true;
 		App->player2->life -= 25;
 		App->player2->position.x += 3;
 
@@ -1258,7 +1289,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 
-	if (playercol == c1 && c2->type == COLLIDER_WALL)
+	if (enemycol == c1 && c2->type == COLLIDER_WALL)
 	{
 		if (App->render->camera.x >= -200)
 		{
@@ -1268,7 +1299,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 			App->scene_billykane->wall2.x-=5;
 		}
 	}
-	if (playercol == c1 && c2->type == COLLIDER_WALL_RIGHT)
+	if (enemycol == c1 && c2->type == COLLIDER_WALL_RIGHT)
 	{
 		position.x --;
 		App->render->camera.x-=10;

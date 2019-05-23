@@ -454,7 +454,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			inputs2.Push(IN_PUNCH_FINISH2);
 			punch_timer2 = 0;
 			App->enemy2->colcreated = true;
-			App->enemy2->playerpunch->to_delete = true;
+			App->enemy2->enemypunch->to_delete = true;
 		}
 	}
 
@@ -474,7 +474,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			inputs2.Push(IN_KICK_FINISH2);
 			kick_timer2 = 0;
 			App->enemy2->colcreated = true;
-			App->enemy2->playerkick->to_delete = true;
+			App->enemy2->enemykick->to_delete = true;
 		}
 	}
 

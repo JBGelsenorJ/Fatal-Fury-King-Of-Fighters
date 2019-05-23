@@ -71,9 +71,9 @@ public:
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 
-	Collider* playercol;
-	Collider* playerpunch;
-	Collider* playerkick;
+	Collider* enemycol;
+	Collider* enemypunch;
+	Collider* enemykick;
 
 	int initialPos;
 
@@ -92,6 +92,7 @@ public:
 	player_states process_fsm(p2Qeue<player_inputs>& inputs);
 
 	float jumpspeed = 6;
+	float kick_jumpspeed = 6;
 
 	int speed = 2;
 	float life = 100;

@@ -101,7 +101,7 @@ ModulePlayer2::ModulePlayer2()
 		kick.PushBack({ 747, 26, 55, 82 });
 		kick.PushBack({ 832, 11, 61, 102 });
 
-		kick.speed = 0.18f;
+		kick.speed = 0.13f;
 
 		//Terry Bogard Kick JUMPF Animation
 		kickf.PushBack({ 305, 718, 52, 83 });
@@ -679,17 +679,17 @@ update_status ModulePlayer2::Update()
 				current_animation = &kick;
 				if (SDL_GetTicks() - App->input->kick_timer > 350 && position.y == 220)
 				{
-					position.y = 200;
+					position.y = 180;
 					playercol->to_delete = true;
-					
+
 					playercol = App->collision->AddCollider({ 50, -250, 45, -90 }, COLLIDER_PLAYER, this);
 				}
-				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 220)
+				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
 
 				}
-				
+
 			}
 
 
