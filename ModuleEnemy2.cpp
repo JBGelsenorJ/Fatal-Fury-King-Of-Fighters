@@ -108,20 +108,20 @@ ModuleEnemy2::ModuleEnemy2()
 			kickf.PushBack({ 369, 721, 58, 77 });
 			kickf.PushBack({ 435, 727, 96, 71 });
 			
-			kickf.speed = 0.18f;
+			kickf.speed = 0.1f;
 
 			//Terry Bogard Kick JUMPB Animation
 			kickb.PushBack({ 305, 718, 52, 83 });
 			kickb.PushBack({ 369, 721, 58, 77 });
 			kickb.PushBack({ 435, 727, 96, 71 });
 			
-			kickb.speed = 0.18f;
+			kickb.speed = 0.1f;
 
 			//Terry Bogard Kick JUMPN Animation
 			kickn.PushBack({ 713, 709, 57, 87 });
 			kickn.PushBack({ 778, 710, 94, 89 });
 			
-			kickn.speed = 0.18f;
+			kickn.speed = 0.1f;
 
 			//Terry Bogard Kick Crouch Animation
 			kickc.PushBack({ 23, 739, 54, 62 });
@@ -588,7 +588,7 @@ update_status ModuleEnemy2::Update()
 		case ST_PUNCH_NEUTRAL_JUMP:
 
 
-			if (attack == true)
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(Audio);
 				attack = false;
@@ -596,7 +596,38 @@ update_status ModuleEnemy2::Update()
 			if (Active == 0)
 			{
 				current_animation = &punchn;
+			}*/
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchn;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
 			}
+
+			//CAMINA HACIA DELANTE AL PEGAR
+			if (position.x < App->player2->position.x)
+			{
+				position.x += 1;
+			}
+			if (position.x > App->player2->position.x)
+			{
+				position.x -= 1;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchn_timer2 > PUNCHN_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->punchn_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("PUNCH NEUTRAL JUMP ++++\n");
 
 			/*if (position.y <= 220)
@@ -617,11 +648,53 @@ update_status ModuleEnemy2::Update()
 
 		case ST_PUNCH_FORWARD_JUMP:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchf_timer2 > PUNCHF_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->punchf_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("PUNCH JUMP FORWARD ^>>+\n");
 
 			break;
 
 		case ST_PUNCH_BACKWARD_JUMP:
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &punchb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->punchb_timer2 > PUNCHB_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->punchb_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 
 			LOG("PUNCH JUMP BACKWARD ^<<+\n");
 
@@ -669,7 +742,7 @@ update_status ModuleEnemy2::Update()
 
 		case ST_KICK_NEUTRAL_JUMP:
 
-			if (attack == true)
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(ryokick);
 				attack = false;
@@ -677,18 +750,91 @@ update_status ModuleEnemy2::Update()
 			if (Active == 0)
 			{
 				current_animation = &kickn;
+			}*/
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickn;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
 			}
+
+			//AL PEGAR CAMINA HACIA DELANTE
+			if (position.x < App->player2->position.x)
+			{
+				position.x += 1;
+			}
+			if (position.x > App->player2->position.x)
+			{
+				position.x -= 1;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickn_timer2 > KICKN_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->kickn_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("KICK JUMP NEUTRAL ^^--\n");
 
 			break;
 
 		case ST_KICK_FORWARD_JUMP:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickf_timer2 > KICKF_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->kickf_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
 			LOG("KICK JUMP FORWARD ^>>-\n");
 
 			break;
 
 		case ST_KICK_BACKWARD_JUMP:
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickb_timer2 > KICKB_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH2);
+				App->input->kickb_timer2 = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 
 			LOG("KICK JUMP BACKWARD ^<<-\n");
 
@@ -840,8 +986,8 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_Y: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
-				//case IN_U: state = ST_KICK_NEUTRAL_JUMP; kick_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_Y: state = ST_PUNCH_NEUTRAL_JUMP;  App->input->punch_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_U: state = ST_KICK_NEUTRAL_JUMP;  App->input->kick_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
 
 			}
 		}
@@ -853,7 +999,8 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_Y: state = ST_PUNCH_FORWARD_JUMP;  punch_timer2 = SDL_GetTicks(); break;
+			case IN_Y: state = ST_PUNCH_FORWARD_JUMP;   App->input->punch_timer2 = SDL_GetTicks(); break;
+			case IN_U: state = ST_KICK_FORWARD_JUMP;  App->input->kickf_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
 
 
 			}
@@ -867,7 +1014,8 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_JUMP_FINISH2: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_Y: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer2 = SDL_GetTicks(); break;
+			case IN_Y: state = ST_PUNCH_BACKWARD_JUMP;  App->input->punchb_timer2 = SDL_GetTicks(); break;
+			case IN_U: state = ST_KICK_BACKWARD_JUMP;  App->input->kickb_timer2 = SDL_GetTicks(); Active = 0; attack = true; break;
 
 			}
 
@@ -879,7 +1027,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 
-				//case IN_PUNCH_FINISH2: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+			case IN_PUNCH_FINISH2: state = ST_JUMP_NEUTRAL; attack = true; break;
 			case IN_JUMP_FINISH2: state = ST_IDLE; break;
 
 			}
@@ -986,6 +1134,32 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 			}
 		}
+
+		case ST_KICK_FORWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH2: state = ST_JUMP_FORWARD; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
+
+		case ST_KICK_BACKWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH2: state = ST_JUMP_BACKWARD; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
 
 		case ST_KICK_CROUCH:
 		{

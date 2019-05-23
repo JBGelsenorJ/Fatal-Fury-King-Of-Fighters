@@ -563,11 +563,11 @@ update_status ModulePlayer2::Update()
 
 			if (position.x < App->enemy2->position.x)
 			{
-				position.x += 2;
+				position.x += 1;
 			}
 			if (position.x > App->enemy2->position.x)
 			{
-				position.x -= 2;
+				position.x -= 1;
 			}
 
 
@@ -744,11 +744,11 @@ update_status ModulePlayer2::Update()
 
 			if (position.x < App->enemy2->position.x)
 			{
-				position.x += 2;
+				position.x += 1;
 			}
 			if (position.x > App->enemy2->position.x)
 			{
-				position.x -= 2;
+				position.x -= 1;
 			}
 
 
@@ -770,7 +770,6 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_FORWARD_JUMP:
 
-			LOG("KICK JUMP FORWARD ^>>-\n");
 			if (position.y <= 220)
 			{
 				animdone = false;
@@ -791,6 +790,9 @@ update_status ModulePlayer2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
+
+			LOG("KICK JUMP FORWARD ^>>-\n");
+			
 
 			break;
 
@@ -816,6 +818,7 @@ update_status ModulePlayer2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
+
 			LOG("KICK JUMP BACKWARD ^<<-\n");
 
 			break;
