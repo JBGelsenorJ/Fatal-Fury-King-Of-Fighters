@@ -21,7 +21,7 @@
 #define SP1_TIME 500
 
 #define KICK_TIME 500
-#define KICKF_TIME 150
+#define KICKF_TIME 100
 #define KICKB_TIME 150
 #define KICKN_TIME 150
 #define KICKC_TIME 300

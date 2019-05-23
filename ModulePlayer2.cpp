@@ -668,6 +668,26 @@ update_status ModulePlayer2::Update()
 		case ST_KICK_FORWARD_JUMP:
 
 			LOG("KICK JUMP FORWARD ^>>-\n");
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickf_timer > KICKF_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->kickf_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 
 			break;
 
@@ -839,7 +859,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_FORWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+				case IN_T: state = ST_PUNCH_FORWARD_JUMP;  App->input->punchf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+				case IN_R: state = ST_KICK_FORWARD_JUMP;  App->input->kickf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
 
 
 			}
@@ -1003,6 +1024,19 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			break;
 
 		}
+
+		case ST_KICK_FORWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH: state = ST_JUMP_FORWARD; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
 
 		/*case ST_LDAMAGE:
 		{
