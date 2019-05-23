@@ -21,10 +21,10 @@
 #define SP1_TIME 500
 
 #define KICK_TIME 500
-#define KICKF_TIME 100
-#define KICKB_TIME 150
-#define KICKN_TIME 150
-#define KICKC_TIME 300
+#define KICKF_TIME 500
+#define KICKB_TIME 500
+#define KICKN_TIME 500
+#define KICKC_TIME 500
 
 #define LDAMAGE_TIME 100
 #define HDAMAGE_TIME 200

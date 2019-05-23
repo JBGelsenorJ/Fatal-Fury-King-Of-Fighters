@@ -542,7 +542,7 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_NEUTRAL_JUMP:
 
 
-			if (attack == true)
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(Audio);
 				attack = false;
@@ -550,7 +550,7 @@ update_status ModulePlayer2::Update()
 			if (Active == 0)
 			{
 				current_animation = &punchn;
-			}
+			}*/
 			LOG("PUNCH NEUTRAL JUMP ++++\n");
 
 			/*if (position.y <= 220)
@@ -652,7 +652,7 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_NEUTRAL_JUMP:
 
-			if (attack == true)
+			/*if (attack == true)
 			{
 				//App->audio->PlayFX(ryokick);
 				attack = false;
@@ -660,7 +660,38 @@ update_status ModulePlayer2::Update()
 			if (Active == 0)
 			{
 				current_animation = &kickn;
+			}*/
+
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickf;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
 			}
+
+			if (position.x < App->enemy2->position.x)
+			{
+				position.x += 2;
+			}
+			if (position.x > App->enemy2->position.x)
+			{
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickn_timer > KICKN_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->kickn_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
+
+
 			LOG("KICK JUMP NEUTRAL ^^--\n");
 
 			break;
@@ -693,6 +724,26 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_BACKWARD_JUMP:
 
+			if (position.y <= 220)
+			{
+				animdone = false;
+				current_animation = &kickb;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x -= 2;
+			}
+
+
+
+			if (SDL_GetTicks() - App->input->kickb_timer > KICKB_TIME && position.y == 220)
+			{
+				App->input->inputs.Push(IN_JUMP_FINISH);
+				App->input->kickb_timer = 0;
+
+				position.y = 220;
+				jumpspeed = 6;
+				animdone = true;
+			}
 			LOG("KICK JUMP BACKWARD ^<<-\n");
 
 			break;
@@ -846,8 +897,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_NEUTRAL_JUMP;  punch_timer = SDL_GetTicks(); Active = 0; attack = true; break;
-				//case IN_R: state = ST_KICK_NEUTRAL_JUMP; kick_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_T: state = ST_PUNCH_NEUTRAL_JUMP; App->input->punchn_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_R: state = ST_KICK_NEUTRAL_JUMP; App->input->kickn_timer = SDL_GetTicks(); Active = 0; attack = true; break;
 
 			}
 		}
@@ -859,8 +910,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
-				case IN_T: state = ST_PUNCH_FORWARD_JUMP;  App->input->punchf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
-				case IN_R: state = ST_KICK_FORWARD_JUMP;  App->input->kickf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_T: state = ST_PUNCH_FORWARD_JUMP;  App->input->punchf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
+			case IN_R: state = ST_KICK_FORWARD_JUMP;  App->input->kickf_timer = SDL_GetTicks(); Active = 0; attack = true; break;
 
 
 			}
@@ -874,7 +925,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_JUMP_FINISH: state = ST_IDLE; Active = 0; attack = true; break;
-				//case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  punch_timer = SDL_GetTicks(); break;
+			case IN_T: state = ST_PUNCH_BACKWARD_JUMP;  App->input->punchb_timer = SDL_GetTicks(); break;
+			case IN_R: state = ST_KICK_BACKWARD_JUMP;  App->input->kickb_timer = SDL_GetTicks(); Active = 0; attack = true; break;
 
 			}
 
@@ -886,7 +938,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			switch (last_input)
 			{
 
-				//case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; animstart = 0; attack = true; break;
+			case IN_PUNCH_FINISH: state = ST_JUMP_NEUTRAL; break;
 			case IN_JUMP_FINISH: state = ST_IDLE; break;
 
 			}
@@ -1031,6 +1083,19 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_KICK_FINISH: state = ST_JUMP_FORWARD; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+
+			}
+
+		}
+		break;
+
+		case ST_KICK_BACKWARD_JUMP:
+		{
+			switch (last_input)
+			{
+
+			case IN_KICK_FINISH: state = ST_JUMP_BACKWARD; break;
 			case IN_JUMP_FINISH: state = ST_IDLE; break;
 
 			}
