@@ -607,14 +607,14 @@ update_status ModuleEnemy2::Update()
 			}
 
 			//CAMINA HACIA DELANTE AL PEGAR
-			if (position.x < App->player2->position.x)
+			/*if (position.x < App->player2->position.x)
 			{
 				position.x += 1;
 			}
 			if (position.x > App->player2->position.x)
 			{
 				position.x -= 1;
-			}
+			}*/
 
 
 
@@ -760,15 +760,15 @@ update_status ModuleEnemy2::Update()
 				jumpspeed -= 0.2;
 			}
 
-			//AL PEGAR CAMINA HACIA DELANTE
-			if (position.x < App->player2->position.x)
+			//CAMINA HACIA DELANTE AL PEGAR
+			/*if (position.x < App->player2->position.x)
 			{
 				position.x += 1;
 			}
 			if (position.x > App->player2->position.x)
 			{
 				position.x -= 1;
-			}
+			}*/
 
 
 
