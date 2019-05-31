@@ -3,9 +3,14 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "p2Qeue.h"
+
+//Inputs
 #include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL_gamecontroller.h"
-#include "p2Qeue.h"
+#include "SDL\include\SDL_haptic.h"
+
+////
 
 #define MAX_KEYS 500
 #define JUMP_TIME 1000
@@ -203,6 +208,8 @@ public:
 
 	SDL_GameController* gamepad1 = NULL;
 	SDL_GameController* gamepad2 = NULL;
+	SDL_Haptic* haptic = NULL;
+	SDL_Haptic* haptic2 = NULL;
 
 };
 

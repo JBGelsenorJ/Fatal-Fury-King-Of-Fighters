@@ -4,7 +4,6 @@
 #include "SDL/include/SDL.h"
 #include "p2Qeue.h"
 #include <iostream>
-#include "SDL/include/SDL_gamecontroller.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 #include "ModulePlayer2.h"
@@ -31,15 +30,29 @@ bool ModuleInput::Init()
 	
 	bool ret = true;
 	SDL_Init(0);
-	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);		//Starting gamepad controllers
 
+
+	//Checking all InitSubSystem
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}
+	}   //Events
+
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0) 
+	{
+		LOG("SDL_GAMECONTROLLER could not initialize! SDL_Error: %s\n", SDL_GetError());
+			ret = false;
+	}   //Gamepads
+
+	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0) {
+		LOG("SDL_Haptic could not initialize! SDL_Error: %s\n", SDL_GetError());
+			ret = false;
+	}	   //Haptics
+
 	
-	//Testing if there arent devices connected
+
+	/*
 	if (SDL_NumJoysticks() < 1) {
 		LOG("No Joysticks or Gamepads connected!\n");
 	}
@@ -51,7 +64,9 @@ bool ModuleInput::Init()
 		if (gamepad1 == NULL || gamepad2 == NULL) {
 			LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
 		}
+		
 	}
+	*/
 
 	return ret;
 }
@@ -63,6 +78,59 @@ bool ModuleInput::external_input()
 
 	while (SDL_PollEvent(&event))
 	{
+		//Switch events
+		switch (event.type) {
+
+			//If device are connected
+		case SDL_CONTROLLERDEVICEADDED:
+			LOG("GAMEPAD CONNECTED");
+			if(gamepad1 == NULL){
+					gamepad1 = SDL_GameControllerOpen(0);
+					if(SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad1)) < 0) {
+							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad1));
+							if (haptic != NULL) LOG("HAPTIC SUCCESS");
+							if (SDL_HapticRumbleInit(haptic) < 0) LOG("Error init rumble in haptic");
+							SDL_HapticRumblePlay(haptic, 0.8f, 1000);
+					}
+				} else {
+					if (gamepad2 == NULL) {
+						gamepad2 = SDL_GameControllerOpen(1);
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad2)) < 0) {
+							haptic2 = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad2));
+							if (haptic2 != NULL) LOG("HAPTIC SUCCESS");
+							if (SDL_HapticRumbleInit(haptic2) < 0) LOG("Error init rumble in haptic");
+							SDL_HapticRumblePlay(haptic2, 0.8f, 1000);
+						}
+					}
+				
+				}
+			break;
+
+			//If device are removed
+		case SDL_CONTROLLERDEVICEREMOVED:
+			LOG("GAMEPAD REMOVED");
+			if (gamepad2 != NULL) {
+				LOG("WE ARE REMOVING PLAYER 2 CONTROLLER");
+					SDL_HapticClose(haptic2);
+					SDL_GameControllerClose(gamepad2);
+					gamepad2 = NULL;
+					haptic2 = NULL;
+				}
+			else {
+				if (gamepad1 != NULL) {
+					LOG("WE ARE REMOVING PLAYER 1 CONTROLLER");
+					SDL_HapticClose(haptic);
+					SDL_GameControllerClose(gamepad1);
+					gamepad1 = NULL;
+					haptic = NULL;
+				}
+			}
+			break;
+		}
+
+
+
+
 
 		//CONTROLS FOR KEYBOARD --- KEYUP
 		if (event.type == SDL_KEYUP && event.key.repeat == 0)
