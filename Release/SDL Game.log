@@ -1,0 +1,112 @@
+﻿  Application.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer2.h(17): warning C4005: 'PUNCH_TIME': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(17): note: vea la definición anterior de 'PUNCH_TIME'
+  Globals.cpp
+  Main.cpp
+  ModuleCollision.cpp
+  ModuleEnemy.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+ModuleEnemy.cpp(316): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModuleEnemy.cpp(317): warning C4305: '-=': truncamiento de 'double' a 'float'
+  ModuleEnemy2.cpp
+ModuleEnemy2.cpp(316): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModuleEnemy2.cpp(317): warning C4305: '-=': truncamiento de 'double' a 'float'
+  ModuleFFIntro.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleFFIntro2.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleFonts.cpp
+  ModuleMusic.cpp
+  ModuleP1Wins.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleP2Wins.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleParticles.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+ModuleParticles.cpp(107): warning C4018: '>=': no coinciden signed/unsigned
+  ModulePlayer2.cpp
+ModulePlayer2.cpp(603): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer2.cpp(604): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer2.cpp(611): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+  ModulePlayerSelection.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleSceneBillyKane.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer2.h(17): warning C4005: 'PUNCH_TIME': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(17): note: vea la definición anterior de 'PUNCH_TIME'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+ModuleSceneBillyKane.cpp(134): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+ModuleSceneBillyKane.cpp(135): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModuleScenePaoPao.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+ModuleScenePaoPao.cpp(124): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+ModuleScenePaoPao.cpp(125): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModuleFadeToBlack.cpp
+  ModuleInput.cpp
+ModuleInput.cpp(13): warning C4018: '<': no coinciden signed/unsigned
+  ModulePlayer.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+ModulePlayer.cpp(396): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(397): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(403): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(415): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(416): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(422): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(458): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(459): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(465): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(478): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(479): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(485): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(499): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(500): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(506): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(529): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(530): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(536): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(548): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(549): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(555): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(567): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(568): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(574): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+ModulePlayer.cpp(594): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePlayer.cpp(595): warning C4305: '-=': truncamiento de 'double' a 'float'
+ModulePlayer.cpp(602): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+  Compilando...
+  ModuleRender.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleSceneSoundBeach.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleTextures.cpp
+  ModuleUI.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): note: vea la definición anterior de 'MAX_KEYS'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer2.h(17): warning C4005: 'PUNCH_TIME': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(17): note: vea la definición anterior de 'PUNCH_TIME'
+ModuleUI.cpp(90): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
+ModuleUI.cpp(99): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+ModuleUI.cpp(100): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleWelcomeScreen.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModuleInput.h(9): warning C4005: 'MAX_KEYS': redefinición de macro
+  c:\users\javier belda gonzále\documents\github\proyecto1-citm\ModulePlayer.h(12): note: vea la definición anterior de 'MAX_KEYS'
+  ModuleWindow.cpp
+  Generando código
+  5 of 251 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    54 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Release\Fatal_Fury.exe

@@ -1,0 +1,138 @@
+﻿  ModuleWelcomeScreen.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleUI.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleui.cpp(121): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleui.cpp(130): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleui.cpp(131): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleSceneBillyKane3.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane3.cpp(140): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane3.cpp(141): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModuleSceneBillyKane2.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleSceneBillyKane.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane.cpp(137): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane.cpp(138): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane.cpp(144): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulescenebillykane.cpp(145): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModuleRender.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.cpp(18): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.cpp(175): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.cpp(205): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.cpp(206): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.cpp(261): warning C4018: '<': no coinciden signed/unsigned
+  ModulePlayerSelection.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModulePlayer2.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(359): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(360): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(406): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(407): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(455): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(456): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(560): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(561): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(610): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(611): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(637): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(638): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(742): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(743): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(779): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(780): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(807): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(808): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(1086): warning C4806: '==': operación no segura: ningún valor del tipo 'bool' promovido al tipo 'player_inputs' puede igualar la constante proporcionada
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleplayer2.cpp(1130): warning C4806: '==': operación no segura: ningún valor del tipo 'bool' promovido al tipo 'player_inputs' puede igualar la constante proporcionada
+  ModuleParticles.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleparticles.cpp(96): warning C4018: '>=': no coinciden signed/unsigned
+  ModuleP2Wins.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleP1Wins.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleNeogeo.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleInput.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\xlocale(313): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
+  ModuleFadeToBlack.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleFFIntro2.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleFFIntro.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(90): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(91): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(100): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(102): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(103): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(107): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(108): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleffintro.cpp(109): warning C4305: '-=': truncamiento de 'double' a 'float'
+  ModuleEnemy2.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(356): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(357): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(417): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(418): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(487): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(488): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(605): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(606): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(655): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(656): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(682): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(683): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(705): warning C4244: '+=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(790): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(791): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(826): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(827): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(853): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(854): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(1131): warning C4806: '==': operación no segura: ningún valor del tipo 'bool' promovido al tipo 'player_inputs' puede igualar la constante proporcionada
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\moduleenemy2.cpp(1201): warning C4806: '==': operación no segura: ningún valor del tipo 'bool' promovido al tipo 'player_inputs' puede igualar la constante proporcionada
+  Application.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  Generando código...
+  Compilando...
+  ModuleWindow.cpp
+  ModuleTextures.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleSlowdown.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleMusic.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleFonts.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleCollision.cpp
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(42): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\javier belda gonzále\documents\github\proyecto1-citm\modulerender.h(43): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  Main.cpp
+  Generando código...
+  SDL Game.vcxproj -> C:\Users\Javier Belda Gonzále\Documents\GitHub\Proyecto1-Citm\Debug\Fatal_Fury.exe
