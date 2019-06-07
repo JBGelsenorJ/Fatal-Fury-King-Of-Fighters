@@ -230,7 +230,7 @@ ModulePlayer2::~ModulePlayer2(){
 // Load assets
 bool ModulePlayer2::Start()
 {
-
+	App->particles->cont = 0;
 	LOG("Loading player textures");
 	bool ret = true;
 	colcreated = true;

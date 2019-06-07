@@ -128,6 +128,15 @@ void ModuleBillyKane::Restart() {
 // Update: draw background
 update_status ModuleBillyKane::Update()
 {
+	distance = ((App->player2->position.x + App->enemy2->position.x) / 2);
+	App->render->camera.x = (distance*-1 + 125);
+
+	if (App->render->camera.x <= -330) {
+		App->render->camera.x = -330;
+	}
+	if (App->render->camera.x >= 0) {
+		App->render->camera.x = 0;
+	}
 	//background
 	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
 	//People animation

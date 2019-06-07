@@ -40,11 +40,12 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, int delay);
-	int cont = 0;
+	int cont;
 
 private:
 
-	SDL_Texture * graphics = nullptr;
+	SDL_Texture * graphics = nullptr; 
+	SDL_Texture * graphics2 = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
 	uint last_particle = 0;
 

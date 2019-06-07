@@ -495,7 +495,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->Activesm1 = true;
 
 		}
-		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 2000)
+		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 5000)
 		{
 			App->particles->cont = 0;
 		}
@@ -567,7 +567,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->Activesm1 = true;
 
 		}
-		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 2000)
+		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 5000)
 		{
 			App->particles->cont = 0;
 		}
