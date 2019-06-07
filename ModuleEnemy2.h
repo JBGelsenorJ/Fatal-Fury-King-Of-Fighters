@@ -26,6 +26,9 @@ public:
 	bool Active = false;
 	bool Activesm1 = true;
 	bool shoot = false;
+	bool lowdamage = false;
+	bool highdamage = false;
+	bool hhdamage = false;
 	int jumpSpeed = 6;
 	bool attack = true;
 
