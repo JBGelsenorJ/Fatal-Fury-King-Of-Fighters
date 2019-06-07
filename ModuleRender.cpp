@@ -270,3 +270,15 @@ void ModuleRender::UpdateCameraShake()
 	}
 
 }
+
+void ModuleRender::CameraMove(int playerx, int enemyx) {
+	cameradistance = ((playerx + enemyx) / 2);
+	App->render->camera.x = (cameradistance*-1 + 125);
+
+	if (App->render->camera.x <= -330) {
+		App->render->camera.x = -330;
+	}
+	if (App->render->camera.x >= 0) {
+		App->render->camera.x = 0;
+	}
+}

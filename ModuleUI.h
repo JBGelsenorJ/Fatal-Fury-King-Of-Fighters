@@ -24,7 +24,7 @@ public:
 
 	bool Timer();
 	bool DrawLife();
-	bool Score(int,int, float, float, int, int);
+	bool Score(int,int);
 	void WinLose(float, float, int);
 	void ChangeScene(int, int);
 

@@ -573,6 +573,66 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 	}
 
+	if (ldamage_timer > 0)
+	{
+		if (SDL_GetTicks() - ldamage_timer > LDAMAGE_TIME)
+		{
+			inputs.Push(IN_LDAMAGE_FINISH);
+			ldamage_timer = 0;
+			App->player2->lowdamage = false;
+		}
+	}
+
+	if (hdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - hdamage_timer > HDAMAGE_TIME)
+		{
+			inputs.Push(IN_HDAMAGE_FINISH);
+			hdamage_timer = 0;
+			App->player2->highdamage = false;
+		}
+	}
+
+	if (hhdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
+		{
+			inputs.Push(IN_HHDAMAGE_FINISH);
+			hhdamage_timer = 0;
+			App->player2->hhdamage = false;
+		}
+	}
+
+	if (ldamage_timer2 > 0)
+	{
+		if (SDL_GetTicks() - ldamage_timer2 > LDAMAGE_TIME)
+		{
+			inputs2.Push(IN_LDAMAGE_FINISH2);
+			ldamage_timer2 = 0;
+			App->enemy2->lowdamage = false;
+		}
+	}
+
+	if (hdamage_timer2 > 0)
+	{
+		if (SDL_GetTicks() - hdamage_timer2 > HDAMAGE_TIME)
+		{
+			inputs2.Push(IN_HDAMAGE_FINISH2);
+			hdamage_timer2 = 0;
+			App->enemy2->highdamage = false;
+		}
+	}
+
+	if (hhdamage_timer2 > 0)
+	{
+		if (SDL_GetTicks() - hhdamage_timer2 > HHDAMAGE_TIME)
+		{
+			inputs2.Push(IN_HHDAMAGE_FINISH2);
+			hhdamage_timer2 = 0;
+			App->enemy2->hhdamage = false;
+		}
+	}
+
 }
 // Called every draw update
 update_status ModuleInput::PreUpdate()

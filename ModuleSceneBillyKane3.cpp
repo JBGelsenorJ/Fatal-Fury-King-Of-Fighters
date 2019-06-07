@@ -124,17 +124,12 @@ void ModuleBillyKane3::Restart() {
 // Update: draw background
 update_status ModuleBillyKane3::Update()
 {
-	distance = ((App->player2->position.x + App->enemy2->position.x) / 2);
-	App->render->camera.x = (distance*-1 + 125);
+	//Camera Move
+	App->render->CameraMove(App->player2->position.x, App->enemy2->position.x);
 
-	if (App->render->camera.x <= -128) {
-		App->render->camera.x = -128;
-	}
-	if (App->render->camera.x >= 80) {
-		App->render->camera.x = 80;
-	}
-	//background
+	//Background
 	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
+
 	//People animation
 	App->render->Blit(graphics, 250, 115, &(people1.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 187, 115, &(people2.GetCurrentFrame()), 1.4f);
@@ -142,16 +137,16 @@ update_status ModuleBillyKane3::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
+	//Features that should Update
 	App->ui->Timer();
 	App->ui->DrawLife();
-	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);
+	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);	
+	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
 	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
-	
 
-
+	//Check this stuff
 	float centerx = (App->player2->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player2->position.y + App->enemy2->position.y) / 2; 
-	
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);
 
