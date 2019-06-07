@@ -28,9 +28,9 @@ ModuleBillyKane3::ModuleBillyKane3()
 	//Background
 
 	//sea.PushBack({ 51,567,620,237 });
-	sea.PushBack({ 51,822,620,237 });
-	sea.PushBack({ 51,1071,620,237 });
-	sea.PushBack({ 51,1319,620,237 });
+	sea.PushBack({ 1360,559,615,239 });
+	sea.PushBack({ 1360,815,618,239 });
+	sea.PushBack({ 1360,1060,619,238 });
 	sea.speed = 0.09f;
 
 	//purple people animation
