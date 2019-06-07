@@ -122,6 +122,11 @@ void ModuleBillyKane::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+
+	//Restarting Booleans that works on scene change
+	App->ui->ResetSceneChange();
+	App->player2->rounds = 0;
+	App->enemy2->rounds = 0;
 }
 
 
