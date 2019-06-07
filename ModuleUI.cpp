@@ -195,7 +195,7 @@ bool ModuleUI::DrawLife() {
 	return true;
 }
 
-bool ModuleUI::Score(int p1score, int p2score, float p1life, float p2life, int p1points, int p2points){
+bool ModuleUI::Score(int playerrounds, int enemyrounds){
 
 	
 	//DEFAULT RENDER
@@ -207,37 +207,26 @@ bool ModuleUI::Score(int p1score, int p2score, float p1life, float p2life, int p
 
 
 	//P1
-	if (p2life <= 0) {
-		p1score++;
-		if (p1score == 1) { 
-			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f); 
+	if(playerrounds == 1)App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f); 
 
-		}
-
-		if (p1score == 2) { 
-			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
-
-		}
-	}
-	
+	//if (playerrounds == 2) App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
 
 	return true;
 }
 
-void ModuleUI::WinLose(float player1, float player2, int time) {
+void ModuleUI::WinLose(float player, float enemy, int time) {
 	
 	//Player1 or Player2 lose life
-	if (player1 <= 0) App->player2->rounds++;
-	if (player2 <= 0) App->enemy2->rounds++;
+	if (enemy <= 0) App->player2->rounds++;
+	if (player <= 0) App->enemy2->rounds++;
 
-	if (player1 > player2 && time <= 0) App->player2->rounds++;
-	if (player2 > player1 && time <= 0) App->enemy2->rounds++;
+	if (player > enemy && time <= 0) App->player2->rounds++;
+	if (enemy > player && time <= 0) App->enemy2->rounds++;
 
-	if (player1 == player2 && time <= 0);	//DO NOTHING AND RESTARTS SAME SCENE
+	//TIE CASE ISSUE
 }
 
 void ModuleUI::ChangeScene(int p1round, int p2round) {
-	bool win = 1;
 
 	if ((p1round || p2round) == 1) {
 		App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 3.0f);
