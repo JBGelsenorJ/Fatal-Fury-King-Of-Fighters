@@ -26,9 +26,9 @@ public:
 	bool Active = false;
 	bool Activesm1 = true;
 	bool shoot = false;
-	bool lowdamage = false;
-	bool highdamage = false;
-	bool hhdamage = false;
+	bool lowdamage1 = false;
+	bool highdamage1 = false;
+	bool hhdamage1 = false;
 	int jumpSpeed = 6;
 	bool attack = true;
 
@@ -79,7 +79,7 @@ public:
 	Collider* enemykick;
 
 	int initialPos;
-
+	bool hit = false;
 
 	bool animdone = true;
 	bool jumpreset;

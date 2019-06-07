@@ -38,7 +38,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	bool hhdamage = false;
+	bool hhdamage1 = false;
+	bool hhdamage2 = false;
 	void OnCollision(Collider* c1, Collider* c2);
 	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, int delay);
 	int cont;
