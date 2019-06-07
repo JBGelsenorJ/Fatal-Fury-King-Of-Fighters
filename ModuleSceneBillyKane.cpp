@@ -137,6 +137,7 @@ update_status ModuleBillyKane::Update()
 	App->render->CameraMove(App->player2->position.x, App->enemy2->position.x);
 
 	//Background
+
 	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
 
 	//People animation

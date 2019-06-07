@@ -27,24 +27,23 @@ ModuleBillyKane3::ModuleBillyKane3()
 
 	//Background
 
-	//sea.PushBack({ 51,567,620,237 });
-	sea.PushBack({ 1360,559,615,239 });
-	sea.PushBack({ 1360,815,618,239 });
+	//sea.PushBack({ 1360,560,617,238 });
+	sea.PushBack({ 1360,816,618,239 });
 	sea.PushBack({ 1360,1060,619,238 });
 	sea.speed = 0.09f;
 
 	//purple people animation
-	people1.PushBack({ 72, 50, 65, 99 });
-	people1.PushBack({ 161,50,65,97 });
+	people1.PushBack({ 1368, 43, 65, 99 });
+	people1.PushBack({ 1446,43,68,102 });
 	people1.speed = 0.09f;
 	// fat and thin people
-	people2.PushBack({ 70, 408, 68, 99 });
-	people2.PushBack({ 164,408,62,105 });
+	people2.PushBack({ 1367, 409, 68, 99 });
+	people2.PushBack({ 1454,409,62,105 });
 	people2.speed = 0.09f;
 
 	//blonde people
-	people3.PushBack({ 60, 272, 61, 95 });
-	people3.PushBack({ 151,274,62,100 });
+	people3.PushBack({ 1366, 279, 68, 99 });
+	people3.PushBack({ 1459,279,62,105 });
 	people3.speed = 0.09f;
 
 	//walls
