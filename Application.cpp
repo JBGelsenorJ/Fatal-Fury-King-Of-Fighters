@@ -28,29 +28,36 @@ Application::Application()
 {
 	modules[0] = window = new ModuleWindow();
 	modules[1] = render = new ModuleRender();
-	modules[2] = input = new ModuleInput();
-	modules[3] = textures = new ModuleTextures();
-	modules[4] = playerselection = new ModulePlayerSelection();
-	modules[5] = scene_welcome = new ModuleWelcomeScreen();
-	modules[7] = fade = new ModuleFadeToBlack();
-	modules[8] = audio = new ModuleMusic();
-	modules[9] = scene_intro = new ModuleFFIntro();
-	modules[10] = scene_intro2 = new ModuleFFIntro2();
-	modules[18] = particles = new ModuleParticles();
-	modules[17] = collision = new ModuleCollision();
-	modules[13] = fonts = new ModuleFonts();
-	modules[14] = ui = new ModuleUI();
-	modules[15] = p1w = new ModuleP1Wins();
-	modules[16] = p2w = new ModuleP2Wins();
-	modules[6] = scene_billykane = new ModuleBillyKane();
-	modules[12] = scene_billykane2 = new ModuleBillyKane2();
-	modules[11] = scene_billykane3 = new ModuleBillyKane3();
-	modules[20] = player2 = new ModulePlayer2();
-	modules[21] = enemy2 = new ModuleEnemy2();
-	modules[19] = scene_neogeo = new ModuleNeogeo();
-	modules[22] = slowdown = new ModuleSlowdown();
+	modules[2] = slowdown = new ModuleSlowdown();
+	modules[3] = input = new ModuleInput();
+	modules[4] = textures = new ModuleTextures();
+	modules[5] = audio = new ModuleMusic();
+	modules[6] = fonts = new ModuleFonts();
 	
 
+
+	
+	//Scenes
+	modules[7] = scene_neogeo = new ModuleNeogeo();
+	modules[8] = scene_intro = new ModuleFFIntro();
+	modules[9] = scene_intro2 = new ModuleFFIntro2();
+	modules[10] = scene_welcome = new ModuleWelcomeScreen();
+	modules[11] = playerselection = new ModulePlayerSelection();
+	modules[12] = scene_billykane = new ModuleBillyKane();
+	modules[13] = scene_billykane2 = new ModuleBillyKane2();
+	modules[14] = scene_billykane3 = new ModuleBillyKane3();
+	modules[15] = p1w = new ModuleP1Wins();
+	modules[16] = p2w = new ModuleP2Wins();
+
+	//Things that must render above scenes 
+	modules[17] = collision = new ModuleCollision();
+	modules[18] = particles = new ModuleParticles();
+	modules[19] = ui = new ModuleUI();
+
+	//Players must render above all features
+	modules[20] = player2 = new ModulePlayer2();
+	modules[21] = enemy2 = new ModuleEnemy2();
+	modules[22] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()

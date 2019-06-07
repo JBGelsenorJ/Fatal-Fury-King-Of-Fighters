@@ -207,7 +207,7 @@ bool ModuleUI::Score(int playerrounds, int enemyrounds){
 
 
 	//P1
-	if(playerrounds == 1)App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f); 
+	if(playerrounds == 1)App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.0f, false); 
 
 	//if (playerrounds == 2) App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
 
@@ -223,20 +223,40 @@ void ModuleUI::WinLose(float player, float enemy, int time) {
 	if (player > enemy && time <= 0) App->player2->rounds++;
 	if (enemy > player && time <= 0) App->enemy2->rounds++;
 
+
 	//TIE CASE ISSUE
 }
 
 void ModuleUI::ChangeScene(int p1round, int p2round) {
 
-	if ((p1round || p2round) == 1) {
-		App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 3.0f);
+	//Change from Scene 1 to Scene 2
+	if (change1 == true) {
+		if ((p1round || p2round) == 1) {
+			App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 0.0f);
+			change1 = false;
+		}
 	}
 
-	if ((p1round && p2round) == 1) {
-		App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 3.0f);
+	//Change from Scene 2 to Scene3
+	if (change2 == true) {
+		if ((p1round && p2round) == 1) {
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 0.0f);
+			change2 = false;
+		}
 	}
 
-	if (p1round == 2 && p2round == 0 || p2round == 2 && p1round == 0) 	App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 3.0f);
-	if(p1round == 2 && p1round == 1 || p2round == 2 && p1round == 1)	App->fade->FadeToBlack(App->scene_billykane3, App->p1w, 3.0f);
+	//Change from Scene2 to PlayerWin
+		//This change works
+		if (p1round == 2 && p2round == 0 || p2round == 2 && p1round == 0) 	App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 3.0f);
 
+	//Change from Scene3 to Playwin
+		//this not
+		if (p1round == 2 && p1round == 1 || p2round == 2 && p1round == 1)	App->fade->FadeToBlack(App->scene_billykane3, App->p1w, 3.0f);
+
+}
+
+void ModuleUI::ResetSceneChange() {
+	change1 = true;
+	change2 = true;
+	change3 = true;
 }

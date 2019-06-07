@@ -27,6 +27,7 @@ public:
 	bool Score(int,int);
 	void WinLose(float, float, int);
 	void ChangeScene(int, int);
+	void ResetSceneChange();
 
 public:
 	//Shape for Timer
@@ -51,6 +52,11 @@ public:
 	int countdown = -1;
 	int scorefont = -1;
 	int healthwidth = 0;
+	
+	bool change1 = true;
+	bool change2 = true;
+	bool change3 = true;
+	bool change4 = true;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;
