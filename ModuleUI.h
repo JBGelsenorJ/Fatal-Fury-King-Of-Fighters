@@ -25,6 +25,8 @@ public:
 	bool Timer();
 	bool DrawLife();
 	bool Score(int,int, float, float, int, int);
+	void WinLose(float, float, int);
+	void ChangeScene(int, int);
 
 public:
 	//Shape for Timer
@@ -55,7 +57,7 @@ public:
 
 	//Timer
 	int start_delay = 2000;
-	float starting = 0.0f;
+	int starting = 0;
 	uint time;
 	uint starttime;
 

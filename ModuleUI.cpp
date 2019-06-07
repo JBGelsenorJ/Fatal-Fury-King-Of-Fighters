@@ -197,6 +197,7 @@ bool ModuleUI::DrawLife() {
 
 bool ModuleUI::Score(int p1score, int p2score, float p1life, float p2life, int p1points, int p2points){
 
+	
 	//DEFAULT RENDER
 	App->render->Blit(graphics, 21, 49, &point, false);
 	App->render->Blit(graphics, 39, 49, &point, false);
@@ -210,17 +211,43 @@ bool ModuleUI::Score(int p1score, int p2score, float p1life, float p2life, int p
 		p1score++;
 		if (p1score == 1) { 
 			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f); 
-			App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 10.0f);
 
 		}
 
 		if (p1score == 2) { 
 			App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
-			App->fade->FadeToBlack(App->scene_billykane, App->p1w, 1.5);
 
 		}
 	}
 	
 
 	return true;
+}
+
+void ModuleUI::WinLose(float player1, float player2, int time) {
+	
+	//Player1 or Player2 lose life
+	if (player1 <= 0) App->player2->rounds++;
+	if (player2 <= 0) App->enemy2->rounds++;
+
+	if (player1 > player2 && time <= 0) App->player2->rounds++;
+	if (player2 > player1 && time <= 0) App->enemy2->rounds++;
+
+	if (player1 == player2 && time <= 0);	//DO NOTHING AND RESTARTS SAME SCENE
+}
+
+void ModuleUI::ChangeScene(int p1round, int p2round) {
+	bool win = 1;
+
+	if ((p1round || p2round) == 1) {
+		App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 3.0f);
+	}
+
+	if ((p1round && p2round) == 1) {
+		App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 3.0f);
+	}
+
+	if (p1round == 2 && p2round == 0 || p2round == 2 && p1round == 0) 	App->fade->FadeToBlack(App->scene_billykane2, App->p1w, 3.0f);
+	if(p1round == 2 && p1round == 1 || p2round == 2 && p1round == 1)	App->fade->FadeToBlack(App->scene_billykane3, App->p1w, 3.0f);
+
 }

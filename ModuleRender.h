@@ -39,8 +39,8 @@ public:
 private:
 	bool shaking = false;
 
-	int shake_duration = 0.0f;
-	int shake_timer = 0.0f;
+	float shake_duration = 0.0f;
+	float shake_timer = 0.0f;
 	float shake_magnitude = 0.0f;
 
 	SDL_Point camera_offset;
