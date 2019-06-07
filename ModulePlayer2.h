@@ -87,7 +87,9 @@ public:
 	bool controllermover = false;
 	bool controllermovel = false;
 	bool godmode = false;
-	bool dealtdamage = false;	
+	bool lowdamage = false;
+	bool highdamage = false;
+	bool hhdamage = false;
 	void OnCollision(Collider* c1, Collider* c2);
 	player_states process_fsm(p2Qeue<player_inputs>& inputs);
 	

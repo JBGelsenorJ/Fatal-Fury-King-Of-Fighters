@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemy2.h"
 #include "ModulePlayer2.h"
+#include "ModuleInput.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -141,6 +142,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
 			App->enemy2->life -=  30;
+			hhdamage = true;
+			App->input->inputs2.Push(IN_HHDAMAGE2);
 			cont++;
 		}
 		if (c2->type == COLLIDER_PLAYER && cont < 1)
@@ -148,6 +151,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
 			App->player2->life -= 30;
+			hhdamage = true;
+			App->input->inputs.Push(IN_HHDAMAGE2);
 			cont++;
 		}
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
