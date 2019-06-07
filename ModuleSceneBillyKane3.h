@@ -35,6 +35,7 @@ public:
 	Collider* wall1c;
 	Collider* wall2c;
 	float starting = 0.0f;
+	float distance;
 	float seconds;
 	uint time;
 	char time_text[10];
