@@ -143,8 +143,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
 			App->enemy2->life -=  30;
-			App->enemy2->hit = true;
-			hhdamage2 = true;
+			App->player2->hit = true;
+			hhdamage1 = true;
 			App->input->inputs2.Push(IN_HHDAMAGE2);
 			cont++;
 		}
@@ -153,8 +153,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
 			App->player2->life -= 30;
-			App->player2->hit = true;
-			hhdamage1 = true;
+			App->enemy2->hit = true;
+			hhdamage2 = true;
 			App->input->inputs.Push(IN_HHDAMAGE2);
 			cont++;
 		}
