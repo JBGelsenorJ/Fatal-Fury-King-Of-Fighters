@@ -19,7 +19,7 @@ ModuleFFIntro::ModuleFFIntro()
 
 	//Intro Background
 
-	introwin.PushBack({ 0,0,314,192 });
+	introwin.PushBack({ 0,0,316,194 });
 	//borders.PushBack({ 0,446,304,225 });
 
 	//Start Animation
@@ -46,7 +46,7 @@ ModuleFFIntro::ModuleFFIntro()
 	title.PushBack({ 338, 483, 436, 62 });
 
 	//black border
-	border.PushBack({ 854, 10, 166, 276 });
+	//border.PushBack({ 854, 10, 166, 276 });
 
 
 }
@@ -72,12 +72,11 @@ bool ModuleFFIntro::Start()
 	App->render->camera.x = -33;
 	App->render->camera.y = 0;
 
-	pos_player = -40;
-	pos_rock = -70;
+	pos_player = 10;
+	pos_rock = -20;
 	pos_title = 300;
-	pos_border = 280;
-
-
+	//pos_border = 280;
+	
 
 	return ret;
 
@@ -105,19 +104,20 @@ void ModuleFFIntro::RenderWords() {
 // Update: draw background
 update_status ModuleFFIntro::Update()
 {
+		App->render->Blit(graphics, 2, 16, &(introwin.GetCurrentFrame()), NULL);
 
-		App->render->Blit(graphics, pos_background, 16, &(introwin.GetCurrentFrame()), 0.75f);
-		App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
+		//App->render->Blit(graphics, pos_background, 16, &(introwin.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, 110, 140, &(start.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_rock, 176, &(rock.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_title, 35, &(title.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_player, 73, &(player.GetCurrentFrame()), 0.75f);
-		App->render->Blit(graphics, pos_border, 0, &(border.GetCurrentFrame()), 0.75f);
+		//App->render->Blit(graphics, pos_border, 0, &(border.GetCurrentFrame()), 0.75f);
 
 		if (pos_rock < 0)
 		{
-			pos_player += 0.6;
-			pos_rock += 0.6;
-			pos_background -= 0.09;
+			pos_player += 0.1;
+			pos_rock += 0.1;
+			//pos_background -= 0.02;
 		}
 
 		pos_title -= 1;
