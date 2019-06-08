@@ -48,7 +48,7 @@ ModuleNeogeo::ModuleNeogeo()
 	neogeo.PushBack({ 0, 1225, 305, 225 });
 	neogeo.PushBack({ 317, 1225, 305, 225 });
 	neogeo.PushBack({ 633, 1225, 305, 225 });
-	neogeo.PushBack({ 950, 1225, 305, 225 });
+	neogeo.PushBack({ 949, 1225, 305, 225 });
 	neogeo.speed = 0.15f;
 
 	//neogeo last frame
