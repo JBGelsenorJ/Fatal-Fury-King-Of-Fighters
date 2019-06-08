@@ -70,7 +70,11 @@ public:
 	
 	Collider* playercol;
 	Collider* playerpunch;
+	Collider* playercrouchpunch;
+	Collider* playerjumppunch;
 	Collider* playerkick;
+	Collider* playercrouchkick;
+	Collider* playerjumpkick;
 
 	int initialPos;
 
