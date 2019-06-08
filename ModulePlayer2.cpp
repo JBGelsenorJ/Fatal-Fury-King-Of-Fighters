@@ -1341,7 +1341,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->life -= 25;
 		
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.7f, 2000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("SHOULD RUMBLE");
 
 
@@ -1360,7 +1360,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->position.x += 3;
 		
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.8f, 3000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("MUST RUMBLE");
 
 

@@ -68,10 +68,10 @@ ModuleBillyKane2::~ModuleBillyKane2()
 // Load assets
 bool ModuleBillyKane2::Start()
 {
+	Restart();
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
-	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");

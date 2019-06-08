@@ -144,6 +144,7 @@ update_status ModuleBillyKane3::Update()
 	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
 	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
 
+	
 	//Check this stuff
 	float centerx = (App->player2->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player2->position.y + App->enemy2->position.y) / 2; 
