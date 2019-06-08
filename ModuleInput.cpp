@@ -511,7 +511,9 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->position.y = 220;
 			App->enemy2->jumpspeed = 6;
 			App->enemy2->animdone = true;
-
+			App->enemy2->enemyjumpnpunch->to_delete = true;
+			App->enemy2->enemyjumpnkick->to_delete = true;
+			App->enemy2->colcreated = true;
 			jump_timer2 = 0;
 		}
 	}

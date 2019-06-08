@@ -1268,7 +1268,20 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
+	if (playerjumpnpunch == c1 && c2->type == COLLIDER_ENEMY)
+	{
 
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		playerjumpnpunch->to_delete = true;
+		lowdamage2 = true;
+		App->input->inputs2.Push(IN_LDAMAGE2);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -=10;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
 	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
 	{
 		
