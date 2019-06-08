@@ -553,6 +553,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 	{
 		if (SDL_GetTicks() - kickc_timer2 > KICKC_TIME)
 		{
+			App->enemy2->enemycrouchkick->to_delete = true;
+			App->enemy2->colcreated = true;
 			inputs2.Push(IN_KICK_CROUCH_FINISH2);
 			kickc_timer2 = 0;
 		}

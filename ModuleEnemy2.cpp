@@ -652,11 +652,12 @@ update_status ModuleEnemy2::Update()
 			break;
 
 		case ST_KICK_CROUCH:
-
-			position.x += 0.5*speed;
 			if (attack == true)
 			{
-				//App->audio->PlayFX(Audio);
+				if (colcreated == true)
+				{
+					enemycrouchkick = App->collision->AddCollider({ 10, 20, 100, 10 }, COLLIDER_ENEMY_SHOT, this);
+				}
 
 				attack = false;
 			}
@@ -700,37 +701,12 @@ update_status ModuleEnemy2::Update()
 				animdone = true;
 			}
 
-			/*if (attack == true)
-			{
-				//App->audio->PlayFX(Audio);
-				attack = false;
-			}
-			if (Active == 0)
-			{
-				current_animation = &kick;
-			}*/
 
 			LOG("KICK --\n")
-				/*if (App->enemy2->colcreated == true)
-				{
-					App->enemy2->playerkick = App->collision->AddCollider({ 10, 30, 75, 10 }, COLLIDER_ENEMY_SHOT, 0);
-					App->enemy2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-					App->enemy2->colcreated = false;
-				}
-				if (App->enemy2->colcreated == true)*/
 				break;
 
 		case ST_KICK_NEUTRAL_JUMP:
 
-			/*if (attack == true)
-			{
-				//App->audio->PlayFX(ryokick);
-				attack = false;
-			}
-			if (Active == 0)
-			{
-				current_animation = &kickn;
-			}*/
 
 			if (position.y <= 220)
 			{
@@ -739,16 +715,6 @@ update_status ModuleEnemy2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 			}
-
-			//CAMINA HACIA DELANTE AL PEGAR
-			/*if (position.x < App->player2->position.x)
-			{
-				position.x += 1;
-			}
-			if (position.x > App->player2->position.x)
-			{
-				position.x -= 1;
-			}*/
 
 			if (SDL_GetTicks() - App->input->kickn_timer2 > KICKN_TIME && position.y == 220)
 			{
@@ -882,7 +848,7 @@ update_status ModuleEnemy2::Update()
 		enemypunch->SetPos(position.x + 40, position.y - 90);
 		enemykick->SetPos(position.x + 40, position.y - 60);
 		enemycrouchpunch->SetPos(position.x + 40, position.y - 55);
-
+		enemycrouchkick->SetPos(position.x + 20, position.y - 20);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -890,6 +856,7 @@ update_status ModuleEnemy2::Update()
 		enemypunch->SetPos(position.x - 40, position.y - 90);
 		enemykick->SetPos(position.x - 40, position.y - 60);
 		enemycrouchpunch->SetPos(position.x - 40, position.y - 55);
+		enemycrouchkick->SetPos(position.x - 70, position.y - 20);
 
 	}
 
@@ -1271,7 +1238,6 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 
 	}
-
 	if (enemykick == c1 && c2->type == COLLIDER_PLAYER)
 	{
 		App->player2->hit = true;
@@ -1282,6 +1248,19 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemykick->to_delete = true;
 		App->player2->life -= 25;
 		App->player2->position.x += 3;
+
+
+	}
+	if (enemycrouchkick == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->player2->hit = true;
+		lowdamage1 = true;
+		App->input->inputs.Push(IN_LDAMAGE);
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemycrouchkick->to_delete = true;
+		App->player2->position.x += 3;
+		App->player2->life -= 10;
 
 
 	}
