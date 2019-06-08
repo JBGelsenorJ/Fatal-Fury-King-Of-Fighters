@@ -41,23 +41,24 @@ Application::Application()
 	modules[7] = scene_neogeo = new ModuleNeogeo();
 	modules[8] = scene_intro = new ModuleFFIntro();
 	modules[9] = scene_intro2 = new ModuleFFIntro2();
-	modules[10] = scene_welcome = new ModuleWelcomeScreen();
-	modules[11] = playerselection = new ModulePlayerSelection();
-	modules[12] = scene_billykane = new ModuleBillyKane();
-	modules[13] = scene_billykane2 = new ModuleBillyKane2();
-	modules[14] = scene_billykane3 = new ModuleBillyKane3();
-	modules[15] = p1w = new ModuleP1Wins();
-	modules[16] = p2w = new ModuleP2Wins();
+	modules[10] = scene_controls = new ModuleControls();
+	modules[11] = scene_welcome = new ModuleWelcomeScreen();
+	modules[12] = playerselection = new ModulePlayerSelection();
+	modules[13] = scene_billykane = new ModuleBillyKane();
+	modules[14] = scene_billykane2 = new ModuleBillyKane2();
+	modules[15] = scene_billykane3 = new ModuleBillyKane3();
+	modules[16] = p1w = new ModuleP1Wins();
+	modules[17] = p2w = new ModuleP2Wins();
 
 	//Things that must render above scenes 
-	modules[17] = collision = new ModuleCollision();
-	modules[18] = particles = new ModuleParticles();
-	modules[19] = ui = new ModuleUI();
+	modules[18] = collision = new ModuleCollision();
+	modules[19] = particles = new ModuleParticles();
+	modules[20] = ui = new ModuleUI();
 
 	//Players must render above all features
-	modules[20] = player2 = new ModulePlayer2();
-	modules[21] = enemy2 = new ModuleEnemy2();
-	modules[22] = fade = new ModuleFadeToBlack();
+	modules[21] = player2 = new ModulePlayer2();
+	modules[22] = enemy2 = new ModuleEnemy2();
+	modules[23] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -71,9 +72,10 @@ bool Application::Init()
 	bool ret = true;
 	
 	// Disable the map that you do not start with
-	scene_neogeo->Enable(); //Cambiar
+	scene_neogeo->Disable(); //Cambiar
 	playerselection->Disable();
 	scene_intro2->Disable();
+	scene_controls->Enable();
 	scene_billykane->Disable();  //CAMBIADA PARA PROBAR UI
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
