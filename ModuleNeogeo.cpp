@@ -18,21 +18,16 @@
 ModuleNeogeo::ModuleNeogeo()
 {
 
-	neo.x = 0;
-	neo.y = 0;
-	neo.w = 304;
-	neo.h = 224;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			neogeo.PushBack({ (320 * j), (224 * i), 320, 224 });
+		}
+	}
 
-
-	//Logo Animation
-	text.PushBack({ 0, 0, 304, 100 });
-	
-
-
-	//Push Start Animation
-	rect1.PushBack({ 0, 0, 124, 19 });	
-	rect2.PushBack({ 0, 0, 138, 18 });
-	rect3.PushBack({ 0, 0, 83, 24 });
+	neogeo.speed = 0.25f;
+	neogeo.loop = false;
 	
 
 
@@ -51,11 +46,6 @@ bool ModuleNeogeo::Start()
 	App->audio->PlayMusic(song);
 	return ret;
 
-	/*posx1 = 93;
-	posx2 = 87;
-	posx3 = 110;*/
-
-	time_start = SDL_GetTicks();
 
 }
 
@@ -68,22 +58,7 @@ bool ModuleNeogeo::CleanUp()
 // Update: draw background
 update_status ModuleNeogeo::Update()
 {
-	// Drawing neogeo Background
-	App->render->Blit(graphics, 0, 0, &neo, NULL);
-
-	// text under the rects
-	App->render->Blit(graphics, 0, 0, &(text.GetCurrentFrame()), NULL);
-	// text animation
-	/*App->render->Blit(graphics, 93, 110, &(rect1.GetCurrentFrame()), NULL);
-	App->render->Blit(graphics, 87, 128, &(rect2.GetCurrentFrame()), NULL);
-	App->render->Blit(graphics, 110, 160, &(rect3.GetCurrentFrame()), NULL);*/
-
-	/*if ((time_start - SDL_GetTicks()) < LIMIT_TIME)
-	{
-		posx1 += 6;
-	}*/
-
-
+	App->render->Blit(graphics, 0, 0, &(neogeo.GetCurrentFrame()), 0.0f);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
