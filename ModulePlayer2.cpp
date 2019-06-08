@@ -14,6 +14,7 @@
 #include "ModuleWelcomeScreen.h"
 #include "ModuleSceneBillyKane.h"
 #include "Animation.h"
+#include "ModuleSlowdown.h"
 
 ModulePlayer2::ModulePlayer2()
 {
@@ -1250,7 +1251,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->input->inputs2.Push(IN_LDAMAGE2);
 		App->enemy2->position.x += 3; 
 		App->enemy2->life -= 25;
-		
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
@@ -1354,5 +1354,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			App->scene_billykane->wall2.x+=5;
 
 	}
-
+	if (App->enemy2->life <= 0)
+	{
+		App->slowdown->StartSlowdown(500, 40);
+		App->slowdown->UpdateSlowdown();
+	}
 }

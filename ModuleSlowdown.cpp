@@ -34,10 +34,17 @@ update_status ModuleSlowdown::PostUpdate()
 }
 void ModuleSlowdown::StartSlowdown(int duration, int magnitude)
 {
+	slowdown_duration = duration;
+	slowdown_magnitude = magnitude;
+	slowing_down = true;
+	slowdown_timer = SDL_GetTicks();
+
 
 }
 
 void ModuleSlowdown::UpdateSlowdown()
 {
-
+	if (SDL_GetTicks() - slowdown_timer < slowdown_duration) {
+		SDL_Delay(slowdown_magnitude);
+	}
 }
