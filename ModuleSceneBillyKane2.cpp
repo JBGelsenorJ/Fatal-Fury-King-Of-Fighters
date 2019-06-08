@@ -68,10 +68,10 @@ ModuleBillyKane2::~ModuleBillyKane2()
 // Load assets
 bool ModuleBillyKane2::Start()
 {
+	Restart();
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 
-	Restart();
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
@@ -80,8 +80,8 @@ bool ModuleBillyKane2::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->enemy2->Enable();
-	App->player2->Enable();
+	//App->enemy2->Enable();
+	//App->player2->Enable();
 	App->ui->Enable();
 
 	//Enabling audio
@@ -145,6 +145,8 @@ update_status ModuleBillyKane2::Update()
 	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);
 	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
 	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
+	App->ui->DebugRounds();
+
 
 	//Check this stuff
 	wall1c->SetPos(wall1.x, wall1.y); 

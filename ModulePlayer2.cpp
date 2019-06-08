@@ -284,7 +284,7 @@ update_status ModulePlayer2::Update()
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs);
 
-	App->render->Blit(graphics, position.x - 5, 210, &shadow, 0, false);
+	App->render->Blit(graphics, position.x - 5, 210, &shadow, 1.0f, true);
 
 	int speed = 2;
 
@@ -1326,10 +1326,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->life -= 25;
 		
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.7f, 2000);
-
-
-
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
 	if (playercrouchpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
@@ -1358,7 +1355,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->position.x += 3;
 		
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.8f, 3000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("MUST RUMBLE");
 	}
 	if (playerjumpnkick == c1 && c2->type == COLLIDER_ENEMY)

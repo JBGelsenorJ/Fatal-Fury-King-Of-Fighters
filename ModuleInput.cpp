@@ -86,7 +86,7 @@ bool ModuleInput::external_input()
 			LOG("GAMEPAD CONNECTED");
 			if(gamepad1 == NULL){
 					gamepad1 = SDL_GameControllerOpen(0);
-					if(SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad1)) < 0) {
+					if(SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad1)) > 0) {
 							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad1));
 							if (haptic != NULL) LOG("HAPTIC SUCCESS");
 							if (SDL_HapticRumbleInit(haptic) < 0) LOG("Error init rumble in haptic");
@@ -95,7 +95,7 @@ bool ModuleInput::external_input()
 				} else {
 					if (gamepad2 == NULL) {
 						gamepad2 = SDL_GameControllerOpen(1);
-						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad2)) < 0) {
+						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad2)) > 0) {
 							haptic2 = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad2));
 							if (haptic2 != NULL) LOG("HAPTIC SUCCESS");
 							if (SDL_HapticRumbleInit(haptic2) < 0) LOG("Error init rumble in haptic");
