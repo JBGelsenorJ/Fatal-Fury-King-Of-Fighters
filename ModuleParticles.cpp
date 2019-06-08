@@ -106,9 +106,10 @@ update_status ModuleParticles::Update()
 			{
 				p->fx_played = true;
 				
-				// Play particle fx here
+				//SPECIAL ATTACK HISHOKEN FX
 				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/Hishoken.wav");
 				App->audio->PlayFX(fx);
+				Mix_VolumeChunk(fx, 120);
 
 			}
 		}

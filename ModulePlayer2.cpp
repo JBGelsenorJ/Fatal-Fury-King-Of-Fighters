@@ -256,9 +256,10 @@ bool ModulePlayer2::CleanUp()
 	//App->input->inputs.Push(IN_WIN_FINISH);
 
 	SDL_DestroyTexture(graphics);
-	App->audio->CleanUp();
 	App->player2->Disable();
 	App->audio->Disable();
+	// DANGER NEXT LINE IF USED CREATES EXCEPTION AND BREAKS GAME
+//App->audio->CleanUp();
 	LOG("Unloading Andy From Scene");
 
 	return true;
