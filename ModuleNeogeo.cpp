@@ -66,7 +66,7 @@ bool ModuleNeogeo::Start()
 	LOG("Loading image assets");
 	bool ret = true;
 	graphics = App->textures->Load("Source/UI/Intro/neogeo.png");
-	song = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
+	song = App->audio->LoadMusic("Source/Sound/Music/neogeo.ogg");
 	App->audio->PlayMusic(song);
 	return ret;
 
@@ -109,23 +109,10 @@ update_status ModuleNeogeo::Update()
 		anim_done = true;
 		App->render->Blit(graphics, 0, 0, &(last.GetCurrentFrame()), NULL);
 	}
-
-
-
-
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	uint cont = SDL_GetTicks();
+	if (SDL_GetTicks() - 6200 < cont)
 	{
-		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1.5);
-
-	}
-
-	if (SDL_GameControllerGetButton(App->input->gamepad2, SDL_CONTROLLER_BUTTON_START) == 1)
-	{
-		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1.5);
-	}
-	if (SDL_GameControllerGetButton(App->input->gamepad1, SDL_CONTROLLER_BUTTON_START) == 1)
-	{
-		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1.5);
+		App->fade->FadeToBlack(App->scene_neogeo, App->scene_welcome, 1);
 	}
 
 	return UPDATE_CONTINUE;

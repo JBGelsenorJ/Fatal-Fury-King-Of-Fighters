@@ -426,7 +426,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->position.y = 220;
 			App->player2->jumpspeed = 6;
 			App->player2->animdone = true;
-		
+			App->player2->playerjumpnkick->to_delete = true;
+			App->player2->colcreated = true;
 			jump_timer = 0;
 		}
 	}
@@ -446,6 +447,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 	{
 		if (SDL_GetTicks() - punchc_timer > PUNCHC_TIME)
 		{
+			App->player2->colcreated = true;
+			App->player2->playercrouchpunch->to_delete = true;
 			inputs.Push(IN_PUNCH_CROUCH_FINISH);
 			punchc_timer = 0;
 		}
@@ -470,6 +473,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		if (SDL_GetTicks() - kickc_timer > KICKC_TIME)
 		{
 			inputs.Push(IN_KICK_CROUCH_FINISH);
+			App->player2->colcreated = true;
+			App->player2->playercrouchkick->to_delete = true;
 			kickc_timer = 0;
 		}
 	}
