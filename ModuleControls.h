@@ -10,22 +10,22 @@
 
 struct SDL_Texture;
 
-enum IntroAnimationState {
+/*enum IntroAnimationState {
 
 	Enter,
 	GoBack,
 	Fighting,
 	Done
 
-};
+};*/
 
-struct AnimationObject {
+/*struct AnimationObject {
 
 	iPoint position;
 	SDL_Rect rect;
 	float scale;
 
-};
+};*/
 
 class ModuleControls : public Module
 {
@@ -42,35 +42,39 @@ public:
 public:
 
 	SDL_Texture * graphics = nullptr;
-	Animation introwin;
-	//SDL_Rect rock;
 	//SDL_Rect borders;
-	Animation start;
-	Animation border;
-	Animation player;
-	Animation rock;
-	Animation title;
-	Animation borders;
+	Animation terry;
+	Animation andy;
+	Animation joe;
+	Animation background;
+	Animation controls;
 	Mix_Music* introsong;
-	iPoint positionplayer;
+	/*iPoint positionplayer;
 	iPoint positionrock;
-	iPoint positiontitle;
-	float pos_border;
-	float pos_player;
-	float pos_rock;
-	float pos_background;
-	float pos_title;
+	iPoint positiontitle;*/
+	float pos_terry_x;
+	float pos_andy_x;
+	float pos_joe_x;
+	float pos_background_x;
+	float pos_controls_x;
+	float pos_terry_y;
+	float pos_andy_y;
+	float pos_joe_y;
+	float pos_background_y;
+	float pos_controls_y;
 
 private:
 
-	AnimationObject rock1;
-	AnimationObject title1;
-	AnimationObject player1;
+	/*AnimationObject terry1;
+	AnimationObject andy1;
+	AnimationObject joe1;
+	AnimationObject controls1;
 	IntroAnimationState animationState;
 	int step = 0;
-	iPoint frock;
-	iPoint fplayer;
-	iPoint ftitle;
+	iPoint fterry;
+	iPoint fandy;
+	iPoint fjoe;
+	iPoint fcontrols;*/
 };
 
 

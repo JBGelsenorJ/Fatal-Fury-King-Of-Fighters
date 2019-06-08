@@ -18,36 +18,47 @@
 ModuleControls::ModuleControls()
 {
 
-	//Intro Background
+	//Background
+	background.PushBack({ 0,0,305,225 });
 
-	introwin.PushBack({ 0,0,314,192 });
-	//borders.PushBack({ 0,446,304,225 });
 
-	//Start Animation
+	//terry idle animation
 
-	start.PushBack({ 590, 260, 146, 21 });
-	start.PushBack({ 0, 700, 236, 44 });
-	start.speed = 0.06f;
+	terry.PushBack({ 373, 499, 70, 108 });
+	terry.PushBack({ 442, 499, 70, 108 });
+	terry.PushBack({ 508, 499, 70, 108 });
+	terry.speed = 0.08f;
 
-	//player
 
-	player.PushBack({ 340, 37, 62, 127 });
-	player.PushBack({ 411, 38, 62, 127 });
-	player.PushBack({ 484, 38, 62, 127 });
-	player.PushBack({ 553, 38, 62, 127 });
-	player.PushBack({ 484, 38, 62, 127 });
-	player.PushBack({ 411, 38, 62, 127 });
-	player.PushBack({ 484, 38, 62, 127 });
-	player.speed = 0.15f;
+	//andy idle animation
 
-	//rock
-	rock.PushBack({ 650,128,119,35 });
+	andy.PushBack({ 36, 497, 64, 106 });
+	andy.PushBack({ 99, 497, 64, 106 });
+	andy.PushBack({ 162, 497, 64, 106 });
+	andy.speed = 0.08f;
 
-	//title FATAL FURY
-	title.PushBack({ 338, 483, 436, 62 });
 
-	//black border
-	border.PushBack({ 854, 10, 166, 276 });
+	//joe idle animation
+
+	joe.PushBack({ 685, 500, 68, 111 });
+	joe.PushBack({ 763, 500, 68, 111 });
+	joe.PushBack({ 841, 500, 68, 111 });
+	joe.speed = 0.08f;
+
+	//controls animation
+
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.PushBack({ 646, 119, 305, 106 }); //punch
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.PushBack({ 324, 241, 305, 106 }); //kick
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.PushBack({ 646, 241, 305, 106 }); //jump
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.PushBack({ 1, 361, 305, 106 }); //squat
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.PushBack({ 324, 361, 305, 106 }); //throw
+	controls.PushBack({ 324, 119, 305, 106 }); //inicial
+	controls.speed = 0.01f;
 
 
 }
@@ -61,23 +72,27 @@ bool ModuleControls::Start()
 	LOG("Loading image assets");
 	bool ret = true;
 
-	fplayer = { 27,73 };
+	/*fplayer = { 27,73 };
 	frock = { -25,177 };
 	animationState = Enter;
-	step = 0;
+	step = 0;*/
 
-	graphics = App->textures->Load("Source/UI/Intro/intro2.png");
+	graphics = App->textures->Load("Source/UI/Intro/controls.png");
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 
 	App->audio->PlayMusic(introsong);
 	App->render->camera.x = -33;
 	App->render->camera.y = 0;
 
-	pos_player = -40;
-	pos_rock = -70;
-	pos_title = 300;
-	pos_border = 280;
+	pos_terry_x = 70;
+	pos_andy_x = 150;
+	pos_joe_x = 220;
+	pos_controls_x = 0;
 
+	pos_terry_y = 25;
+	pos_andy_y = 25;
+	pos_joe_y = 25;
+	pos_controls_y = 119;
 
 
 	return ret;
@@ -94,34 +109,29 @@ bool ModuleControls::CleanUp()
 	return true;
 }
 
-void ModuleControls::RenderWords() {
+/*void ModuleControls::RenderWords() {
 
-	App->render->Blit(graphics, pos_rock, rock1.position.y, &(rock1.rect));
-	App->render->Blit(graphics, pos_title, title1.position.y, &(title1.rect));
-	App->render->Blit(graphics, pos_player, player1.position.y, &(player1.rect));
+	App->render->Blit(graphics, pos_terry_x, terry1.position.y, &(terry1.rect));
+	App->render->Blit(graphics, pos_andy_x, andy1.position.y, &(andy1.rect));
+	App->render->Blit(graphics, pos_joe_x, joe1.position.y, &(joe1.rect));
+	App->render->Blit(graphics, pos_controls_x, controls1.position.y, &(controls1.rect));
 	App->render->DrawQuad({ 0,0,SCREEN_WIDTH,SCREEN_HEIGHT }, 255, 255, 255, 255, true);
 
-}
+}*/
 
 // Update: draw background
 update_status ModuleControls::Update()
 {
 
-	App->render->Blit(graphics, pos_background, 16, &(introwin.GetCurrentFrame()), 0.75f);
-	App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
-	App->render->Blit(graphics, pos_rock, 176, &(rock.GetCurrentFrame()), 0.75f);
-	App->render->Blit(graphics, pos_title, 35, &(title.GetCurrentFrame()), 0.75f);
-	App->render->Blit(graphics, pos_player, 73, &(player.GetCurrentFrame()), 0.75f);
-	App->render->Blit(graphics, pos_border, 0, &(border.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, pos_background_x, pos_background_y, &(background.GetCurrentFrame()), 0.75f);
+	
+	App->render->Blit(graphics, pos_controls_x, pos_controls_y, &(controls.GetCurrentFrame()), 0.75f);
 
-	if (pos_rock < 0)
-	{
-		pos_player += 0.6;
-		pos_rock += 0.6;
-		pos_background -= 0.09;
-	}
+	App->render->Blit(graphics, pos_terry_x, pos_terry_y, &(terry.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, pos_andy_x, pos_andy_y, &(andy.GetCurrentFrame()), 0.75f);
+	App->render->Blit(graphics, pos_joe_x, pos_joe_y, &(joe.GetCurrentFrame()), 0.75f);
 
-	pos_title -= 1;
+
 
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {

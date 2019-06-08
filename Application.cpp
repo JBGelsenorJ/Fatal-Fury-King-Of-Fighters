@@ -22,6 +22,7 @@
 #include "ModuleEnemy2.h"
 #include "ModuleNeogeo.h"
 #include "ModuleSlowdown.h"
+#include "ModuleControls.h"
 
 
 Application::Application()
