@@ -234,7 +234,7 @@ ModuleEnemy2::~ModuleEnemy2() {
 // Load assets
 bool ModuleEnemy2::Start()
 {
-
+	App->particles->cont2 = 0;
 	LOG("Loading player textures");
 	bool ret = true;
 	colcreated = true;
@@ -916,9 +916,12 @@ update_status ModuleEnemy2::Update()
 			break;
 
 		case ST_SM1:
-
-			current_animation = &sm1;
-			if (Activesm1 == true){	
+			App->particles->p2 = true;
+			if (App->particles->cont2 < 1)
+			{
+				current_animation = &sm1;
+			}
+			if (Activesm1 == true && App->particles->cont2 < 1){
 			//App->audio->PlayFX(Audio);
 			App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
 			Activesm1 = false;

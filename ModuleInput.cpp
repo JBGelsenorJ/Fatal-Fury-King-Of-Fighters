@@ -459,16 +459,10 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->position.y = 220;
 			App->player2->kick_jumpspeed = 6;
 			App->player2->animdone = true;
-
-			kick_timer = 0;
-		}
-		/* if (SDL_GetTicks() - kick_timer > KICK_TIME)
-		{
 			App->player2->colcreated = true;
 			App->player2->playerkick->to_delete = true;
-			inputs.Push(IN_KICK_FINISH);
 			kick_timer = 0;
-		}*/
+		}
 	}
 
 	if (kickc_timer > 0)
@@ -498,6 +492,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 5000)
 		{
 			App->particles->cont = 0;
+			App->particles->p1 = false;
 		}
 	}
 
@@ -569,7 +564,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 5000)
 		{
-			App->particles->cont = 0;
+			App->particles->cont2 = 0;
+			App->particles->p2 = false;
 		}
 	}
 

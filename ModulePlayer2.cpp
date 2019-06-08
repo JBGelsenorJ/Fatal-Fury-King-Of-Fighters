@@ -773,7 +773,7 @@ update_status ModulePlayer2::Update()
 			LOG("KICK --\n")
 			if (App->player2->colcreated == true)
 			{
-				App->player2->playerkick = App->collision->AddCollider({ 30, 200, 50, 10 }, COLLIDER_PLAYER_SHOT, this);
+				App->player2->playerkick = App->collision->AddCollider({ 30, 100, 50, 10 }, COLLIDER_PLAYER_SHOT, this);
 				App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 				App->player2->colcreated = false;
 			}
@@ -875,11 +875,16 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_SM1:
-
-			current_animation = &sm1;
+			
+			if (App->particles->cont < 1)
+			{
+				App->particles->p1 = true;
+				current_animation = &sm1;
+			}
+			
 			if (Activesm1 == true)
 			{
-				if ((position.x + 25) >= (App->player2->position.x - 25))
+				if (App->particles->cont<1)
 				{
 					App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
 
@@ -932,8 +937,6 @@ update_status ModulePlayer2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	playercol->SetPos(position.x, position.y);
-	playerpunch->SetPos(position.x + 40, position.y - 90);
-	playerkick->SetPos(position.x + 40, position.y - 60);
 		
 	if (App->enemy2->position.x > position.x)
 	{
@@ -948,14 +951,14 @@ update_status ModulePlayer2::Update()
 	if (App->enemy2->position.x > position.x) {
 			
 		playerpunch->SetPos(position.x + 40, position.y - 90);
-		playerkick->SetPos(position.x + 40, position.y - 60);
+		playerkick->SetPos(position.x + 60, position.y - 80);
 
 	}
 	
 	if (App->enemy2->position.x < position.x) {
 			
 		playerpunch->SetPos(position.x - 40, position.y - 90);
-		playerkick->SetPos(position.x - 50, position.y - 80);
+		playerkick->SetPos(position.x - 60, position.y - 80);
 
 	}
 

@@ -94,7 +94,7 @@ update_status ModuleParticles::Update()
 			delete p;
 			active[i] = nullptr;
 		}
-		else if (SDL_GetTicks() >= p->born)
+		else if (SDL_GetTicks() >= p->born && cont < 1 && (p1 == true))
 		{
 			if (App->enemy2->position.x > App->player2->position.x){
 				App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
@@ -106,6 +106,25 @@ update_status ModuleParticles::Update()
 			{
 				p->fx_played = true;
 				
+				//SPECIAL ATTACK HISHOKEN FX
+				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/Hishoken.wav");
+				App->audio->PlayFX(fx);
+				Mix_VolumeChunk(fx, 120);
+
+			}
+		}
+		else if (SDL_GetTicks() >= p->born && cont2 < 1 && (p2 == true))
+		{
+			if (App->enemy2->position.x > App->player2->position.x) {
+				App->render->MirrorBlit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1, 0, 0, 0);
+			}
+			if (App->enemy2->position.x < App->player2->position.x) {
+				App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			}
+			if (p->fx_played == false)
+			{
+				p->fx_played = true;
+
 				//SPECIAL ATTACK HISHOKEN FX
 				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/Hishoken.wav");
 				App->audio->PlayFX(fx);
@@ -147,9 +166,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->player2->hit = true;
 			App->player2->hhdamage2 = true;
 			App->input->inputs2.Push(IN_HHDAMAGE2);
-			cont++;
+			App->particles->cont++;
 		}
-		if (c2->type == COLLIDER_PLAYER && cont < 1)
+		if (c2->type == COLLIDER_PLAYER && cont2 < 1)
 		{
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
@@ -158,7 +177,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			App->enemy2->hit = true;
 			App->enemy2->hhdamage1 = true;
 			App->input->inputs.Push(IN_HHDAMAGE);
-			cont++;
+			App->particles->cont++;
 		}
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
