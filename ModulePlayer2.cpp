@@ -280,7 +280,7 @@ update_status ModulePlayer2::Update()
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs);
 
-	App->render->Blit(graphics, position.x - 5, 210, &shadow, 0, false);
+	App->render->Blit(graphics, position.x - 5, 210, &shadow, 1.0f, true);
 
 	int speed = 2;
 

@@ -166,7 +166,6 @@ bool ModuleRender::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* sect
 
 	return ret;
 }
-
 bool ModuleRender::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect * _section, float scale, float speed, float fillAmount, RENDER_PIVOT pivot)
 {
 	bool ret = true;
@@ -255,7 +254,6 @@ void ModuleRender::StartCameraShake(int duration, float magnitude)
 	shaking = true;
 	shake_timer = SDL_GetTicks();
 }
-
 void ModuleRender::UpdateCameraShake()
 {
 	if (SDL_GetTicks() - shake_duration < shake_timer)
@@ -270,7 +268,6 @@ void ModuleRender::UpdateCameraShake()
 	}
 
 }
-
 void ModuleRender::CameraMove(int playerx, int enemyx) {
 	cameradistance = ((playerx + enemyx) / 2);
 	App->render->camera.x = (cameradistance*-1 + 125);

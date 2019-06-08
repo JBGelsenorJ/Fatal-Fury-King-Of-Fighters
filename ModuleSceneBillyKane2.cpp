@@ -80,8 +80,8 @@ bool ModuleBillyKane2::Start()
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	App->enemy2->Enable();
-	App->player2->Enable();
+	//App->enemy2->Enable();
+	//App->player2->Enable();
 	App->ui->Enable();
 
 	//Enabling audio

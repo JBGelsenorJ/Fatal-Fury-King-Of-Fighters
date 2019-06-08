@@ -84,8 +84,6 @@ bool ModuleBillyKane::Start()
 	App->player2->Enable();
 	App->ui->Enable();
 	App->slowdown->Enable();
-	App->player2->rounds = 0;
-	App->enemy2->rounds = 0;
 	//Enabling audio
 	App->audio->PlayMusic(music);
 	Mix_PlayChannel(-1 , audience, -1);
@@ -98,8 +96,8 @@ bool ModuleBillyKane::Start()
 
 bool ModuleBillyKane::CleanUp()
 {
-	App->player2->Disable();
-	App->enemy2->Disable();
+	//App->player2->Disable();
+	//App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
 	SDL_DestroyTexture(graphics);
@@ -124,9 +122,7 @@ void ModuleBillyKane::Restart() {
 	App->ui->starttime = SDL_GetTicks();
 
 	//Restarting Booleans that works on scene change
-	App->ui->ResetSceneChange();
-	App->player2->rounds = 0;
-	App->enemy2->rounds = 0;
+	//App->ui->ResetSceneChange();
 }
 
 
