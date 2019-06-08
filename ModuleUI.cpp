@@ -217,13 +217,12 @@ bool ModuleUI::Score(int playerrounds, int enemyrounds){
 void ModuleUI::WinLose(float player, float enemy, int time) {
 	
 	//Checking win
-	if (checkwin == true) {
 		if (enemy <= 0) App->player2->rounds++;
 		if (player <= 0) App->enemy2->rounds++;
 
 		if (player > enemy && time <= 0) App->player2->rounds++;
 		if (enemy > player && time <= 0) App->enemy2->rounds++;
-	}
+
 
 }
 
@@ -231,10 +230,9 @@ void ModuleUI::ChangeScene(int p1round, int p2round) {
 
 	//Change from Scene 1 to Scene 2
 	if (change1 == true) {
-		if ((p1round || p2round) == 1) {
+		if (p1round == 1 || p2round == 1) {
 			App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2, 2.0f);
 			change1 = false;
-			checkwin = true;
 		}
 	}
 
@@ -243,7 +241,6 @@ void ModuleUI::ChangeScene(int p1round, int p2round) {
 		if ((p1round && p2round) == 1) {
 			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3, 2.0f);
 			change2 = false;
-			checkwin = true;
 		}
 	}
 
@@ -257,4 +254,17 @@ void ModuleUI::ResetSceneChange() {
 	change1 = true;
 	change2 = true;
 	change3 = true;
+}
+
+void ModuleUI::DebugRounds() {
+	
+	if (App->input->keyboard[SDL_SCANCODE_1])
+	{
+		App->player2->rounds++;
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_2])
+	{
+		App->enemy2->rounds++;
+	}
 }

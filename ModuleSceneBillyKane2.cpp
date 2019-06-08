@@ -145,6 +145,8 @@ update_status ModuleBillyKane2::Update()
 	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);
 	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
 	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
+	App->ui->DebugRounds();
+
 
 	//Check this stuff
 	wall1c->SetPos(wall1.x, wall1.y); 
