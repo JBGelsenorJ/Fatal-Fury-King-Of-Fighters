@@ -37,6 +37,7 @@ public:
 	int posx3;
 	int time_start;
 	bool anim_done = false;
+
 };
 
 #endif

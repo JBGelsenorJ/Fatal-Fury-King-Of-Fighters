@@ -18,6 +18,7 @@
 ModuleNeogeo::ModuleNeogeo()
 {
 
+
 	neo.x = 0;
 	neo.y = 0;
 	neo.w = 304;
@@ -51,7 +52,8 @@ ModuleNeogeo::ModuleNeogeo()
 	neogeo.speed = 0.15f;
 
 	//neogeo last frame
-	last.PushBack({ 950, 1225, 305, 225 });
+	last.PushBack({ 949, 1225, 305, 225 });
+
 
 }
 
@@ -68,11 +70,6 @@ bool ModuleNeogeo::Start()
 	App->audio->PlayMusic(song);
 	return ret;
 
-	/*posx1 = 93;
-	posx2 = 87;
-	posx3 = 110;*/
-
-	time_start = SDL_GetTicks();
 
 }
 
@@ -85,6 +82,7 @@ bool ModuleNeogeo::CleanUp()
 // Update: draw background
 update_status ModuleNeogeo::Update()
 {
+
 	// Drawing neogeo Background
 	App->render->Blit(graphics, 0, 0, &neo, NULL);
 
@@ -111,6 +109,7 @@ update_status ModuleNeogeo::Update()
 		anim_done = true;
 		App->render->Blit(graphics, 0, 0, &(last.GetCurrentFrame()), NULL);
 	}
+
 
 
 

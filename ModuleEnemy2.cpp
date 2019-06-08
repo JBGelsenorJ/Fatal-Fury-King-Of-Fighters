@@ -949,7 +949,30 @@ update_status ModuleEnemy2::Update()
 
 			if (App->player2->hhdamage2 == true)
 			{
+
+				/*if (position.y <= 220)
+				{
+				animdone = false;
 				current_animation = &hhd;
+				position.y -= jumpspeed;
+				jumpspeed -= 0.2;
+				position.x += 1;
+				}
+
+				if (SDL_GetTicks() - App->input->hhdamage_timer2 > HHDAMAGE_TIME && position.y == 220)
+				{
+				App->input->inputs.Push(IN_HHDAMAGE_FINISH2);
+				App->input->hhdamage_timer2 = 0;
+
+				jumpspeed = 3;
+				position.y = 220;
+				
+				animdone = true;
+				}*/
+
+				current_animation = &hhd;
+			
+				
 			}
 
 			break;
