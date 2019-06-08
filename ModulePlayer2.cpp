@@ -838,7 +838,6 @@ update_status ModulePlayer2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	playercol->SetPos(position.x, position.y);
-		
 	if (App->enemy2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -1229,13 +1228,13 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermover == true*/)
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY  && App->enemy2->position.y == position.y && position.x < App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermover == true*/)
 	{
 		App->enemy2->position.x += 3;
 
 	}
 
-	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermovel == true*/ )
+	if ( playercol == c1 && c2->type == COLLIDER_ENEMY && App->enemy2->position.y == position.y && position.x > App->enemy2->position.x/* || playercol == c1 && c2->type == COLLIDER_ENEMY && controllermovel == true*/ )
 	{
 		App->enemy2->position.x -= 3;
 
@@ -1331,27 +1330,14 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (playercol == c1 && c2->type == COLLIDER_WALL)
+	if (playercol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-		//position.x += 10;
-		if (App->render->camera.x >= -200)
-		{
-			position.x ++;
-			App->render->camera.x+=10;
-			App->scene_billykane->wall1.x-=5;
-			App->scene_billykane->wall2.x-=5;
-		}
+			position.x -= 2;
 
-		
 	}
-
-	if (playercol == c1 && c2->type == COLLIDER_WALL_RIGHT)
+	if (playercol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
-
-			position.x --;
-			App->render->camera.x-=10;
-			App->scene_billykane->wall1.x+=5;
-			App->scene_billykane->wall2.x+=5;
+			position.x += 2;
 
 	}
 	if (App->enemy2->life <= 0)

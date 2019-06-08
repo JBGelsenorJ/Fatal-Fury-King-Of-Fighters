@@ -1195,14 +1195,14 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 
-	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x < App->player2->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->player2->position.y == position.y && position.x < App->player2->position.x)
 	{
 		App->player2->position.x += 3;
 
 	}
 
 
-	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT && App->player2->position.y == position.y && position.x > App->player2->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER  && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
 		App->player2->position.x -= 3;
 
@@ -1289,23 +1289,12 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
 
-	if (enemycol == c1 && c2->type == COLLIDER_WALL)
+	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-		if (App->render->camera.x >= -200)
-		{
-			position.x ++;
-			App->render->camera.x+=10;
-			App->scene_billykane->wall1.x-=5;
-			App->scene_billykane->wall2.x-=5;
-		}
+			position.x += 2;
 	}
-	
-	if (enemycol == c1 && c2->type == COLLIDER_WALL_RIGHT)
+	if (enemycol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
-		position.x --;
-		App->render->camera.x-=10;
-		App->scene_billykane->wall1.x += 5;
-		App->scene_billykane->wall2.x += 5;
-
+			position.x -= 2;
 	}
 }

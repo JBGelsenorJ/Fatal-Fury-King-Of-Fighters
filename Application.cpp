@@ -77,12 +77,12 @@ bool Application::Init()
 	playerselection->Disable();
 	scene_intro2->Disable();
 	scene_controls->Disable();
-	scene_billykane->Disable();  //CAMBIADA PARA PROBAR UI
+	scene_billykane->Enable();
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
 
-	scene_intro->Enable();
-	scene_welcome->Disable();	//CAMBIAR
+	scene_intro->Disable();
+	scene_welcome->Disable();	
 	collision->Disable();
 	p1w->Disable();
 	p2w->Disable();
