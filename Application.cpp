@@ -71,14 +71,14 @@ bool Application::Init()
 	bool ret = true;
 	
 	// Disable the map that you do not start with
-	scene_neogeo->Disable(); //Cambiar
+	scene_neogeo->Enable(); //Cambiar
 	playerselection->Disable();
 	scene_intro2->Disable();
 	scene_billykane->Disable();  //CAMBIADA PARA PROBAR UI
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
 
-	scene_intro->Enable();
+	scene_intro->Disable();
 	scene_welcome->Disable();	//CAMBIAR
 	collision->Disable();
 	p1w->Disable();
