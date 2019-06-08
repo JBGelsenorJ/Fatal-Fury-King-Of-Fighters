@@ -251,7 +251,11 @@ bool ModuleEnemy2::Start()
 
 	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);	
+	enemycrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemycrouchpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 
 	return ret;
 
@@ -431,41 +435,6 @@ update_status ModuleEnemy2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			/*if (position.y <= 220)
-			{
-				animdone = false;
-				current_animation = &jump;
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-			}
-
-			if ((position.y == 220 && jump_timer > 0) || current_animation->AnimFinished() == true)
-			{
-				position.y = 220;
-				jumpspeed = 6;
-				animdone == true;
-			}
-			if (Active == 0)
-			{
-				position.y -= jumpSpeed;
-				current_animation = &jump;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				if (position.y < 220) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}*/
 			LOG("JUMPING ^^\n")
 			
 
@@ -491,50 +460,6 @@ update_status ModuleEnemy2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			/*if (position.y <= 220)
-			{
-				animdone = false;
-				current_animation = &jumpf;
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-				position.x += 2;
-			}
-
-
-
-			if (SDL_GetTicks() - App->input->jump_timer2 > JUMP_TIME && position.y == 220)
-			{
-				App->input->inputs.Push(IN_JUMP_FINISH2);
-				App->input->jump_timer2 = 0;
-
-				position.y = 220;
-				jumpspeed = 6;
-				animdone = true;
-			}*/
-
-			/*if (Active == 0)
-			{
-				current_animation = &jump;
-				position.y -= jumpSpeed;
-				position.x += 3;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				if (position.y < 220) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}
-			}*/
 			LOG("JUMPING FORWARD ^^>>\n");
 
 			break;
@@ -559,37 +484,6 @@ update_status ModuleEnemy2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			/*if (Active == 0)
-			{
-				current_animation = &jump;
-				position.y -= jumpSpeed;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				//if (wall) {}
-				//else {
-				//	if (position.x) position.x -= 3;
-				//}
-
-				if (position.y < 120) {
-
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-
-				}
-			}*/
 			LOG("JUMPING BACKWARD ^^<<\n");
 
 			break;
@@ -607,8 +501,13 @@ update_status ModuleEnemy2::Update()
 
 			if (attack == true)
 			{
-				//App->audio->PlayFX("Audio");
 				attack = false;
+				if (colcreated == true)
+				{
+					App->audio->PlayFX(Punch);
+					enemycrouchpunch = App->collision->AddCollider({ 10, 20, 35, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 			}
 			if (Active == 0)
 			{
@@ -952,27 +851,6 @@ update_status ModuleEnemy2::Update()
 
 			if (App->player2->hhdamage2 == true)
 			{
-
-				/*if (position.y <= 220)
-				{
-				animdone = false;
-				current_animation = &hhd;
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-				position.x += 1;
-				}
-
-				if (SDL_GetTicks() - App->input->hhdamage_timer2 > HHDAMAGE_TIME && position.y == 220)
-				{
-				App->input->inputs.Push(IN_HHDAMAGE_FINISH2);
-				App->input->hhdamage_timer2 = 0;
-
-				jumpspeed = 3;
-				position.y = 220;
-				
-				animdone = true;
-				}*/
-
 				current_animation = &hhd;
 			
 				
@@ -989,9 +867,6 @@ update_status ModuleEnemy2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	enemycol->SetPos(position.x, position.y);
-	enemypunch->SetPos(position.x + 40, position.y - 90);
-	enemykick->SetPos(position.x + 40, position.y - 60);
-
 	if (App->player2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -1006,6 +881,7 @@ update_status ModuleEnemy2::Update()
 
 		enemypunch->SetPos(position.x + 40, position.y - 90);
 		enemykick->SetPos(position.x + 40, position.y - 60);
+		enemycrouchpunch->SetPos(position.x + 40, position.y - 55);
 
 	}
 
@@ -1013,6 +889,7 @@ update_status ModuleEnemy2::Update()
 
 		enemypunch->SetPos(position.x - 40, position.y - 90);
 		enemykick->SetPos(position.x - 40, position.y - 60);
+		enemycrouchpunch->SetPos(position.x - 40, position.y - 55);
 
 	}
 
@@ -1378,6 +1255,19 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemypunch->to_delete = true;
 		App->player2->position.x += 3;
 		App->player2->life -= 25;
+
+
+	}
+	if (enemycrouchpunch == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		App->player2->hit = true;
+		lowdamage1 = true;
+		App->input->inputs.Push(IN_LDAMAGE);
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemycrouchpunch->to_delete = true;
+		App->player2->position.x += 3;
+		App->player2->life -= 10;
 
 
 	}

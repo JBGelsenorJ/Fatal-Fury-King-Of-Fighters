@@ -647,15 +647,7 @@ update_status ModulePlayer2::Update()
 
 
 				//Check where should go fx
-				//App->audio->PlayFX(Kick);
-				
-				if (SDL_GetTicks() - App->input->kick_timer > 350 && position.y == 220)
-				{
-					position.y = 180;
-					playercol->to_delete = true;
-
-					playercol = App->collision->AddCollider({ 50, -250, 45, -90 }, COLLIDER_PLAYER, this);
-				}
+				//App->audio->PlayFX(Kick);		
 				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
