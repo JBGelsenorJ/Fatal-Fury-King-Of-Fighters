@@ -140,7 +140,7 @@ ModuleEnemy2::ModuleEnemy2()
 		punch.PushBack({ 154, 127, 50, 97 });
 		punch.PushBack({ 219, 126, 95, 97 });
 		
-		punch.speed = 0.18f;
+		punch.speed = 0.14f;
 
 		// punch jumpf animation
 		punchf.PushBack({ 19, 824, 52, 100 });
@@ -190,27 +190,32 @@ ModuleEnemy2::ModuleEnemy2()
 		{
 		//Low damage
 
-		lowd.PushBack({ 24, 475, 60, 100 });
-		lowd.PushBack({ 88, 469, 68, 107 });
+		lowd.PushBack({ 719, 918, 65, 97 });
+		lowd.PushBack({ 780, 931, 67, 84 });
 		lowd.speed = 0.15f;
 
 		//High damage
 
-		highd.PushBack({ 160, 479, 65, 98 });
-		highd.PushBack({ 235, 478, 70, 88 });
-		highd.PushBack({ 88, 469, 68, 107 });
+		highd.PushBack({ 719, 918, 65, 97 });
+		highd.PushBack({ 780, 931, 67, 84 });
+		highd.PushBack({ 852, 920, 55, 95 });
+		highd.PushBack({ 907, 931, 68, 81 });
 		highd.speed = 0.15f;
 
 		//Hihgh High damage
 
-		hhd.PushBack({ 75, 5, 101, 91 });
-		hhd.PushBack({ 185, 48, 112, 44 });
-		hhd.PushBack({ 299, 44, 116, 44 });
-		hhd.PushBack({ 423, 41, 97, 47 });
-		hhd.PushBack({ 523, 22, 82, 70 });
-		hhd.PushBack({ 614, 19, 58, 74 });
-		hhd.PushBack({ 677, 11, 58, 82 });
-		hhd.PushBack({ 88, 469, 68, 107 });
+
+		hhd.PushBack({ 719, 918, 65, 97 });
+		hhd.PushBack({ 780, 931, 67, 84 });
+		hhd.PushBack({ 852, 920, 55, 95 });
+		hhd.PushBack({ 907, 931, 68, 81 });
+		hhd.PushBack({ 26, 934, 92, 81 });
+		hhd.PushBack({ 125, 941, 100, 61 });
+		hhd.PushBack({ 231, 942, 89, 56 });
+		hhd.PushBack({ 315, 948, 101, 44 });
+		hhd.PushBack({ 420, 953, 114, 38 });
+		hhd.PushBack({ 521, 916, 109, 33 });
+		
 
 		hhd.speed = 0.15f;
 		}

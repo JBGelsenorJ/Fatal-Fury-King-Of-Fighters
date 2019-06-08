@@ -17,7 +17,7 @@
 #define JUMPF_TIME 1000
 #define JUMPB_TIME 1000
 
-#define PUNCH_TIME 500
+#define PUNCH_TIME 600
 #define PUNCHF_TIME 500
 #define PUNCHB_TIME 500
 #define PUNCHN_TIME 500
