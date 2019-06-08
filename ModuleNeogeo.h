@@ -24,11 +24,20 @@ public:
 public:
 
 	SDL_Texture * graphics = nullptr;
-	
-	
+	SDL_Rect neo;
+	Animation * current_animation = nullptr;
 	Animation neogeo;
+	Animation last;
+	Animation rect1;
+	Animation rect2;
+	Animation rect3;
 	Mix_Music* song;
-	
+	int posx1;
+	int posx2;
+	int posx3;
+	int time_start;
+	bool anim_done = false;
+
 };
 
 #endif

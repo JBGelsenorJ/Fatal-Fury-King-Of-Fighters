@@ -46,24 +46,31 @@ public:
 	//SDL_Rect rock;
 	//SDL_Rect borders;
 	Animation start;
+	Animation border;
 	Animation player;
 	Animation rock;
+	Animation title;
 	Animation borders;
 	Mix_Music* introsong;
 	iPoint positionplayer;
 	iPoint positionrock;
+	iPoint positiontitle;
+	float pos_border;
 	float pos_player;
 	float pos_rock;
 	float pos_background;
+	float pos_title;
 
 private:
 
 	AnimationObject rock1;
+	AnimationObject title1;
 	AnimationObject player1;
 	IntroAnimationState animationState;
 	int step = 0;
 	iPoint frock;
 	iPoint fplayer;
+	iPoint ftitle;
 };
 
 

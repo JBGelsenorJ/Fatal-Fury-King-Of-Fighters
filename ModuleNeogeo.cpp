@@ -18,17 +18,41 @@
 ModuleNeogeo::ModuleNeogeo()
 {
 
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			neogeo.PushBack({ (320 * j), (224 * i), 320, 224 });
-		}
-	}
 
-	neogeo.speed = 0.25f;
-	neogeo.loop = false;
-	
+	neo.x = 0;
+	neo.y = 0;
+	neo.w = 304;
+	neo.h = 224;
+
+	//neogeo
+	neogeo.PushBack({ 0, 0, 305, 225 });
+	neogeo.PushBack({ 317, 0, 305, 225 });
+	neogeo.PushBack({ 633, 0, 305, 225 });
+	neogeo.PushBack({ 950, 0, 305, 225 });
+	neogeo.PushBack({ 0, 242, 305, 225 });
+	neogeo.PushBack({ 317, 242, 305, 225 });
+	neogeo.PushBack({ 633, 242, 305, 225 });
+	neogeo.PushBack({ 950, 242, 305, 225 });
+	neogeo.PushBack({ 0, 491, 305, 225 });
+	neogeo.PushBack({ 317, 491, 305, 225 });
+	neogeo.PushBack({ 633, 491, 305, 225 });
+	neogeo.PushBack({ 950, 491, 305, 225 });
+	neogeo.PushBack({ 0, 732, 305, 225 });
+	neogeo.PushBack({ 317, 732, 305, 225 });
+	neogeo.PushBack({ 633, 732, 305, 225 });
+	neogeo.PushBack({ 950, 732, 305, 225 });
+	neogeo.PushBack({ 0, 976, 305, 225 });
+	neogeo.PushBack({ 317, 976, 305, 225 });
+	neogeo.PushBack({ 633, 976, 305, 225 });
+	neogeo.PushBack({ 950, 976, 305, 225 });
+	neogeo.PushBack({ 0, 1225, 305, 225 });
+	neogeo.PushBack({ 317, 1225, 305, 225 });
+	neogeo.PushBack({ 633, 1225, 305, 225 });
+	neogeo.PushBack({ 949, 1225, 305, 225 });
+	neogeo.speed = 0.15f;
+
+	//neogeo last frame
+	last.PushBack({ 949, 1225, 305, 225 });
 
 
 }
@@ -58,7 +82,36 @@ bool ModuleNeogeo::CleanUp()
 // Update: draw background
 update_status ModuleNeogeo::Update()
 {
-	App->render->Blit(graphics, 0, 0, &(neogeo.GetCurrentFrame()), 0.0f);
+
+	// Drawing neogeo Background
+	App->render->Blit(graphics, 0, 0, &neo, NULL);
+
+	// text under the rects
+	if (anim_done == false)
+	{
+		current_animation = &neogeo;
+
+		App->render->Blit(graphics, 0, 0, &(neogeo.GetCurrentFrame()), NULL);
+	}
+	
+	// text animation
+	/*App->render->Blit(graphics, 93, 110, &(rect1.GetCurrentFrame()), NULL);
+	App->render->Blit(graphics, 87, 128, &(rect2.GetCurrentFrame()), NULL);
+	App->render->Blit(graphics, 110, 160, &(rect3.GetCurrentFrame()), NULL);*/
+
+	/*if ((time_start - SDL_GetTicks()) >= LIMIT_TIME)
+	{
+		App->render->Blit(graphics, 0, 0, &(last.GetCurrentFrame()), NULL);
+	}*/
+
+	if (current_animation->AnimFinished() == true)
+	{
+		anim_done = true;
+		App->render->Blit(graphics, 0, 0, &(last.GetCurrentFrame()), NULL);
+	}
+
+
+
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

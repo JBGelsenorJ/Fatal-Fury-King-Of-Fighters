@@ -42,6 +42,12 @@ ModuleFFIntro::ModuleFFIntro()
 	//rock
 	rock.PushBack({ 650,128,119,35 });
 
+	//title FATAL FURY
+	title.PushBack({ 338, 483, 436, 62 });
+
+	//black border
+	border.PushBack({ 854, 10, 166, 276 });
+
 
 }
 
@@ -68,6 +74,8 @@ bool ModuleFFIntro::Start()
 
 	pos_player = -40;
 	pos_rock = -70;
+	pos_title = 300;
+	pos_border = 280;
 
 
 
@@ -88,6 +96,7 @@ bool ModuleFFIntro::CleanUp()
 void ModuleFFIntro::RenderWords() {
 	
 	App->render->Blit(graphics, pos_rock, rock1.position.y, &(rock1.rect));
+	App->render->Blit(graphics, pos_title, title1.position.y, &(title1.rect));
 	App->render->Blit(graphics, pos_player, player1.position.y, &(player1.rect));
 	App->render->DrawQuad({ 0,0,SCREEN_WIDTH,SCREEN_HEIGHT }, 255, 255, 255, 255, true);
 
@@ -100,7 +109,9 @@ update_status ModuleFFIntro::Update()
 		App->render->Blit(graphics, pos_background, 16, &(introwin.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, 72, 140, &(start.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_rock, 176, &(rock.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, pos_title, 35, &(title.GetCurrentFrame()), 0.75f);
 		App->render->Blit(graphics, pos_player, 73, &(player.GetCurrentFrame()), 0.75f);
+		App->render->Blit(graphics, pos_border, 0, &(border.GetCurrentFrame()), 0.75f);
 
 		if (pos_rock < 0)
 		{
@@ -108,6 +119,8 @@ update_status ModuleFFIntro::Update()
 			pos_rock += 0.6;
 			pos_background -= 0.09;
 		}
+
+		pos_title -= 1;
 		
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
