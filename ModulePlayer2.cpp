@@ -234,9 +234,8 @@ bool ModulePlayer2::Start()
 	Activesm1 = true;
 
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
-	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
-	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
-	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
+	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
+	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 
 	position.x = 100;
 	position.y = 220;
@@ -257,6 +256,7 @@ bool ModulePlayer2::CleanUp()
 	//App->input->inputs.Push(IN_WIN_FINISH);
 
 	SDL_DestroyTexture(graphics);
+	App->audio->CleanUp();
 	App->player2->Disable();
 	App->audio->Disable();
 	LOG("Unloading Andy From Scene");
@@ -563,7 +563,6 @@ update_status ModulePlayer2::Update()
 		case ST_PUNCH_CROUCH:
 			if (attack == true)
 			{
-				//App->audio->PlayFX("Audio");
 				attack = false;
 			}
 			if (Active == 0)
@@ -706,7 +705,6 @@ update_status ModulePlayer2::Update()
 
 			if (attack == true)
 			{
-				//App->audio->PlayFX(Audio);
 
 				attack = false;
 			}
@@ -725,6 +723,11 @@ update_status ModulePlayer2::Update()
 			{
 				animdone = false;
 				current_animation = &kick;
+
+
+				//Check where should go fx
+				//App->audio->PlayFX(Kick);
+				
 				if (SDL_GetTicks() - App->input->kick_timer > 350 && position.y == 220)
 				{
 					position.y = 180;

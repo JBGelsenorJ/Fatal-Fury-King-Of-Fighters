@@ -105,9 +105,9 @@ update_status ModuleParticles::Update()
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
+				
 				// Play particle fx here
-				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PowerWave.wav");
-
+				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/Hishoken.wav");
 				App->audio->PlayFX(fx);
 
 			}

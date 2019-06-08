@@ -65,7 +65,6 @@ public:
 	Particle special;
 	iPoint position;
 	
-	Mix_Chunk* Specialattack;
 	Mix_Chunk* Punch;
 	Mix_Chunk* Kick;
 	
