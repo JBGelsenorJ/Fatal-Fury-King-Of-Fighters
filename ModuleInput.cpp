@@ -428,6 +428,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->animdone = true;
 			App->player2->playerjumpnkick->to_delete = true;
 			App->player2->colcreated = true;
+			App->player2->playerjumpnpunch->to_delete = true;
 			jump_timer = 0;
 		}
 	}

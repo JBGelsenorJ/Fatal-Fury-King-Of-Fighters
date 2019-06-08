@@ -159,11 +159,9 @@ ModulePlayer2::ModulePlayer2()
 		punchb.speed = 0.1f;
 
 		// punch jumpn animation
-		punchn.PushBack({ 22, 21, 60, 87 });
-		punchn.PushBack({ 81, 28, 74, 80 });
-		punchn.PushBack({ 167, 21, 60, 86 });
-
-		punchn.speed = 0.1f;
+		punchn.PushBack({ 234, 809, 70, 106 });
+		punchn.PushBack({ 311, 807, 86, 106 });
+		punchn.speed = 0.05f;
 
 		// punch crouch animation
 		punchc.PushBack({ 880, 734, 51, 65 });
@@ -443,29 +441,6 @@ update_status ModulePlayer2::Update()
 				animdone = true;
 			}
 
-			/*if (Active == 0)
-			{
-				position.y -= jumpSpeed;
-				current_animation = &jump;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				if (position.y < 220) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}
-				LOG("JUMPING ^^\n")
-			}*/
-
 			break;
 
 		case ST_JUMP_FORWARD:
@@ -488,29 +463,6 @@ update_status ModulePlayer2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			/*if (Active == 0)
-			{
-				current_animation = &jump;
-				position.y -= jumpSpeed;
-				position.x += 3;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				if (position.y < 220) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}
-			}*/
 			LOG("JUMPING FORWARD ^^>>\n");
 
 			break;
@@ -535,29 +487,6 @@ update_status ModulePlayer2::Update()
 				jumpspeed = 6;
 				animdone = true;
 			}
-
-			/*if (Active == 0)
-			{
-				current_animation = &jump;
-				position.y -= jumpSpeed;
-				position.x -= 3;
-
-				if (attack == true)
-				{
-					//App->audio->PlayFX("AudioJUMP");
-					attack = false;
-				}
-
-				if (position.y < 220) {
-					jumpSpeed -= 0.5;
-					if (jumpSpeed < 0) jumpSpeed = -6;
-				}
-				if (position.y >= initialPos && jumpSpeed < 0) {
-					Active = 1;
-					position.y = initialPos;
-					jumpSpeed = 6;
-				}
-			}*/
 			LOG("JUMPING BACKWARD ^^<<\n");
 
 			break;
@@ -605,7 +534,6 @@ update_status ModulePlayer2::Update()
 			if (colcreated == true)
 			{
 				playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
-				//playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 				colcreated = false;
 			}
 			break;
@@ -619,6 +547,11 @@ update_status ModulePlayer2::Update()
 				current_animation = &punchn;
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
+				if (colcreated == true)
+				{
+					playerjumpnpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 
@@ -930,6 +863,7 @@ update_status ModulePlayer2::Update()
 		playercrouchpunch->SetPos(position.x + 40, position.y - 55);
 		playercrouchkick->SetPos(position.x+20, position.y-20);
 		playerjumpnkick->SetPos(position.x + 30, position.y - 15);
+		playerjumpnpunch->SetPos(position.x + 35, position.y - 55);
 
 	}
 	
@@ -938,9 +872,9 @@ update_status ModulePlayer2::Update()
 		playerpunch->SetPos(position.x - 40, position.y - 90);
 		playerkick->SetPos(position.x - 60, position.y - 80);
 		playercrouchpunch->SetPos(position.x - 40, position.y - 55);
-		playercrouchkick->SetPos(position.x - 20, position.y - 20);
+		playercrouchkick->SetPos(position.x - 70, position.y - 20);
 		playerjumpnkick->SetPos(position.x - 30, position.y - 15);
-
+		playerjumpnpunch->SetPos(position.x - 30, position.y - 55);
 
 	}
 
@@ -1340,7 +1274,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->life -= 10;
 
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.7f, 2000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
 
 	if (playerkick == c1 && c2->type == COLLIDER_ENEMY )
@@ -1370,7 +1304,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->position.x += 3;
 
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.8f, 3000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("MUST RUMBLE");
 	}
 	if (playercrouchkick == c1 && c2->type == COLLIDER_ENEMY)
@@ -1385,7 +1319,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->position.x += 3;
 
 		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.8f, 3000);
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("MUST RUMBLE");
 
 
