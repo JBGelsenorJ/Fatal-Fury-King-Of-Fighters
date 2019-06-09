@@ -186,6 +186,22 @@ ModuleEnemy2::ModuleEnemy2()
 
 		sm1.speed = 0.17f;
 
+		//special move 2
+
+		sm2.PushBack({ 214, 473, 60, 97 });
+		sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+		sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+		sm2.PushBack({ 338, 480, 78, 90 }); //dash1
+		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+		sm2.PushBack({ 516, 486, 88, 85 });
+		sm2.PushBack({ 606, 472, 55, 97 });
+
+		sm2.speed = 0.17f;
+
+
 		//DAMAGE
 		{
 		//Low damage
@@ -250,7 +266,6 @@ bool ModuleEnemy2::Start()
 	initialPos = position.y;
 
 	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-	enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);	
 	enemycrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
@@ -292,14 +307,14 @@ update_status ModuleEnemy2::Update()
 		{
 
 			enemycol->to_delete = true;
-			enemycrouch->to_delete = true;
+			
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-			enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
+			
 			godmode = false;
 		}
 	}
@@ -337,6 +352,7 @@ update_status ModuleEnemy2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 			
 			hhd.Reset();
 			highd.Reset();
@@ -774,6 +790,30 @@ update_status ModuleEnemy2::Update()
 
 			}
 
+		case ST_SM2:
+
+			current_animation = &sm2;
+			if ((SDL_GetTicks() - App->input->sp2_timer2) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer2) > 200)
+			{
+				if (position.x < App->player2->position.x)
+				{
+					position.x += dash_speed;
+				}
+				if (position.x > App->player2->position.x)
+				{
+					position.x -= dash_speed;
+				}
+				dash_speed -= 0.1;
+			}
+			if ((SDL_GetTicks() - App->input->sp2_timer2) > SM2_TIME)
+			{
+				App->input->inputs2.Push(IN_SM2_FINISH2);
+				App->input->sp2_timer2 = 0;
+				dash_speed = 6;
+			}
+
+			break;
+
 
 		case ST_LDAMAGE:
 
@@ -813,7 +853,7 @@ update_status ModuleEnemy2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	enemycol->SetPos(position.x, position.y);
-	enemycrouch->SetPos(position.x, position.y);
+	
 	if (App->player2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -846,7 +886,7 @@ update_status ModuleEnemy2::Update()
 	}
 
 	enemycol->SetPos(position.x, position.y);
-	enemycrouch->SetPos(position.x, position.y);
+	
 	return UPDATE_CONTINUE;
 
 }
@@ -874,6 +914,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
+			case IN_M: state = ST_SM2, App->input->sp2_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
 			case IN_HHDAMAGE2: state = ST_HHDAMAGE, App->input->hhdamage_timer2 = SDL_GetTicks(); break;
@@ -1019,7 +1060,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 
 			enemycol->to_delete = true;
-			
+			enemycol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 
 		switch (last_input)
 		{
@@ -1139,6 +1180,19 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_SM1_FINISH2: state = ST_IDLE; Active = 0; Activesm1 = true; break;
+
+			}
+			break;
+
+		}
+
+		case ST_SM2:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM2_FINISH2: state = ST_IDLE; Active = 0; Activesm2 = true; break;
 
 			}
 			break;
