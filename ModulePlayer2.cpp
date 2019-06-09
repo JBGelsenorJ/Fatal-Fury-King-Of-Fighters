@@ -977,18 +977,6 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
-			//SM2 Right side
-			if ((position.x + 25) >= (App->player2->position.x - 25))
-			{
-				if (SDL_GetTicks() - combotime < 120) {
-					if (combo2 == 1)combo2 = 2;
-					combotime = SDL_GetTicks();
-				}
-				else
-				{
-					combo2 = 0;
-				}
-			}
 			//SM1 left side
 			if ((position.x + 25) <= (App->player2->position.x - 25))
 			{
@@ -1034,18 +1022,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				combo2 = 0;
 			}
 
-			//SM1 RIGHT SIDE
-			if ((position.x + 25) >= (App->player2->position.x - 25))
-			{
-				if (SDL_GetTicks() - combotime < 120) {
-					if (combo1 == 1)combo1 = 2;
-					combotime = SDL_GetTicks();
-				}
-				else
-				{
-					combo1 = 0;
-				}
-			}
+			
 			switch (last_input)
 			{
 
