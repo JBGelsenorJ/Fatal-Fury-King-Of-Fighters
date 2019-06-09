@@ -1056,6 +1056,20 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				}
 			}
 
+			//SM3 left side
+			if ((position.x) <= (App->player2->position.x))
+			{
+				if (SDL_GetTicks() - combotime < 200)
+				{
+					if (combo3 == 1)combo3 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo3 = 0;
+				}
+			}
+
 			switch (last_input)
 			{
 
@@ -1087,6 +1101,14 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			else
 			{
 				combo2 = 0;
+			}
+
+			combo3 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combosm3 < 120) {
+				if (combo1 == 1)combo1 = 2;
+				combosm3 = SDL_GetTicks();
 			}
 
 			
