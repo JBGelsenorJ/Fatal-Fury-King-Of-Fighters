@@ -1,11 +1,13 @@
-Fifth version of our recreation of Fatal Fury: King of Fighter.
+Alpha version of our recreation of Fatal Fury: King of Fighter.
 
+Repository: https://github.com/JBGelsenorJ/Fatal-Fury-King-Of-Fighters
+Webpage(done with github pages):https://jbgelsenorj.github.io/Fatal-Fury-King-Of-Fighters/
 Team: 
 
  - Carlos Redolar Torres - https://github.com/carlosredolar
- - Javier Damián Belda González - https://github.com/JBGelsenorJ
- - Germán Insua Perdomo - https://github.com/Germanins6
- - Christian Piña López - https://github.com/christianpi4
+ - Javier DamiÃ¡n Belda GonzÃ¡lez - https://github.com/JBGelsenorJ
+ - GermÃ¡n Insua Perdomo - https://github.com/Germanins6
+ - Christian PiÃ±a LÃ³pez - https://github.com/christianpi4
 
 Changelog:
 
@@ -17,31 +19,52 @@ Changelog:
 0.3.9- Added Collision Module, not able to make collisions functional (will be operative in 0.4), godmode added and limited for the player to don't be out 
 the map.
 0.5- Added UI, Font Module, Fixed Errors with Colliders now functional, State machine added and working 
+0.6 -Added New map and changed first player for Andy Bogard.
+0.7 - Added SceneBillyKane(morning), Added Andy in Player and Enemy, New State Machine working, added GamePad Control, Life and time UI, fullscreen
+1.0 - Added all movements (crouch punch, crouch kick, jump punch, jump kick...), added SceneBillyKane(sunset, night), added shake and slowdown, added 3 new special atacks, added rounds system, added new sounds 
 
 
-Menu Controls:
+Controls:
+
+Controller:
+Joystick: Move and crouch
+A:Kick
+B:Punch
+Down + Right + B: HISHO KEN (Andy's Power Wave) 
+Down + left + B: ZANEI KEN (Dash)
+Start: Next scene
+
+Keyboard (not intended to be the way of playing):
+
 ESC: Close Game
 ESPACE: Next scene (exept for player selection there you choose with ENTER)
 
-Player Controls:
+Player1 Controls:
 D: Move Right
 A: Move Left
 W: Jump (need to be fixed)
 S: Crouch
-F: First Special Attack (Terry's Power Wave)
+F: HISHO KEN (Andy's Power Wave) 
+C: ZANEI KEN (Dash)
+X: SHORYU DAN (Windmill move)
 T: Punch
-Y: Kick
+R: Kick
 
-Player Controls:
-K: Move Right
-H: Move Left
-U: Jump (need to be fixed)
-J: Crouch
-M: First Special Attack (Terry's Power Wave)
-O: Punch
-P: Kick
+Player 2 Controls:
+L: Move Right
+J: Move Left
+I: Jump (need to be fixed)
+K: Crouch
+H: HISHO KEN (Andy's Power Wave)
+M: ZANEI KEN (Dash)
+N: SHORYU DAN (Windmill move)
+Y: Punch
+U: Kick
 
-
+Debug Mode:
+F1: Show and hide colliders
+F4: Player 1 wins round instant
+F5: Turn on/off godmode
 
 
 
