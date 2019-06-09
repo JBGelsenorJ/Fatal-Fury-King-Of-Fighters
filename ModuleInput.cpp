@@ -538,6 +538,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			inputs.Push(IN_SM3_FINISH);
 			sp3_timer = 0;
+			App->player2->playerwindmill->to_delete = true;
+			App->player2->colcreated = true;
 		}
 		if (SDL_GetTicks() - sp3_timer > SP3_TIME + 500)
 		{
