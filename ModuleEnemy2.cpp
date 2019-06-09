@@ -216,6 +216,21 @@ ModuleEnemy2::ModuleEnemy2()
 
 	sm2.speed = 0.17f;
 
+	// special move 4
+
+	sm4.PushBack({ 104, 254, 90, 74 }); //start voltereta
+	sm4.PushBack({ 111, 275, 83, 54 }); //voltereta
+	sm4.PushBack({ 202, 228, 60, 100 }); //pino
+	sm4.PushBack({ 271, 257, 89, 72 }); //patada 1
+	sm4.PushBack({ 370, 258, 122, 71 }); //patada 2
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 766, 249, 115, 59 }); //patada 4
+	sm4.PushBack({ 784, 228, 62, 93 }); //patada finish / caida
+
+	sm4.speed = 0.12f;
+
 
 	//DAMAGE
 	{
@@ -919,6 +934,36 @@ update_status ModuleEnemy2::Update()
 
 			break;
 
+		case ST_SM4:
+
+			if (position.y <= 220 && (SDL_GetTicks() - App->input->sp4_timer2) < SP4_TIME)
+			{
+				animdone = false;
+				current_animation = &sm4;
+
+
+				if ((SDL_GetTicks() - App->input->sp4_timer2) > 300)
+				{
+					position.y -= flykick_speed;
+					flykick_speed -= 0.14;
+				}
+
+				if (position.x > App->player2->position.x)
+				{
+					position.x -= 2;
+				}
+				else
+				{
+					position.x += 2;
+				}
+
+			}
+
+			LOG("SM4()()()()\n");
+
+
+			break;
+
 
 		case ST_LDAMAGE:
 
@@ -1080,6 +1125,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_SM2, App->input->sp2_timer2 = SDL_GetTicks(); break;
+			case IN_B: state = ST_SM4, App->input->sp4_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
 			case IN_HHDAMAGE2: state = ST_HHDAMAGE, App->input->hhdamage_timer2 = SDL_GetTicks(); break;
@@ -1129,6 +1175,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
+			case IN_B: state = ST_SM4, App->input->sp4_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
 			case IN_HHDAMAGE2: state = ST_HHDAMAGE, App->input->hhdamage_timer2 = SDL_GetTicks(); break;
@@ -1168,6 +1215,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
+			case IN_B: state = ST_SM4, App->input->sp4_timer2 = SDL_GetTicks(); break;
 
 			}
 		}
@@ -1423,6 +1471,21 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			break;
 
 		}
+
+		case ST_SM4:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM4_FINISH2: state = ST_IDLE; Active = 0; /*Activesm4 = true*/; break;
+
+			}
+			break;
+
+		}
+
+
 
 		case ST_LDAMAGE:
 		{

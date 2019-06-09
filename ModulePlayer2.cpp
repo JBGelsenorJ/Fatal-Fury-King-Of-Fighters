@@ -204,10 +204,10 @@ ModulePlayer2::ModulePlayer2()
 	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
 	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
 	sm2.PushBack({ 338, 480, 78, 90 }); //dash1
-	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92, 90 }); //dash2
+	sm2.PushBack({ 424, 482, 92, 90 }); //dash2
+	sm2.PushBack({ 424, 482, 92, 90 }); //dash2
+	sm2.PushBack({ 424, 482, 92, 90 }); //dash2
 	sm2.PushBack({ 516, 486, 88, 85 });
 	sm2.PushBack({ 606, 472, 55, 97 });
 
@@ -219,11 +219,26 @@ ModulePlayer2::ModulePlayer2()
 	sm3.PushBack({ 76, 616, 90, 92 }); 
 	sm3.PushBack({ 165, 566, 94, 142 });
 	sm3.PushBack({ 259, 580, 112, 128 }); 
-	sm3.PushBack({ 382, 571, 88 ,146 }); 
-	sm3.PushBack({ 488, 602, 64 ,106 }); 
-	sm3.PushBack({ 563, 627, 55 ,81 }); 
+	sm3.PushBack({ 382, 571, 88,146 }); 
+	sm3.PushBack({ 488, 602, 64,106 }); 
+	sm3.PushBack({ 563, 627, 55,81 }); 
 	
 	sm3.speed = 0.17f;
+
+	// special move 4
+
+	sm4.PushBack({ 104, 254, 90, 74 }); //start voltereta
+	sm4.PushBack({ 111, 275, 83, 54 }); //voltereta
+	sm4.PushBack({ 202, 228, 60, 100 }); //pino
+	sm4.PushBack({ 271, 257, 89, 72 }); //patada 1
+	sm4.PushBack({ 370, 258, 122, 71 }); //patada 2
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 511, 250, 127, 52 }); //patada 3
+	sm4.PushBack({ 766, 249, 115, 59 }); //patada 4
+	sm4.PushBack({ 784, 228, 62, 93 }); //patada finish / caida
+
+	sm4.speed = 0.12f;
 
 	}
 	//DAMAGE
@@ -917,6 +932,36 @@ update_status ModulePlayer2::Update()
 				colcreated = false;
 			}
 		break;
+
+		case ST_SM4:
+
+			if (position.y <= 220 && (SDL_GetTicks() - App->input->sp4_timer) < SP4_TIME)
+			{
+				animdone = false;
+				current_animation = &sm4;
+				
+
+				if ((SDL_GetTicks() - App->input->sp4_timer) > 300)
+				{
+					position.y -= flykick_speed;
+					flykick_speed -= 0.14;
+				}
+
+				if (position.x < App->enemy2->position.x)
+				{
+					position.x += 2;
+				}
+				else
+				{
+					position.x -= 2;
+				}
+				
+			}	
+
+			LOG("SM4()()()()\n");
+			
+			
+			break;
 			
 			
 			
@@ -1086,6 +1131,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
+			case IN_Z: state = ST_SM4, App->input->sp4_timer = SDL_GetTicks(); break;
 			case IN_LDAMAGE: state = ST_LDAMAGE, App->input->ldamage_timer = SDL_GetTicks(); break;
 			case IN_HDAMAGE: state = ST_HDAMAGE, App->input->hdamage_timer = SDL_GetTicks(); break;
 			case IN_HHDAMAGE: state = ST_HHDAMAGE, App->input->hhdamage_timer = SDL_GetTicks(); break;
@@ -1138,6 +1184,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
+			case IN_Z: state = ST_SM4, App->input->sp4_timer = SDL_GetTicks(); break;
 			case IN_LDAMAGE: state = ST_LDAMAGE, App->input->ldamage_timer = SDL_GetTicks(); break;
 			case IN_HDAMAGE: state = ST_HDAMAGE, App->input->hdamage_timer = SDL_GetTicks(); break;
 			case IN_HHDAMAGE: state = ST_HHDAMAGE, App->input->hhdamage_timer = SDL_GetTicks(); break;
@@ -1181,6 +1228,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
 			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
+			case IN_Z: state = ST_SM4, App->input->sp4_timer = SDL_GetTicks(); break;
 				//case IN_WIN: state = ST_WIN; Active = 0;  break;
 
 			}
@@ -1429,6 +1477,19 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_SM3_FINISH: state = ST_IDLE; Active = 0; Activesm3 = true; break;
+
+			}
+			break;
+
+		}
+
+		case ST_SM4:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM4_FINISH: state = ST_IDLE; Active = 0; /*Activesm4 = true*/; break;
 
 			}
 			break;
