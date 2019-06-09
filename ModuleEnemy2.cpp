@@ -189,7 +189,7 @@ ModuleEnemy2::ModuleEnemy2()
 		//Low damage
 
 		lowd.PushBack({ 719, 918, 65, 97 });
-		lowd.PushBack({ 780, 931, 67, 84 });
+		lowd.PushBack({ 780, 931, 67, 79 });
 		lowd.speed = 0.15f;
 
 		//High damage
@@ -569,19 +569,6 @@ update_status ModuleEnemy2::Update()
 
 			LOG("PUNCH NEUTRAL JUMP ++++\n");
 
-			/*if (position.y <= 220)
-			{
-				animdone = false;
-				current_animation = &punchn;
-				position.y -= jumpspeed;
-				jumpspeed -= 0.2;
-			}
-			if ((position.y == 220 && punchn_timer > 0) || current_animation->AnimFinished() == true)
-			{
-				position.y = 220;
-				jumpspeed = 6;
-				animdone == true;
-			}*/
 
 			break;
 
@@ -774,11 +761,8 @@ update_status ModuleEnemy2::Update()
 
 		case ST_SM1:
 			App->particles->p2 = true;
-			if (App->particles->cont2 < 1)
-			{
-				current_animation = &sm1;
-			}
-			if (Activesm1 == true && App->particles->cont2 < 1){
+			current_animation = &sm1;
+			if (Activesm1 == true){
 			//App->audio->PlayFX(Audio);
 			App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
 			Activesm1 = false;
@@ -1291,10 +1275,10 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-			position.x += 2;
+			position.x -= 2;
 	}
 	if (enemycol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
-			position.x -= 2;
+			position.x += 2;
 	}
 }
