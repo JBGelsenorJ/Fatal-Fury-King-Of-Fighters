@@ -114,6 +114,8 @@ public:
 	int rounds = 0;
 
 	int timer_combo;
+
+	bool movement;
 };
 
 #endif

@@ -45,6 +45,14 @@ public:
 	//Shadow
 	SDL_Rect shadow;
 	int shadowtime;
+
+	//Scene State Machine
+	COMBAT_STATUS scenestatus;
+	int globaltime;
+	int pretime;
+	int uptime;
+	int postime;
+
 };
 
 #endif

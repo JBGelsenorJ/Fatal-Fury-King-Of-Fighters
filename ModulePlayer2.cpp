@@ -337,7 +337,7 @@ update_status ModulePlayer2::Update()
 		{
 
 		case ST_IDLE:
-
+			//////////
 			current_animation = &idle;
 
 			forward.Reset();

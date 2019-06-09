@@ -71,6 +71,7 @@ public:
 	int starting = 0;
 	uint time;
 	uint starttime;
+	bool enabletime = false;
 
 	char time_text[10];
 	

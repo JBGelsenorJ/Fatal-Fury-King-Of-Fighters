@@ -138,17 +138,17 @@ bool ModuleUI::CleanUp()
 }
 
 bool ModuleUI::Timer() {
+	if (enabletime) {
+		if (starting <= SDL_GetTicks() && time > 0) {
 
-	if (starting <= SDL_GetTicks() && time > 0) {
-		//starting = SDL_GetTicks();
-		//time -= SDL_GetTicks();
-		time = 90000 - SDL_GetTicks() + starttime;
-		//time--;
+			time = 90000 - SDL_GetTicks() + starttime;
+		}
+		if (time >= 200000)
+		{
+			time = 0;
+		}
 	}
-	if (time >= 200000)
-	{
-		time = 0;
-	}
+	else time = 90000;
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);
 	App->render->DrawQuad(timerbackground, 255, 255, 255, 255, false);
@@ -271,12 +271,14 @@ void ModuleUI::DebugRounds() {
 	
 	if (App->input->keyboard[SDL_SCANCODE_1])
 	{
-		App->player2->rounds++;
+		p1canwin = true;
+		p1win = true;
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_2])
 	{
-		App->enemy2->rounds++;
+		p2canwin = true;
+		p2win = true;
 	}
 }
 
@@ -289,6 +291,7 @@ update_status ModuleUI::Update() {
 	Timer();
 	DrawLife();
 	Score();
+	//DebugRounds();
 
 	winactive = WinLose(App->player2->life, App->enemy2->life, time);
 
