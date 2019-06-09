@@ -74,14 +74,11 @@ bool ModuleBillyKane3::Start()
 	//Loading Assets
 	LOG("Loading BillyKane3 [3] Assets");
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
-	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 
 	//Playing Music
 	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1, audience, -1);
-	Mix_VolumeChunk(audience, 35);
-	
+
 	//Enabling game features
 	App->particles->Enable();
 	App->input->Enable();
@@ -126,6 +123,7 @@ void ModuleBillyKane3::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+	App->ui->winactive = false;
 }
 
 
@@ -146,10 +144,19 @@ update_status ModuleBillyKane3::Update()
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
 	if (App->ui->winactive == true) {
-		if (App->ui->p1canwin) App->fade->FadeToBlack(this, App->p1w);
-		if (App->ui->p2canwin) App->fade->FadeToBlack(this, App->p2w);
+
+		//PLAYER 1 WINS
+		if (App->ui->p1canwin) {
+			App->ui->p1win = true;
+			App->fade->FadeToBlack(this, App->p1w);
+		}
+
+		//PLAYER 2 WINS
+		if (App->ui->p2canwin) {
+			App->ui->p2win = true;
+			App->fade->FadeToBlack(this, App->p2w);
+		}
 	}
 
-	
 	return UPDATE_CONTINUE;
 }

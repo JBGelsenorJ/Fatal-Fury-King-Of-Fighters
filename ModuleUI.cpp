@@ -65,9 +65,10 @@ ModuleUI::ModuleUI(){
 	redlife.speed = 0.1f;
 
 	//Redpoint Animation
-	redpoint.PushBack({22,63,18,18});
-	redpoint.PushBack({ 40,63,18,18 });
-	redpoint.speed = 0.1f;
+	pointscored.PushBack({22,63,18,18});
+	pointscored.PushBack({ 40,63,18,18 });
+	pointscored.PushBack({4,63,18,18});
+	pointscored.speed = 0.1f;
 
 	//Black Dot
 	point.x = 22;
@@ -82,10 +83,10 @@ ModuleUI::ModuleUI(){
 	pointred.h = 18;
 
 	//Point Scored Dot
-	pointscored.x = 4;
-	pointscored.y = 63;
-	pointscored.w = 18;
-	pointscored.h = 18;
+	pointblack.x = 4;
+	pointblack.y = 63;
+	pointblack.w = 18;
+	pointblack.h = 18;
 
 	//Andy and Terry Square
 	andybogard.x = 62;
@@ -122,21 +123,6 @@ bool ModuleUI::Start()
 	starttime = SDL_GetTicks();
 
 	return ret;
-}
-
-update_status ModuleUI::Update(){
-
-
-	health.w = 98 * (App->enemy2->life / 100);
-	healthp2.w = 98 * (App->player2->life / 100);
-	
-	Timer();
-	DrawLife();
-	Score(App->player2->rounds, App->enemy2->rounds);
-	
-	winactive = WinLose(App->player2->life, App->enemy2->life, time);
-	
-	return UPDATE_CONTINUE;
 }
 
 bool ModuleUI::CleanUp()
@@ -201,8 +187,8 @@ bool ModuleUI::DrawLife() {
 	return true;
 }
 
-void ModuleUI::Score(int playerrounds, int enemyrounds){
-
+void ModuleUI::Score(){
+	
 	
 	//DEFAULT RENDER
 	App->render->Blit(graphics, 21, 49, &point, false);
@@ -213,13 +199,12 @@ void ModuleUI::Score(int playerrounds, int enemyrounds){
 
 
 	//P1
-	if(playerrounds == 1) App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.0f, false); 
-	if(playerrounds == 2) App->render->Blit(graphics, 39, 49, &(redpoint.GetCurrentFrame()), 0.0f, false);
+	if(p1canwin) App->render->Blit(graphics, 21, 49, &(pointscored.GetCurrentFrame()), 0.0f, false); 
+	if(p1win) App->render->Blit(graphics, 39, 49, &(pointscored.GetCurrentFrame()), 0.0f, false);
 
-	if(enemyrounds == 1) App->render->Blit(graphics, (SCREEN_WIDTH - 57), 49, &(redpoint.GetCurrentFrame()), 0.0f, false);
-	if (enemyrounds == 2) App->render->Blit(graphics, (SCREEN_WIDTH - 39), 49, &(redpoint.GetCurrentFrame()), 0.0f, false);
+	if(p2canwin == 1) App->render->Blit(graphics, (SCREEN_WIDTH - 57), 49, &(pointscored.GetCurrentFrame()), 0.0f, false);
+	if (p2win) App->render->Blit(graphics, (SCREEN_WIDTH - 39), 49, &(pointscored.GetCurrentFrame()), 0.0f, false);
 
-	//if (playerrounds == 2) App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
 }
 
 bool ModuleUI::WinLose(float player, float enemy, int time) {
@@ -293,4 +278,19 @@ void ModuleUI::DebugRounds() {
 	{
 		App->enemy2->rounds++;
 	}
+}
+
+update_status ModuleUI::Update() {
+
+
+	health.w = 98 * (App->enemy2->life / 100);
+	healthp2.w = 98 * (App->player2->life / 100);
+
+	Timer();
+	DrawLife();
+	Score();
+
+	winactive = WinLose(App->player2->life, App->enemy2->life, time);
+
+	return UPDATE_CONTINUE;
 }

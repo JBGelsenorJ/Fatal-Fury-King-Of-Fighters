@@ -29,7 +29,6 @@ public:
 	Animation people3;
 	Animation sea;
 	Mix_Music* music;
-	Mix_Chunk* audience;
 	SDL_Rect wall1;
 	SDL_Rect wall2;
 	Collider* wall1c;
