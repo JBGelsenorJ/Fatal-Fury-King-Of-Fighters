@@ -216,6 +216,17 @@ ModuleEnemy2::ModuleEnemy2()
 
 	sm2.speed = 0.17f;
 
+	//special move 3
+
+	sm3.PushBack({ 18, 590, 63, 18 });
+	sm3.PushBack({ 76, 616, 90, 92 });
+	sm3.PushBack({ 165, 566, 94, 142 });
+	sm3.PushBack({ 259, 580, 112, 128 });
+	sm3.PushBack({ 382, 571, 88 ,146 });
+	sm3.PushBack({ 488, 602, 64 ,106 });
+	sm3.PushBack({ 563, 627, 55 ,81 });
+
+	sm3.speed = 0.17f;
 
 	//DAMAGE
 	{
@@ -919,6 +930,26 @@ update_status ModuleEnemy2::Update()
 
 			break;
 
+		case ST_SM3:
+
+			if (attack == true)
+			{
+				//App->audio->PlayFX("Audio");
+				attack = false;
+			}
+			if (Active == 0)
+			{
+				current_animation = &sm3;
+			}
+			LOG("SM3()()()()\n");
+			if (colcreated == true)
+			{
+				playerwindmill = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+				colcreated = false;
+			}
+			
+			break;
+
 
 		case ST_LDAMAGE:
 
@@ -1080,6 +1111,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_SM2, App->input->sp2_timer2 = SDL_GetTicks(); break;
+			case IN_N: state = ST_SM3, App->input->sp3_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
 			case IN_HHDAMAGE2: state = ST_HHDAMAGE, App->input->hhdamage_timer2 = SDL_GetTicks(); break;
@@ -1129,6 +1161,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
+			case IN_N: state = ST_SM3, App->input->sp3_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
 			case IN_HHDAMAGE2: state = ST_HHDAMAGE, App->input->hhdamage_timer2 = SDL_GetTicks(); break;
@@ -1168,6 +1201,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
+			case IN_N: state = ST_SM3, App->input->sp3_timer2 = SDL_GetTicks(); break;
 
 			}
 		}
@@ -1418,6 +1452,19 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_SM2_FINISH2: state = ST_IDLE; Active = 0; Activesm2 = true; break;
+
+			}
+			break;
+
+		}
+
+		case ST_SM3:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM3_FINISH2: state = ST_IDLE; Active = 0; Activesm3 = true; break;
 
 			}
 			break;
