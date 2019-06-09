@@ -288,9 +288,11 @@ bool ModuleEnemy2::Start()
 	enemyjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemydash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	enemyjumpfkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-	enemyjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-	enemyjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	enemyjumpfkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpbkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+
 	return ret;
 
 }
@@ -707,7 +709,6 @@ update_status ModuleEnemy2::Update()
 			{
 				animdone = false;
 				current_animation = &kick;
-
 				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
@@ -778,13 +779,19 @@ update_status ModuleEnemy2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x += 2;
+				if (colcreated == true)
+				{
+					enemyjumpfkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->kickf_timer2 > KICKF_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH2);
 				App->input->kickf_timer2 = 0;
-
+				enemyjumpfkick->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -803,13 +810,19 @@ update_status ModuleEnemy2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x -= 2;
+				if (colcreated == true)
+				{
+					enemyjumpbkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->kickb_timer2 > KICKB_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH2);
 				App->input->kickb_timer2 = 0;
-
+				enemyjumpbkick->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -820,7 +833,29 @@ update_status ModuleEnemy2::Update()
 			break;
 
 		case ST_SM1:
-			App->particles->p2 = true;
+
+			current_animation = &sm1;
+			if ((SDL_GetTicks() - App->input->sp1_timer2) > 500)
+			{
+				App->particles->p2 = true;
+
+				if (Activesm1 == true)
+				{
+					if (position.x > App->player2->position.x)
+					{
+						App->particles->AddParticle(App->particles->andyspecial2, position.x - 30, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
+						
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->andyspecial2, position.x + 50, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
+					}
+					
+					Activesm1 = false;
+				}
+			}
+
+			/*App->particles->p2 = true;
 			current_animation = &sm1;
 			if (Activesm1 == true)
 			{
@@ -832,7 +867,7 @@ update_status ModuleEnemy2::Update()
 				Activesm1 = false;
 
 
-			}
+			}*/
 			break;
 
 			/*case ST_SM1:
@@ -939,6 +974,8 @@ update_status ModuleEnemy2::Update()
 		enemydash->SetPos(position.x + 35, position.y - 55);
 		enemyjumpfpunch->SetPos(position.x + 35, position.y - 55);
 		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
+		enemyjumpfkick->SetPos(position.x + 35, position.y - 55);
+		enemyjumpbkick->SetPos(position.x + 35, position.y - 55);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -952,6 +989,8 @@ update_status ModuleEnemy2::Update()
 		enemydash->SetPos(position.x - 35, position.y - 55);
 		enemyjumpfpunch->SetPos(position.x - 35, position.y - 55);
 		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
+		enemyjumpfkick->SetPos(position.x - 35, position.y - 55);
+		enemyjumpbkick->SetPos(position.x - 35, position.y - 55);
 
 	}
 
@@ -1393,7 +1432,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
 		enemykick->to_delete = true;
-		App->player2->life -= 25;
+		App->player2->life -= 10;
 		App->player2->position.x += 3;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 
@@ -1426,6 +1465,36 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
+	if (enemyjumpfkick == c1 && c2->type == COLLIDER_PLAYER)
+	{
+
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemyjumpfkick->to_delete = true;
+		highdamage1 = true;
+		App->input->inputs2.Push(IN_HDAMAGE);
+		App->enemy2->life -= 10;
+		App->enemy2->position.x += 3;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+		LOG("MUST RUMBLE");
+	}
+	if (enemyjumpbkick == c1 && c2->type == COLLIDER_PLAYER)
+	{
+
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemyjumpbkick->to_delete = true;
+		highdamage1 = true;
+		App->input->inputs2.Push(IN_HDAMAGE);
+		App->enemy2->life -= 10;
+		App->enemy2->position.x += 3;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+		LOG("MUST RUMBLE");
+	}
 	if (enemydash == c1 && c2->type == COLLIDER_PLAYER)
 	{
 
@@ -1434,7 +1503,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemydash->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs.Push(IN_HDAMAGE);
-		App->player2->life -= 20;
+		App->player2->life -= 10;
 		App->player2->position.x += 3;
 
 		//TRYING RUMBLE
