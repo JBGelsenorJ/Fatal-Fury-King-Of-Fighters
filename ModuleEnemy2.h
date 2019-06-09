@@ -10,6 +10,9 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL_timer.h"
 
+#define TIME_COMBO 1000
+#define SM2_TIME 1000
+
 struct SDL_Texture;
 
 class ModuleEnemy2 : public Module
@@ -25,6 +28,7 @@ public:
 
 	bool Active = false;
 	bool Activesm1 = true;
+	bool Activesm2 = true;
 	bool shoot = false;
 	bool lowdamage1 = false;
 	bool highdamage1 = false;
@@ -54,6 +58,7 @@ public:
 	Animation hhd;
 
 	Animation sm1;
+	Animation sm2;
 
 	Animation kick;
 	Animation kickf;
@@ -75,13 +80,13 @@ public:
 	Mix_Chunk* Kick;
 
 	Collider* enemycol;
-	Collider* enemycrouch;
 	Collider* enemypunch;
 	Collider* enemykick;
 	Collider* enemycrouchpunch;
 	Collider* enemyjumpnpunch;
 	Collider* enemycrouchkick;
-	Collider* enemyjumpnkick;
+	Collider* enemyjumpnkick;;
+	Collider* enemydash;
 
 	int initialPos;
 	bool hit = false;
@@ -101,11 +106,14 @@ public:
 
 	float jumpspeed = 6;
 	float kick_jumpspeed = 6;
+	float dash_speed = 6;
 
 	int speed = 2;
 	float life = 100;
 	int score = 0;
 	int rounds = 0;
+
+	int timer_combo;
 };
 
 #endif

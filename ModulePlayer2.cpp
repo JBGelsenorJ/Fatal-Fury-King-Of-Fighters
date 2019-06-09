@@ -181,9 +181,14 @@ ModulePlayer2::ModulePlayer2()
 	sm1.PushBack({ 23, 357, 66, 99 });
 	sm1.PushBack({ 92, 361, 52, 94 });
 	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+	sm1.PushBack({ 216, 363, 99, 92 });
 	sm1.PushBack({ 216, 363, 99, 92 });
 
-	sm1.speed = 0.17f;
+
+	sm1.speed = 0.15f;
 
 	//special move 2
 
@@ -259,19 +264,18 @@ bool ModulePlayer2::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 
-	position.x = 180;
+	position.x = 200;
 	position.y = 220;
 	initialPos = position.y;
 
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-	playercrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_PLAYER, this);
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playercrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playercrouchpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-
+	playerdash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	//winanimation.Reset();
 
 	return ret;
@@ -312,14 +316,14 @@ update_status ModulePlayer2::Update()
 		{
 			
 			playercol->to_delete = true;
-			playercrouch->to_delete = true;
+			
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-			playercrouch = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
+			
 			godmode = false;
 		}
 	}
@@ -358,6 +362,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -385,7 +390,6 @@ update_status ModulePlayer2::Update()
 			jumpf.Reset();
 			jumpb.Reset();
 
-
 			kick.Reset();
 			kickb.Reset();
 			kickf.Reset();
@@ -396,6 +400,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -434,6 +439,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -815,20 +821,22 @@ update_status ModulePlayer2::Update()
 			current_animation = &sm2;
 			if ( (SDL_GetTicks() - App->input->sp2_timer) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer) > 200)
 			{
-				position.x += dash_speed;
+				if (App->player2->colcreated == true)
+				{
+					playerdash = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					App->player2->colcreated = false;
+				}
+				if (position.x < App->enemy2->position.x)
+				{
+					position.x += dash_speed;
+				}
+				if (position.x > App->enemy2->position.x)
+				{
+					position.x -= dash_speed;
+				}
 				dash_speed -= 0.1;
 			}
-			if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
-			{
-				App->input->inputs.Push(IN_SM2_FINISH);
-				App->input->sp2_timer = 0;
-				dash_speed = 6;
-			}
 			
-
-
-			
-
 			break;
 
 
@@ -872,7 +880,7 @@ update_status ModulePlayer2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	playercol->SetPos(position.x, position.y);
-	playercrouch->SetPos(position.x, position.y);
+	
 	if (App->enemy2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -891,6 +899,7 @@ update_status ModulePlayer2::Update()
 		playercrouchkick->SetPos(position.x+20, position.y-20);
 		playerjumpnkick->SetPos(position.x + 30, position.y - 15);
 		playerjumpnpunch->SetPos(position.x + 35, position.y - 55);
+		playerdash->SetPos(position.x + 20, position.y - 55);
 
 	}
 	
@@ -902,11 +911,11 @@ update_status ModulePlayer2::Update()
 		playercrouchkick->SetPos(position.x - 70, position.y - 20);
 		playerjumpnkick->SetPos(position.x - 30, position.y - 15);
 		playerjumpnpunch->SetPos(position.x - 30, position.y - 55);
-
+		playerdash->SetPos(position.x - 20, position.y - 55);
 	}
 
 	playercol->SetPos(position.x, position.y);
-	playercrouch->SetPos(position.x, position.y);
+	
 
 	return UPDATE_CONTINUE;
 
@@ -1085,7 +1094,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 		case ST_CROUCH:
 		{
 			playercol->to_delete = true;
-			
+			playercol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_PLAYER, this);
 			switch (last_input)
 			{
 			
@@ -1379,7 +1388,20 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 
 	}
+	if (playerdash == c1 && c2->type == COLLIDER_ENEMY)
+	{
 
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		playerdash->to_delete = true;
+		highdamage2 = true;
+		App->input->inputs2.Push(IN_HDAMAGE2);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -= 20;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
 	if (playercol == c1 && App->scene_billykane->wall2c == c2 )   //Colisions with second wall
 	{
 			position.x -= 2;

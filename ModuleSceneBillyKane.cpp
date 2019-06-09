@@ -109,6 +109,8 @@ bool ModuleBillyKane::Start()
 	//State Machine
 	scenestatus = PREUPDATE;
 	globaltime = SDL_GetTicks();
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 
 	return ret;
 }

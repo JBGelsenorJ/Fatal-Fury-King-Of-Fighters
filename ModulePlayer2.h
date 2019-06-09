@@ -74,14 +74,13 @@ public:
 	Mix_Chunk* Kick;
 	
 	Collider* playercol;
-	Collider* playercrouch;
 	Collider* playerpunch;
 	Collider* playercrouchpunch;
 	Collider* playerjumpnpunch;
 	Collider* playerkick;
 	Collider* playercrouchkick;
 	Collider* playerjumpnkick;
-
+	Collider* playerdash;
 	int initialPos;
 
 	
