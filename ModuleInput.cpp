@@ -16,7 +16,7 @@ ModuleInput::ModuleInput() : Module()
 	for (uint i = 0; i < MAX_KEYS; ++i) {
 		keyboard[i] = KEY_IDLE;
 	}
-	
+
 }
 
 ModuleInput::~ModuleInput()
@@ -27,7 +27,7 @@ ModuleInput::~ModuleInput()
 bool ModuleInput::Init()
 {
 	LOG("Init SDL input event system");
-	
+
 	bool ret = true;
 	SDL_Init(0);
 
@@ -39,34 +39,34 @@ bool ModuleInput::Init()
 		ret = false;
 	}   //Events
 
-	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0) 
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
 	{
 		LOG("SDL_GAMECONTROLLER could not initialize! SDL_Error: %s\n", SDL_GetError());
-			ret = false;
+		ret = false;
 	}   //Gamepads
 
 	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0) {
 		LOG("SDL_Haptic could not initialize! SDL_Error: %s\n", SDL_GetError());
-			ret = false;
+		ret = false;
 	}	   //Haptics
 
-	
 
-	/*
-	if (SDL_NumJoysticks() < 1) {
-		LOG("No Joysticks or Gamepads connected!\n");
-	}
-	else {
-		//Loading devices.(Must be connected and will be open). -- GAMEPADS
-		gamepad1 = SDL_GameControllerOpen(0);
-		gamepad2 = SDL_GameControllerOpen(1);
 
-		if (gamepad1 == NULL || gamepad2 == NULL) {
-			LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
-		}
-		
-	}
-	*/
+		   /*
+		   if (SDL_NumJoysticks() < 1) {
+		   LOG("No Joysticks or Gamepads connected!\n");
+		   }
+		   else {
+		   //Loading devices.(Must be connected and will be open). -- GAMEPADS
+		   gamepad1 = SDL_GameControllerOpen(0);
+		   gamepad2 = SDL_GameControllerOpen(1);
+
+		   if (gamepad1 == NULL || gamepad2 == NULL) {
+		   LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
+		   }
+
+		   }
+		   */
 
 	return ret;
 }
@@ -84,26 +84,27 @@ bool ModuleInput::external_input()
 			//If device are connected
 		case SDL_CONTROLLERDEVICEADDED:
 			LOG("GAMEPAD CONNECTED");
-			if(gamepad1 == NULL){
-					gamepad1 = SDL_GameControllerOpen(0);
-					if(SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad1)) > 0) {
-							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad1));
-							if (haptic != NULL) LOG("HAPTIC SUCCESS");
-							if (SDL_HapticRumbleInit(haptic) < 0) LOG("Error init rumble in haptic");
-							SDL_HapticRumblePlay(haptic, 0.3f, 600);
-					}
-				} else {
-					if (gamepad2 == NULL) {
-						gamepad2 = SDL_GameControllerOpen(1);
-						if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad2)) > 0) {
-							haptic2 = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad2));
-							if (haptic2 != NULL) LOG("HAPTIC SUCCESS");
-							if (SDL_HapticRumbleInit(haptic2) < 0) LOG("Error init rumble in haptic");
-							SDL_HapticRumblePlay(haptic2, 0.3f, 600);
-						}
-					}
-				
+			if (gamepad1 == NULL) {
+				gamepad1 = SDL_GameControllerOpen(0);
+				if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad1)) > 0) {
+					haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad1));
+					if (haptic != NULL) LOG("HAPTIC SUCCESS");
+					if (SDL_HapticRumbleInit(haptic) < 0) LOG("Error init rumble in haptic");
+					SDL_HapticRumblePlay(haptic, 0.3f, 600);
 				}
+			}
+			else {
+				if (gamepad2 == NULL) {
+					gamepad2 = SDL_GameControllerOpen(1);
+					if (SDL_JoystickIsHaptic(SDL_GameControllerGetJoystick(gamepad2)) > 0) {
+						haptic2 = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad2));
+						if (haptic2 != NULL) LOG("HAPTIC SUCCESS");
+						if (SDL_HapticRumbleInit(haptic2) < 0) LOG("Error init rumble in haptic");
+						SDL_HapticRumblePlay(haptic2, 0.3f, 600);
+					}
+				}
+
+			}
 			break;
 
 			//If device are removed
@@ -111,11 +112,11 @@ bool ModuleInput::external_input()
 			LOG("GAMEPAD REMOVED");
 			if (gamepad2 != NULL) {
 				LOG("WE ARE REMOVING PLAYER 2 CONTROLLER");
-					SDL_HapticClose(haptic2);
-					SDL_GameControllerClose(gamepad2);
-					gamepad2 = NULL;
-					haptic2 = NULL;
-				}
+				SDL_HapticClose(haptic2);
+				SDL_GameControllerClose(gamepad2);
+				gamepad2 = NULL;
+				haptic2 = NULL;
+			}
 			else {
 				if (gamepad1 != NULL) {
 					LOG("WE ARE REMOVING PLAYER 1 CONTROLLER");
@@ -140,7 +141,7 @@ bool ModuleInput::external_input()
 			case SDLK_ESCAPE:
 				return false;
 				break;
-			//PLAYER 1 KEYBOARD CONTROLS
+				//PLAYER 1 KEYBOARD CONTROLS
 			case SDLK_s:
 				inputs.Push(IN_CROUCH_UP);
 				down = false;
@@ -158,8 +159,8 @@ bool ModuleInput::external_input()
 
 				right = false;
 				break;
-			
-			//PLAYER 2 KEYBOARD CONTROLS
+
+				//PLAYER 2 KEYBOARD CONTROLS
 			case SDLK_k:
 				inputs2.Push(IN_CROUCH_UP2);
 				down2 = false;
@@ -185,7 +186,7 @@ bool ModuleInput::external_input()
 				//PLAYER 1
 			case SDLK_r:
 				inputs.Push(IN_R);
-				
+
 				break;
 			case SDLK_t:
 				inputs.Push(IN_T);
@@ -238,11 +239,11 @@ bool ModuleInput::external_input()
 			}
 		}
 
-		
+
 		//GAMEPADS AXIS CONTROL
 		if (event.type == SDL_CONTROLLERAXISMOTION) {
 			//GAMEPAD 1
-			if (event.caxis.which == 0) { 
+			if (event.caxis.which == 0) {
 				if (event.caxis.axis == 0)
 				{
 					//Left of dead zone
@@ -250,7 +251,7 @@ bool ModuleInput::external_input()
 					{
 						left = true;
 						right = false;
-					} 
+					}
 					//Right of dead zone
 					else if (event.caxis.value > GAMEPAD_DEAD_ZONE)
 					{
@@ -502,14 +503,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->Activesm1 = true;
 
 		}
-	}
-	if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
-	{
-		App->input->inputs.Push(IN_SM2_FINISH);
-		App->input->sp2_timer = 0;
-		App->player2->dash_speed = 6;
-		App->player2->playerdash->to_delete = true;
-		App->player2->colcreated = true;
+
 	}
 
 	//PLAYER 2
@@ -645,14 +639,6 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->hhdamage1 = false;
 		}
 	}
-	if ((SDL_GetTicks() - App->input->sp2_timer2) > SM2_TIME)
-	{
-		App->input->inputs2.Push(IN_SM2_FINISH2);
-		App->input->sp2_timer2 = 0;
-		App->enemy2->dash_speed = 6;
-		App->enemy2->enemydash->to_delete = true;
-		App->enemy2->colcreated = true;
-	}
 
 }
 // Called every draw update
@@ -696,7 +682,7 @@ update_status ModuleInput::PreUpdate()
 }
 
 update_status ModuleInput::PostUpdate() {
-	
+
 	key = -1;
 	return update_status::UPDATE_CONTINUE;
 }
@@ -714,7 +700,7 @@ bool ModuleInput::CleanUp()
 
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-	
+
 	return true;
 
 }

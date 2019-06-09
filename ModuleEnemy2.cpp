@@ -79,7 +79,7 @@ ModuleEnemy2::ModuleEnemy2()
 		jumpf.PushBack({ 728, 822, 58, 95 });
 		jumpf.PushBack({ 802, 831, 69, 57 });
 		jumpf.PushBack({ 884, 810, 50, 107 });
-		
+
 		jumpf.speed = 0.12f;
 
 		//Terry Bogard Jump BACKWARD Animation
@@ -89,51 +89,51 @@ ModuleEnemy2::ModuleEnemy2()
 		jumpb.PushBack({ 884, 810, 50, 107 });
 
 		jumpb.speed = 0.12f;
-	
+
 	}
 
 	//KICK
 	{
-			//Terry Bogard Kick Animation
-			kick.PushBack({ 310, 13, 47, 100 });
-			kick.PushBack({ 378, 24, 57, 89 });
-			kick.PushBack({ 448, 20, 54, 92 });
-			kick.PushBack({ 515, 24, 114, 77 });
-			kick.PushBack({ 641, 11, 85, 96 });
-			kick.PushBack({ 747, 26, 55, 82 });
-			kick.PushBack({ 832, 11, 61, 102 });
-			
-			kick.speed = 0.13f;
+		//Terry Bogard Kick Animation
+		kick.PushBack({ 310, 13, 47, 100 });
+		kick.PushBack({ 378, 24, 57, 89 });
+		kick.PushBack({ 448, 20, 54, 92 });
+		kick.PushBack({ 515, 24, 114, 77 });
+		kick.PushBack({ 641, 11, 85, 96 });
+		kick.PushBack({ 747, 26, 55, 82 });
+		kick.PushBack({ 832, 11, 61, 102 });
 
-			//Terry Bogard Kick JUMPF Animation
-			kickf.PushBack({ 305, 718, 52, 83 });
-			kickf.PushBack({ 369, 721, 58, 77 });
-			kickf.PushBack({ 435, 727, 96, 71 });
-			
-			kickf.speed = 0.1f;
+		kick.speed = 0.13f;
 
-			//Terry Bogard Kick JUMPB Animation
-			kickb.PushBack({ 305, 718, 52, 83 });
-			kickb.PushBack({ 369, 721, 58, 77 });
-			kickb.PushBack({ 435, 727, 96, 71 });
-			
-			kickb.speed = 0.1f;
+		//Terry Bogard Kick JUMPF Animation
+		kickf.PushBack({ 305, 718, 52, 83 });
+		kickf.PushBack({ 369, 721, 58, 77 });
+		kickf.PushBack({ 435, 727, 96, 71 });
 
-			//Terry Bogard Kick JUMPN Animation
-			kickn.PushBack({ 713, 709, 57, 87 });
-			kickn.PushBack({ 778, 710, 94, 89 });
-			
-			kickn.speed = 0.1f;
+		kickf.speed = 0.1f;
 
-			//Terry Bogard Kick Crouch Animation
-			kickc.PushBack({ 23, 739, 54, 62 });
-			kickc.PushBack({ 93, 744, 68, 57 });
-			kickc.PushBack({ 165, 765, 121, 36 });
-						
-			kickc.speed = 0.18f;
-		}
+		//Terry Bogard Kick JUMPB Animation
+		kickb.PushBack({ 305, 718, 52, 83 });
+		kickb.PushBack({ 369, 721, 58, 77 });
+		kickb.PushBack({ 435, 727, 96, 71 });
 
-		//PUNCH
+		kickb.speed = 0.1f;
+
+		//Terry Bogard Kick JUMPN Animation
+		kickn.PushBack({ 713, 709, 57, 87 });
+		kickn.PushBack({ 778, 710, 94, 89 });
+
+		kickn.speed = 0.1f;
+
+		//Terry Bogard Kick Crouch Animation
+		kickc.PushBack({ 23, 739, 54, 62 });
+		kickc.PushBack({ 93, 744, 68, 57 });
+		kickc.PushBack({ 165, 765, 121, 36 });
+
+		kickc.speed = 0.18f;
+	}
+
+	//PUNCH
 	{
 		// punch animation 
 
@@ -141,7 +141,7 @@ ModuleEnemy2::ModuleEnemy2()
 		punch.PushBack({ 88, 131, 51, 92 });
 		punch.PushBack({ 154, 127, 50, 97 });
 		punch.PushBack({ 219, 126, 95, 97 });
-		
+
 		punch.speed = 0.14f;
 
 		// punch jumpf animation
@@ -150,7 +150,7 @@ ModuleEnemy2::ModuleEnemy2()
 		punchf.PushBack({ 152, 803, 57, 121 });
 		punchf.PushBack({ 237, 815, 64, 97 });
 		punchf.PushBack({ 314, 811, 81, 99 });
-		
+
 		punchf.speed = 0.1f;
 
 		// punch jumpb animation
@@ -172,45 +172,45 @@ ModuleEnemy2::ModuleEnemy2()
 		punchc.PushBack({ 942, 735, 79, 64 });
 
 		punchc.speed = 0.1f;
-	
+
 	}
 
-		//SPECIAL MOVEMENTS
+	//SPECIAL MOVEMENTS
 
-		//Special Movement 1
+	//Special Movement 1
 
-		//Special Movement 1
+	//Special Movement 1
 
-		sm1.PushBack({ 23, 357, 66, 99 });
-		sm1.PushBack({ 92, 361, 52, 94 });
-		sm1.PushBack({ 153, 364, 51, 94 });
-		sm1.PushBack({ 153, 364, 51, 94 });
-		sm1.PushBack({ 153, 364, 51, 94 });
-		sm1.PushBack({ 216, 363, 99, 92 });
-		sm1.PushBack({ 216, 363, 99, 92 });
-		sm1.PushBack({ 216, 363, 99, 92 });
-
-
-		sm1.speed = 0.15f;
-
-		//special move 2
-
-		sm2.PushBack({ 214, 473, 60, 97 });
-		sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
-		sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
-		sm2.PushBack({ 338, 480, 78, 90 }); //dash1
-		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-		sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
-		sm2.PushBack({ 516, 486, 88, 85 });
-		sm2.PushBack({ 606, 472, 55, 97 });
-
-		sm2.speed = 0.17f;
+	sm1.PushBack({ 23, 357, 66, 99 });
+	sm1.PushBack({ 92, 361, 52, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+	sm1.PushBack({ 216, 363, 99, 92 });
 
 
-		//DAMAGE
-		{
+	sm1.speed = 0.15f;
+
+	//special move 2
+
+	sm2.PushBack({ 214, 473, 60, 97 });
+	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+	sm2.PushBack({ 338, 480, 78, 90 }); //dash1
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 516, 486, 88, 85 });
+	sm2.PushBack({ 606, 472, 55, 97 });
+
+	sm2.speed = 0.17f;
+
+
+	//DAMAGE
+	{
 		//Low damage
 
 		lowd.PushBack({ 719, 918, 65, 97 });
@@ -238,16 +238,16 @@ ModuleEnemy2::ModuleEnemy2()
 		hhd.PushBack({ 315, 948, 101, 44 });
 		hhd.PushBack({ 420, 953, 114, 38 });
 		hhd.PushBack({ 521, 916, 109, 33 });
-		
+
 
 		hhd.speed = 0.15f;
-		}
+	}
 
-		//Shadow
-		shadow.x = 644;
-		shadow.y = 695;
-		shadow.w = 66;
-		shadow.h = 14;
+	//Shadow
+	shadow.x = 644;
+	shadow.y = 695;
+	shadow.w = 66;
+	shadow.h = 14;
 
 }
 
@@ -273,13 +273,13 @@ bool ModuleEnemy2::Start()
 	initialPos = position.y;
 
 	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);	
+	enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemycrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemycrouchpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-	enemydash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+
 	return ret;
 
 }
@@ -301,7 +301,7 @@ update_status ModuleEnemy2::Update()
 
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs2);
-	
+
 	App->render->Blit(graphics, position.x - 5, 210, &shadow, 1.0f, true);
 
 	int speed = 2;
@@ -314,14 +314,14 @@ update_status ModuleEnemy2::Update()
 		{
 
 			enemycol->to_delete = true;
-			
+
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-			
+
 			godmode = false;
 		}
 	}
@@ -347,20 +347,20 @@ update_status ModuleEnemy2::Update()
 			jump.Reset();
 			jumpf.Reset();
 			jumpb.Reset();
-			
-			
+
+
 			kick.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
-			
+
 			punch.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
-			
+
 			hhd.Reset();
 			highd.Reset();
 			lowd.Reset();
@@ -380,7 +380,7 @@ update_status ModuleEnemy2::Update()
 				current_animation = &forward;
 				backward.Reset();
 			}
-			
+
 			position.x += speed;
 			crouch.Reset();
 			jump.Reset();
@@ -463,9 +463,9 @@ update_status ModuleEnemy2::Update()
 				animdone = true;
 			}
 			LOG("JUMPING ^^\n")
-			
 
-			break;
+
+				break;
 
 		case ST_JUMP_FORWARD:
 
@@ -565,7 +565,7 @@ update_status ModuleEnemy2::Update()
 				}
 
 			}
-			
+
 
 			break;
 
@@ -676,7 +676,7 @@ update_status ModuleEnemy2::Update()
 			{
 				animdone = false;
 				current_animation = &kick;
-	
+
 				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
@@ -804,7 +804,7 @@ update_status ModuleEnemy2::Update()
 			}
 			break;
 
-		/*case ST_SM1:
+			/*case ST_SM1:
 			App->particles->p2 = true;
 			current_animation = &sm1;
 			if (Activesm1 == true){
@@ -820,11 +820,6 @@ update_status ModuleEnemy2::Update()
 			current_animation = &sm2;
 			if ((SDL_GetTicks() - App->input->sp2_timer2) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer2) > 200)
 			{
-				if (App->enemy2->colcreated == true)
-				{
-					enemydash = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
-					App->enemy2->colcreated = false;
-				}
 				if (position.x < App->player2->position.x)
 				{
 					position.x += dash_speed;
@@ -835,7 +830,12 @@ update_status ModuleEnemy2::Update()
 				}
 				dash_speed -= 0.1;
 			}
-
+			if ((SDL_GetTicks() - App->input->sp2_timer2) > SM2_TIME)
+			{
+				App->input->inputs2.Push(IN_SM2_FINISH2);
+				App->input->sp2_timer2 = 0;
+				dash_speed = 6;
+			}
 
 			break;
 
@@ -863,8 +863,8 @@ update_status ModuleEnemy2::Update()
 			if (App->player2->hhdamage2 == true)
 			{
 				current_animation = &hhd;
-			
-				
+
+
 			}
 
 			break;
@@ -878,7 +878,7 @@ update_status ModuleEnemy2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	enemycol->SetPos(position.x, position.y);
-	
+
 	if (App->player2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -897,7 +897,6 @@ update_status ModuleEnemy2::Update()
 		enemycrouchkick->SetPos(position.x + 20, position.y - 20);
 		enemyjumpnkick->SetPos(position.x + 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x + 35, position.y - 55);
-		enemydash->SetPos(position.x + 20, position.y - 55);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -908,19 +907,18 @@ update_status ModuleEnemy2::Update()
 		enemycrouchkick->SetPos(position.x - 70, position.y - 20);
 		enemyjumpnkick->SetPos(position.x - 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x - 35, position.y - 55);
-		enemydash->SetPos(position.x - 20, position.y - 55);
 
 	}
 
 	enemycol->SetPos(position.x, position.y);
-	
+
 	return UPDATE_CONTINUE;
 
 }
 
 player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 {
-	
+
 	static player_states state = ST_IDLE;
 	player_inputs last_input;
 
@@ -984,7 +982,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
 			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
-			
+
 			}
 		}
 		break;
@@ -1077,7 +1075,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 			case IN_PUNCH_FINISH2: state = ST_IDLE; Active = 0; attack = true; break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
-			
+
 
 			}
 		}
@@ -1089,8 +1087,8 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			enemycol->to_delete = true;
 			enemycol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 
-		switch (last_input)
-		{
+			switch (last_input)
+			{
 
 			case IN_CROUCH_UP2: state = ST_IDLE; enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); break;
 			case IN_JUMP_AND_CROUCH2: state = ST_IDLE; break;
@@ -1098,7 +1096,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_U: state = ST_KICK_CROUCH; App->input->kickc_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
-			
+
 
 			}
 		}
@@ -1134,7 +1132,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 			case IN_KICK_FINISH2: state = ST_IDLE; enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this); attack = true; break;
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
-			
+
 			}
 
 		}
@@ -1181,9 +1179,9 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			
+
 			case IN_HDAMAGE2: state = ST_HDAMAGE, App->input->hdamage_timer2 = SDL_GetTicks(); break;
-			
+
 			case IN_KICK_CROUCH_FINISH2:
 
 				if (IN_CROUCH_DOWN2 == true)
@@ -1254,10 +1252,10 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			}
 		}
 
-		
+
 		}
 	}
-	
+
 	return state;
 
 }
@@ -1272,7 +1270,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 
-	if (enemycol == c1 && c2->type == COLLIDER_PLAYER  && App->player2->position.y == position.y && position.x > App->player2->position.x)
+	if (enemycol == c1 && c2->type == COLLIDER_PLAYER && App->player2->position.y == position.y && position.x > App->player2->position.x)
 	{
 		App->player2->position.x -= 3;
 
@@ -1359,28 +1357,13 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
 
-	if (enemydash == c1 && c2->type == COLLIDER_PLAYER)
-	{
-
-		App->render->StartCameraShake(250, 3);
-		App->render->UpdateCameraShake();
-		enemydash->to_delete = true;
-		highdamage1 = true;
-		App->input->inputs2.Push(IN_HDAMAGE2);
-		App->player2->position.x += 3;
-		App->player2->life -= 20;
-
-		//TRYING RUMBLE
-		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
-	}
-
 	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-			position.x -=2;
+		position.x -= 2;
 	}
 	if (enemycol == c1 && App->scene_billykane2->wall2c == c2)   //Colisions with second wall
 	{
-		position.x -=2;
+		position.x -= 2;
 	}
 	if (enemycol == c1 && App->scene_billykane3->wall2c == c2)   //Colisions with second wall
 	{
@@ -1388,7 +1371,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 	}
 	if (enemycol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
-			position.x += 2;
+		position.x += 2;
 	}
 	if (enemycol == c1 && App->scene_billykane2->wall1c == c2)   //Colisions with first wall
 	{
@@ -1399,4 +1382,3 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		position.x += 2;
 	}
 }
-
