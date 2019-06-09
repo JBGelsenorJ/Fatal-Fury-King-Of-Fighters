@@ -106,6 +106,9 @@ bool ModuleBillyKane::Start()
 	App->ui->p1win = false;
 	App->ui->p2win = false;
 
+	//State Machine
+	scenestatus = PREUPDATE;
+	globaltime = SDL_GetTicks();
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
@@ -163,11 +166,37 @@ update_status ModuleBillyKane::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
-
 	//Change Scene Condition
 	if (App->ui->winactive == true) {
 		App->fade->FadeToBlack(this, App->scene_billykane2);
 	}
+	else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
+
+	//TRYING STATE MACHINE
+	/*
+	switch(scenestatus) {
+	
+	case PREUPDATE:
+		pretime = SDL_GetTicks();
+		App->input->Disable();
+		if(pretime >= globaltime + 4000)scenestatus = UPDATE;
+		break;
+	
+	case UPDATE:
+		App->ui->enabletime = true;
+		App->input->Enable();
+		if (App->ui->WinLose(App->player2->life,App->enemy2->life, App->ui->time)) scenestatus = POSTCOMBAT;
+		break;
+	
+	case POSTCOMBAT:
+		//Change Scene Condition
+		if (App->ui->winactive == true) {
+			App->fade->FadeToBlack(this, App->scene_billykane2);
+		}
+		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
+		break;
+	}
+	*/
 
 	return UPDATE_CONTINUE;
 }

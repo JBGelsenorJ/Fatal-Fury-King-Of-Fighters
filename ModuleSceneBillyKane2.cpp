@@ -164,7 +164,7 @@ update_status ModuleBillyKane2::Update()
 				App->fade->FadeToBlack(this, App->p2w); }
 		}
 		
-	}
+	} else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
 	
 
 	return UPDATE_CONTINUE;
