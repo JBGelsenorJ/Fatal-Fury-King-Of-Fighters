@@ -907,6 +907,8 @@ update_status ModulePlayer2::Update()
 
 		case ST_SM3:
 			
+
+
 			if (attack == true)
 			{
 				//App->audio->PlayFX("Audio");
@@ -947,10 +949,28 @@ update_status ModulePlayer2::Update()
 
 		case ST_HHDAMAGE:
 
-			if (App->enemy2->hhdamage1 == true)
+			if (position.y <= 220 && App->enemy2->hhdamage1 == true)
+			{
+				animdone = false;
+				current_animation = &hhd;
+				position.y -= hhd_speed;
+				hhd_speed -= 0.14;
+				if (position.x < App->enemy2->position.x)
+				{
+					position.x -= 2;
+				}
+				else
+				{
+					position.x += 2;
+				}
+			}
+
+			
+
+			/*if (App->enemy2->hhdamage1 == true)
 			{
 				current_animation = &hhd;
-			}
+			}*/
 
 			break;
 

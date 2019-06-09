@@ -949,12 +949,30 @@ update_status ModuleEnemy2::Update()
 
 		case ST_HHDAMAGE:
 
-			if (App->player2->hhdamage2 == true)
+			if (position.y <= 220 && App->player2->hhdamage2 == true)
+			{
+				animdone = false;
+				current_animation = &hhd;
+				position.y -= hhd_speed;
+				hhd_speed -= 0.14;
+				if (position.x > App->player2->position.x)
+				{
+					position.x += 2;
+				}
+				else
+				{
+					position.x -= 2;
+				}
+				
+			}
+
+
+
+			/*if (App->enemy2->hhdamage1 == true)
 			{
 				current_animation = &hhd;
-
-
-			}
+			}*/
+			
 
 			break;
 
@@ -1043,14 +1061,14 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				}
 				if (combo1 == 3)
 				{
-					state = ST_SM1; App->input->sp1_timer = SDL_GetTicks(); combo1 = 0; break;
+					state = ST_SM1; App->input->sp1_timer2 = SDL_GetTicks(); combo1 = 0; break;
 				}
 				if (SDL_GetTicks() - combotime < 250) {
 					if (combo2 == 2)combo2 = 3;
 				}
 				if (combo2 == 3)
 				{
-					state = ST_SM2; App->input->sp2_timer = SDL_GetTicks(); combo2 = 0; break;
+					state = ST_SM2; App->input->sp2_timer2 = SDL_GetTicks(); combo2 = 0; break;
 				}
 
 				if (SDL_GetTicks() - combotime < 250) {
@@ -1058,11 +1076,11 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				}
 				if (combo3 == 3)
 				{
-					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
+					state = ST_SM3; App->input->sp3_timer2 = SDL_GetTicks(); combo3 = 0; break;
 				}
 				if (combo4 == 3)
 				{
-					state = ST_SM4; App->input->sp4_timer = SDL_GetTicks(); combo4 = 0; break;
+					state = ST_SM4; App->input->sp4_timer2 = SDL_GetTicks(); combo4 = 0; break;
 				}
 				else
 				{
