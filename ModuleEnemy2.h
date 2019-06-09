@@ -61,6 +61,8 @@ public:
 
 	Animation sm1;
 	Animation sm2;
+	Animation sm3;
+	Animation sm4;
 
 	Animation kick;
 	Animation kickf;
@@ -92,7 +94,21 @@ public:
 	Collider* enemyjumpfpunch;
 	Collider* enemyjumpbpunch;
 	Collider* enemyjumpfkick;
-	Collider* enemyjumpbkick;;
+	Collider* enemyjumpbkick;
+
+	Collider* playerwindmill;
+
+	// COMBOS
+	Uint32 combo1 = 0;
+	Uint32 combo2 = 0;
+	Uint32 combo3 = 0;
+	Uint32 combo4 = 0;
+
+	Uint32 combotime;
+	Uint32 combosm1;
+	Uint32 combosm2;
+	Uint32 combosm3;
+	Uint32 combosm4;
 
 	int initialPos;
 	bool hit = false;
@@ -113,6 +129,7 @@ public:
 	float jumpspeed = 6;
 	float kick_jumpspeed = 6;
 	float dash_speed = 6;
+	float hhd_speed = 3;
 
 	int speed = 2;
 	float life = 100;

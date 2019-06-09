@@ -88,6 +88,7 @@ public:
 	Collider* playerjumpbpunch;
 	Collider* playerjumpfkick;
 	Collider* playerjumpbkick;
+	Collider* playerwindmill;
 	int initialPos;
 
 	
@@ -112,6 +113,7 @@ public:
 	float jumpspeed = 6;
 	float kick_jumpspeed = 6;
 	float dash_speed = 6;
+	float hhd_speed = 3;
 	
 	int speed = 2;
 	float life = 100;
@@ -130,6 +132,8 @@ public:
 	Uint32 combotime;
 	Uint32 combosm1;
 	Uint32 combosm2;
+	Uint32 combosm3;
+	Uint32 combosm4;
 };
 
 #endif
