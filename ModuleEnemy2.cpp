@@ -13,6 +13,8 @@
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleSceneBillyKane.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
 #include "Animation.h"
 
 
@@ -243,7 +245,7 @@ bool ModuleEnemy2::Start()
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
-	position.x = 200;
+	position.x = 300;
 	position.y = 220;
 	initialPos = position.y;
 
@@ -1275,10 +1277,27 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-			position.x -= 2;
+			position.x -=2;
+	}
+	if (enemycol == c1 && App->scene_billykane2->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -=2;
+	}
+	if (enemycol == c1 && App->scene_billykane3->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -= 2;
 	}
 	if (enemycol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
 			position.x += 2;
 	}
+	if (enemycol == c1 && App->scene_billykane2->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
+	}
+	if (enemycol == c1 && App->scene_billykane3->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
+	}
 }
+
