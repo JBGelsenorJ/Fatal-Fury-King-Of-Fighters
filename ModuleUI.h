@@ -24,8 +24,8 @@ public:
 
 	bool Timer();
 	bool DrawLife();
-	bool Score(int,int);
-	void WinLose(float, float, int);
+	void Score(int,int);
+	bool WinLose(float, float, int);
 	void ChangeScene(int, int);
 	void ResetSceneChange();
 	void DebugRounds();
@@ -57,6 +57,7 @@ public:
 	bool change1 = true;
 	bool change2 = true;
 	bool change3 = true;
+	bool winactive = false;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;

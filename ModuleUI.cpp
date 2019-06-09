@@ -129,7 +129,13 @@ update_status ModuleUI::Update(){
 
 	health.w = 98 * (App->enemy2->life / 100);
 	healthp2.w = 98 * (App->player2->life / 100);
-
+	
+	Timer();
+	DrawLife();
+	Score(App->player2->rounds, App->enemy2->rounds);
+	
+	winactive = WinLose(App->player2->life, App->enemy2->life, time);
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -195,7 +201,7 @@ bool ModuleUI::DrawLife() {
 	return true;
 }
 
-bool ModuleUI::Score(int playerrounds, int enemyrounds){
+void ModuleUI::Score(int playerrounds, int enemyrounds){
 
 	
 	//DEFAULT RENDER
@@ -214,20 +220,32 @@ bool ModuleUI::Score(int playerrounds, int enemyrounds){
 	if (enemyrounds == 2) App->render->Blit(graphics, (SCREEN_WIDTH - 39), 49, &(redpoint.GetCurrentFrame()), 0.0f, false);
 
 	//if (playerrounds == 2) App->render->Blit(graphics, 21, 49, &(redpoint.GetCurrentFrame()), 0.1f);
-
-	return true;
 }
 
-void ModuleUI::WinLose(float player, float enemy, int time) {
+bool ModuleUI::WinLose(float player, float enemy, int time) {
 	
 	//Checking win
-		if (enemy <= 0) App->player2->rounds++;
-		if (player <= 0) App->enemy2->rounds++;
+	if (enemy <= 0) { 
+		App->player2->rounds += 1;
+		return true;
+	}
 
-		if (player > enemy && time <= 0) App->player2->rounds++;
-		if (enemy > player && time <= 0) App->enemy2->rounds++;
+	if (player <= 0) {
+		App->enemy2->rounds += 1;
+		return true;
+	}
 
+	if (player > enemy && time <= 0) {
+		App->player2->rounds++;
+		return true;
+	}
 
+	if (enemy > player && time <= 0) {
+		App->enemy2->rounds++;
+		return true;
+	}
+		
+	return false;
 }
 
 void ModuleUI::ChangeScene(int p1round, int p2round) {
@@ -235,22 +253,22 @@ void ModuleUI::ChangeScene(int p1round, int p2round) {
 	//Change from Scene 1 to Scene 2
 	if (change1 == true) {
 		if (p1round == 1 || p2round == 1) {
-			App->fade->FadeToBlack(this, App->scene_billykane2, 0.0f);
+			App->fade->FadeToBlack(App->scene_billykane, App->scene_billykane2);
 			change1 = false;
 		}
 	}
 
 	//Change from Scene 2 to Scene3
-	if (change2 == true) {
+
 		if ((p1round && p2round) == 1) {
-			App->fade->FadeToBlack(this, App->scene_billykane3, 0.0f);
+			App->fade->FadeToBlack(App->scene_billykane2, App->scene_billykane3);
 			change2 = false;
 		}
-	}
+	
 
 	//CHECK THIS ISSUE. IMPORTANT
-	if ((p1round == 2 && p2round == 0) || (p2round == 2 && p1round == 0)) App->fade->FadeToBlack(this, App->p1w, 1.0f);
-	if ((p1round == 2 && p2round == 1) || (p2round == 2 && p1round == 1))App->fade->FadeToBlack(this, App->p1w, 3.0f);
+	if (p1round == 2 && p2round == 0) App->fade->FadeToBlack(App->scene_billykane2, App->p1w);
+	//if ((p1round == 2 && p2round == 1) || (p2round == 2 && p1round == 1))App->fade->FadeToBlack(this, App->p1w, 3.0f);
 		
 }
 

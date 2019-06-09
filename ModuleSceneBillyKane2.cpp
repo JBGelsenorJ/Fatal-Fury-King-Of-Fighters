@@ -27,9 +27,6 @@ ModuleBillyKane2::ModuleBillyKane2()
 {
 
 	//Background
-
-	//sea.PushBack({ 721,567,621,234  });
-	//sea.PushBack({ 721,821,621,239 });
 	sea.PushBack({ 721,1062,621,237 });
 	sea.PushBack({ 721,1311,621,237 });
 	sea.speed = 0.09f;
@@ -68,21 +65,33 @@ ModuleBillyKane2::~ModuleBillyKane2()
 // Load assets
 bool ModuleBillyKane2::Start()
 {
-	Restart();
+	bool ret = true;
+
+	//Restart Player values
+	App->player2->life = 100;
+	App->player2->position.x = 100;
+	App->player2->position.y = 220;
+	//Restart enemy values
+	App->enemy2->life = 100;
+	App->enemy2->position.x = 200;
+	App->enemy2->position.y = 220;
+	//Restart time
+	App->ui->time = 90000;
+	App->ui->starttime = SDL_GetTicks();
+
+	//Source
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-
-	LOG("Loading background assets");
-	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 	
 	//Enabling game features
 	App->particles->Enable();
 	App->input->Enable();
 	App->collision->Enable();
-	//App->enemy2->Enable();
-	//App->player2->Enable();
+	App->enemy2->Enable();
+	App->player2->Enable();
 	App->ui->Enable();
+	App->ui->winactive = false;
 
 	//Enabling audio
 	App->audio->PlayMusic(music);
@@ -100,6 +109,7 @@ bool ModuleBillyKane2::CleanUp()
 	App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
+	App->ui->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading all Features from Scene");
 	
@@ -109,17 +119,7 @@ bool ModuleBillyKane2::CleanUp()
 
 void ModuleBillyKane2::Restart() {
 	
-	//Restart Player values
-	App->player2->life = 100;
-	App->player2->position.x = 100;
-	App->player2->position.y = 220;
-	//Restart enemy values
-	App->enemy2->life= 100;
-	App->enemy2->position.x = 200;
-	App->enemy2->position.y = 220;
-	//Restart time
-	App->ui->time = 90000;
-	App->ui->starttime = SDL_GetTicks();
+	
 }
 
 
@@ -138,14 +138,6 @@ update_status ModuleBillyKane2::Update()
 	App->render->Blit(graphics, -108, 115, &(people2.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
-
-	//Features that should Update
-	App->ui->Timer();
-	App->ui->DrawLife();
-	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);
-	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
-	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
-	App->ui->DebugRounds();
 
 
 	//Check this stuff

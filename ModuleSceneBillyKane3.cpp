@@ -88,6 +88,7 @@ bool ModuleBillyKane3::Start()
 	Mix_VolumeChunk(audience, 35);
 	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
 	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
+	App->ui->winactive = false;
 
 	return ret;
 }
@@ -137,13 +138,6 @@ update_status ModuleBillyKane3::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
-	//Features that should Update
-	App->ui->Timer();
-	App->ui->DrawLife();
-	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);	
-	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
-	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
-	App->ui->DebugRounds();
 
 	
 	//Check this stuff

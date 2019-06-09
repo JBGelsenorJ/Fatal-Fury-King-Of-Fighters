@@ -96,13 +96,13 @@ bool ModuleBillyKane::Start()
 
 bool ModuleBillyKane::CleanUp()
 {
-	//App->player2->Disable();
-	//App->enemy2->Disable();
+	App->player2->Disable();
+	App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
+	App->ui->Disable();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading all Features from Scene");
-	
 
 	return true;
 }
@@ -120,9 +120,7 @@ void ModuleBillyKane::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
-
-	//Restarting Booleans that works on scene change
-	//App->ui->ResetSceneChange();
+	App->ui->winactive = false;
 }
 
 
@@ -133,7 +131,6 @@ update_status ModuleBillyKane::Update()
 	App->render->CameraMove(App->player2->position.x, App->enemy2->position.x);
 
 	//Background
-
 	App->render->Blit(graphics, -115, 0, &(sea.GetCurrentFrame()), 1.4f);
 
 	//People animation
@@ -142,23 +139,19 @@ update_status ModuleBillyKane::Update()
 	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 0, 0, &wall1, 1.4, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.4, true);
-
-	//Features that should update
-	App->ui->Timer();
-	App->ui->DrawLife();
-	App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time);
-	App->ui->Score(App->player2->rounds, App->enemy2->rounds);
-	App->ui->ChangeScene(App->player2->rounds, App->enemy2->rounds);
-	App->ui->DebugRounds();
-
-
+	
 
 	//Check this stuff
 	float centerx = (App->player2->position.x + App->enemy2->position.x) / 2;
 	float centery = (App->player2->position.y + App->enemy2->position.y) / 2; 
 	wall1c->SetPos(wall1.x, wall1.y); 
 	wall2c->SetPos(wall2.x, wall2.y);
+
+
+	if (App->ui->winactive == true) {
+		App->fade->FadeToBlack(this, App->scene_billykane2);
+	}
 	
-	
+
 	return UPDATE_CONTINUE;
 }

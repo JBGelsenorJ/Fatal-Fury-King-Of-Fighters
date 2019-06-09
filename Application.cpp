@@ -27,6 +27,7 @@
 
 Application::Application()
 {
+	//Main Features
 	modules[0] = window = new ModuleWindow();
 	modules[1] = render = new ModuleRender();
 	modules[2] = slowdown = new ModuleSlowdown();
@@ -34,9 +35,6 @@ Application::Application()
 	modules[4] = textures = new ModuleTextures();
 	modules[5] = audio = new ModuleMusic();
 	modules[6] = fonts = new ModuleFonts();
-	
-
-
 	
 	//Scenes
 	modules[7] = scene_neogeo = new ModuleNeogeo();
@@ -51,7 +49,7 @@ Application::Application()
 	modules[16] = p1w = new ModuleP1Wins();
 	modules[17] = p2w = new ModuleP2Wins();
 
-	//Things that must render above scenes 
+	//Things that must render above scenes in order
 	modules[18] = collision = new ModuleCollision();
 	modules[19] = particles = new ModuleParticles();
 	modules[20] = ui = new ModuleUI();
@@ -72,26 +70,25 @@ bool Application::Init()
 {
 	bool ret = true;
 	
-	// Disable the map that you do not start with
-	scene_neogeo->Disable(); //Cambiar
-	playerselection->Disable();
+	/*SCENES IN ORDER DISABLED. COMMENT LINE IF YOU WANT ENABLE*/
+	scene_neogeo->Disable();
+	scene_intro->Disable();
 	scene_intro2->Disable();
 	scene_controls->Disable();
-	scene_billykane->Disable();  //CAMBIADA PARA PROBAR UI
+	scene_welcome->Disable();
+	playerselection->Disable();
+	//scene_billykane->Disable();  
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
-
-	scene_intro->Enable();
-	scene_welcome->Disable();	//CAMBIAR
-	collision->Disable();
 	p1w->Disable();
 	p2w->Disable();
-
+	
 	
 	//Disable game features
 	player2->Disable();
 	enemy2->Disable();
 	audio->Disable();
+	collision->Disable();
 	particles->Disable();
 	ui->Disable();
 	slowdown->Disable();

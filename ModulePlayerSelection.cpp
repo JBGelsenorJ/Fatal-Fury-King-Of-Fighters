@@ -69,6 +69,7 @@ bool ModulePlayerSelection::Start()
 
 	LOG("Loading assets");
 	bool ret = true;
+
 	//Loading Map Assets Texture
 	graphics = App->textures->Load("Source/UI/Player_Map_Selection/SpriteSheet_PlayerSelection.png"); 
 
@@ -100,6 +101,7 @@ update_status ModulePlayerSelection::Update()
 		selection++;
 		App->audio->PlayFX(hoverfx);
 	}
+
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1 && selection > 0) { 
 		selection--; 
 		App->audio->PlayFX(hoverfx);
