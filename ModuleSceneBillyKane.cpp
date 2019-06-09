@@ -200,7 +200,6 @@ update_status ModuleBillyKane::Update()
 	
 	case UPDATE:
 		App->ui->enabletime = true;
-		App->enemy2->move = true;
 
 		//FINISH CONDITION
 		if (App->ui->WinLose(App->player2->life,App->enemy2->life, App->ui->time)) scenestatus = POSTCOMBAT;
@@ -208,7 +207,6 @@ update_status ModuleBillyKane::Update()
 	
 	case POSTCOMBAT:
 		pretime = SDL_GetTicks();
-		App->enemy2->move = false;
 
 
 		//2 SECONDS
