@@ -92,7 +92,7 @@ public:
 	Collider* enemyjumpfpunch;
 	Collider* enemyjumpbpunch;
 	Collider* enemyjumpfkick;
-	Collider* enemyjumpbkick;;
+	Collider* enemyjumpbkick;
 
 	int initialPos;
 	bool hit = false;
