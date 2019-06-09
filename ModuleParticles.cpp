@@ -161,7 +161,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		{
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
-			App->enemy2->life -= 30;
+			App->enemy2->life -= 20;
 			SDL_HapticRumblePlay(App->input->haptic, 0.3f, 500);
 			App->player2->hit = true;
 			App->player2->hhdamage2 = true;
@@ -171,7 +171,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		{
 			App->render->StartCameraShake(250, 3);
 			App->render->UpdateCameraShake();
-			App->player2->life -= 30;
+			App->player2->life -= 20;
 			SDL_HapticRumblePlay(App->input->haptic, 0.3f, 500);
 			App->enemy2->hit = true;
 			App->enemy2->hhdamage1 = true;
