@@ -80,7 +80,7 @@ public:
 	Collider* playerkick;
 	Collider* playercrouchkick;
 	Collider* playerjumpnkick;
-
+	Collider* playerdash;
 	int initialPos;
 
 	

@@ -502,7 +502,14 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->Activesm1 = true;
 
 		}
-
+	}
+	if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
+	{
+		App->input->inputs.Push(IN_SM2_FINISH);
+		App->input->sp2_timer = 0;
+		App->player2->dash_speed = 6;
+		App->player2->playerdash->to_delete = true;
+		App->player2->colcreated = true;
 	}
 
 	//PLAYER 2
@@ -637,6 +644,14 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			hhdamage_timer2 = 0;
 			App->enemy2->hhdamage1 = false;
 		}
+	}
+	if ((SDL_GetTicks() - App->input->sp2_timer2) > SM2_TIME)
+	{
+		App->input->inputs2.Push(IN_SM2_FINISH2);
+		App->input->sp2_timer2 = 0;
+		App->enemy2->dash_speed = 6;
+		App->enemy2->enemydash->to_delete = true;
+		App->enemy2->colcreated = true;
 	}
 
 }
