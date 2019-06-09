@@ -69,26 +69,31 @@ ModuleBillyKane::~ModuleBillyKane()
 // Load assets
 bool ModuleBillyKane::Start()
 {
+	bool ret = true;
+
+	//Reloading gameplay values
+	Restart();
+
+	//Loading Scene Assets
+	LOG("Loading BillyKane [1] Assets");
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-
-	Restart();
-	LOG("Loading background assets");
-	bool ret = true;
-	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png"); //rest add the shadow texture
+	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 	
-	//Enabling game features
-	App->particles->Enable();
-	App->input->Enable();
-	App->collision->Enable();
-	App->enemy2->Enable();
-	App->player2->Enable();
-	App->ui->Enable();
-	App->slowdown->Enable();
-	//Enabling audio
+	//Playing Music
 	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1 , audience, -1);
+	Mix_PlayChannel(-1, audience, -1);
 	Mix_VolumeChunk(audience, 35);
+
+	//Enabling Gameplay features
+	App->player2->Enable();
+	App->enemy2->Enable();
+	App->collision->Enable();
+	App->particles->Enable();
+	App->ui->Enable();
+	//App->slowdown->Enable();
+
+
 	//Scene limits from left and right
 	limitleft.x = 20;
 	limitleft.y = -300;
@@ -97,38 +102,45 @@ bool ModuleBillyKane::Start()
 	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
 	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
+	//Win conditions set false at init, (only in first scene)
+	App->ui->winactive = false;
+	App->ui->p1canwin = false;
+	App->ui->p2canwin = false;
+
 	return ret;
 }
 
 bool ModuleBillyKane::CleanUp()
 {
+	//Disable gameplay features
 	App->player2->Disable();
 	App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
 	App->ui->Disable();
+	//App->slowdown->Disable();
+
+	//Destroying Scene Resources
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading all Features from Scene");
 
 	return true;
 }
 
-void ModuleBillyKane::Restart() {
-	
+void ModuleBillyKane3::Restart() {
+
 	//Restart Player values
 	App->player2->life = 100;
 	App->player2->position.x = 100;
 	App->player2->position.y = 220;
 	//Restart enemy values
-	App->enemy2->life= 100;
+	App->enemy2->life = 100;
 	App->enemy2->position.x = 200;
 	App->enemy2->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
-	App->ui->winactive = false;
 }
-
 
 // Update: draw background
 update_status ModuleBillyKane::Update()
@@ -149,10 +161,10 @@ update_status ModuleBillyKane::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
+	//Change Scene Condition
 	if (App->ui->winactive == true) {
 		App->fade->FadeToBlack(this, App->scene_billykane2);
 	}
 
-	
 	return UPDATE_CONTINUE;
 }

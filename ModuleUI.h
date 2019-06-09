@@ -58,6 +58,8 @@ public:
 	bool change2 = true;
 	bool change3 = true;
 	bool winactive = false;
+	bool p1canwin = false;
+	bool p2canwin = false;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;

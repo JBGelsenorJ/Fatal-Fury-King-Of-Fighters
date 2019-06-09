@@ -47,8 +47,7 @@ bool ModuleP2Wins::Start()
 
 	LOG("Loading assets");
 	return ret;
-	App->player2->rounds = 0;
-	App->enemy2->rounds = 0;
+
 }
 
 bool ModuleP2Wins::CleanUp()

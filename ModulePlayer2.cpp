@@ -1342,7 +1342,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	}
 	if (App->enemy2->life <= 0)
 	{
-		App->slowdown->StartSlowdown(500, 40);
-		App->slowdown->UpdateSlowdown();
+		/*App->slowdown->StartSlowdown(500, 40);
+		App->slowdown->UpdateSlowdown();*/
 	}
 }

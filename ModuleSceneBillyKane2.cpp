@@ -67,6 +67,52 @@ bool ModuleBillyKane2::Start()
 {
 	bool ret = true;
 
+	//Restarting gameplay values
+	Restart();
+
+	//Loading Assets
+	LOG("Loading BillyKane2 [2] Assets");
+	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
+	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
+	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
+
+	//Playing Music
+	App->audio->PlayMusic(music);
+	Mix_PlayChannel(-1, audience, -1);
+	Mix_VolumeChunk(audience, 35);
+	
+	//Enabling Gampleay Features
+	App->player2->Enable();
+	App->enemy2->Enable();
+	App->collision->Enable();
+	App->particles->Enable();
+	App->ui->Enable();
+	//App->slowdown->Enable();
+
+
+	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
+	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
+
+	return ret;
+}
+
+bool ModuleBillyKane2::CleanUp()
+{
+	//Disable gameplay features
+	App->player2->Disable();
+	App->enemy2->Disable();
+	App->particles->Disable();
+	App->collision->Disable();
+	App->ui->Disable();
+
+	//Destroying Scene Resources
+	SDL_DestroyTexture(graphics);
+	LOG("Unloading all Features and textures from BillyKane [2]");
+
+	return true;
+}
+
+void ModuleBillyKane2::Restart() {
 	//Restart Player values
 	App->player2->life = 100;
 	App->player2->position.x = 100;
@@ -78,48 +124,6 @@ bool ModuleBillyKane2::Start()
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
-
-	//Source
-	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
-	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
-	
-	//Enabling game features
-	App->particles->Enable();
-	App->input->Enable();
-	App->collision->Enable();
-	App->enemy2->Enable();
-	App->player2->Enable();
-	App->ui->Enable();
-	App->ui->winactive = false;
-
-	//Enabling audio
-	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1 , audience, -1);
-	Mix_VolumeChunk(audience, 35);
-	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
-	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
-
-	return ret;
-}
-
-bool ModuleBillyKane2::CleanUp()
-{
-	App->player2->Disable();
-	App->enemy2->Disable();
-	App->particles->Disable();
-	App->collision->Disable();
-	App->ui->Disable();
-	SDL_DestroyTexture(graphics);
-	LOG("Unloading all Features from Scene");
-	
-
-	return true;
-}
-
-void ModuleBillyKane2::Restart() {
-	
-	
 }
 
 
@@ -140,9 +144,19 @@ update_status ModuleBillyKane2::Update()
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
 
-	//Check this stuff
-	wall1c->SetPos(wall1.x, wall1.y); 
-	wall2c->SetPos(wall2.x, wall2.y);
+	/*Change Scene conditions*/
+	if (App->ui->winactive == true) {
+		//IF PLAYER BOOL 1 AND ENEMY BOOL 1 GOES 3rd round
+		if (App->ui->p1canwin && App->ui->p2canwin){ 
+			App->fade->FadeToBlack(this, App->scene_billykane3);
+		} else {
+			//
+			if (App->ui->p1canwin) App->fade->FadeToBlack(this, App->p1w);
+			if (App->ui->p2canwin) App->fade->FadeToBlack(this, App->p2w);
+		}
+		
+	}
+	
 
 	return UPDATE_CONTINUE;
 }

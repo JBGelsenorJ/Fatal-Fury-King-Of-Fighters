@@ -66,13 +66,21 @@ ModuleBillyKane3::~ModuleBillyKane3()
 // Load assets
 bool ModuleBillyKane3::Start()
 {
+	bool ret = true;
+
+	//Restarting gameplay values
+	Restart();
+
+	//Loading Assets
+	LOG("Loading BillyKane3 [3] Assets");
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
 	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
-
-	Restart();
-	LOG("Loading background assets");
-	bool ret = true;
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
+
+	//Playing Music
+	App->audio->PlayMusic(music);
+	Mix_PlayChannel(-1, audience, -1);
+	Mix_VolumeChunk(audience, 35);
 	
 	//Enabling game features
 	App->particles->Enable();
@@ -82,27 +90,26 @@ bool ModuleBillyKane3::Start()
 	App->player2->Enable();
 	App->ui->Enable();
 
-	//Enabling audio
-	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1 , audience, -1);
-	Mix_VolumeChunk(audience, 35);
+	
 	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
 	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
-	App->ui->winactive = false;
 
 	return ret;
 }
 
 bool ModuleBillyKane3::CleanUp()
 {
+	//Disable gameplay features
 	App->player2->Disable();
 	App->enemy2->Disable();
 	App->particles->Disable();
 	App->collision->Disable();
-	SDL_DestroyTexture(graphics);
-	LOG("Unloading all Features from Scene");
-	
+	App->ui->Disable();
 
+	//Destroying Stuff
+	SDL_DestroyTexture(graphics);
+	LOG("Unloading features and textures from BillyKane [3]");
+	
 	return true;
 }
 
@@ -118,8 +125,7 @@ void ModuleBillyKane3::Restart() {
 	App->enemy2->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
-	App->ui->starttime = SDL_GetTicks();
-}
+	App->ui->starttime = SDL_GetTicks();}
 
 
 // Update: draw background
@@ -138,13 +144,10 @@ update_status ModuleBillyKane3::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
-
-	
-	//Check this stuff
-	float centerx = (App->player2->position.x + App->enemy2->position.x) / 2;
-	float centery = (App->player2->position.y + App->enemy2->position.y) / 2; 
-	wall1c->SetPos(wall1.x, wall1.y); 
-	wall2c->SetPos(wall2.x, wall2.y);
+	if (App->ui->winactive == true) {
+		if (App->ui->p1canwin) App->fade->FadeToBlack(this, App->p1w);
+		if (App->ui->p2canwin) App->fade->FadeToBlack(this, App->p2w);
+	}
 
 	
 	return UPDATE_CONTINUE;
