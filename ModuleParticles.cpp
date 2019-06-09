@@ -221,6 +221,8 @@ Particle::~Particle()
 {
 	if (collider != nullptr)
 		collider->to_delete = true;
+	App->particles->p1 = false;
+	App->particles->p2 = false;
 }
 bool Particle::Update()
 {

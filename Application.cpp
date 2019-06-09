@@ -76,8 +76,8 @@ bool Application::Init()
 	scene_intro2->Disable();
 	scene_controls->Disable();
 	scene_welcome->Disable();
-	//playerselection->Disable();
-	scene_billykane->Disable();  
+	playerselection->Disable();
+	//scene_billykane->Disable();  
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
 	p1w->Disable();
