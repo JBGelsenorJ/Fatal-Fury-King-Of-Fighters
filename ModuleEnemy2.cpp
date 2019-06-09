@@ -284,7 +284,7 @@ ModuleEnemy2::ModuleEnemy2()
 
 	//Shadow
 	shadow.x = 644;
-	shadow.y = 695;
+	shadow.y = 691;
 	shadow.w = 66;
 	shadow.h = 14;
 
