@@ -161,6 +161,7 @@ update_status ModuleBillyKane::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
+
 	//Change Scene Condition
 	if (App->ui->winactive == true) {
 		App->fade->FadeToBlack(this, App->scene_billykane2);
