@@ -836,13 +836,20 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_SM1:
-			App->particles->p1 = true;
+			
 			current_animation = &sm1;
-			if (Activesm1 == true)
+			if ((SDL_GetTicks() - App->input->sp1_timer) > 500)
 			{
-				App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 65, COLLIDER_PLAYER_SHOT, 0);
-				Activesm1 = false;
+				App->particles->p1 = true;
+
+				if (Activesm1 == true)
+				{
+
+					App->particles->AddParticle(App->particles->andyspecial1, position.x + 50, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+					Activesm1 = false;
+				}
 			}
+			
 			break;
 
 		case ST_SM2:

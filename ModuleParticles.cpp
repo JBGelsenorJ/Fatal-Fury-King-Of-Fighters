@@ -29,7 +29,7 @@ bool ModuleParticles::Start()
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy.png");
 
 	// Special1
-	andyspecial1.anim.PushBack({ 327, 375, 23, 26 });
+	andyspecial1.anim.PushBack({ 327, 355, 23, 46 });
 	andyspecial1.anim.PushBack({ 362, 354, 39, 68 });
 	andyspecial1.anim.PushBack({ 403, 355, 52, 65 });
 	andyspecial1.anim.PushBack({ 458, 342, 67, 94 });
