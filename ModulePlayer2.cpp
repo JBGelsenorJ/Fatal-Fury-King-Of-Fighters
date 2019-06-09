@@ -385,7 +385,6 @@ update_status ModulePlayer2::Update()
 			jumpf.Reset();
 			jumpb.Reset();
 
-
 			kick.Reset();
 			kickb.Reset();
 			kickf.Reset();
@@ -396,6 +395,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -434,6 +434,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();

@@ -391,6 +391,7 @@ update_status ModuleEnemy2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -427,6 +428,7 @@ update_status ModuleEnemy2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
