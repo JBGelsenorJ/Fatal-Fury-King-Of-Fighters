@@ -21,16 +21,18 @@
 #define PUNCHF_TIME 500
 #define PUNCHB_TIME 500
 #define PUNCHN_TIME 500
-#define PUNCHC_TIME 500
+#define PUNCHC_TIME 400
 
 #define SP1_TIME 1000
-#define SP3_TIME 1000
+#define SM2_TIME 1000
+#define SP3_TIME 550
+#define SP4_TIME 1000
 
 #define KICK_TIME 700
 #define KICKF_TIME 500
 #define KICKB_TIME 500
 #define KICKN_TIME 500
-#define KICKC_TIME 500
+#define KICKC_TIME 450
 
 #define LDAMAGE_TIME 200
 #define HDAMAGE_TIME 600
@@ -70,6 +72,7 @@ enum player_states
 	ST_SM1,
 	ST_SM2,
 	ST_SM3,
+	ST_SM4,
 
 };
 
@@ -99,6 +102,7 @@ enum player_inputs
 	IN_SM1_FINISH,
 	IN_SM2_FINISH,
 	IN_SM3_FINISH,
+	IN_SM4_FINISH,
 
 	IN_LDAMAGE,
 	IN_HDAMAGE,
@@ -132,6 +136,7 @@ enum player_inputs
 	IN_SM1_FINISH2,
 	IN_SM2_FINISH2,
 	IN_SM3_FINISH2,
+	IN_SM4_FINISH2,
 
 	IN_LDAMAGE2,
 	IN_HDAMAGE2,
@@ -183,13 +188,13 @@ public:
 	bool right = false;
 	bool down = false;
 	bool up = false;
-	bool sm2 = false;
+	
 
 	bool left2 = false;
 	bool right2 = false;
 	bool down2 = false;
 	bool up2 = false;
-	bool sm22 = false;
+	
 
 	int key = -1;
 
@@ -206,6 +211,7 @@ public:
 	Uint32 sp1_timer = 0;
 	Uint32 sp2_timer = 0;
 	Uint32 sp3_timer = 0;
+	Uint32 sp4_timer = 0;
 
 	Uint32 kick_timer = 0;
 	Uint32 kickc_timer = 0;
@@ -230,6 +236,7 @@ public:
 	Uint32 sp1_timer2 = 0;
 	Uint32 sp2_timer2 = 0;
 	Uint32 sp3_timer2 = 0;
+	Uint32 sp4_timer2 = 0;
 
 	Uint32 kick_timer2 = 0;
 	Uint32 kickc_timer2 = 0;
