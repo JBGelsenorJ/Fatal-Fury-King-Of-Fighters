@@ -248,6 +248,7 @@ bool ModuleEnemy2::Start()
 	initialPos = position.y;
 
 	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+	enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);	
 	enemycrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
@@ -289,13 +290,14 @@ update_status ModuleEnemy2::Update()
 		{
 
 			enemycol->to_delete = true;
+			enemycrouch->to_delete = true;
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-
+			enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 			godmode = false;
 		}
 	}
@@ -809,6 +811,7 @@ update_status ModuleEnemy2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	enemycol->SetPos(position.x, position.y);
+	enemycrouch->SetPos(position.x, position.y);
 	if (App->player2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -841,7 +844,7 @@ update_status ModuleEnemy2::Update()
 	}
 
 	enemycol->SetPos(position.x, position.y);
-
+	enemycrouch->SetPos(position.x, position.y);
 	return UPDATE_CONTINUE;
 
 }
@@ -1014,7 +1017,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 
 			enemycol->to_delete = true;
-			enemycol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
+			
 
 		switch (last_input)
 		{

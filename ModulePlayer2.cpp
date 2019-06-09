@@ -247,7 +247,7 @@ bool ModulePlayer2::Start()
 	initialPos = position.y;
 
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-	playercrouch = App->collision->AddCollider({ 50, -250, 45, -60 }, COLLIDER_PLAYER, this);
+	playercrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_PLAYER, this);
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playercrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
@@ -295,13 +295,14 @@ update_status ModulePlayer2::Update()
 		{
 			
 			playercol->to_delete = true;
+			playercrouch->to_delete = true;
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-
+			playercrouch = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			godmode = false;
 		}
 	}
