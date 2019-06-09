@@ -210,6 +210,9 @@ bool ModuleInput::external_input()
 				inputs.Push(IN_C);
 				break;
 
+			case SDLK_x:
+				inputs.Push(IN_X);
+
 				//PLAYER 2
 
 			case SDLK_u:
@@ -236,6 +239,9 @@ bool ModuleInput::external_input()
 			case SDLK_m:
 				inputs2.Push(IN_M);
 				break;
+			case SDLK_n:
+				inputs2.Push(IN_N);
+
 			}
 		}
 
@@ -345,8 +351,9 @@ bool ModuleInput::external_input()
 					inputs.Push(IN_R);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
-					inputs.Push(IN_CROUCH_DOWN);
+					inputs.Push(IN_X);
 				}
+				
 			}
 			if (event.cbutton.which == 1) {
 				//STUFF FOR GAMEPAD2
@@ -360,8 +367,9 @@ bool ModuleInput::external_input()
 					inputs2.Push(IN_Y);
 				}
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
-					inputs2.Push(IN_CROUCH_DOWN);
+					inputs2.Push(IN_N);
 				}
+				
 			}
 		}
 
@@ -437,6 +445,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->playerjumpnkick->to_delete = true;
 			App->player2->colcreated = true;
 			App->player2->playerjumpnpunch->to_delete = true;
+			App->player2->playerjumpfpunch->to_delete = true;
+			App->player2->playerjumpbpunch->to_delete = true;
 			jump_timer = 0;
 		}
 	}
@@ -506,6 +516,22 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 
 	}
 
+
+	if (sp3_timer > 0)
+	{
+		if (SDL_GetTicks() - sp3_timer > SP3_TIME)
+		{
+			inputs2.Push(IN_SM3_FINISH);
+			sp3_timer = 0;
+		}
+		if (SDL_GetTicks() - sp3_timer > SP3_TIME + 500)
+		{
+			App->player2->Activesm3 = true;
+			App->enemy2->Activesm3 = true;
+
+		}
+	}
+
 	//PLAYER 2
 	if (jump_timer2 > 0)
 	{
@@ -518,6 +544,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->enemyjumpnpunch->to_delete = true;
 			App->enemy2->enemyjumpnkick->to_delete = true;
 			App->enemy2->colcreated = true;
+			App->enemy2->enemyjumpfpunch->to_delete = true;
+			App->enemy2->enemyjumpbpunch->to_delete = true;
 			jump_timer2 = 0;
 		}
 	}
@@ -576,6 +604,21 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			App->player2->Activesm1 = true;
 			App->enemy2->Activesm1 = true;
+
+		}
+	}
+
+	if (sp3_timer2 > 0)
+	{
+		if (SDL_GetTicks() - sp3_timer2 > SP3_TIME)
+		{
+			inputs2.Push(IN_SM3_FINISH2);
+			sp3_timer2 = 0;
+		}
+		if (SDL_GetTicks() - sp3_timer2 > SP3_TIME + 500)
+		{
+			App->player2->Activesm3 = true;
+			App->enemy2->Activesm3 = true;
 
 		}
 	}

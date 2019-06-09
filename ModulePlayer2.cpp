@@ -183,7 +183,7 @@ ModulePlayer2::ModulePlayer2()
 	}
 
 	//SPECIAL MOVEMENTS
-
+	{
 	//Special Movement 1
 
 	sm1.PushBack({ 23, 357, 66, 99 });
@@ -213,6 +213,19 @@ ModulePlayer2::ModulePlayer2()
 
 	sm2.speed = 0.17f;
 
+	//special move 3
+
+	sm3.PushBack({ 18, 590, 63, 18 });
+	sm3.PushBack({ 76, 616, 90, 92 }); 
+	sm3.PushBack({ 165, 566, 94, 142 });
+	sm3.PushBack({ 259, 580, 112, 128 }); 
+	sm3.PushBack({ 382, 571, 88 ,146 }); 
+	sm3.PushBack({ 488, 602, 64 ,106 }); 
+	sm3.PushBack({ 563, 627, 55 ,81 }); 
+	
+	sm3.speed = 0.17f;
+
+	}
 	//DAMAGE
 	{
 		//Low damage
@@ -284,6 +297,10 @@ bool ModulePlayer2::Start()
 	playerjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerdash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	playerjumpfkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	playerjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	playerjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+
 	//winanimation.Reset();
 
 	return ret;
@@ -309,7 +326,7 @@ update_status ModulePlayer2::Update()
 {
 
 	Animation* current_animation = &idle;
-
+	uint timersm1 = SDL_GetTicks();
 	player_states current_state = ST_UNKNOWN;
 	player_states state = process_fsm(App->input->inputs);
 
@@ -373,6 +390,8 @@ update_status ModulePlayer2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -414,6 +433,8 @@ update_status ModulePlayer2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -456,6 +477,8 @@ update_status ModulePlayer2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -604,7 +627,6 @@ update_status ModulePlayer2::Update()
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH);
 				App->input->punchn_timer = 0;
-
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -624,13 +646,19 @@ update_status ModulePlayer2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x += 2;
+				if (colcreated == true)
+				{
+					playerjumpfpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->punchf_timer > PUNCHF_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH);
 				App->input->punchf_timer = 0;
-
+				playerjumpfpunch->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -649,13 +677,19 @@ update_status ModulePlayer2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x -= 2;
+				if (colcreated == true)
+				{
+					playerjumpbpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->punchb_timer > PUNCHB_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH);
 				App->input->punchb_timer = 0;
-
+				playerjumpbpunch->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -711,15 +745,6 @@ update_status ModulePlayer2::Update()
 				animdone = true;
 			}
 
-			/*if (attack == true)
-			{
-			//App->audio->PlayFX(Audio);
-			attack = false;
-			}
-			if (Active == 0)
-			{
-			current_animation = &kick;
-			}*/
 
 			LOG("KICK --\n")
 				if (App->player2->colcreated == true)
@@ -732,15 +757,6 @@ update_status ModulePlayer2::Update()
 
 		case ST_KICK_NEUTRAL_JUMP:
 
-			/*if (attack == true)
-			{
-			//App->audio->PlayFX(ryokick);
-			attack = false;
-			}
-			if (Active == 0)
-			{
-			current_animation = &kickn;
-			}*/
 
 			if (position.y <= 220)
 			{
@@ -824,14 +840,8 @@ update_status ModulePlayer2::Update()
 			current_animation = &sm1;
 			if (Activesm1 == true)
 			{
-				if (App->particles->cont<1)
-				{
-					App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 65, COLLIDER_PLAYER_SHOT, 0);
-				}
-
+				App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 65, COLLIDER_PLAYER_SHOT, 0);
 				Activesm1 = false;
-
-
 			}
 			break;
 
@@ -867,6 +877,27 @@ update_status ModulePlayer2::Update()
 
 			break;
 
+		case ST_SM3:
+			
+			if (attack == true)
+			{
+				//App->audio->PlayFX("Audio");
+				attack = false;
+			}
+			if (Active == 0)
+			{
+				current_animation = &sm3;
+			}
+			LOG("SM3()()()()\n");
+			if (colcreated == true)
+			{
+				//playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+				colcreated = false;
+			}
+			break;
+			
+			
+			break;
 
 		case ST_LDAMAGE:
 
@@ -928,7 +959,8 @@ update_status ModulePlayer2::Update()
 		playerjumpnkick->SetPos(position.x + 30, position.y - 15);
 		playerjumpnpunch->SetPos(position.x + 35, position.y - 55);
 		playerdash->SetPos(position.x + 35, position.y - 55);
-
+		playerjumpfpunch->SetPos(position.x + 35, position.y - 55);
+		playerjumpbpunch->SetPos(position.x + 35, position.y - 55);
 	}
 
 	if (App->enemy2->position.x < position.x) {
@@ -940,6 +972,8 @@ update_status ModulePlayer2::Update()
 		playerjumpnkick->SetPos(position.x - 30, position.y - 15);
 		playerjumpnpunch->SetPos(position.x - 30, position.y - 55);
 		playerdash->SetPos(position.x - 35, position.y - 55);
+		playerjumpfpunch->SetPos(position.x - 35, position.y - 55);
+		playerjumpbpunch->SetPos(position.x - 35, position.y - 55);
 
 	}
 
@@ -973,14 +1007,14 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: 
 
-				if (SDL_GetTicks() - combotime < 1000) {
+				if (SDL_GetTicks() - combotime < 250) {
 					if (combo1 == 2)combo1 = 3;
 				}
 				if (combo1 == 3)
 				{
 					state = ST_SM1; App->input->sp1_timer = SDL_GetTicks(); combo1 = 0; break;
 				}
-				if (SDL_GetTicks() - combotime < 1000) {
+				if (SDL_GetTicks() - combotime < 250) {
 					if (combo2 == 2)combo2 = 3;
 				}
 				if (combo2 == 3)
@@ -996,6 +1030,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
 			case IN_LDAMAGE: state = ST_LDAMAGE, App->input->ldamage_timer = SDL_GetTicks(); break;
 			case IN_HDAMAGE: state = ST_HDAMAGE, App->input->hdamage_timer = SDL_GetTicks(); break;
 			case IN_HHDAMAGE: state = ST_HHDAMAGE, App->input->hhdamage_timer = SDL_GetTicks(); break;
@@ -1009,7 +1044,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			//SM1 left side
 			if ((position.x) <= (App->player2->position.x))
 			{
-				if (SDL_GetTicks() - combotime < 1000)
+				if (SDL_GetTicks() - combotime < 200)
 				{
 					if (combo1 == 1)combo1 = 2;
 					combotime = SDL_GetTicks();
@@ -1030,6 +1065,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
 			case IN_LDAMAGE: state = ST_LDAMAGE, App->input->ldamage_timer = SDL_GetTicks(); break;
 			case IN_HDAMAGE: state = ST_HDAMAGE, App->input->hdamage_timer = SDL_GetTicks(); break;
 			case IN_HHDAMAGE: state = ST_HHDAMAGE, App->input->hhdamage_timer = SDL_GetTicks(); break;
@@ -1042,7 +1079,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 		case ST_WALK_BACKWARD:
 		{
 			//SM2 LEFT SIDE
-			if (SDL_GetTicks() - combotime < 1000) {
+			if (SDL_GetTicks() - combotime < 200) {
 				if (combo2 == 1)combo2 = 2;
 				combotime = SDL_GetTicks();
 			}
@@ -1062,6 +1099,8 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
+			case IN_X: state = ST_SM3, App->input->sp3_timer = SDL_GetTicks(); break;
 				//case IN_WIN: state = ST_WIN; Active = 0;  break;
 
 			}
@@ -1174,11 +1213,11 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			combo2 = 1;
 			combotime = SDL_GetTicks();
 
-			if (SDL_GetTicks() - combosm1 < 1000) {
+			if (SDL_GetTicks() - combosm1 < 120) {
 				if (combo1 == 1)combo1 = 2;
 				combosm1 = SDL_GetTicks();
 			}
-			if (SDL_GetTicks() - combosm2 < 1000) {
+			if (SDL_GetTicks() - combosm2 < 120) {
 				if (combo2 == 1)combo2 = 2;
 				combosm2 = SDL_GetTicks();
 			}
@@ -1302,6 +1341,19 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		}
 
+		case ST_SM3:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM3_FINISH: state = ST_IDLE; Active = 0; Activesm3 = true; break;
+
+			}
+			break;
+
+		}
+
 		case ST_KICK_FORWARD_JUMP:
 		{
 			switch (last_input)
@@ -1416,10 +1468,35 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	}
 	if (playerjumpnpunch == c1 && c2->type == COLLIDER_ENEMY)
 	{
-
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
 		playerjumpnpunch->to_delete = true;
+		lowdamage2 = true;
+		App->input->inputs2.Push(IN_LDAMAGE2);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -= 10;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
+	if (playerjumpfpunch == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		playerjumpfpunch->to_delete = true;
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		lowdamage2 = true;
+		App->input->inputs2.Push(IN_LDAMAGE2);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -= 10;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
+	if (playerjumpbpunch == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		playerjumpbpunch->to_delete = true;
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
 		lowdamage2 = true;
 		App->input->inputs2.Push(IN_LDAMAGE2);
 		App->enemy2->position.x += 3;

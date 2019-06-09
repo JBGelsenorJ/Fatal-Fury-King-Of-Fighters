@@ -29,6 +29,7 @@ public:
 	bool Active = false;
 	bool Activesm1 = true;
 	bool Activesm2 = true;
+	bool Activesm3 = true;
 	bool shoot = false;
 	int jumpSpeed = 6;
 	bool attack = true;
@@ -54,6 +55,8 @@ public:
 	
 	Animation sm1;
 	Animation sm2;
+	Animation sm3;
+	Animation sm4;
 	
 	Animation kick;
 	Animation kickf;
@@ -81,6 +84,10 @@ public:
 	Collider* playercrouchkick;
 	Collider* playerjumpnkick;
 	Collider* playerdash;
+	Collider* playerjumpfpunch;
+	Collider* playerjumpbpunch;
+	Collider* playerjumpfkick;
+	Collider* playerjumpbkick;
 	int initialPos;
 
 	
