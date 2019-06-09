@@ -188,7 +188,7 @@ ModulePlayer2::ModulePlayer2()
 		//Low damage
 
 		lowd.PushBack({ 719, 918, 65, 97 });
-		lowd.PushBack({ 780, 931, 67, 84 });
+		lowd.PushBack({ 784, 931, 67, 82 });
 		lowd.speed = 0.15f;
 
 		//High damage
