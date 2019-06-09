@@ -954,14 +954,14 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: 
 
-				if (SDL_GetTicks() - combotime < 120) {
+				if (SDL_GetTicks() - combotime < 1000) {
 					if (combo1 == 2)combo1 = 3;
 				}
 				if (combo1 == 3)
 				{
 					state = ST_SM1; App->input->sp1_timer = SDL_GetTicks(); combo1 = 0; break;
 				}
-				if (SDL_GetTicks() - combotime < 120) {
+				if (SDL_GetTicks() - combotime < 1000) {
 					if (combo2 == 2)combo2 = 3;
 				}
 				if (combo2 == 3)
@@ -988,9 +988,9 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 		case ST_WALK_FORWARD:
 		{
 			//SM1 left side
-			if ((position.x + 25) <= (App->player2->position.x - 25))
+			if ((position.x) <= (App->player2->position.x))
 			{
-				if (SDL_GetTicks() - combotime < 120)
+				if (SDL_GetTicks() - combotime < 1000)
 				{
 					if (combo1 == 1)combo1 = 2;
 					combotime = SDL_GetTicks();
@@ -1023,7 +1023,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 		case ST_WALK_BACKWARD:
 		{
 			//SM2 LEFT SIDE
-			if (SDL_GetTicks() - combotime < 120) {
+			if (SDL_GetTicks() - combotime < 1000) {
 				if (combo2 == 1)combo2 = 2;
 				combotime = SDL_GetTicks();
 			}
@@ -1155,11 +1155,11 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			combo2 = 1;
 			combotime = SDL_GetTicks();
 
-			if (SDL_GetTicks() - combosm1 < 120) {
+			if (SDL_GetTicks() - combosm1 < 1000) {
 				if (combo1 == 1)combo1 = 2;
 				combosm1 = SDL_GetTicks();
 			}
-			if (SDL_GetTicks() - combosm2 < 120) {
+			if (SDL_GetTicks() - combosm2 < 1000) {
 				if (combo2 == 1)combo2 = 2;
 				combosm2 = SDL_GetTicks();
 			}
