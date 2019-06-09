@@ -81,7 +81,7 @@ bool ModuleControls::Start()
 	introsong = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 
 	App->audio->PlayMusic(introsong);
-	App->render->camera.x = -33;
+	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
 	pos_terry_x = 70;

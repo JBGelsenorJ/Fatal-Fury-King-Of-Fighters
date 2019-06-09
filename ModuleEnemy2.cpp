@@ -261,7 +261,7 @@ bool ModuleEnemy2::Start()
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
-	position.x = 300;
+	position.x = 330;
 	position.y = 220;
 	initialPos = position.y;
 

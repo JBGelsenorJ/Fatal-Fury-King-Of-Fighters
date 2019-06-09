@@ -259,7 +259,7 @@ bool ModulePlayer2::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 
-	position.x = 180;
+	position.x = 200;
 	position.y = 220;
 	initialPos = position.y;
 

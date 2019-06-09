@@ -79,6 +79,9 @@ bool ModulePlayerSelection::Start()
 	hoverfx = App->audio->LoadFX("Source/Sound/FX/FX/FX_SelectHover.wav");
 	App->audio->PlayMusic(song);
 
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	return ret;
 }
 
@@ -93,9 +96,9 @@ bool ModulePlayerSelection::CleanUp()
 update_status ModulePlayerSelection::Update()
 {
 	//Background Rendered
-	App->render->Blit(graphics, 0, 0, &background, NULL);
-	App->render->Blit(graphics, 80, 40, &title, NULL);
-	App->render->Blit(graphics, 20, 71, &charlocked, NULL);
+	App->render->Blit(graphics, 15, 0, &background, NULL);
+	App->render->Blit(graphics, 95, 40, &title, NULL);
+	App->render->Blit(graphics, 35, 71, &charlocked, NULL);
 	
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && selection < 2 || App->input->right == 1 && selection < 2 || App->input->right2 == 1 && selection < 2) {
 		selection++;
@@ -109,17 +112,17 @@ update_status ModulePlayerSelection::Update()
 	
 	//CONDITION	TERRY'S HOVER WILL BE 1D[DEFAULT HOVER] IF selection--(A) will be JOE's HOVER, if D is pressed twice, selection += 2 will be ANDY's
 	if (selection == 1) {
-		App->render->Blit(graphics, 111, 76, &(hoverterry.GetCurrentFrame()), NULL);
-		App->render->Blit(graphics, 119, 58, &player, NULL);
+		App->render->Blit(graphics, 126, 76, &(hoverterry.GetCurrentFrame()), NULL);
+		App->render->Blit(graphics, 134, 58, &player, NULL);
 	}
 	else {
 		if (selection == 0) {
-			App->render->Blit(graphics, 20, 70, &(hoverjoe.GetCurrentFrame()), NULL);
-			App->render->Blit(graphics, 45, 55, &player, NULL);
+			App->render->Blit(graphics, 35, 70, &(hoverjoe.GetCurrentFrame()), NULL);
+			App->render->Blit(graphics, 60, 55, &player, NULL);
 		}
 		else {
-			App->render->Blit(graphics, 194,81, &(hoverandy.GetCurrentFrame()), NULL);
-			App->render->Blit(graphics, 182, 55, &player, NULL);
+			App->render->Blit(graphics, 209,81, &(hoverandy.GetCurrentFrame()), NULL);
+			App->render->Blit(graphics, 197, 55, &player, NULL);
 		}
 	}
 
