@@ -279,7 +279,7 @@ bool ModuleEnemy2::Start()
 	enemycrouchpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-
+	enemydash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	return ret;
 
 }
@@ -820,6 +820,12 @@ update_status ModuleEnemy2::Update()
 			current_animation = &sm2;
 			if ((SDL_GetTicks() - App->input->sp2_timer2) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer2) > 200)
 			{
+				if (colcreated == true)
+				{
+					App->audio->PlayFX(Punch);
+					enemydash = App->collision->AddCollider({ 10, 20, 35, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 				if (position.x < App->player2->position.x)
 				{
 					position.x += dash_speed;
@@ -832,6 +838,8 @@ update_status ModuleEnemy2::Update()
 			}
 			if ((SDL_GetTicks() - App->input->sp2_timer2) > SM2_TIME)
 			{
+				enemydash->to_delete = true;
+				colcreated = true;
 				App->input->inputs2.Push(IN_SM2_FINISH2);
 				App->input->sp2_timer2 = 0;
 				dash_speed = 6;
@@ -897,6 +905,7 @@ update_status ModuleEnemy2::Update()
 		enemycrouchkick->SetPos(position.x + 20, position.y - 20);
 		enemyjumpnkick->SetPos(position.x + 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x + 35, position.y - 55);
+		enemydash->SetPos(position.x + 35, position.y - 55);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -907,6 +916,7 @@ update_status ModuleEnemy2::Update()
 		enemycrouchkick->SetPos(position.x - 70, position.y - 20);
 		enemyjumpnkick->SetPos(position.x - 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x - 35, position.y - 55);
+		enemydash->SetPos(position.x - 35, position.y - 55);
 
 	}
 
@@ -1309,7 +1319,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->UpdateCameraShake();
 		enemyjumpnpunch->to_delete = true;
 		lowdamage1 = true;
-		App->input->inputs2.Push(IN_LDAMAGE2);
+		App->input->inputs2.Push(IN_LDAMAGE);
 		App->enemy2->position.x += 3;
 		App->enemy2->life -= 10;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
@@ -1349,14 +1359,32 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
 		enemyjumpnkick->to_delete = true;
-		App->input->inputs2.Push(IN_HDAMAGE2);
+		highdamage1 = true;
+		App->input->inputs.Push(IN_HDAMAGE);
 		App->enemy2->life -= 10;
 		App->enemy2->position.x += 3;
 
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
+	if (enemydash == c1 && c2->type == COLLIDER_PLAYER)
+	{
 
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemydash->to_delete = true;
+		highdamage1 = true;
+		App->input->inputs.Push(IN_HDAMAGE);
+		App->player2->life -= 20;
+		App->player2->position.x += 3;
+
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+		LOG("MUST RUMBLE");
+
+
+
+	}
 	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
 		position.x -= 2;
