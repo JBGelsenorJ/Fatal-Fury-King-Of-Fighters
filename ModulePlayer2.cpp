@@ -856,14 +856,7 @@ update_status ModulePlayer2::Update()
 				}
 				dash_speed -= 0.1;
 			}
-			if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
-			{
-				playerdash->to_delete = true;
-				colcreated = true;
-				App->input->inputs.Push(IN_SM2_FINISH);
-				App->input->sp2_timer = 0;
-				dash_speed = 6;
-			}
+			
 
 			break;
 
@@ -884,10 +877,10 @@ update_status ModulePlayer2::Update()
 				//playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 				colcreated = false;
 			}
-			break;
+		break;
 			
 			
-			break;
+			
 
 		case ST_LDAMAGE:
 
@@ -1008,9 +1001,17 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				{
 					state = ST_SM2; App->input->sp2_timer = SDL_GetTicks(); combo2 = 0; break;
 				}
+				if (combo3 == 3)
+				{
+					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
+				}
+				if (combo4 == 3)
+				{
+					state = ST_SM4; App->input->sp4_timer = SDL_GetTicks(); combo4 = 0; break;
+				}
 				else
 				{
-					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); combo2 = 0; break;
+					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); combo4 = 0; break;
 				}
 
 
