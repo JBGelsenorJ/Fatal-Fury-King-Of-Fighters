@@ -325,7 +325,7 @@ bool ModulePlayer2::CleanUp()
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
-
+	if(introstart==true){
 	Animation* current_animation = &idle;
 	uint timersm1 = SDL_GetTicks();
 	player_states current_state = ST_UNKNOWN;
@@ -1030,7 +1030,7 @@ update_status ModulePlayer2::Update()
 
 	playercol->SetPos(position.x, position.y);
 
-
+	}
 	return UPDATE_CONTINUE;
 
 }
