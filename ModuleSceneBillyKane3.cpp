@@ -128,7 +128,10 @@ void ModuleBillyKane3::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+	App->ui->enabletime = false;
 	App->ui->winactive = false;
+	audiofight = true;
+	audioround = true;
 }
 
 

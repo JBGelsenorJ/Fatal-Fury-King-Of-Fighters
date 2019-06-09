@@ -29,8 +29,6 @@ ModuleBillyKane::ModuleBillyKane()
 {
 
 	//Background
-
-	//sea.PushBack({ 51,567,620,237 });
 	sea.PushBack({ 51,822,620,237 });
 	sea.PushBack({ 51,1071,620,237 });
 	sea.PushBack({ 51,1319,620,237 });
@@ -40,6 +38,7 @@ ModuleBillyKane::ModuleBillyKane()
 	people1.PushBack({ 72, 50, 65, 99 });
 	people1.PushBack({ 161,50,65,97 });
 	people1.speed = 0.09f;
+
 	// fat and thin people
 	people2.PushBack({ 70, 408, 68, 99 });
 	people2.PushBack({ 164,408,62,105 });
@@ -145,6 +144,9 @@ void ModuleBillyKane::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+	App->ui->enabletime = false;
+	audiofight = true;
+	audioround = true;
 }
 
 // Update: draw background
@@ -166,37 +168,64 @@ update_status ModuleBillyKane::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
-	//Change Scene Condition
-	if (App->ui->winactive == true) {
-		App->fade->FadeToBlack(this, App->scene_billykane2);
-	}
-	else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
 
 	//TRYING STATE MACHINE
-	/*
 	switch(scenestatus) {
 	
 	case PREUPDATE:
 		pretime = SDL_GetTicks();
-		App->input->Disable();
-		if(pretime >= globaltime + 4000)scenestatus = UPDATE;
+
+		//2 SECONDS
+		if (pretime >= globaltime + 2000) {
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH/2) - 55, 45, &(App->ui->roundone), false);
+			if (audioround) {
+				App->audio->PlayFX(App->ui->readyfx);
+				audioround = false;
+			}
+		}
+
+
+		//4 SECONDS
+		if (pretime >= globaltime + 4000) { 
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH / 2) - 88, 70, &(App->ui->fight), false);
+			if (audiofight) { 
+				App->audio->PlayFX(App->ui->fightfx);
+				audiofight = false;
+			}
+		}
+
+		//FINISH CONDITION
+		if(pretime >= globaltime + 5000)scenestatus = UPDATE;
 		break;
 	
 	case UPDATE:
 		App->ui->enabletime = true;
-		App->input->Enable();
+		App->enemy2->move = true;
+
+		//FINISH CONDITION
 		if (App->ui->WinLose(App->player2->life,App->enemy2->life, App->ui->time)) scenestatus = POSTCOMBAT;
 		break;
 	
 	case POSTCOMBAT:
-		//Change Scene Condition
+		pretime = SDL_GetTicks();
+		App->enemy2->move = false;
+
+
+		//2 SECONDS
+		if (pretime >= globaltime + 2000) {
+			
+		}
+
+
+
+		//FINISH SCENE CONDITION
 		if (App->ui->winactive == true) {
 			App->fade->FadeToBlack(this, App->scene_billykane2);
 		}
 		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
 		break;
 	}
-	*/
+	
 
 	return UPDATE_CONTINUE;
 }
