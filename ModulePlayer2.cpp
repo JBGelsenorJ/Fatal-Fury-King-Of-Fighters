@@ -301,7 +301,7 @@ bool ModulePlayer2::Start()
 	playerjumpbkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
-
+	playerwindmill = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	//winanimation.Reset();
 
 	return ret;
@@ -913,7 +913,7 @@ update_status ModulePlayer2::Update()
 			LOG("SM3()()()()\n");
 			if (colcreated == true)
 			{
-				//playerpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+				playerwindmill = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 				colcreated = false;
 			}
 		break;
@@ -966,9 +966,6 @@ update_status ModulePlayer2::Update()
 
 			break;
 
-			/*case ST_WIN:
-			current_animation = &winAnimation;
-			break;*/
 
 		}
 
@@ -1003,6 +1000,7 @@ update_status ModulePlayer2::Update()
 		playerjumpbpunch->SetPos(position.x + 35, position.y - 55);
 		playerjumpfkick->SetPos(position.x + 35, position.y - 55);
 		playerjumpbkick->SetPos(position.x + 35, position.y - 55);
+		playerwindmill->SetPos(position.x + 57, position.y - 85);
 	}
 
 	if (App->enemy2->position.x < position.x) {
@@ -1018,6 +1016,7 @@ update_status ModulePlayer2::Update()
 		playerjumpbpunch->SetPos(position.x - 35, position.y - 55);
 		playerjumpfkick->SetPos(position.x - 35, position.y - 55);
 		playerjumpbkick->SetPos(position.x - 35, position.y - 55);
+		playerwindmill->SetPos(position.x - 57, position.y - 85);
 
 	}
 
@@ -1065,6 +1064,10 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				{
 					state = ST_SM2; App->input->sp2_timer = SDL_GetTicks(); combo2 = 0; break;
 				}
+
+				if (SDL_GetTicks() - combotime < 250) {
+					if (combo3 == 2)combo3 = 3;
+				}
 				if (combo3 == 3)
 				{
 					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
@@ -1107,6 +1110,22 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				}
 			}
 
+			//SM3 left side
+			if ((position.x) <= (App->player2->position.x))
+			{
+				if (SDL_GetTicks() - combotime < 200)
+				{
+					if (combo3 == 3)combo3 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo3 = 0;
+				}
+			}
+
+
+
 			switch (last_input)
 			{
 
@@ -1138,6 +1157,15 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			else
 			{
 				combo2 = 0;
+			}
+
+			
+			combo3 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combosm3 < 120) {
+				if (combo3 == 1)combo3 = 2;
+				combosm3 = SDL_GetTicks();
 			}
 
 			
@@ -1273,6 +1301,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				if (combo2 == 1)combo2 = 2;
 				combosm2 = SDL_GetTicks();
 			}
+
 
 			switch (last_input)
 			{
@@ -1644,7 +1673,23 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		playerdash->to_delete = true;
 		highdamage2 = true;
 		App->input->inputs2.Push(IN_HDAMAGE2);
-		App->enemy2->life -= 10;
+		App->enemy2->life -= 20;
+		App->enemy2->position.x += 3;
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+
+
+	}
+
+	if (playerwindmill == c1 && c2->type == COLLIDER_ENEMY)
+	{
+
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		playerwindmill->to_delete = true;
+		highdamage2 = true;
+		App->input->inputs2.Push(IN_HDAMAGE2);
+		App->enemy2->life -= 20;
 		App->enemy2->position.x += 3;
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);

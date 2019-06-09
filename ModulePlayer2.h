@@ -88,6 +88,7 @@ public:
 	Collider* playerjumpbpunch;
 	Collider* playerjumpfkick;
 	Collider* playerjumpbkick;
+	Collider* playerwindmill;
 	int initialPos;
 
 	
@@ -131,6 +132,8 @@ public:
 	Uint32 combotime;
 	Uint32 combosm1;
 	Uint32 combosm2;
+	Uint32 combosm3;
+	Uint32 combosm4;
 };
 
 #endif
