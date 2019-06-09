@@ -122,7 +122,7 @@ bool ModuleBillyKane::CleanUp()
 	App->particles->Disable();
 	App->collision->Disable();
 	App->ui->Disable();
-	//App->slowdown->Disable();
+	App->slowdown->Disable();
 
 	//Destroying Scene Resources
 	SDL_DestroyTexture(graphics);
@@ -215,6 +215,8 @@ update_status ModuleBillyKane::Update()
 		//FINISH SCENE CONDITION
 		if (App->ui->winactive == true) {
 			App->fade->FadeToBlack(this, App->scene_billykane2);
+			App->slowdown->StartSlowdown(40, 200);
+			App->slowdown->UpdateSlowdown();
 		}
 		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
 		break;

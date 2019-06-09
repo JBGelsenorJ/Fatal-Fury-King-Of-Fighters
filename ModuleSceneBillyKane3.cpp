@@ -11,7 +11,7 @@
 #include "ModuleMusic.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemy2.h"
-
+#include "ModuleSlowdown.h"
 
 #include "ModulePlayerSelection.h"
 #include "ModuleWelcomeScreen.h"
@@ -210,12 +210,16 @@ update_status ModuleBillyKane3::Update()
 			if (App->ui->p1canwin) {
 				App->ui->p1win = true;
 				App->fade->FadeToBlack(this, App->p1w);
+				App->slowdown->StartSlowdown(40, 200);
+				App->slowdown->UpdateSlowdown();
 			}
 
 			//PLAYER 2 WINS
 			if (App->ui->p2canwin) {
 				App->ui->p2win = true;
 				App->fade->FadeToBlack(this, App->p2w);
+				App->slowdown->StartSlowdown(40, 200);
+				App->slowdown->UpdateSlowdown();
 			}
 		}
 		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
