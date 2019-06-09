@@ -95,6 +95,10 @@ bool ModuleBillyKane2::Start()
 	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
 	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
+	//STATE MACHINE
+	scenestatus = PREUPDATE;
+	globaltime = SDL_GetTicks();
+
 	return ret;
 }
 
@@ -130,6 +134,7 @@ void ModuleBillyKane2::Restart() {
 	App->ui->winactive = false;
 	audiofight = true;
 	audioround = true;
+
 }
 
 

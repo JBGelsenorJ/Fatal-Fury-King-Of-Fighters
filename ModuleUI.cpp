@@ -192,7 +192,7 @@ bool ModuleUI::Timer() {
 	if (enabletime) {
 		if (starting <= SDL_GetTicks() && time > 0) {
 
-			time = 8000 - SDL_GetTicks() + starttime;
+			time = 95000 - SDL_GetTicks() + starttime;
 		}
 		if (time >= 200000)
 		{
