@@ -11,7 +11,7 @@
 #include "SDL\include\SDL_timer.h"
 
 #define TIME_COMBO 1000
-#define SM2_TIME 1000
+
 
 struct SDL_Texture;
 
@@ -84,6 +84,10 @@ public:
 	Collider* playercrouchkick;
 	Collider* playerjumpnkick;
 	Collider* playerdash;
+	Collider* playerjumpfpunch;
+	Collider* playerjumpbpunch;
+	Collider* playerjumpfkick;
+	Collider* playerjumpbkick;
 	int initialPos;
 
 	
@@ -121,6 +125,7 @@ public:
 	Uint32 combo1 = 0;
 	Uint32 combo2 = 0;
 	Uint32 combo3 = 0;
+	Uint32 combo4 = 0;
 
 	Uint32 combotime;
 	Uint32 combosm1;

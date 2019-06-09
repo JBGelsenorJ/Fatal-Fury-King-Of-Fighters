@@ -212,7 +212,7 @@ bool ModuleInput::external_input()
 
 			case SDLK_x:
 				inputs.Push(IN_X);
-
+				break;
 				//PLAYER 2
 
 			case SDLK_u:
@@ -241,7 +241,7 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_n:
 				inputs2.Push(IN_N);
-
+				break;
 			}
 		}
 
@@ -445,6 +445,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->playerjumpnkick->to_delete = true;
 			App->player2->colcreated = true;
 			App->player2->playerjumpnpunch->to_delete = true;
+			App->player2->playerjumpfpunch->to_delete = true;
+			App->player2->playerjumpbpunch->to_delete = true;
 			jump_timer = 0;
 		}
 	}
@@ -514,12 +516,25 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 
 	}
 
+	if (sp2_timer > 0) {
+
+		if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
+		{
+			App->player2->playerdash->to_delete = true;
+			App->player2->colcreated = true;
+			App->input->inputs.Push(IN_SM2_FINISH);
+			App->input->sp2_timer = 0;
+			App->player2->dash_speed = 6;
+		}
+
+	}
+
 
 	if (sp3_timer > 0)
 	{
 		if (SDL_GetTicks() - sp3_timer > SP3_TIME)
 		{
-			inputs2.Push(IN_SM3_FINISH);
+			inputs.Push(IN_SM3_FINISH);
 			sp3_timer = 0;
 		}
 		if (SDL_GetTicks() - sp3_timer > SP3_TIME + 500)
@@ -542,6 +557,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->enemyjumpnpunch->to_delete = true;
 			App->enemy2->enemyjumpnkick->to_delete = true;
 			App->enemy2->colcreated = true;
+			App->enemy2->enemyjumpfpunch->to_delete = true;
+			App->enemy2->enemyjumpbpunch->to_delete = true;
 			jump_timer2 = 0;
 		}
 	}
