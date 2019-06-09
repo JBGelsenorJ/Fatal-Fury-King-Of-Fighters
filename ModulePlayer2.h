@@ -88,6 +88,7 @@ public:
 	Collider* playerjumpbpunch;
 	Collider* playerjumpfkick;
 	Collider* playerjumpbkick;
+	Collider* playerwindmill;
 	int initialPos;
 
 	
