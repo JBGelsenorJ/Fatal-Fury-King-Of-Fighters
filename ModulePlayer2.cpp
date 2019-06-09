@@ -181,9 +181,14 @@ ModulePlayer2::ModulePlayer2()
 	sm1.PushBack({ 23, 357, 66, 99 });
 	sm1.PushBack({ 92, 361, 52, 94 });
 	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+	sm1.PushBack({ 216, 363, 99, 92 });
 	sm1.PushBack({ 216, 363, 99, 92 });
 
-	sm1.speed = 0.17f;
+
+	sm1.speed = 0.15f;
 
 	//special move 2
 

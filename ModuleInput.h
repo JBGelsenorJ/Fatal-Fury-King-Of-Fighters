@@ -23,7 +23,7 @@
 #define PUNCHN_TIME 500
 #define PUNCHC_TIME 500
 
-#define SP1_TIME 500
+#define SP1_TIME 1000
 
 #define KICK_TIME 700
 #define KICKF_TIME 500
