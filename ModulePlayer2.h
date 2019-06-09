@@ -10,6 +10,9 @@
 #include "ModuleInput.h"
 #include "SDL\include\SDL_timer.h"
 
+#define TIME_COMBO 1000
+#define SM2_TIME 1000
+
 struct SDL_Texture;
 
 class ModulePlayer2 : public Module
@@ -25,6 +28,7 @@ public:
 
 	bool Active = false;
 	bool Activesm1 = true;
+	bool Activesm2 = true;
 	bool shoot = false;
 	int jumpSpeed = 6;
 	bool attack = true;
@@ -49,6 +53,7 @@ public:
 	Animation hhd;
 	
 	Animation sm1;
+	Animation sm2;
 	
 	Animation kick;
 	Animation kickf;
@@ -99,12 +104,15 @@ public:
 	
 	float jumpspeed = 6;
 	float kick_jumpspeed = 6;
+	float dash_speed = 6;
 	
 	int speed = 2;
 	float life = 100;
 	int score = 0;
 	int cont = 0;
 	int rounds = 0;
+
+	int timer_combo;
 };
 
 #endif
