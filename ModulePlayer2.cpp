@@ -325,7 +325,7 @@ bool ModulePlayer2::CleanUp()
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
-	if(introstart==true){
+	
 	Animation* current_animation = &idle;
 	uint timersm1 = SDL_GetTicks();
 	player_states current_state = ST_UNKNOWN;
@@ -908,8 +908,8 @@ update_status ModulePlayer2::Update()
 		case ST_SM3:
 			
 
-
-			if (attack == true)
+			current_animation = &sm3;
+			
 			{
 				//App->audio->PlayFX("Audio");
 				attack = false;
@@ -1030,7 +1030,7 @@ update_status ModulePlayer2::Update()
 
 	playercol->SetPos(position.x, position.y);
 
-	}
+	
 	return UPDATE_CONTINUE;
 
 }
@@ -1080,16 +1080,11 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				{
 					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
 				}
-				if (combo4 == 3)
-				{
-					state = ST_SM4; App->input->sp4_timer = SDL_GetTicks(); combo4 = 0; break;
-				}
+
 				else
 				{
 					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); combo4 = 0; break;
 				}
-
-
 
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
@@ -1167,14 +1162,15 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				combo2 = 0;
 			}
 
-			
-			combo3 = 1;
-			combotime = SDL_GetTicks();
-
-			if (SDL_GetTicks() - combosm3 < 120) {
+			if (SDL_GetTicks() - combotime < 200) {
 				if (combo3 == 1)combo3 = 2;
-				combosm3 = SDL_GetTicks();
+				combotime = SDL_GetTicks();
 			}
+			else
+			{
+				combo3 = 0;
+			}
+			
 
 			
 			switch (last_input)

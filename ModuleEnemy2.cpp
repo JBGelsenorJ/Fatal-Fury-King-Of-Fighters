@@ -881,31 +881,7 @@ update_status ModuleEnemy2::Update()
 				}
 			}
 
-			/*App->particles->p2 = true;
-			current_animation = &sm1;
-			if (Activesm1 == true)
-			{
-				if (App->particles->cont < 1)
-				{
-					App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
-				}
-
-				Activesm1 = false;
-
-
-			}*/
 			break;
-
-			/*case ST_SM1:
-			App->particles->p2 = true;
-			current_animation = &sm1;
-			if (Activesm1 == true){
-			//App->audio->PlayFX(Audio);
-			App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
-			Activesm1 = false;
-			break;
-
-			}*/
 
 		case ST_SM2:
 
@@ -1109,6 +1085,11 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				{
 					state = ST_SM3; App->input->sp3_timer2 = SDL_GetTicks(); combo3 = 0; break;
 				}
+				
+				if (SDL_GetTicks() - combotime < 250) {
+					if (combo4 == 2)combo4 = 3;
+				}
+
 				if (combo4 == 3)
 				{
 					state = ST_SM4; App->input->sp4_timer2 = SDL_GetTicks(); combo4 = 0; break;
