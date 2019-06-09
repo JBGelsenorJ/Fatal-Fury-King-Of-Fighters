@@ -77,13 +77,10 @@ bool ModuleBillyKane::Start()
 	//Loading Scene Assets
 	LOG("Loading BillyKane [1] Assets");
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
-	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 	
 	//Playing Music
 	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1, audience, -1);
-	Mix_VolumeChunk(audience, 35);
 
 	//Enabling Gameplay features
 	App->player2->Enable();
@@ -106,6 +103,8 @@ bool ModuleBillyKane::Start()
 	App->ui->winactive = false;
 	App->ui->p1canwin = false;
 	App->ui->p2canwin = false;
+	App->ui->p1win = false;
+	App->ui->p2win = false;
 
 	return ret;
 }
@@ -160,6 +159,7 @@ update_status ModuleBillyKane::Update()
 
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
+
 
 	//Change Scene Condition
 	if (App->ui->winactive == true) {

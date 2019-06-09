@@ -185,6 +185,21 @@ ModulePlayer2::ModulePlayer2()
 
 	sm1.speed = 0.17f;
 
+	//special move 2
+
+	sm2.PushBack({ 214, 473, 60, 97 });
+	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+	sm2.PushBack({ 276, 472, 61, 96 }); //concentracion
+	sm2.PushBack({ 338, 480, 78, 90 }); //dash1
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 424, 482, 92 ,90 }); //dash2
+	sm2.PushBack({ 516, 486, 88, 85 });
+	sm2.PushBack({ 606, 472, 55, 97 });
+
+	sm2.speed = 0.17f;
+
 	//DAMAGE
 	{
 		//Low damage
@@ -795,6 +810,27 @@ update_status ModulePlayer2::Update()
 			}
 			break;
 
+		case ST_SM2:
+			
+			current_animation = &sm2;
+			if ( (SDL_GetTicks() - App->input->sp2_timer) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer) > 200)
+			{
+				position.x += dash_speed;
+				dash_speed -= 0.1;
+			}
+			if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
+			{
+				App->input->inputs.Push(IN_SM2_FINISH);
+				App->input->sp2_timer = 0;
+				dash_speed = 6;
+			}
+			
+
+
+			
+
+			break;
+
 
 		case ST_LDAMAGE:
 
@@ -893,12 +929,13 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
-			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
+			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; timer_combo = SDL_GetTicks(); break;
 			case IN_JUMP: state = ST_JUMP_NEUTRAL; App->input->jump_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			case IN_T: state = ST_PUNCH_STANDING, App->input->punch_timer = SDL_GetTicks(); break;
 			case IN_R: state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); break;
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
+			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
 			case IN_LDAMAGE: state = ST_LDAMAGE, App->input->ldamage_timer = SDL_GetTicks(); break;
 			case IN_HDAMAGE: state = ST_HDAMAGE, App->input->hdamage_timer = SDL_GetTicks(); break;
 			case IN_HHDAMAGE: state = ST_HHDAMAGE, App->input->hhdamage_timer = SDL_GetTicks(); break;
@@ -1149,6 +1186,19 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 
 			case IN_SM1_FINISH: state = ST_IDLE; Active = 0; Activesm1 = true; break;
+
+			}
+			break;
+
+		}
+
+		case ST_SM2:
+		{
+
+			switch (last_input)
+			{
+
+			case IN_SM2_FINISH: state = ST_IDLE; Active = 0; Activesm2 = true; break;
 
 			}
 			break;

@@ -158,6 +158,7 @@ bool ModuleInput::external_input()
 
 				right = false;
 				break;
+			
 			//PLAYER 2 KEYBOARD CONTROLS
 			case SDLK_k:
 				inputs2.Push(IN_CROUCH_UP2);
@@ -204,6 +205,9 @@ bool ModuleInput::external_input()
 			case SDLK_d:
 				right = true;
 				break;
+			case SDLK_c:
+				inputs.Push(IN_C);
+				break;
 
 				//PLAYER 2
 
@@ -227,6 +231,9 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_l:
 				right2 = true;
+				break;
+			case SDLK_m:
+				sm22 = true;
 				break;
 			}
 		}

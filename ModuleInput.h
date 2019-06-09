@@ -66,7 +66,8 @@ enum player_states
 	ST_LDAMAGE,
 	ST_HDAMAGE,
 	ST_HHDAMAGE,
-	ST_SM1
+	ST_SM1,
+	ST_SM2,
 
 };
 
@@ -86,12 +87,14 @@ enum player_inputs
 	IN_T,
 	IN_R,
 	IN_F,
+	IN_C,
 	IN_JUMP_FINISH,
 	IN_PUNCH_FINISH,
 	IN_PUNCH_CROUCH_FINISH,
 	IN_KICK_FINISH,
 	IN_KICK_CROUCH_FINISH,
 	IN_SM1_FINISH,
+	IN_SM2_FINISH,
 
 	IN_LDAMAGE,
 	IN_HDAMAGE,
@@ -115,12 +118,14 @@ enum player_inputs
 	IN_Y,
 	IN_U,
 	IN_H,
+	IN_M,
 	IN_JUMP_FINISH2,
 	IN_PUNCH_FINISH2,
 	IN_PUNCH_CROUCH_FINISH2,
 	IN_KICK_FINISH2,
 	IN_KICK_CROUCH_FINISH2,
 	IN_SM1_FINISH2,
+	IN_SM2_FINISH2,
 
 	IN_LDAMAGE2,
 	IN_HDAMAGE2,
@@ -164,7 +169,7 @@ public:
 	int o = 0;
 	int p = 0;
 	int i = 0;
-	int u = 0;
+
 	p2Qeue<player_inputs> inputs;
 	p2Qeue<player_inputs> inputs2;
 
@@ -172,11 +177,13 @@ public:
 	bool right = false;
 	bool down = false;
 	bool up = false;
+	bool sm2 = false;
 
 	bool left2 = false;
 	bool right2 = false;
 	bool down2 = false;
 	bool up2 = false;
+	bool sm22 = false;
 
 	int key = -1;
 
@@ -191,6 +198,7 @@ public:
 	Uint32 punchn_timer = 0;
 
 	Uint32 sp1_timer = 0;
+	Uint32 sp2_timer = 0;
 
 	Uint32 kick_timer = 0;
 	Uint32 kickc_timer = 0;
@@ -213,6 +221,7 @@ public:
 	Uint32 punchn_timer2 = 0;
 
 	Uint32 sp1_timer2 = 0;
+	Uint32 sp2_timer2 = 0;
 
 	Uint32 kick_timer2 = 0;
 	Uint32 kickc_timer2 = 0;
