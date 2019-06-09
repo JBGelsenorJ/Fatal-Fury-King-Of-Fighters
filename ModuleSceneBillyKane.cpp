@@ -169,7 +169,7 @@ update_status ModuleBillyKane::Update()
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
 
-	//TRYING STATE MACHINE
+	//SCENE STATE MACHINE
 	switch(scenestatus) {
 	
 	case PREUPDATE:
@@ -202,17 +202,14 @@ update_status ModuleBillyKane::Update()
 		App->ui->enabletime = true;
 
 		//FINISH CONDITION
-		if (App->ui->WinLose(App->player2->life,App->enemy2->life, App->ui->time)) scenestatus = POSTCOMBAT;
+		if (App->ui->WinLose(App->player2->life,App->enemy2->life, App->ui->time) || time == 0) scenestatus = POSTCOMBAT;
 		break;
 	
 	case POSTCOMBAT:
 		pretime = SDL_GetTicks();
 
 
-		//2 SECONDS
-		if (pretime >= globaltime + 2000) {
-			
-		}
+		
 
 
 

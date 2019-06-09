@@ -192,11 +192,12 @@ bool ModuleUI::Timer() {
 	if (enabletime) {
 		if (starting <= SDL_GetTicks() && time > 0) {
 
-			time = 95000 - SDL_GetTicks() + starttime;
+			time = 8000 - SDL_GetTicks() + starttime;
 		}
 		if (time >= 200000)
 		{
 			time = 0;
+			App->render->Blit(titles, (SCREEN_WIDTH / 2) - 63, 50, &timeup, false);
 			App->audio->PlayFX(timeout);
 		}
 	} else time = 90000;
@@ -286,6 +287,7 @@ bool ModuleUI::WinLose(float player, float enemy, int time) {
 		p2canwin = true;
 		return true;
 	}
+
 		
 	return false;
 }
