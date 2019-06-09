@@ -395,6 +395,7 @@ update_status ModulePlayer2::Update()
 
 			controllermover = true;
 			position.x += speed;
+
 			crouch.Reset();
 			jump.Reset();
 			jumpf.Reset();
@@ -435,6 +436,7 @@ update_status ModulePlayer2::Update()
 
 			controllermovel = true;
 			position.x -= speed;
+
 			crouch.Reset();
 			jump.Reset();
 			jumpf.Reset();
@@ -541,6 +543,7 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_PUNCH_CROUCH:
+
 			if (attack == true)
 			{
 				attack = false;
