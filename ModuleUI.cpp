@@ -101,6 +101,48 @@ ModuleUI::ModuleUI(){
 
 	healthwidth = 98;
 	
+
+	//TITLES
+	fight.x = 37;
+	fight.y = 12;
+	fight.w = 175;
+	fight.h = 40;
+
+	roundone.x = 30;
+	roundone.y = 64;
+	roundone.w = 110; 
+	roundone.h = 18;
+
+	roundtwo.x = 31;
+	roundtwo.y = 88;
+	roundtwo.w = 112; 
+	roundtwo.h = 18;
+
+	roundthree.x = 32;
+	roundthree.y = 113;
+	roundthree.w = 113; 
+	roundthree.h = 18;
+
+	timeup.x = 29;
+	timeup.y = 143;
+	timeup.w = 125; 
+	timeup.h = 18;
+
+	ready.x = 31;
+	ready.y = 219;
+	ready.w = 82; 
+	ready.h = 19;
+
+	youwin.x = 27;
+	youwin.y = 174;
+	youwin.w = 125; 
+	youwin.h = 19;
+
+	youlose.x = 28;
+	youlose.y = 195;
+	youlose.w = 128; 
+	youlose.h = 19;
+
 }
 
 ModuleUI::~ModuleUI()
@@ -112,13 +154,21 @@ bool ModuleUI::Start()
 	LOG("Loading features");
 	bool ret = true;
 
-	//Loading SpriteSheet and fonts
+	//Loading SpriteSheet, fonts and music
 	graphics = App->textures->Load("Source/UI/combatui/ui.png");
+	titles = App->textures->Load("Source/UI/combatui/combatupdate.png");
 	countdown = App->fonts->Load("Source/UI/fonts/marcador.png", "0123456789", 1);
 	scorefont = App->fonts->Load("Source/UI/fonts/Score_font.png", "-0123456789abcdefghijklmnopqrstuvwxyz", 1);
+
+	//FX
+	finalcountdown = App->audio->LoadFX("Source/Sound/FX/FX/FX_ClockCountdown.wav");
+	timeout = App->audio->LoadFX("Source/Sound/FX/FX/FX_Timeout.wav");
+	readyfx = App->audio->LoadFX("Source/Sound/FX/FX/FX_ReadyVoice.wav");
+	fightfx = App->audio->LoadFX("Source/Sound/FX/FX/FX_FightVoice.wav");
+	Mix_VolumeChunk(fightfx, 200);
 	
-//We set time on 90s
-	time = 90000;
+//We set time on 94s
+	time = 95000;
 	starting = SDL_GetTicks();
 	starttime = SDL_GetTicks();
 
@@ -130,6 +180,7 @@ bool ModuleUI::CleanUp()
 	
 	//Destroying features loaded
 	App->textures->Unload(graphics);
+	App->textures->Unload(titles);
 	App->fonts->UnLoad(countdown);
 	App->fonts->UnLoad(scorefont);
 	LOG("Unloading Textures, Fonts and Audio");
@@ -138,15 +189,17 @@ bool ModuleUI::CleanUp()
 }
 
 bool ModuleUI::Timer() {
-	
+	if (enabletime) {
 		if (starting <= SDL_GetTicks() && time > 0) {
 
-			time = 90000 - SDL_GetTicks() + starttime;
+			time = 95000 - SDL_GetTicks() + starttime;
 		}
 		if (time >= 200000)
 		{
 			time = 0;
+			App->audio->PlayFX(timeout);
 		}
+	} else time = 90000;
 	
 	
 

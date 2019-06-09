@@ -36,6 +36,7 @@ public:
 
 	//Textures and font sprites
 	SDL_Texture* graphics;
+	SDL_Texture* titles;
 	SDL_Rect timetext;
 	SDL_Rect health;
 	SDL_Rect healthp2;
@@ -49,6 +50,18 @@ public:
 
 	Animation redlife;
 	Animation pointscored;
+
+	//TITLES
+	SDL_Rect fight;
+	SDL_Rect roundone;
+	SDL_Rect roundtwo;
+	SDL_Rect roundthree;
+	SDL_Rect timeup;
+	SDL_Rect ready;
+	SDL_Rect youwin;
+	SDL_Rect youlose;
+	
+
 
 	int countdown = -1;
 	int scorefont = -1;
@@ -65,6 +78,9 @@ public:
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;
+	Mix_Chunk* timeout;
+	Mix_Chunk* readyfx;
+	Mix_Chunk* fightfx;
 
 	//Timer
 	int start_delay = 2000;
