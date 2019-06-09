@@ -358,6 +358,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -815,7 +816,14 @@ update_status ModulePlayer2::Update()
 			current_animation = &sm2;
 			if ( (SDL_GetTicks() - App->input->sp2_timer) < SM2_TIME && (SDL_GetTicks() - App->input->sp2_timer) > 200)
 			{
-				position.x += dash_speed;
+				if (position.x < App->enemy2->position.x)
+				{
+					position.x += dash_speed;
+				}
+				if (position.x > App->enemy2->position.x)
+				{
+					position.x -= dash_speed;
+				}
 				dash_speed -= 0.1;
 			}
 			if ((SDL_GetTicks() - App->input->sp2_timer) > SM2_TIME)
@@ -825,10 +833,6 @@ update_status ModulePlayer2::Update()
 				dash_speed = 6;
 			}
 			
-
-
-			
-
 			break;
 
 

@@ -233,7 +233,7 @@ bool ModuleInput::external_input()
 				right2 = true;
 				break;
 			case SDLK_m:
-				sm22 = true;
+				inputs2.Push(IN_M);
 				break;
 			}
 		}
