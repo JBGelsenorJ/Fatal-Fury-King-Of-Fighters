@@ -50,9 +50,6 @@ bool ModuleP1Wins::Start()
 
 	LOG("Loading assets");
 
-	App->player2->rounds = 0;
-	App->enemy2->rounds = 0;
-
 	return ret;
 }
 

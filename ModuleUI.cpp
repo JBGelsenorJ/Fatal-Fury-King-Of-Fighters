@@ -226,22 +226,26 @@ bool ModuleUI::WinLose(float player, float enemy, int time) {
 	
 	//Checking win
 	if (enemy <= 0) { 
-		App->player2->rounds += 1;
+		//App->player2->rounds += 1;
+		p1canwin = true;
 		return true;
 	}
 
 	if (player <= 0) {
-		App->enemy2->rounds += 1;
+		//App->enemy2->rounds += 1;
+		p2canwin = true;
 		return true;
 	}
 
 	if (player > enemy && time <= 0) {
-		App->player2->rounds++;
+		//App->player2->rounds++;
+		p1canwin = true;
 		return true;
 	}
 
 	if (enemy > player && time <= 0) {
-		App->enemy2->rounds++;
+		//App->enemy2->rounds++;
+		p2canwin = true;
 		return true;
 	}
 		

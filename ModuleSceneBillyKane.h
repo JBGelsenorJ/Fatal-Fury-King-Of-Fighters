@@ -20,7 +20,6 @@ public:
 	bool CleanUp();
 	void Restart();
 
-
 public:
 	
 	SDL_Texture* graphics = nullptr;
@@ -47,7 +46,6 @@ public:
 	//Shadow
 	SDL_Rect shadow;
 	int shadowtime;
-	int timerstart;
 };
 
 #endif
