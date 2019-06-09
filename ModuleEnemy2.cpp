@@ -1163,7 +1163,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 
 			
-			if (SDL_GetTicks() - combotime2 < 120) {
+			if (SDL_GetTicks() - combotime2 < 200) {
 				if (combo22 == 1)combo22 = 2;
 				combotime2 = SDL_GetTicks();
 			}
@@ -1174,7 +1174,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			
 			if ((position.x) <= (App->player2->position.x))
 			{
-				if (SDL_GetTicks() - combotime2 < 120) {
+				if (SDL_GetTicks() - combotime2 < 200) {
 					if (combo12 == 1)combo12 = 2;
 					combotime2 = SDL_GetTicks();
 				}
@@ -1209,7 +1209,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			
 			if ((position.x + 25) <= (App->player2->position.x - 25))
 			{
-				if (SDL_GetTicks() - combotime2 < 120) {
+				if (SDL_GetTicks() - combotime2 < 200) {
 					if (combo22 == 1)combo22 = 2;
 					combotime2 = SDL_GetTicks();
 				}
@@ -1221,7 +1221,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			
 			if ((position.x + 25) >= (App->player2->position.x - 25))
 			{
-				if (SDL_GetTicks() - combotime2 < 120) {
+				if (SDL_GetTicks() - combotime2 < 200) {
 					if (combo12 == 1)combo12 = 2;
 					combotime2 = SDL_GetTicks();
 				}
