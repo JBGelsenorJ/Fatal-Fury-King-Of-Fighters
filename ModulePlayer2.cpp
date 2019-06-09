@@ -13,6 +13,8 @@
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleSceneBillyKane.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
 #include "Animation.h"
 #include "ModuleSlowdown.h"
 
@@ -242,12 +244,12 @@ bool ModulePlayer2::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 
-	position.x = 100;
+	position.x = 180;
 	position.y = 220;
 	initialPos = position.y;
 
 	playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-	playercrouch = App->collision->AddCollider({ 50, -250, 45, -60 }, COLLIDER_PLAYER, this);
+	playercrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_PLAYER, this);
 	playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playerkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	playercrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
@@ -295,13 +297,14 @@ update_status ModulePlayer2::Update()
 		{
 			
 			playercol->to_delete = true;
+			playercrouch->to_delete = true;
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
-
+			playercrouch = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 			godmode = false;
 		}
 	}
@@ -1327,14 +1330,34 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (playercol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
+	if (playercol == c1 && App->scene_billykane->wall2c == c2 )   //Colisions with second wall
 	{
 			position.x -= 2;
+
+	}
+	if (playercol == c1 && App->scene_billykane2->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -= 2;
+
+	}
+	if (playercol == c1 && App->scene_billykane3->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -= 2;
 
 	}
 	if (playercol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
 			position.x += 2;
+
+	}
+	if (playercol == c1 && App->scene_billykane2->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
+
+	}
+	if (playercol == c1 && App->scene_billykane3->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
 
 	}
 	if (App->enemy2->life <= 0)

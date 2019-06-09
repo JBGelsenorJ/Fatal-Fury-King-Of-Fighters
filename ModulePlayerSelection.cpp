@@ -97,12 +97,12 @@ update_status ModulePlayerSelection::Update()
 	App->render->Blit(graphics, 80, 40, &title, NULL);
 	App->render->Blit(graphics, 20, 71, &charlocked, NULL);
 	
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && selection < 2) {
+	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && selection < 2 || App->input->right == 1 && selection < 2 || App->input->right2 == 1 && selection < 2) {
 		selection++;
 		App->audio->PlayFX(hoverfx);
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1 && selection > 0) { 
+	if (App->input->keyboard[SDL_SCANCODE_A] == 1 && selection > 0 || App->input->left == 1 && selection > 0  || App->input->left2 == 1 && selection  > 0) {
 		selection--; 
 		App->audio->PlayFX(hoverfx);
 	}

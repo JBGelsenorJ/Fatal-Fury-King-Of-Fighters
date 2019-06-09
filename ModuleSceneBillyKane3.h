@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "ModuleMusic.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 
@@ -31,8 +32,10 @@ public:
 	Mix_Music* music;
 	SDL_Rect wall1;
 	SDL_Rect wall2;
-	Collider* wall1c;
-	Collider* wall2c;
+	Collider* wall1c = nullptr;
+	Collider* wall2c = nullptr;
+	iPoint limitleft;
+	iPoint limitright;
 	float starting = 0.0f;
 	float distance;
 	float seconds;

@@ -48,12 +48,12 @@ ModuleBillyKane3::ModuleBillyKane3()
 
 	//walls
 	wall1.x = 30;
-	wall1.y = 0;
+	wall1.y = -100;
 	wall1.h = 300;
 	wall1.w = 30;
 
 	wall2.x = 280;
-	wall2.y = 0;
+	wall2.y = -100;
 	wall2.h = 300;
 	wall2.w = 30;
 
@@ -88,8 +88,13 @@ bool ModuleBillyKane3::Start()
 	App->ui->Enable();
 
 	
-	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
-	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
+	//Scene limits from left and right
+	limitleft.x = 20;
+	limitleft.y = -300;
+	limitright.x = 333;
+	limitright.y = -300;
+	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
+	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
 	return ret;
 }
@@ -142,6 +147,9 @@ update_status ModuleBillyKane3::Update()
 	App->render->Blit(graphics, -108, 115, &(people3.GetCurrentFrame()), 1.4f);
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
+
+	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
+	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
 	if (App->ui->winactive == true) {
 
