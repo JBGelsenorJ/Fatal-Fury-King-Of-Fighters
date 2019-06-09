@@ -121,6 +121,10 @@ ModulePlayer2::ModulePlayer2()
 		//Terry Bogard Kick JUMPN Animation
 		kickn.PushBack({ 713, 709, 57, 87 });
 		kickn.PushBack({ 778, 710, 94, 89 });
+		kickn.PushBack({ 778, 710, 94, 89 });
+		kickn.PushBack({ 577, 117, 52, 95 });
+		kickn.PushBack({ 647, 121, 51, 85 });
+		kickn.PushBack({ 707, 142, 55, 81 });
 
 		kickn.speed = 0.1f;
 
@@ -129,7 +133,7 @@ ModulePlayer2::ModulePlayer2()
 		kickc.PushBack({ 93, 744, 68, 57 });
 		kickc.PushBack({ 165, 765, 121, 36 });
 
-		kickc.speed = 0.18f;
+		kickc.speed = 0.14f;
 	}
 
 	//PUNCH
@@ -164,7 +168,11 @@ ModulePlayer2::ModulePlayer2()
 		// punch jumpn animation
 		punchn.PushBack({ 234, 809, 70, 106 });
 		punchn.PushBack({ 311, 807, 86, 106 });
-		punchn.speed = 0.05f;
+		punchn.PushBack({ 311, 807, 86, 106 });
+		punchn.PushBack({ 577, 117, 52, 95 });
+		punchn.PushBack({ 647, 121, 51, 85 });
+		punchn.PushBack({ 707, 142, 55, 81 });
+		punchn.speed = 0.1f;
 
 		// punch crouch animation
 		punchc.PushBack({ 880, 734, 51, 65 });
@@ -353,11 +361,13 @@ update_status ModulePlayer2::Update()
 
 
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -391,11 +401,13 @@ update_status ModulePlayer2::Update()
 			jumpb.Reset();
 
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -430,11 +442,13 @@ update_status ModulePlayer2::Update()
 
 
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -537,7 +551,7 @@ update_status ModulePlayer2::Update()
 					colcreated = false;
 				}
 			}
-			if (Active == 0)
+			if (SDL_GetTicks() - App->input->punchc_timer < PUNCHC_TIME)
 			{
 				current_animation = &punchc;
 			}
@@ -570,6 +584,8 @@ update_status ModulePlayer2::Update()
 			if (position.y <= 220)
 			{
 				animdone = false;
+
+
 				current_animation = &punchn;
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
@@ -655,7 +671,7 @@ update_status ModulePlayer2::Update()
 				}
 				attack = false;
 			}
-			if (Active == 0)
+			if (SDL_GetTicks() - App->input->kickc_timer < KICKC_TIME)
 			{
 				current_animation = &kickc;
 			}
