@@ -26,7 +26,7 @@
 #define SP1_TIME 1000
 #define SM2_TIME 1000
 #define SP3_TIME 550
-#define SP4_TIME 1000
+#define SP4_TIME 1400
 
 #define KICK_TIME 700
 #define KICKF_TIME 500
@@ -94,6 +94,7 @@ enum player_inputs
 	IN_F,
 	IN_C,
 	IN_X,
+	IN_Z,
 	IN_JUMP_FINISH,
 	IN_PUNCH_FINISH,
 	IN_PUNCH_CROUCH_FINISH,

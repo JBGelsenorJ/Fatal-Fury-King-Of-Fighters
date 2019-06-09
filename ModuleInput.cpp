@@ -209,9 +209,11 @@ bool ModuleInput::external_input()
 			case SDLK_c:
 				inputs.Push(IN_C);
 				break;
-
 			case SDLK_x:
 				inputs.Push(IN_X);
+				break;
+			case SDLK_z:
+				inputs.Push(IN_Z);
 				break;
 				//PLAYER 2
 
@@ -241,6 +243,9 @@ bool ModuleInput::external_input()
 				break;
 			case SDLK_n:
 				inputs2.Push(IN_N);
+				break;
+			case SDLK_b:
+				inputs2.Push(IN_B);
 				break;
 			}
 		}
@@ -550,6 +555,34 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 	}
 
 
+	if (sp4_timer > 0)
+	{
+
+		if (SDL_GetTicks() - sp4_timer > SP4_TIME)
+		{
+			inputs.Push(IN_SM4_FINISH);
+			sp4_timer = 0;
+
+			App->player2->position.y = 220;
+			App->player2->flykick_speed = 4;
+		}
+	}
+
+	/*if (hhdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - App->input->hhdamage_timer > HHDAMAGE_TIME )
+		{
+			inputs.Push(IN_HHDAMAGE_FINISH);
+			hhdamage_timer = 0;
+
+			App->player2->position.y = 220;
+			App->player2->hhd_speed = 3;
+			//animdone = true;
+		}
+	}*/
+
+
+
 	//PLAYER 2
 	if (jump_timer2 > 0)
 	{
@@ -642,6 +675,19 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->player2->Activesm3 = true;
 			App->enemy2->Activesm3 = true;
 
+		}
+	}
+
+	if (sp4_timer2 > 0)
+	{
+
+		if (SDL_GetTicks() - sp4_timer2 > SP4_TIME)
+		{
+			inputs2.Push(IN_SM4_FINISH2);
+			sp4_timer2 = 0;
+			
+			App->enemy2->position.y = 220;
+			App->enemy2->flykick_speed = 4;
 		}
 	}
 
