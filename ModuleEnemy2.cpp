@@ -376,6 +376,8 @@ update_status ModuleEnemy2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -417,6 +419,8 @@ update_status ModuleEnemy2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -457,6 +461,8 @@ update_status ModuleEnemy2::Update()
 			punchc.Reset();
 			sm1.Reset();
 			sm2.Reset();
+			sm3.Reset();
+			sm4.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -1021,7 +1027,39 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 			case IN_JUMP2: state = ST_JUMP_NEUTRAL; App->input->jump_timer2 = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH; break;
 			case IN_Y: state = ST_PUNCH_STANDING, App->input->punch_timer2 = SDL_GetTicks(); break;
-			case IN_U: state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); break;
+			case IN_U: 
+				
+				if (SDL_GetTicks() - combotime < 250) {
+					if (combo1 == 2)combo1 = 3;
+				}
+				if (combo1 == 3)
+				{
+					state = ST_SM1; App->input->sp1_timer = SDL_GetTicks(); combo1 = 0; break;
+				}
+				if (SDL_GetTicks() - combotime < 250) {
+					if (combo2 == 2)combo2 = 3;
+				}
+				if (combo2 == 3)
+				{
+					state = ST_SM2; App->input->sp2_timer = SDL_GetTicks(); combo2 = 0; break;
+				}
+
+				if (SDL_GetTicks() - combotime < 250) {
+					if (combo3 == 2)combo3 = 3;
+				}
+				if (combo3 == 3)
+				{
+					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
+				}
+				if (combo4 == 3)
+				{
+					state = ST_SM4; App->input->sp4_timer = SDL_GetTicks(); combo4 = 0; break;
+				}
+				else
+				{
+					state = ST_KICK_STANDING, App->input->kick_timer2 = SDL_GetTicks(); combo4 = 0; break;
+				}
+				
 			case IN_H: state = ST_SM1, App->input->sp1_timer2 = SDL_GetTicks(); break;
 			case IN_M: state = ST_SM2, App->input->sp2_timer2 = SDL_GetTicks(); break;
 			case IN_LDAMAGE2: state = ST_LDAMAGE, App->input->ldamage_timer2 = SDL_GetTicks(); break;
@@ -1034,6 +1072,34 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
+
+			//SM1 left side
+			if ((position.x) <= (App->player2->position.x))
+			{
+				if (SDL_GetTicks() - combotime < 200)
+				{
+					if (combo1 == 1)combo1 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo1 = 0;
+				}
+			}
+
+			//SM3 left side
+			if ((position.x) <= (App->player2->position.x))
+			{
+				if (SDL_GetTicks() - combotime < 200)
+				{
+					if (combo3 == 3)combo3 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo3 = 0;
+				}
+			}
 
 			switch (last_input)
 			{
@@ -1055,6 +1121,24 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
+			//SM2 LEFT SIDE
+			if (SDL_GetTicks() - combotime < 200) {
+				if (combo2 == 1)combo2 = 2;
+				combotime = SDL_GetTicks();
+			}
+			else
+			{
+				combo2 = 0;
+			}
+
+
+			combo3 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combosm3 < 120) {
+				if (combo3 == 1)combo3 = 2;
+				combosm3 = SDL_GetTicks();
+			}
 
 			switch (last_input)
 			{
@@ -1261,6 +1345,20 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_KICK_CROUCH:
 		{
+
+			combo1 = 1;
+			combo2 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combosm1 < 120) {
+				if (combo1 == 1)combo1 = 2;
+				combosm1 = SDL_GetTicks();
+			}
+			if (SDL_GetTicks() - combosm2 < 120) {
+				if (combo2 == 1)combo2 = 2;
+				combosm2 = SDL_GetTicks();
+			}
+
 			switch (last_input)
 			{
 
