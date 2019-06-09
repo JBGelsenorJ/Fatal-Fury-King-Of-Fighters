@@ -50,6 +50,10 @@ bool ModuleWelcomeScreen::Start()
 	graphics = App->textures->Load("Source/UI/Intro/intro.png");
 	song = App->audio->LoadMusic("Source/Sound/Music/Opening.ogg");
 	App->audio->PlayMusic(song);
+
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	return ret;
 
 }
@@ -67,9 +71,9 @@ update_status ModuleWelcomeScreen::Update()
 	App->render->Blit(graphics, 0, 0, &welcome, NULL);
 
 	//Logo animation
-	App->render->Blit(graphics, 30, 30, &(logo.GetCurrentFrame()), NULL);
+	App->render->Blit(graphics, 40, 30, &(logo.GetCurrentFrame()), NULL);
 	// start animation
-	App->render->Blit(graphics, 72, 160, &(start.GetCurrentFrame()), NULL);
+	App->render->Blit(graphics, 85, 160, &(start.GetCurrentFrame()), NULL);
 
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

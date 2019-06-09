@@ -106,6 +106,9 @@ bool ModuleBillyKane::Start()
 	App->ui->p1win = false;
 	App->ui->p2win = false;
 
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	return ret;
 }
 

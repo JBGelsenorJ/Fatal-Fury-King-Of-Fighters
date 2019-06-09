@@ -179,12 +179,19 @@ ModuleEnemy2::ModuleEnemy2()
 
 		//Special Movement 1
 
+		//Special Movement 1
+
 		sm1.PushBack({ 23, 357, 66, 99 });
 		sm1.PushBack({ 92, 361, 52, 94 });
 		sm1.PushBack({ 153, 364, 51, 94 });
+		sm1.PushBack({ 153, 364, 51, 94 });
+		sm1.PushBack({ 153, 364, 51, 94 });
+		sm1.PushBack({ 216, 363, 99, 92 });
+		sm1.PushBack({ 216, 363, 99, 92 });
 		sm1.PushBack({ 216, 363, 99, 92 });
 
-		sm1.speed = 0.17f;
+
+		sm1.speed = 0.15f;
 
 		//special move 2
 
@@ -261,7 +268,7 @@ bool ModuleEnemy2::Start()
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
-	position.x = 300;
+	position.x = 330;
 	position.y = 220;
 	initialPos = position.y;
 
@@ -391,6 +398,7 @@ update_status ModuleEnemy2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -427,6 +435,7 @@ update_status ModuleEnemy2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -782,13 +791,29 @@ update_status ModuleEnemy2::Update()
 		case ST_SM1:
 			App->particles->p2 = true;
 			current_animation = &sm1;
+			if (Activesm1 == true)
+			{
+				if (App->particles->cont < 1)
+				{
+					App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
+				}
+
+				Activesm1 = false;
+
+
+			}
+			break;
+
+		/*case ST_SM1:
+			App->particles->p2 = true;
+			current_animation = &sm1;
 			if (Activesm1 == true){
 			//App->audio->PlayFX(Audio);
 			App->particles->AddParticle(App->particles->andyspecial2, position.x + 30, position.y -90, COLLIDER_ENEMY_SHOT, 0);
 			Activesm1 = false;
 			break;
 
-			}
+			}*/
 
 		case ST_SM2:
 

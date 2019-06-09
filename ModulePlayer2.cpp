@@ -181,9 +181,14 @@ ModulePlayer2::ModulePlayer2()
 	sm1.PushBack({ 23, 357, 66, 99 });
 	sm1.PushBack({ 92, 361, 52, 94 });
 	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 153, 364, 51, 94 });
+	sm1.PushBack({ 216, 363, 99, 92 });
+	sm1.PushBack({ 216, 363, 99, 92 });
 	sm1.PushBack({ 216, 363, 99, 92 });
 
-	sm1.speed = 0.17f;
+
+	sm1.speed = 0.15f;
 
 	//special move 2
 
@@ -259,7 +264,7 @@ bool ModulePlayer2::Start()
 	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 
-	position.x = 180;
+	position.x = 200;
 	position.y = 220;
 	initialPos = position.y;
 
@@ -385,7 +390,6 @@ update_status ModulePlayer2::Update()
 			jumpf.Reset();
 			jumpb.Reset();
 
-
 			kick.Reset();
 			kickb.Reset();
 			kickf.Reset();
@@ -396,6 +400,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();
@@ -434,6 +439,7 @@ update_status ModulePlayer2::Update()
 			punchf.Reset();
 			punchc.Reset();
 			sm1.Reset();
+			sm2.Reset();
 
 			hhd.Reset();
 			highd.Reset();

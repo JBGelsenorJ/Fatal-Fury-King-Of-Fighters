@@ -73,11 +73,11 @@ bool Application::Init()
 	/*SCENES IN ORDER DISABLED. COMMENT LINE IF YOU WANT ENABLE*/
 	scene_neogeo->Disable();
 	scene_intro->Disable();
-	scene_intro2->Disable();
+	scene_intro2->Disable(); 
 	scene_controls->Disable();
 	scene_welcome->Disable();
 	playerselection->Disable();
-	//scene_billykane->Disable();  
+	scene_billykane->Enable();  
 	scene_billykane2->Disable();
 	scene_billykane3->Disable();
 	p1w->Disable();
