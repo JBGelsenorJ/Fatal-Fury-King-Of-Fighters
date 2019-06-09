@@ -284,7 +284,7 @@ ModuleEnemy2::ModuleEnemy2()
 
 	//Shadow
 	shadow.x = 644;
-	shadow.y = 695;
+	shadow.y = 691;
 	shadow.w = 66;
 	shadow.h = 14;
 
@@ -1392,6 +1392,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 				}
 
 			}
@@ -1468,6 +1469,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 				}
 
 			}

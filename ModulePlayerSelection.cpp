@@ -102,12 +102,12 @@ update_status ModulePlayerSelection::Update()
 	
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && selection < 2 || App->input->right == 1 && selection < 2 || App->input->right2 == 1 && selection < 2) {
 		selection++;
-		App->audio->PlayFX(hoverfx);
+		/*App->audio->PlayFX(hoverfx);*/
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1 && selection > 0 || App->input->left == 1 && selection > 0  || App->input->left2 == 1 && selection  > 0) {
 		selection--; 
-		App->audio->PlayFX(hoverfx);
+		/*App->audio->PlayFX(hoverfx);*/
 	}
 	
 	//CONDITION	TERRY'S HOVER WILL BE 1D[DEFAULT HOVER] IF selection--(A) will be JOE's HOVER, if D is pressed twice, selection += 2 will be ANDY's

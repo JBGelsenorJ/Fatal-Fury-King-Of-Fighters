@@ -48,26 +48,7 @@ bool ModuleInput::Init()
 	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0) {
 		LOG("SDL_Haptic could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}	   //Haptics
-
-
-
-		   /*
-		   if (SDL_NumJoysticks() < 1) {
-		   LOG("No Joysticks or Gamepads connected!\n");
-		   }
-		   else {
-		   //Loading devices.(Must be connected and will be open). -- GAMEPADS
-		   gamepad1 = SDL_GameControllerOpen(0);
-		   gamepad2 = SDL_GameControllerOpen(1);
-
-		   if (gamepad1 == NULL || gamepad2 == NULL) {
-		   LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
-		   }
-
-		   }
-		   */
-
+	}	
 	return ret;
 }
 
@@ -349,15 +330,15 @@ bool ModuleInput::external_input()
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X) {		//SQUARE(DUALSHOCK) X(XBOX) PUNCH
 					inputs.Push(IN_T);
 				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
+				/*if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
 					inputs.Push(IN_F);
-				}
+				}*/
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B) {		//SQUARE(DUALSHOCK) B(XBOX) PUNCH
 					inputs.Push(IN_R);
 				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
+				/*if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
 					inputs.Push(IN_X);
-				}
+				}*/
 				
 			}
 			if (event.cbutton.which == 1) {
@@ -365,15 +346,15 @@ bool ModuleInput::external_input()
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B) {		//SQUARE(DUALSHOCK) X(XBOX) PUNCH
 					inputs2.Push(IN_U);
 				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
+				/*if (event.cbutton.button == SDL_CONTROLLER_BUTTON_Y) {		//SQUARE(DUALSHOCK) Y(XBOX) PUNCH
 					inputs2.Push(IN_H);
-				}
+				}*/
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_X) {		//SQUARE(DUALSHOCK) B(XBOX) PUNCH
 					inputs2.Push(IN_Y);
 				}
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
+				/*if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A) {		//SQUARE(DUALSHOCK) A(XBOX) PUNCH
 					inputs2.Push(IN_N);
-				}
+				}*/
 				
 			}
 		}

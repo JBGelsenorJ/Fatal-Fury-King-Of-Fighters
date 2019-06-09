@@ -175,8 +175,6 @@ update_status ModuleBillyKane::Update()
 	case PREUPDATE:
 		pretime = SDL_GetTicks();
 		//2 SECONDS
-		App->player2->playercol->to_delete = true;
-		App->enemy2->enemycol->to_delete = true;
 		if (pretime >= globaltime + 2000) {
 			App->render->Blit(App->ui->titles, (SCREEN_WIDTH/2) - 55, 45, &(App->ui->roundone), false);
 			if (audioround) {
@@ -200,10 +198,6 @@ update_status ModuleBillyKane::Update()
 		if(pretime >= globaltime + 5000)scenestatus = UPDATE;
 		break;
 	case UPDATE:
-		App->player2->playercol->to_delete = false;
-		App->enemy2->enemycol->to_delete = false;
-		App->player2->playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, App->player2);
-		App->enemy2->enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, App->enemy2);
 		App->ui->enabletime = true;
 
 		//FINISH CONDITION
