@@ -125,7 +125,8 @@ void ModuleBillyKane3::Restart() {
 	App->enemy2->position.y = 220;
 	//Restart time
 	App->ui->time = 90000;
-	App->ui->starttime = SDL_GetTicks();}
+	App->ui->starttime = SDL_GetTicks();
+}
 
 
 // Update: draw background

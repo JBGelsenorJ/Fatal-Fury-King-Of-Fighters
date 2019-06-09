@@ -127,7 +127,7 @@ bool ModuleBillyKane::CleanUp()
 	return true;
 }
 
-void ModuleBillyKane3::Restart() {
+void ModuleBillyKane::Restart() {
 
 	//Restart Player values
 	App->player2->life = 100;
