@@ -561,6 +561,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			App->enemy2->colcreated = true;
 			App->enemy2->enemyjumpfpunch->to_delete = true;
 			App->enemy2->enemyjumpbpunch->to_delete = true;
+			App->enemy2->enemyjumpfkick->to_delete = true;
+			App->enemy2->enemyjumpbkick->to_delete = true;
 			jump_timer2 = 0;
 		}
 	}
