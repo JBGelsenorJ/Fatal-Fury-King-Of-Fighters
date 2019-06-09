@@ -977,7 +977,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_WALK_FORWARD:
 		{
-			//SM1 Right side
+			//SM2 Right side
 			if ((position.x + 25) >= (App->player2->position.x - 25))
 			{
 				if (SDL_GetTicks() - combotime < 120) {
@@ -989,7 +989,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 					combo2 = 0;
 				}
 			}
-			//SM2 left side
+			//SM1 left side
 			if ((position.x + 25) <= (App->player2->position.x - 25))
 			{
 				if (SDL_GetTicks() - combotime < 120)
@@ -1024,7 +1024,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 
 		case ST_WALK_BACKWARD:
 		{
-			//SM1 LEFT SIDE
+			//SM2 LEFT SIDE
 			if (SDL_GetTicks() - combotime < 120) {
 				if (combo2 == 1)combo2 = 2;
 				combotime = SDL_GetTicks();
@@ -1034,7 +1034,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				combo2 = 0;
 			}
 
-			//SM2 RIGHT SIDE
+			//SM1 RIGHT SIDE
 			if ((position.x + 25) >= (App->player2->position.x - 25))
 			{
 				if (SDL_GetTicks() - combotime < 120) {
