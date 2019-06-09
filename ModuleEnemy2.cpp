@@ -1392,6 +1392,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 				}
 
 			}
@@ -1468,6 +1469,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					enemycol->to_delete = true; enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
 				}
 
 			}

@@ -1390,6 +1390,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 				}
 
 				//case IN_WIN: state = ST_WIN; Active = 0;  break;
@@ -1445,6 +1446,7 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				else
 				{
 					state = ST_IDLE; Active = 0; attack = true;
+					playercol->to_delete = true; playercol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_PLAYER, this);
 				}
 
 				//case IN_WIN: state = ST_WIN; Active = 0;  break;

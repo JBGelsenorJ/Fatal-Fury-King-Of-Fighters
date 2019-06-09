@@ -48,26 +48,7 @@ bool ModuleInput::Init()
 	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0) {
 		LOG("SDL_Haptic could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}	   //Haptics
-
-
-
-		   /*
-		   if (SDL_NumJoysticks() < 1) {
-		   LOG("No Joysticks or Gamepads connected!\n");
-		   }
-		   else {
-		   //Loading devices.(Must be connected and will be open). -- GAMEPADS
-		   gamepad1 = SDL_GameControllerOpen(0);
-		   gamepad2 = SDL_GameControllerOpen(1);
-
-		   if (gamepad1 == NULL || gamepad2 == NULL) {
-		   LOG("Couldn't Open Gamepad Controller! SDL Error: %s\n", SDL_GetError());
-		   }
-
-		   }
-		   */
-
+	}	
 	return ret;
 }
 
