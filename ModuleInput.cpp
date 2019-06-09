@@ -90,7 +90,7 @@ bool ModuleInput::external_input()
 							haptic = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad1));
 							if (haptic != NULL) LOG("HAPTIC SUCCESS");
 							if (SDL_HapticRumbleInit(haptic) < 0) LOG("Error init rumble in haptic");
-							SDL_HapticRumblePlay(haptic, 0.8f, 1000);
+							SDL_HapticRumblePlay(haptic, 0.3f, 600);
 					}
 				} else {
 					if (gamepad2 == NULL) {
@@ -99,7 +99,7 @@ bool ModuleInput::external_input()
 							haptic2 = SDL_HapticOpenFromJoystick(SDL_GameControllerGetJoystick(gamepad2));
 							if (haptic2 != NULL) LOG("HAPTIC SUCCESS");
 							if (SDL_HapticRumbleInit(haptic2) < 0) LOG("Error init rumble in haptic");
-							SDL_HapticRumblePlay(haptic2, 0.8f, 1000);
+							SDL_HapticRumblePlay(haptic2, 0.3f, 600);
 						}
 					}
 				
@@ -497,7 +497,6 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 		if (SDL_GetTicks() - sp1_timer > SP1_TIME + 5000)
 		{
-			App->particles->cont = 0;
 			App->particles->p1 = false;
 		}
 	}
@@ -576,7 +575,6 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 		if (SDL_GetTicks() - sp1_timer2 > SP1_TIME + 5000)
 		{
-			App->particles->cont2 = 0;
 			App->particles->p2 = false;
 		}
 	}
