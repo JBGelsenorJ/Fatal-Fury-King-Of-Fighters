@@ -102,7 +102,7 @@ public:
 	bool playaudio = false;
 	bool controllermover = false;
 	bool controllermovel = false;
-	bool godmode = false;
+	bool godmode;
 	bool lowdamage2 = false;
 	bool highdamage2 = false;
 	bool hhdamage2 = false;
