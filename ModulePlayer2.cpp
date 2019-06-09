@@ -849,13 +849,27 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_SM1:
-			App->particles->p1 = true;
+			
 			current_animation = &sm1;
-			if (Activesm1 == true)
+			if ((SDL_GetTicks() - App->input->sp1_timer) > 500)
 			{
-				App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 65, COLLIDER_PLAYER_SHOT, 0);
-				Activesm1 = false;
+				App->particles->p1 = true;
+
+				if (Activesm1 == true)
+				{
+					if (position.x < App->enemy2->position.x)
+					{
+						App->particles->AddParticle(App->particles->andyspecial1, position.x + 50, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->andyspecial1, position.x - 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+					}
+					
+					Activesm1 = false;
+				}
 			}
+			
 			break;
 
 		case ST_SM2:
@@ -1072,6 +1086,20 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				}
 			}
 
+			//SM3 left side
+			if ((position.x) <= (App->player2->position.x))
+			{
+				if (SDL_GetTicks() - combotime < 200)
+				{
+					if (combo3 == 1)combo3 = 2;
+					combotime = SDL_GetTicks();
+				}
+				else
+				{
+					combo3 = 0;
+				}
+			}
+
 			switch (last_input)
 			{
 
@@ -1103,6 +1131,14 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 			else
 			{
 				combo2 = 0;
+			}
+
+			combo3 = 1;
+			combotime = SDL_GetTicks();
+
+			if (SDL_GetTicks() - combosm3 < 120) {
+				if (combo1 == 1)combo1 = 2;
+				combosm3 = SDL_GetTicks();
 			}
 
 			

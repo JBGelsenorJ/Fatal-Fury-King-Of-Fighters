@@ -833,7 +833,29 @@ update_status ModuleEnemy2::Update()
 			break;
 
 		case ST_SM1:
-			App->particles->p2 = true;
+
+			current_animation = &sm1;
+			if ((SDL_GetTicks() - App->input->sp1_timer2) > 500)
+			{
+				App->particles->p2 = true;
+
+				if (Activesm1 == true)
+				{
+					if (position.x > App->player2->position.x)
+					{
+						App->particles->AddParticle(App->particles->andyspecial2, position.x - 30, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
+						
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->andyspecial2, position.x + 50, position.y - 90, COLLIDER_ENEMY_SHOT, 0);
+					}
+					
+					Activesm1 = false;
+				}
+			}
+
+			/*App->particles->p2 = true;
 			current_animation = &sm1;
 			if (Activesm1 == true)
 			{
@@ -845,7 +867,7 @@ update_status ModuleEnemy2::Update()
 				Activesm1 = false;
 
 
-			}
+			}*/
 			break;
 
 			/*case ST_SM1:
