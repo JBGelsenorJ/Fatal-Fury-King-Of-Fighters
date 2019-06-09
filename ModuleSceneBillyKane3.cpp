@@ -96,6 +96,11 @@ bool ModuleBillyKane3::Start()
 	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
 	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
+
+	//STATE MACHINE
+	scenestatus = PREUPDATE;
+	globaltime = SDL_GetTicks();
+
 	return ret;
 }
 
@@ -154,20 +159,70 @@ update_status ModuleBillyKane3::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
-	if (App->ui->winactive == true) {
+	//Scene STATE MACHINE
+	switch (scenestatus) {
 
-		//PLAYER 1 WINS
-		if (App->ui->p1canwin) {
-			App->ui->p1win = true;
-			App->fade->FadeToBlack(this, App->p1w);
+	case PREUPDATE:
+		pretime = SDL_GetTicks();
+
+		//2 SECONDS
+		if (pretime >= globaltime + 2000) {
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH / 2) - 55, 45, &(App->ui->roundthree), false);
+			if (audioround) {
+				App->audio->PlayFX(App->ui->readyfx);
+				audioround = false;
+			}
 		}
 
-		//PLAYER 2 WINS
-		if (App->ui->p2canwin) {
-			App->ui->p2win = true;
-			App->fade->FadeToBlack(this, App->p2w);
+
+		//4 SECONDS
+		if (pretime >= globaltime + 4000) {
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH / 2) - 88, 70, &(App->ui->fight), false);
+			if (audiofight) {
+				App->audio->PlayFX(App->ui->fightfx);
+				audiofight = false;
+			}
 		}
-	} else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
+
+		//FINISH CONDITION
+		if (pretime >= globaltime + 5000)scenestatus = UPDATE;
+		break;
+
+	case UPDATE:
+		App->ui->enabletime = true;
+
+		//FINISH CONDITION
+		if (App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time) || time == 0) scenestatus = POSTCOMBAT;
+		break;
+
+	case POSTCOMBAT:
+		pretime = SDL_GetTicks();
+
+
+
+
+
+
+		//FINISH SCENE CONDITION
+		if (App->ui->winactive == true) {
+
+			//PLAYER 1 WINS
+			if (App->ui->p1canwin) {
+				App->ui->p1win = true;
+				App->fade->FadeToBlack(this, App->p1w);
+			}
+
+			//PLAYER 2 WINS
+			if (App->ui->p2canwin) {
+				App->ui->p2win = true;
+				App->fade->FadeToBlack(this, App->p2w);
+			}
+		}
+		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
+
+		break;
+	}
+
 
 	return UPDATE_CONTINUE;
 }

@@ -906,10 +906,14 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_SM3:
+
 			
 
 			current_animation = &sm3;
 			
+
+			if (attack == true)
+
 			{
 				//App->audio->PlayFX("Audio");
 				attack = false;

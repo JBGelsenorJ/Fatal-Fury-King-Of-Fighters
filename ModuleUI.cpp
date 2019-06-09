@@ -197,6 +197,7 @@ bool ModuleUI::Timer() {
 		if (time >= 200000)
 		{
 			time = 0;
+			App->render->Blit(titles, (SCREEN_WIDTH / 2) - 63, 50, &timeup, false);
 			App->audio->PlayFX(timeout);
 		}
 	} else time = 90000;
@@ -286,6 +287,7 @@ bool ModuleUI::WinLose(float player, float enemy, int time) {
 		p2canwin = true;
 		return true;
 	}
+
 		
 	return false;
 }
