@@ -95,8 +95,7 @@ public:
 	Collider* enemyjumpbpunch;
 	Collider* enemyjumpfkick;
 	Collider* enemyjumpbkick;
-
-	Collider* playerwindmill;
+	Collider* enemywindmill;
 
 	// COMBOS
 	Uint32 combo1 = 0;

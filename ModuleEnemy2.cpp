@@ -303,7 +303,7 @@ bool ModuleEnemy2::Start()
 	enemyjumpbkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
-
+	enemywindmill = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	return ret;
 
 }
@@ -953,7 +953,7 @@ update_status ModuleEnemy2::Update()
 			LOG("SM3()()()()\n");
 			if (colcreated == true)
 			{
-				playerwindmill = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
+				enemywindmill = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 				colcreated = false;
 			}
 			
@@ -1040,6 +1040,7 @@ update_status ModuleEnemy2::Update()
 		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
 		enemyjumpfkick->SetPos(position.x + 35, position.y - 55);
 		enemyjumpbkick->SetPos(position.x + 35, position.y - 55);
+		enemywindmill->SetPos(position.x + 57, position.y - 85);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -1055,7 +1056,7 @@ update_status ModuleEnemy2::Update()
 		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
 		enemyjumpfkick->SetPos(position.x - 35, position.y - 55);
 		enemyjumpbkick->SetPos(position.x - 35, position.y - 55);
-
+		enemywindmill->SetPos(position.x - 57, position.y - 85);
 	}
 
 	enemycol->SetPos(position.x, position.y);
@@ -1566,8 +1567,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemyjumpnpunch->to_delete = true;
 		lowdamage1 = true;
 		App->input->inputs2.Push(IN_LDAMAGE);
-		App->enemy2->position.x += 3;
-		App->enemy2->life -= 10;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
@@ -1579,8 +1580,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->UpdateCameraShake();
 		lowdamage1 = true;
 		App->input->inputs2.Push(IN_LDAMAGE);
-		App->enemy2->position.x += 3;
-		App->enemy2->life -= 10;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
@@ -1591,8 +1592,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->UpdateCameraShake();
 		lowdamage1 = true;
 		App->input->inputs2.Push(IN_LDAMAGE);
-		App->enemy2->position.x += 3;
-		App->enemy2->life -= 10;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}
@@ -1631,8 +1632,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemyjumpnkick->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs.Push(IN_HDAMAGE);
-		App->enemy2->life -= 10;
-		App->enemy2->position.x += 3;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
@@ -1645,8 +1646,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemyjumpfkick->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs2.Push(IN_HDAMAGE);
-		App->enemy2->life -= 10;
-		App->enemy2->position.x += 3;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
@@ -1660,8 +1661,8 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemyjumpbkick->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs2.Push(IN_HDAMAGE);
-		App->enemy2->life -= 10;
-		App->enemy2->position.x += 3;
+		App->player2->life -= 10;
+		App->player2->position.x += 3;
 
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
@@ -1675,13 +1676,28 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemydash->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs.Push(IN_HDAMAGE);
-		App->player2->life -= 10;
+		App->player2->life -= 20;
 		App->player2->position.x += 3;
 
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 		LOG("MUST RUMBLE");
 
+
+
+	}
+	if (enemywindmill == c1 && c2->type == COLLIDER_PLAYER)
+	{
+
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		enemywindmill->to_delete = true;
+		highdamage1 = true;
+		App->input->inputs2.Push(IN_HDAMAGE);
+		App->player2->life -= 20;
+		App->player2->position.x += 3;
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 
 
 	}
