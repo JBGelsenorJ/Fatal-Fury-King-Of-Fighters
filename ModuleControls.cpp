@@ -9,10 +9,7 @@
 #include "Application.h"
 #include "p2Point.h"
 #include "ModuleControls.h"
-#include "ModuleFFIntro.h"
-#include "ModuleFFIntro2.h"
 #include "ModuleUI.h"
-#include "ModuleWelcomeScreen.h"
 #include "ModulePlayerSelection.h"
 
 ModuleControls::ModuleControls()
@@ -58,7 +55,7 @@ ModuleControls::ModuleControls()
 	controls.PushBack({ 324, 119, 305, 106 }); //inicial
 	controls.PushBack({ 324, 361, 305, 106 }); //throw
 	controls.PushBack({ 324, 119, 305, 106 }); //inicial
-	controls.speed = 0.01f;
+	controls.speed = 0.02f;
 
 
 }
@@ -136,16 +133,16 @@ update_status ModuleControls::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_controls, App->playerselection, 1.5);
 	}
 
 	if (SDL_GameControllerGetButton(App->input->gamepad2, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_controls, App->playerselection, 1.5);
 	}
 	if (SDL_GameControllerGetButton(App->input->gamepad1, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_controls, App->playerselection, 1.5);
 	}
 
 
