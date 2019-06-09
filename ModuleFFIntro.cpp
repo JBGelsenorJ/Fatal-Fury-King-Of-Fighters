@@ -12,7 +12,7 @@
 #include "ModuleFFIntro2.h"
 #include "ModuleUI.h"
 #include "ModuleWelcomeScreen.h"
-#include "ModulePlayerSelection.h"
+#include "ModuleControls.h"
 
 ModuleFFIntro::ModuleFFIntro()
 {
@@ -125,16 +125,16 @@ update_status ModuleFFIntro::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_controls, 1.5);
 	}
 
 	if (SDL_GameControllerGetButton(App->input->gamepad2, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_controls, 1.5);
 	}
 	if (SDL_GameControllerGetButton(App->input->gamepad1, SDL_CONTROLLER_BUTTON_START) == 1)
 	{
-		App->fade->FadeToBlack(App->scene_intro, App->playerselection, 1.5);
+		App->fade->FadeToBlack(App->scene_intro, App->scene_controls, 1.5);
 	}
 
 
