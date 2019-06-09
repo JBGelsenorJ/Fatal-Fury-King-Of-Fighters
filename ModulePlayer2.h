@@ -74,6 +74,7 @@ public:
 	Mix_Chunk* Kick;
 	
 	Collider* playercol;
+	Collider* playercrouch;
 	Collider* playerpunch;
 	Collider* playercrouchpunch;
 	Collider* playerjumpnpunch;

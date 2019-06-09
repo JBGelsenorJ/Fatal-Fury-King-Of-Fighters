@@ -19,6 +19,13 @@ enum update_status
 	UPDATE_ERROR
 };
 
+enum COMBAT_STATUS {
+	PREUPDATE = 0,
+	UPDATE,
+	POSTCOMBAT
+};
+
+
 // Useful typedefs ---------
 typedef unsigned int uint;
 

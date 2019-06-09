@@ -24,7 +24,7 @@ public:
 
 	bool Timer();
 	bool DrawLife();
-	void Score(int,int);
+	void Score();
 	bool WinLose(float, float, int);
 	void ChangeScene(int, int);
 	void ResetSceneChange();
@@ -43,12 +43,12 @@ public:
 	SDL_Rect redhealth;
 	SDL_Rect point;
 	SDL_Rect pointred;
-	SDL_Rect pointscored;
+	SDL_Rect pointblack;
 	SDL_Rect andybogard;
 	SDL_Rect terrybogard;
 
 	Animation redlife;
-	Animation redpoint;
+	Animation pointscored;
 
 	int countdown = -1;
 	int scorefont = -1;
@@ -59,7 +59,9 @@ public:
 	bool change3 = true;
 	bool winactive = false;
 	bool p1canwin = false;
+	bool p1win = false;
 	bool p2canwin = false;
+	bool p2win = false;
 
 	//Sound and FX
 	Mix_Chunk* finalcountdown;

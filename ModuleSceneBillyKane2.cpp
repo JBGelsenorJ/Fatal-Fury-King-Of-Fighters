@@ -47,12 +47,12 @@ ModuleBillyKane2::ModuleBillyKane2()
 
 	//walls
 	wall1.x = 30;
-	wall1.y = 0;
+	wall1.y = -100;
 	wall1.h = 300;
 	wall1.w = 30;
 
 	wall2.x = 280;
-	wall2.y = 0;
+	wall2.y = -100;
 	wall2.h = 300;
 	wall2.w = 30;
 
@@ -73,13 +73,10 @@ bool ModuleBillyKane2::Start()
 	//Loading Assets
 	LOG("Loading BillyKane2 [2] Assets");
 	music = App->audio->LoadMusic("Source/Sound/Music/billy.ogg");
-	audience = App->audio->LoadFX("Source/Sound/FX/FX/FX_audience.wav");
 	graphics = App->textures->Load("Source/Sprites/Stage_Sprites/Billy_Kane_map/Background.png");
 
 	//Playing Music
 	App->audio->PlayMusic(music);
-	Mix_PlayChannel(-1, audience, -1);
-	Mix_VolumeChunk(audience, 35);
 	
 	//Enabling Gampleay Features
 	App->player2->Enable();
@@ -90,8 +87,13 @@ bool ModuleBillyKane2::Start()
 	//App->slowdown->Enable();
 
 
-	wall1c = App->collision->AddCollider(wall1,COLLIDER_WALL,this);
-	wall2c = App->collision->AddCollider(wall2, COLLIDER_WALL_RIGHT, this);
+	//Scene limits from left and right
+	limitleft.x = 20;
+	limitleft.y = -300;
+	limitright.x = 333;
+	limitright.y = -300;
+	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
+	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
 	return ret;
 }
@@ -124,6 +126,7 @@ void ModuleBillyKane2::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+	App->ui->winactive = false;
 }
 
 
@@ -143,6 +146,8 @@ update_status ModuleBillyKane2::Update()
 	App->render->Blit(graphics, 0, 0, &wall1, 1.0, true);
 	App->render->Blit(graphics, 0, 0, &wall2, 1.0, true);
 
+	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
+	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
 	/*Change Scene conditions*/
 	if (App->ui->winactive == true) {
@@ -151,8 +156,12 @@ update_status ModuleBillyKane2::Update()
 			App->fade->FadeToBlack(this, App->scene_billykane3);
 		} else {
 			//
-			if (App->ui->p1canwin) App->fade->FadeToBlack(this, App->p1w);
-			if (App->ui->p2canwin) App->fade->FadeToBlack(this, App->p2w);
+			if (App->ui->p1canwin) { 
+				App->ui->p1win = true;
+				App->fade->FadeToBlack(this, App->p1w); }
+			if (App->ui->p2canwin) {
+				App->ui->p1win = true;
+				App->fade->FadeToBlack(this, App->p2w); }
 		}
 		
 	}

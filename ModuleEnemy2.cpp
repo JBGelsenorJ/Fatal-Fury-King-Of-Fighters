@@ -13,6 +13,8 @@
 #include "ModuleFonts.h"
 #include "ModuleWelcomeScreen.h"
 #include "ModuleSceneBillyKane.h"
+#include "ModuleSceneBillyKane2.h"
+#include "ModuleSceneBillyKane3.h"
 #include "Animation.h"
 
 
@@ -243,11 +245,12 @@ bool ModuleEnemy2::Start()
 	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
-	position.x = 200;
+	position.x = 300;
 	position.y = 220;
 	initialPos = position.y;
 
 	enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
+	enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 	enemypunch = App->collision->AddCollider({0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);	
 	enemycrouchkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
@@ -289,13 +292,14 @@ update_status ModuleEnemy2::Update()
 		{
 
 			enemycol->to_delete = true;
+			enemycrouch->to_delete = true;
 
 			godmode = true;
 		}
 		else if (godmode == true)
 		{
 			enemycol = App->collision->AddCollider({ 50, -250, 45, -103 }, COLLIDER_ENEMY, this);
-
+			enemycrouch = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
 			godmode = false;
 		}
 	}
@@ -809,6 +813,7 @@ update_status ModuleEnemy2::Update()
 	SDL_Rect* r = &current_animation->GetCurrentFrame();
 
 	enemycol->SetPos(position.x, position.y);
+	enemycrouch->SetPos(position.x, position.y);
 	if (App->player2->position.x > position.x)
 	{
 		App->render->Blit(graphics, position.x + (current_animation->pivotx2[current_animation->returnCurrentFrame()]), position.y - r->h + current_animation->pivoty2[current_animation->returnCurrentFrame()], r);
@@ -841,7 +846,7 @@ update_status ModuleEnemy2::Update()
 	}
 
 	enemycol->SetPos(position.x, position.y);
-
+	enemycrouch->SetPos(position.x, position.y);
 	return UPDATE_CONTINUE;
 
 }
@@ -1014,7 +1019,7 @@ player_states ModuleEnemy2::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 
 			enemycol->to_delete = true;
-			enemycol = App->collision->AddCollider({ 50, -250, 45, -65 }, COLLIDER_ENEMY, this);
+			
 
 		switch (last_input)
 		{
@@ -1275,10 +1280,27 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 
 	if (enemycol == c1 && App->scene_billykane->wall2c == c2)   //Colisions with second wall
 	{
-			position.x -= 2;
+			position.x -=2;
+	}
+	if (enemycol == c1 && App->scene_billykane2->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -=2;
+	}
+	if (enemycol == c1 && App->scene_billykane3->wall2c == c2)   //Colisions with second wall
+	{
+		position.x -= 2;
 	}
 	if (enemycol == c1 && App->scene_billykane->wall1c == c2)   //Colisions with first wall
 	{
 			position.x += 2;
 	}
+	if (enemycol == c1 && App->scene_billykane2->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
+	}
+	if (enemycol == c1 && App->scene_billykane3->wall1c == c2)   //Colisions with first wall
+	{
+		position.x += 2;
+	}
 }
+
