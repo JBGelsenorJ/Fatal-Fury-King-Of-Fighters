@@ -29,6 +29,8 @@ public:
 	bool Active = false;
 	bool Activesm1 = true;
 	bool Activesm2 = true;
+	bool Activesm3 = true;
+	bool Activesm4 = true;
 	bool shoot = false;
 	bool lowdamage1 = false;
 	bool highdamage1 = false;
