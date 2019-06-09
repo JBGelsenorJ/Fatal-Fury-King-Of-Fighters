@@ -547,6 +547,19 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 	}
 
+	/*if (hhdamage_timer > 0)
+	{
+		if (SDL_GetTicks() - App->input->hhdamage_timer > HHDAMAGE_TIME )
+		{
+			inputs.Push(IN_HHDAMAGE_FINISH);
+			hhdamage_timer = 0;
+
+			App->player2->position.y = 220;
+			App->player2->hhd_speed = 3;
+			//animdone = true;
+		}
+	}*/
+
 	//PLAYER 2
 	if (jump_timer2 > 0)
 	{
@@ -662,11 +675,14 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 
 	if (hhdamage_timer > 0)
 	{
+		
 		if (SDL_GetTicks() - hhdamage_timer > HHDAMAGE_TIME)
 		{
 			inputs.Push(IN_HHDAMAGE_FINISH);
 			hhdamage_timer = 0;
 			App->player2->hhdamage2 = false;
+			App->player2->position.y = 220;
+			App->player2->hhd_speed = 3;
 		}
 	}
 
@@ -697,6 +713,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			inputs2.Push(IN_HHDAMAGE_FINISH2);
 			hhdamage_timer2 = 0;
 			App->enemy2->hhdamage1 = false;
+			App->enemy2->position.y = 220;
+			App->enemy2->hhd_speed = 3;
 		}
 	}
 

@@ -112,6 +112,7 @@ public:
 	float jumpspeed = 6;
 	float kick_jumpspeed = 6;
 	float dash_speed = 6;
+	float hhd_speed = 3;
 	
 	int speed = 2;
 	float life = 100;

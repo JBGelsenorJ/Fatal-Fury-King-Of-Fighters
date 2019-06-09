@@ -934,12 +934,30 @@ update_status ModuleEnemy2::Update()
 
 		case ST_HHDAMAGE:
 
-			if (App->player2->hhdamage2 == true)
+			if (position.y <= 220 && App->player2->hhdamage2 == true)
+			{
+				animdone = false;
+				current_animation = &hhd;
+				position.y -= hhd_speed;
+				hhd_speed -= 0.14;
+				if (position.x > App->player2->position.x)
+				{
+					position.x += 2;
+				}
+				else
+				{
+					position.x -= 2;
+				}
+				
+			}
+
+
+
+			/*if (App->enemy2->hhdamage1 == true)
 			{
 				current_animation = &hhd;
-
-
-			}
+			}*/
+			
 
 			break;
 

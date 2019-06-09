@@ -36,7 +36,7 @@
 
 #define LDAMAGE_TIME 200
 #define HDAMAGE_TIME 600
-#define HHDAMAGE_TIME 1200
+#define HHDAMAGE_TIME 1400
 
 
 
