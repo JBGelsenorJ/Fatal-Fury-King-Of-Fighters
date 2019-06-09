@@ -112,7 +112,14 @@ public:
 	int cont = 0;
 	int rounds = 0;
 
-	int timer_combo;
+	// COMBOS
+	Uint32 combo1 = 0;
+	Uint32 combo2 = 0;
+	Uint32 combo3 = 0;
+
+	Uint32 combotime;
+	Uint32 combosm1;
+	Uint32 combosm2;
 };
 
 #endif
