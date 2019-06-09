@@ -807,7 +807,7 @@ update_status ModulePlayer2::Update()
 			{
 				if (App->particles->cont<1)
 				{
-					App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 90, COLLIDER_PLAYER_SHOT, 0);
+					App->particles->AddParticle(App->particles->andyspecial1, position.x + 30, position.y - 65, COLLIDER_PLAYER_SHOT, 0);
 				}
 
 				Activesm1 = false;
