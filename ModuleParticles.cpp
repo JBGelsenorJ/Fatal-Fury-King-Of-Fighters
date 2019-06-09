@@ -109,7 +109,7 @@ update_status ModuleParticles::Update()
 				//SPECIAL ATTACK HISHOKEN FX
 				fx = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/Hishoken.wav");
 				App->audio->PlayFX(fx);
-				Mix_VolumeChunk(fx, 120);
+				Mix_VolumeChunk(fx, 256);
 
 			}
 		}
