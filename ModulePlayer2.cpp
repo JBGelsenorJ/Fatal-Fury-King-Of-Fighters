@@ -618,6 +618,7 @@ update_status ModulePlayer2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpnpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -649,6 +650,7 @@ update_status ModulePlayer2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpfpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -680,6 +682,7 @@ update_status ModulePlayer2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpbpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -703,8 +706,10 @@ update_status ModulePlayer2::Update()
 
 			if (attack == true)
 			{
+				
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playercrouchkick = App->collision->AddCollider({ 10, 20, 100, 10 }, COLLIDER_PLAYER_SHOT, this);
 				}
 				attack = false;
@@ -725,9 +730,7 @@ update_status ModulePlayer2::Update()
 				animdone = false;
 				current_animation = &kick;
 
-
-				//Check where should go fx
-				//App->audio->PlayFX(Kick);		
+				//Check where should go fx	
 				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
@@ -750,6 +753,7 @@ update_status ModulePlayer2::Update()
 			LOG("KICK --\n")
 				if (App->player2->colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					App->player2->playerkick = App->collision->AddCollider({ 30, 100, 50, 10 }, COLLIDER_PLAYER_SHOT, this);
 					App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					App->player2->colcreated = false;
@@ -767,6 +771,7 @@ update_status ModulePlayer2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpnkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -790,6 +795,7 @@ update_status ModulePlayer2::Update()
 
 			if (position.y <= 220)
 			{
+
 				animdone = false;
 				current_animation = &kickf;
 				position.y -= jumpspeed;
@@ -797,6 +803,7 @@ update_status ModulePlayer2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpfkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -828,6 +835,7 @@ update_status ModulePlayer2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpbkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}

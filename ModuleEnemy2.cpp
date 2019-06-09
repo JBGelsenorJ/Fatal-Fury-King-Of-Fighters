@@ -283,8 +283,8 @@ bool ModuleEnemy2::Start()
 	Activesm1 = true;
 	graphics = App->textures->Load("Source/Sprites/Character_Sprites/Andy_Bogard/andy2.png");
 
-	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack5.wav");
-	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Attack4.wav");
+	Kick = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Kick.wav");
+	Punch = App->audio->LoadFX("Source/Sound/FX/Voice/Attacks/Punch.wav");
 	Specialattack = App->audio->LoadFX("Source/Sound/FX/Voice/SpecialAttacks/PoweWave.wav");
 
 	position.x = 330;
@@ -597,6 +597,7 @@ update_status ModuleEnemy2::Update()
 			{
 				if (App->enemy2->colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					App->enemy2->enemypunch = App->collision->AddCollider({ 10, 30, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					App->enemy2->enemykick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 					App->enemy2->colcreated = false;
@@ -618,6 +619,7 @@ update_status ModuleEnemy2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					enemyjumpnpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
@@ -650,6 +652,7 @@ update_status ModuleEnemy2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					enemyjumpfpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
@@ -681,6 +684,7 @@ update_status ModuleEnemy2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					enemyjumpbpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
@@ -706,6 +710,7 @@ update_status ModuleEnemy2::Update()
 			{
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					enemycrouchkick = App->collision->AddCollider({ 10, 20, 100, 10 }, COLLIDER_ENEMY_SHOT, this);
 				}
 
@@ -747,6 +752,7 @@ update_status ModuleEnemy2::Update()
 			LOG("KICK --\n")
 				if (App->enemy2->colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					App->enemy2->enemykick = App->collision->AddCollider({ 30, 100, 50, 10 }, COLLIDER_ENEMY_SHOT, this);
 					App->enemy2->enemypunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 					App->enemy2->colcreated = false;
@@ -768,6 +774,7 @@ update_status ModuleEnemy2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					enemyjumpnkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
@@ -798,6 +805,7 @@ update_status ModuleEnemy2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					enemyjumpfkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
@@ -829,6 +837,7 @@ update_status ModuleEnemy2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					enemyjumpbkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
 					colcreated = false;
 				}
