@@ -89,6 +89,10 @@ public:
 	Collider* enemycrouchkick;
 	Collider* enemyjumpnkick;;
 	Collider* enemydash;
+	Collider* enemyjumpfpunch;
+	Collider* enemyjumpbpunch;
+	Collider* enemyjumpfkick;
+	Collider* enemyjumpbkick;;
 
 	int initialPos;
 	bool hit = false;

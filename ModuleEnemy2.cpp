@@ -98,7 +98,7 @@ ModuleEnemy2::ModuleEnemy2()
 		kick.PushBack({ 310, 13, 47, 100 });
 		kick.PushBack({ 378, 24, 57, 89 });
 		kick.PushBack({ 448, 20, 54, 92 });
-		kick.PushBack({ 515, 24, 114, 77 });
+		kick.PushBack({ 506, 23, 126, 93 });
 		kick.PushBack({ 641, 11, 85, 96 });
 		kick.PushBack({ 747, 26, 55, 82 });
 		kick.PushBack({ 832, 11, 61, 102 });
@@ -122,6 +122,10 @@ ModuleEnemy2::ModuleEnemy2()
 		//Terry Bogard Kick JUMPN Animation
 		kickn.PushBack({ 713, 709, 57, 87 });
 		kickn.PushBack({ 778, 710, 94, 89 });
+		kickn.PushBack({ 778, 710, 94, 89 });
+		kickn.PushBack({ 577, 117, 52, 95 });
+		kickn.PushBack({ 647, 121, 51, 85 });
+		kickn.PushBack({ 707, 142, 55, 81 });
 
 		kickn.speed = 0.1f;
 
@@ -130,7 +134,7 @@ ModuleEnemy2::ModuleEnemy2()
 		kickc.PushBack({ 93, 744, 68, 57 });
 		kickc.PushBack({ 165, 765, 121, 36 });
 
-		kickc.speed = 0.18f;
+		kickc.speed = 0.14f;
 	}
 
 	//PUNCH
@@ -165,7 +169,11 @@ ModuleEnemy2::ModuleEnemy2()
 		// punch jumpn animation
 		punchn.PushBack({ 234, 809, 70, 106 });
 		punchn.PushBack({ 311, 807, 86, 106 });
-		punchn.speed = 0.05f;
+		punchn.PushBack({ 311, 807, 86, 106 });
+		punchn.PushBack({ 577, 117, 52, 95 });
+		punchn.PushBack({ 647, 121, 51, 85 });
+		punchn.PushBack({ 707, 142, 55, 81 });
+		punchn.speed = 0.1f;
 
 		// punch crouch animation
 		punchc.PushBack({ 880, 734, 51, 65 });
@@ -280,6 +288,9 @@ bool ModuleEnemy2::Start()
 	enemyjumpnkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemyjumpnpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
 	enemydash = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_ENEMY_SHOT, 0);
+	enemyjumpfkick = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	enemyjumpfpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
+	enemyjumpbpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 	return ret;
 
 }
@@ -341,6 +352,7 @@ update_status ModuleEnemy2::Update()
 		case ST_IDLE:
 
 			current_animation = &idle;
+
 			forward.Reset();
 			backward.Reset();
 			crouch.Reset();
@@ -350,11 +362,13 @@ update_status ModuleEnemy2::Update()
 
 
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -382,18 +396,20 @@ update_status ModuleEnemy2::Update()
 			}
 
 			position.x += speed;
+
 			crouch.Reset();
 			jump.Reset();
 			jumpf.Reset();
 			jumpb.Reset();
 
-
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -419,6 +435,7 @@ update_status ModuleEnemy2::Update()
 				forward.Reset();
 			}
 			position.x -= speed;
+
 			crouch.Reset();
 			jump.Reset();
 			jumpf.Reset();
@@ -426,11 +443,13 @@ update_status ModuleEnemy2::Update()
 
 
 			kick.Reset();
+			kickn.Reset();
 			kickb.Reset();
 			kickf.Reset();
 			kickc.Reset();
 
 			punch.Reset();
+			punchn.Reset();
 			punchb.Reset();
 			punchf.Reset();
 			punchc.Reset();
@@ -536,7 +555,7 @@ update_status ModuleEnemy2::Update()
 					colcreated = false;
 				}
 			}
-			if (Active == 0)
+			if (SDL_GetTicks() - App->input->punchc_timer2 < PUNCHC_TIME)
 			{
 				current_animation = &punchc;
 			}
@@ -610,13 +629,19 @@ update_status ModuleEnemy2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x += 2;
+				if (colcreated == true)
+				{
+					enemyjumpfpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->punchf_timer2 > PUNCHF_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH2);
 				App->input->punchf_timer2 = 0;
-
+				enemyjumpfpunch->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -635,13 +660,19 @@ update_status ModuleEnemy2::Update()
 				position.y -= jumpspeed;
 				jumpspeed -= 0.2;
 				position.x -= 2;
+				if (colcreated == true)
+				{
+					enemyjumpbpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_ENEMY_SHOT, this);
+					colcreated = false;
+				}
 			}
 
 			if (SDL_GetTicks() - App->input->punchb_timer2 > PUNCHB_TIME && position.y == 220)
 			{
 				App->input->inputs.Push(IN_JUMP_FINISH2);
 				App->input->punchb_timer2 = 0;
-
+				enemyjumpbpunch->to_delete = true;
+				colcreated = true;
 				position.y = 220;
 				jumpspeed = 6;
 				animdone = true;
@@ -661,7 +692,7 @@ update_status ModuleEnemy2::Update()
 
 				attack = false;
 			}
-			if (Active == 0)
+			if (SDL_GetTicks() - App->input->kickc_timer2 < KICKC_TIME)
 			{
 				current_animation = &kickc;
 			}
@@ -906,6 +937,8 @@ update_status ModuleEnemy2::Update()
 		enemyjumpnkick->SetPos(position.x + 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x + 35, position.y - 55);
 		enemydash->SetPos(position.x + 35, position.y - 55);
+		enemyjumpfpunch->SetPos(position.x + 35, position.y - 55);
+		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
 	}
 
 	if (App->player2->position.x < position.x) {
@@ -917,6 +950,8 @@ update_status ModuleEnemy2::Update()
 		enemyjumpnkick->SetPos(position.x - 30, position.y - 15);
 		enemyjumpnpunch->SetPos(position.x - 35, position.y - 55);
 		enemydash->SetPos(position.x - 35, position.y - 55);
+		enemyjumpfpunch->SetPos(position.x - 35, position.y - 55);
+		enemyjumpbpunch->SetPos(position.x - 35, position.y - 55);
 
 	}
 
@@ -1295,7 +1330,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->UpdateCameraShake();
 		enemypunch->to_delete = true;
 		App->player2->position.x += 3;
-		App->player2->life -= 25;
+		App->player2->life -= 10;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 
 	}
@@ -1323,6 +1358,30 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->enemy2->position.x += 3;
 		App->enemy2->life -= 10;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
+	if (enemyjumpfpunch == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		enemyjumpfpunch->to_delete = true;
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		lowdamage1 = true;
+		App->input->inputs2.Push(IN_LDAMAGE);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -= 10;
+		//TRYING RUMBLE
+		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
+	}
+	if (enemyjumpbpunch == c1 && c2->type == COLLIDER_PLAYER)
+	{
+		enemyjumpbpunch->to_delete = true;
+		App->render->StartCameraShake(250, 3);
+		App->render->UpdateCameraShake();
+		lowdamage1 = true;
+		App->input->inputs2.Push(IN_LDAMAGE);
+		App->enemy2->position.x += 3;
+		App->enemy2->life -= 10;
 		//TRYING RUMBLE
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 	}

@@ -21,7 +21,7 @@
 #define PUNCHF_TIME 500
 #define PUNCHB_TIME 500
 #define PUNCHN_TIME 500
-#define PUNCHC_TIME 500
+#define PUNCHC_TIME 400
 
 #define SP1_TIME 1000
 #define SM2_TIME 1000
@@ -32,7 +32,7 @@
 #define KICKF_TIME 500
 #define KICKB_TIME 500
 #define KICKN_TIME 500
-#define KICKC_TIME 500
+#define KICKC_TIME 450
 
 #define LDAMAGE_TIME 200
 #define HDAMAGE_TIME 600
