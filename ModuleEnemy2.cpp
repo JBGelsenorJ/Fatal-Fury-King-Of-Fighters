@@ -1393,7 +1393,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		App->render->StartCameraShake(250, 3);
 		App->render->UpdateCameraShake();
 		enemykick->to_delete = true;
-		App->player2->life -= 25;
+		App->player2->life -= 10;
 		App->player2->position.x += 3;
 		SDL_HapticRumblePlay(App->input->haptic, 0.2f, 500);
 
@@ -1434,7 +1434,7 @@ void ModuleEnemy2::OnCollision(Collider* c1, Collider* c2) {
 		enemydash->to_delete = true;
 		highdamage1 = true;
 		App->input->inputs.Push(IN_HDAMAGE);
-		App->player2->life -= 20;
+		App->player2->life -= 10;
 		App->player2->position.x += 3;
 
 		//TRYING RUMBLE

@@ -11,7 +11,7 @@
 #include "SDL\include\SDL_timer.h"
 
 #define TIME_COMBO 1000
-#define SM2_TIME 1000
+
 
 struct SDL_Texture;
 
