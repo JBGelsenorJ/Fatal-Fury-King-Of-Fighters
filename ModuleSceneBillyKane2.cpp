@@ -95,6 +95,10 @@ bool ModuleBillyKane2::Start()
 	wall1c = App->collision->AddCollider({ limitleft.x, limitleft.y, 15, -1000 }, COLLIDER_WALL, this);//NEW
 	wall2c = App->collision->AddCollider({ limitright.x, limitright.y , 15, -1000 }, COLLIDER_WALL, this);//NEW
 
+	//STATE MACHINE
+	scenestatus = PREUPDATE;
+	globaltime = SDL_GetTicks();
+
 	return ret;
 }
 
@@ -126,7 +130,11 @@ void ModuleBillyKane2::Restart() {
 	//Restart time
 	App->ui->time = 90000;
 	App->ui->starttime = SDL_GetTicks();
+	App->ui->enabletime = false;
 	App->ui->winactive = false;
+	audiofight = true;
+	audioround = true;
+
 }
 
 
@@ -149,23 +157,75 @@ update_status ModuleBillyKane2::Update()
 	wall1c->SetPos((((-App->render->camera.x))), -limitleft.y);//NEW
 	wall2c->SetPos((((-App->render->camera.x) + 300)), -limitright.y);//NEW
 
-	/*Change Scene conditions*/
-	if (App->ui->winactive == true) {
-		//IF PLAYER BOOL 1 AND ENEMY BOOL 1 GOES 3rd round
-		if (App->ui->p1canwin && App->ui->p2canwin){ 
-			App->fade->FadeToBlack(this, App->scene_billykane3);
-		} else {
-			//
-			if (App->ui->p1canwin) { 
-				App->ui->p1win = true;
-				App->fade->FadeToBlack(this, App->p1w); }
-			if (App->ui->p2canwin) {
-				App->ui->p1win = true;
-				App->fade->FadeToBlack(this, App->p2w); }
-		}
-		
-	} else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
 	
+	
+	//SCENE STATE MACHINE
+	switch (scenestatus) {
+
+	case PREUPDATE:
+		pretime = SDL_GetTicks();
+
+		//2 SECONDS
+		if (pretime >= globaltime + 2000) {
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH / 2) - 55, 45, &(App->ui->roundtwo), false);
+			if (audioround) {
+				App->audio->PlayFX(App->ui->readyfx);
+				audioround = false;
+			}
+		}
+
+
+		//4 SECONDS
+		if (pretime >= globaltime + 4000) {
+			App->render->Blit(App->ui->titles, (SCREEN_WIDTH / 2) - 88, 70, &(App->ui->fight), false);
+			if (audiofight) {
+				App->audio->PlayFX(App->ui->fightfx);
+				audiofight = false;
+			}
+		}
+
+		//FINISH CONDITION
+		if (pretime >= globaltime + 5000)scenestatus = UPDATE;
+		break;
+
+	case UPDATE:
+		App->ui->enabletime = true;
+
+		//FINISH CONDITION
+		if (App->ui->WinLose(App->player2->life, App->enemy2->life, App->ui->time) || time == 0) scenestatus = POSTCOMBAT;
+		break;
+
+	case POSTCOMBAT:
+		pretime = SDL_GetTicks();
+
+
+
+
+
+
+		//FINISH SCENE CONDITION
+		/*Change Scene conditions*/
+		if (App->ui->winactive == true) {
+			//IF PLAYER BOOL 1 AND ENEMY BOOL 1 GOES 3rd round
+			if (App->ui->p1canwin && App->ui->p2canwin) {
+				App->fade->FadeToBlack(this, App->scene_billykane3);
+			}
+			else {
+				//
+				if (App->ui->p1canwin) {
+					App->ui->p1win = true;
+					App->fade->FadeToBlack(this, App->p1w);
+				}
+				if (App->ui->p2canwin) {
+					App->ui->p1win = true;
+					App->fade->FadeToBlack(this, App->p2w);
+				}
+			}
+
+		}
+		else if (App->ui->time <= 0) 	App->fade->FadeToBlack(this, this);
+		break;
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -554,6 +554,7 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		}
 	}
 
+
 	if (sp4_timer > 0)
 	{
 
@@ -579,6 +580,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 			//animdone = true;
 		}
 	}*/
+
+
 
 	//PLAYER 2
 	if (jump_timer2 > 0)
@@ -664,6 +667,8 @@ void ModuleInput::internal_input(p2Qeue<player_inputs>& inputs, p2Qeue<player_in
 		{
 			inputs2.Push(IN_SM3_FINISH2);
 			sp3_timer2 = 0;
+			App->enemy2->enemywindmill->to_delete= true;
+			App->enemy2->colcreated = true;
 		}
 		if (SDL_GetTicks() - sp3_timer2 > SP3_TIME + 500)
 		{

@@ -50,8 +50,8 @@ public:
 	COMBAT_STATUS scenestatus;
 	int globaltime;
 	int pretime;
-	int uptime;
-	int postime;
+	bool audiofight = true;
+	bool audioround = true;
 
 };
 

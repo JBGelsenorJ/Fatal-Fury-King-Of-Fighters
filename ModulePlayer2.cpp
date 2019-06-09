@@ -340,7 +340,7 @@ bool ModulePlayer2::CleanUp()
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
-
+	
 	Animation* current_animation = &idle;
 	uint timersm1 = SDL_GetTicks();
 	player_states current_state = ST_UNKNOWN;
@@ -633,6 +633,7 @@ update_status ModulePlayer2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpnpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -664,6 +665,7 @@ update_status ModulePlayer2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpfpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -695,6 +697,7 @@ update_status ModulePlayer2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Punch);
 					playerjumpbpunch = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -718,8 +721,10 @@ update_status ModulePlayer2::Update()
 
 			if (attack == true)
 			{
+				
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playercrouchkick = App->collision->AddCollider({ 10, 20, 100, 10 }, COLLIDER_PLAYER_SHOT, this);
 				}
 				attack = false;
@@ -740,9 +745,7 @@ update_status ModulePlayer2::Update()
 				animdone = false;
 				current_animation = &kick;
 
-
-				//Check where should go fx
-				//App->audio->PlayFX(Kick);		
+				//Check where should go fx	
 				if (SDL_GetTicks() - App->input->kick_timer > 400 && position.y == 180)
 				{
 					position.y = 220;
@@ -765,6 +768,7 @@ update_status ModulePlayer2::Update()
 			LOG("KICK --\n")
 				if (App->player2->colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					App->player2->playerkick = App->collision->AddCollider({ 30, 100, 50, 10 }, COLLIDER_PLAYER_SHOT, this);
 					App->player2->playerpunch = App->collision->AddCollider({ 0, 0, 0, 0 }, COLLIDER_PLAYER_SHOT, 0);
 					App->player2->colcreated = false;
@@ -782,6 +786,7 @@ update_status ModulePlayer2::Update()
 				jumpspeed -= 0.2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpnkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -805,6 +810,7 @@ update_status ModulePlayer2::Update()
 
 			if (position.y <= 220)
 			{
+
 				animdone = false;
 				current_animation = &kickf;
 				position.y -= jumpspeed;
@@ -812,6 +818,7 @@ update_status ModulePlayer2::Update()
 				position.x += 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpfkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -843,6 +850,7 @@ update_status ModulePlayer2::Update()
 				position.x -= 2;
 				if (colcreated == true)
 				{
+					App->audio->PlayFX(Kick);
 					playerjumpbkick = App->collision->AddCollider({ 10, 20, 55, 10 }, COLLIDER_PLAYER_SHOT, this);
 					colcreated = false;
 				}
@@ -913,10 +921,14 @@ update_status ModulePlayer2::Update()
 			break;
 
 		case ST_SM3:
+
 			
 
+			current_animation = &sm3;
+			
 
 			if (attack == true)
+
 			{
 				//App->audio->PlayFX("Audio");
 				attack = false;
@@ -1067,7 +1079,7 @@ update_status ModulePlayer2::Update()
 
 	playercol->SetPos(position.x, position.y);
 
-
+	
 	return UPDATE_CONTINUE;
 
 }
@@ -1117,16 +1129,11 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				{
 					state = ST_SM3; App->input->sp3_timer = SDL_GetTicks(); combo3 = 0; break;
 				}
-				if (combo4 == 3)
-				{
-					state = ST_SM4; App->input->sp4_timer = SDL_GetTicks(); combo4 = 0; break;
-				}
+
 				else
 				{
 					state = ST_KICK_STANDING, App->input->kick_timer = SDL_GetTicks(); combo4 = 0; break;
 				}
-
-
 
 			case IN_F: state = ST_SM1, App->input->sp1_timer = SDL_GetTicks(); break;
 			case IN_C: state = ST_SM2, App->input->sp2_timer = SDL_GetTicks(); break;
@@ -1206,14 +1213,15 @@ player_states ModulePlayer2::process_fsm(p2Qeue<player_inputs>& inputs)
 				combo2 = 0;
 			}
 
-			
-			combo3 = 1;
-			combotime = SDL_GetTicks();
-
-			if (SDL_GetTicks() - combosm3 < 120) {
+			if (SDL_GetTicks() - combotime < 200) {
 				if (combo3 == 1)combo3 = 2;
-				combosm3 = SDL_GetTicks();
+				combotime = SDL_GetTicks();
 			}
+			else
+			{
+				combo3 = 0;
+			}
+			
 
 			
 			switch (last_input)

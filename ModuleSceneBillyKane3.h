@@ -42,6 +42,13 @@ public:
 	uint time;
 	char time_text[10];
 	int countdown = -1;
+
+	//Scene State Machine
+	COMBAT_STATUS scenestatus;
+	int globaltime;
+	int pretime;
+	bool audiofight = true;
+	bool audioround = true;
 };
 
 #endif

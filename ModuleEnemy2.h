@@ -95,18 +95,9 @@ public:
 	Collider* enemyjumpbpunch;
 	Collider* enemyjumpfkick;
 	Collider* enemyjumpbkick;
+	Collider* enemywindmill;
 
-	// COMBOS
-	Uint32 combo1 = 0;
-	Uint32 combo2 = 0;
-	Uint32 combo3 = 0;
-	Uint32 combo4 = 0;
-
-	Uint32 combotime;
-	Uint32 combosm1;
-	Uint32 combosm2;
-	Uint32 combosm3;
-	Uint32 combosm4;
+	
 
 	int initialPos;
 	bool hit = false;
@@ -136,6 +127,18 @@ public:
 	int rounds = 0;
 
 	int timer_combo;
+	
+	// COMBOS
+	Uint32 combo12 = 0;
+	Uint32 combo22 = 0;
+	Uint32 combo32 = 0;
+	Uint32 combo42 = 0;
+
+	Uint32 combotime2;
+	Uint32 combosm12;
+	Uint32 combosm22;
+	Uint32 combosm32;
+
 };
 
 #endif
