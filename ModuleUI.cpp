@@ -138,7 +138,7 @@ bool ModuleUI::CleanUp()
 }
 
 bool ModuleUI::Timer() {
-	if (enabletime) {
+	
 		if (starting <= SDL_GetTicks() && time > 0) {
 
 			time = 90000 - SDL_GetTicks() + starttime;
@@ -147,8 +147,8 @@ bool ModuleUI::Timer() {
 		{
 			time = 0;
 		}
-	}
-	else time = 90000;
+	
+	
 
 	sprintf_s(time_text, 10, "%7d", time / 1000);
 	App->render->DrawQuad(timerbackground, 255, 255, 255, 255, false);
