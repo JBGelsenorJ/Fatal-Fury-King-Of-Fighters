@@ -272,10 +272,10 @@ void ModuleRender::CameraMove(int playerx, int enemyx) {
 	cameradistance = ((playerx + enemyx) / 2);
 	App->render->camera.x = (cameradistance*-1 + 100);
 
-	if (App->render->camera.x <= -0) {
+	if (App->render->camera.x <= -130) {
 		App->render->camera.x = -130;
 	}
-	if (App->render->camera.x >= 2000) {
+	if (App->render->camera.x >= 80) {
 		App->render->camera.x = 80;
 	}
 }
